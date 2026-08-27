@@ -38,74 +38,71 @@ const INITIAL_INQUIRIES: Inquiry[] = [
   },
   {
     id: "INQ-2026-003",
-    fullName: "Kareem Hamdan",
-    workEmail: "kareem@hamdan-holding.com",
-    companyName: "Hamdan Brothers Enterprises",
-    phone: "+971 50 319 4481",
-    serviceOfInterest: "Team Structure & Operational Leadership",
-    message: "Looking for assistance structuring job descriptions, reporting lines, and management KPIs across our trading and real estate divisions.",
+    fullName: "Kamran Qureshi",
+    workEmail: "k.qureshi@novabiz.com.pk",
+    companyName: "Nova Commercial Logistics",
+    phone: "+92 300 551 2291",
+    serviceOfInterest: "New Business Idea & Feasibility Modeling",
+    message: "Seeking commercial model validation and ROI sensitivity projections for a cold-chain storage facility in Lahore.",
     date: "2026-08-25 16:45",
     status: "Contacted",
     priority: "Normal"
-  },
-  {
-    id: "INQ-2026-004",
-    fullName: "Sara Qasim",
-    workEmail: "sara@qasimlogistics.com",
-    companyName: "Qasim Global Logistics",
-    phone: "+92 345 889 2210",
-    serviceOfInterest: "Global Business & Regional Expansion",
-    message: "Requesting a callback regarding cross-border trade guidelines and finding commercial distributor partners in the GCC.",
-    date: "2026-08-25 09:20",
-    status: "New",
-    priority: "High"
   }
 ];
 
+const STORAGE_KEY = "factual_inquiries_db";
+
 export function getInquiries(): Inquiry[] {
   if (typeof window === "undefined") return INITIAL_INQUIRIES;
-  const stored = localStorage.getItem("factual_inquiries");
+  const stored = localStorage.getItem(STORAGE_KEY);
   if (!stored) {
-    localStorage.setItem("factual_inquiries", JSON.stringify(INITIAL_INQUIRIES));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_INQUIRIES));
     return INITIAL_INQUIRIES;
   }
   try {
     return JSON.parse(stored);
-  } catch (e) {
+  } catch (err) {
     return INITIAL_INQUIRIES;
   }
 }
 
-export function saveInquiry(inquiry: Omit<Inquiry, "id" | "date" | "status" | "priority">): Inquiry {
-  const existing = getInquiries();
-  const newInq: Inquiry = {
+export function saveInquiry(inquiry: Omit<Inquiry, "id" | "date" | "status" | "priority"> & { priority?: Inquiry["priority"] }): Inquiry {
+  const current = getInquiries();
+  const newId = `INQ-${new Date().getFullYear()}-${String(current.length + 1).padStart(3, "0")}`;
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+
+  const newEntry: Inquiry = {
     ...inquiry,
-    id: `INQ-${new Date().getFullYear()}-${String(existing.length + 1).padStart(3, "0")}`,
-    date: new Date().toISOString().replace("T", " ").substring(0, 16),
+    companyName: inquiry.companyName || "",
+    phone: inquiry.phone || "",
+    id: newId,
+    date: dateStr,
     status: "New",
-    priority: "High"
+    priority: inquiry.priority || "Normal"
   };
-  const updated = [newInq, ...existing];
+
+  const updated = [newEntry, ...current];
   if (typeof window !== "undefined") {
-    localStorage.setItem("factual_inquiries", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }
-  return newInq;
+  return newEntry;
 }
 
 export function updateInquiryStatus(id: string, status: Inquiry["status"]): Inquiry[] {
-  const existing = getInquiries();
-  const updated = existing.map((item) => (item.id === id ? { ...item, status } : item));
+  const current = getInquiries();
+  const updated = current.map((item) => (item.id === id ? { ...item, status } : item));
   if (typeof window !== "undefined") {
-    localStorage.setItem("factual_inquiries", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }
   return updated;
 }
 
 export function deleteInquiry(id: string): Inquiry[] {
-  const existing = getInquiries();
-  const updated = existing.filter((item) => item.id !== id);
+  const current = getInquiries();
+  const updated = current.filter((item) => item.id !== id);
   if (typeof window !== "undefined") {
-    localStorage.setItem("factual_inquiries", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }
   return updated;
 }

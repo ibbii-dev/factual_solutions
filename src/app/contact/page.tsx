@@ -63,8 +63,8 @@ function ContactContent() {
     saveInquiry({
       fullName: formData.fullName,
       workEmail: formData.workEmail,
-      companyName: formData.companyName || undefined,
-      phone: formData.phone || undefined,
+      companyName: formData.companyName || "",
+      phone: formData.phone || "",
       serviceOfInterest: formData.serviceOfInterest || "General Consultation",
       message: formData.message,
     });
