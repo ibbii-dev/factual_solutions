@@ -8,26 +8,33 @@
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  --color-navy: #152238;
-  --color-navy-dark: #0B1320;
-  --color-rust: #A33C29;
-  --color-rust-light: #BF4A33;
+  /* Logo Primary Navy Blue (Mode 1 / Light) */
+  --bg-primary: #152238;
+  --bg-secondary: #1E3150;
+  --bg-card: #1C2E4A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CBD5E1;
+  --border-color: rgba(142, 169, 211, 0.2);
+
+  --color-rust: #BF4A33;
+  --color-rust-hover: #D4543C;
   --color-steel: #8EA9D3;
   --color-steel-light: #B5C8E6;
-  
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F8FAFC;
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --border-subtle: rgba(21, 34, 56, 0.1);
 }
 
 html.dark {
+  /* Logo Second Midnight Blue (Mode 2 / Dark) */
   --bg-primary: #0B1320;
-  --bg-secondary: #111C2E;
+  --bg-secondary: #0E1728;
+  --bg-card: #111C2E;
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
-  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  --color-rust: #A33C29;
+  --color-rust-hover: #BF4A33;
+  --color-steel: #8EA9D3;
+  --color-steel-light: #B5C8E6;
 }
 
 body {
@@ -35,7 +42,7 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
@@ -44,10 +51,10 @@ h1, h2, h3, h4, h5, h6, .font-display {
   letter-spacing: -0.02em;
 }
 
-/* Bulletproof custom select option styling */
+/* Custom Form Select Options */
 select option, select optgroup {
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: #152238;
+  color: #FFFFFF;
   font-family: var(--font-body), sans-serif;
   padding: 8px 12px;
 }

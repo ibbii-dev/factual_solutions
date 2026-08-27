@@ -6,9 +6,9 @@ import { ArrowRight, PhoneCall, ShieldCheck } from "lucide-react";
 
 export default function ConsultationBanner() {
   return (
-    <section className="py-14 sm:py-20 bg-[#F8FAFC] dark:bg-[#0B1320] transition-colors duration-300">
+    <section className="py-14 sm:py-20 bg-[#152238] dark:bg-[#0B1320] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl bg-brand-navy dark:bg-[#111C2E] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-xl border border-slate-700/50 dark:border-slate-800">
+        <div className="relative rounded-3xl bg-[#1C2E4A] dark:bg-[#111C2E] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-xl border border-brand-steel/25 dark:border-slate-800">
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
@@ -23,7 +23,7 @@ export default function ConsultationBanner() {
                 Ready to Discuss Your Business Goals?
               </h2>
 
-              <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm md:text-base text-slate-200 dark:text-slate-300 max-w-2xl leading-relaxed font-normal">
                 Connect directly with our consulting team to explore market research, business idea validation, financial planning, or sales expansion.
               </p>
 
@@ -49,7 +49,7 @@ export default function ConsultationBanner() {
 
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold border border-white/15 transition-all text-center"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all text-center"
               >
                 <span>Explore All Services</span>
               </Link>
