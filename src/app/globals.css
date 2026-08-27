@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --color-navy: #152238;
+  --color-navy-dark: #0B1320;
+  --color-rust: #A33C29;
+  --color-rust-light: #BF4A33;
+  --color-steel: #8EA9D3;
+  --color-steel-light: #B5C8E6;
+  
+  --bg-primary: #0B1320;
+  --bg-secondary: #111C2E;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+  color: #F8FAFC;
+  background-color: #0B1320;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Bulletproof custom select option styling */
+select option, select optgroup {
+  background-color: #111C2E !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-body), sans-serif;
+  padding: 8px 12px;
+}

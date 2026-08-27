@@ -25,23 +25,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        display: ["var(--font-outfit)", "sans-serif"],
-      },
-      animation: {
-        "float-slow": "float 6s ease-in-out infinite",
-        "pulse-glow": "pulseGlow 4s ease-in-out infinite",
-        "spin-slow": "spin 25s linear infinite",
-      },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-12px)" },
-        },
-        pulseGlow: {
-          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
-          "50%": { opacity: "0.8", transform: "scale(1.08)" },
-        },
+        display: ["'Plus Jakarta Sans'", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+        sans: ["Inter", "'Plus Jakarta Sans'", "sans-serif"],
       },
     },
   },

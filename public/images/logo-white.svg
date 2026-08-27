@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="100%" height="100%" fill="none">
+  <!-- Typography: Pure White for Dark Mode -->
+  <g fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+    <!-- "Factual" (Clean, Light/Regular weight) -->
+    <text x="50" y="165" font-size="124" font-weight="300" letter-spacing="-1.5">Factual</text>
+    <!-- "Solutions" (Clean, Bold weight) -->
+    <text x="50" y="278" font-size="124" font-weight="700" letter-spacing="-2.5">Solutions</text>
+  </g>
+
+  <!-- 3D Interlocking Puzzle Cube Symbol: Right Side -->
+  <g transform="translate(620, 20) scale(0.68)">
+    <!-- 1. TOP FACE (Deep Midnight Navy with vibrant accent) -->
+    <g id="top-face">
+      <polygon points="250,95 365,160 250,230 135,160" fill="#253A6B" />
+      <circle cx="178" cy="118" r="19" fill="#253A6B" />
+      <circle cx="322" cy="118" r="19" fill="#253A6B" />
+      <circle cx="250" cy="95" r="16" fill="#FFFFFF" />
+      <circle cx="308" cy="198" r="18" fill="#253A6B" />
+      <circle cx="192" cy="198" r="17" fill="#FFFFFF" />
+    </g>
+
+    <!-- 2. LEFT FACE (Light Steel Blue #8EAAD4) -->
+    <g id="left-face">
+      <polygon points="135,166 245,236 245,375 135,305" fill="#8EAAD4" />
+      <circle cx="112" cy="235" r="20" fill="#8EAAD4" />
+      <circle cx="190" cy="340" r="20" fill="#8EAAD4" />
+      <circle cx="192" cy="198" r="16.5" fill="#8EAAD4" />
+      <circle cx="245" cy="305" r="18" fill="#FFFFFF" />
+      <circle cx="135" cy="305" r="17" fill="#FFFFFF" />
+    </g>
+
+    <!-- 3. RIGHT FACE (Terracotta Red #BF4A33) -->
+    <g id="right-face">
+      <polygon points="255,236 365,166 365,305 255,375" fill="#BF4A33" />
+      <circle cx="388" cy="235" r="20" fill="#BF4A33" />
+      <circle cx="310" cy="340" r="20" fill="#BF4A33" />
+      <circle cx="245" cy="305" r="17.5" fill="#BF4A33" />
+      <circle cx="308" cy="198" r="17" fill="#FFFFFF" />
+      <circle cx="365" cy="305" r="17" fill="#FFFFFF" />
+    </g>
+
+    <!-- Center White Axis Joint Gap Accent -->
+    <circle cx="250" cy="236" r="8" fill="#FFFFFF" opacity="0.95" />
+  </g>
+</svg>

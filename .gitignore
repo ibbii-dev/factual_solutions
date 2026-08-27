@@ -36,3 +36,6 @@ next-env.d.ts
 # temp scripts
 convert_*.ps1
 process_*.ps1
+
+.vercel
+.env*
