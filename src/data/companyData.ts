@@ -38,19 +38,18 @@ export const coreMethodologySteps = [
 
 export const principalConsultant = {
   name: "Qadeer Ahmad Bhatti",
-  role: "Principal Business Excellence Consultant & Fractional COO",
-  headline: "Business Excellence Consultant | Lean Six Sigma Master Black Belt | TRIZ | PMP | ERP Transformation | Operational Excellence | Continuous Improvement | Business Strategy | Manufacturing Excellence | Fractional COO",
-  bio: "Senior corporate advisor and operational excellence leader with deep expertise guiding enterprises across business transformation, Lean Six Sigma deployment, ERP implementation, strategic restructuring, and manufacturing excellence.",
+  role: "Principal Business Excellence Consultant & Strategic Advisor",
+  headline: "Business Excellence Consultant | Lean Six Sigma Master Black Belt | PMP | ERP Transformation | Operational Excellence | Business Strategy | Continuous Improvement",
+  bio: "Senior management consultant and business excellence practitioner specializing in operational restructuring, strategic planning, process optimization, ERP transformation, and commercial performance enhancement.",
   skills: [
-    "Lean Six Sigma Master Black Belt",
-    "TRIZ Problem Solving",
-    "PMP (Project Management Professional)",
-    "ERP Transformation",
+    "Strategic Management Consulting",
+    "Business Strategy & Planning",
     "Operational Excellence",
-    "Continuous Improvement",
-    "Business Strategy",
-    "Manufacturing Excellence",
-    "Fractional COO Advisory"
+    "Lean Six Sigma Deployment",
+    "ERP & Process Transformation",
+    "Project Management (PMP)",
+    "Performance Analytics & KPIs",
+    "Continuous Improvement"
   ],
   image: "/images/qadeer-ahmad-bhatti.jpg"
 };
