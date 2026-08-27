@@ -17,47 +17,47 @@ import InteractiveHeroCube from "@/components/home/InteractiveHeroCube";
 
 export default function AboutPage() {
   return (
-    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#152238] dark:bg-[#0B1320] text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-steel/15 text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
             About Factual Solutions
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#152238] dark:text-white tracking-tight leading-tight">
             Practical Guidance for Growing Businesses
           </h1>
-          <p className="text-sm sm:text-base text-slate-200 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
             Factual Solutions was founded to provide business owners and management teams with actionable advisory—helping companies turn promising ideas into profitable, steady operations.
           </p>
         </div>
 
         {/* The Puzzle Philosophy Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-[#1C2E4A] dark:bg-[#111C2E] rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm border border-brand-steel/20 dark:border-slate-800">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800">
           
           <div className="lg:col-span-6 space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#152238] dark:text-white tracking-tight">
               Our Core Philosophy: The Interlocking Puzzle
             </h2>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
               In business, every piece matters. A great product idea requires solid financial planning, and strong sales need reliable operations and risk management to support them.
             </p>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
               At <strong>Factual Solutions</strong>, our interlocking cube represents practical alignment across all operational functions—market research, sales strategy, team structure, and financial modeling.
             </p>
 
             <div className="space-y-2 pt-2">
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-100 dark:text-slate-200 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#152238] dark:text-slate-200 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Fact-based market and competitive research</span>
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-100 dark:text-slate-200 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#152238] dark:text-slate-200 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Practical financial planning without unnecessary complexity</span>
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-100 dark:text-slate-200 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#152238] dark:text-slate-200 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Hands-on management support during execution</span>
               </div>
             </div>
@@ -72,24 +72,24 @@ export default function AboutPage() {
         {/* Principal Consultant & Practice Leadership */}
         <div className="mb-16 sm:mb-20">
           <div className="text-center max-w-2xl mx-auto space-y-2 mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-rust/20 text-brand-rust-light text-xs font-semibold uppercase">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light text-xs font-semibold uppercase">
               <Award className="w-3.5 h-3.5" />
               Practice Leadership
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#152238] dark:text-white">
               Principal Consultant
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 dark:text-slate-400 font-normal">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-normal">
               Direct executive advisory, operational transformation, and business excellence.
             </p>
           </div>
 
           {/* Qadeer Ahmad Bhatti Profile Card */}
-          <div className="bg-[#1C2E4A] dark:bg-[#111C2E] rounded-3xl p-6 sm:p-10 lg:p-12 border border-brand-steel/25 dark:border-slate-800 shadow-sm max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#8EA9D3]/30 dark:border-slate-800 shadow-sm max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             
             {/* Portrait Photo (4 cols) */}
             <div className="md:col-span-4 flex flex-col items-center text-center">
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden shadow-md border-2 border-brand-steel/30 dark:border-slate-700 bg-[#152238] dark:bg-slate-800">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden shadow-md border-2 border-[#8EA9D3]/40 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">
                 <Image
                   src={principalConsultant.image}
                   alt={principalConsultant.name}
@@ -99,10 +99,10 @@ export default function AboutPage() {
                 />
               </div>
 
-              <h3 className="text-xl font-bold text-white mt-4">
+              <h3 className="text-xl font-bold text-[#152238] dark:text-white mt-4">
                 {principalConsultant.name}
               </h3>
-              <p className="text-xs font-semibold text-brand-rust-light mt-0.5">
+              <p className="text-xs font-semibold text-brand-rust dark:text-brand-rust-light mt-0.5">
                 {principalConsultant.role}
               </p>
             </div>
@@ -110,26 +110,26 @@ export default function AboutPage() {
             {/* Credentials & Skills (8 cols) */}
             <div className="md:col-span-8 space-y-4">
               <div>
-                <h4 className="text-xs uppercase font-bold tracking-wider text-brand-steel-light mb-1.5">
+                <h4 className="text-xs uppercase font-bold tracking-wider text-[#152238] dark:text-brand-steel-light mb-1.5">
                   Professional Focus & Expertise
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                   {principalConsultant.bio}
                 </p>
               </div>
 
               {/* Skills Tags Grid */}
               <div>
-                <h5 className="text-[11px] uppercase font-bold tracking-wider text-slate-300 dark:text-slate-400 mb-2.5">
+                <h5 className="text-[11px] uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400 mb-2.5">
                   Core Competencies & Frameworks
                 </h5>
                 <div className="flex flex-wrap gap-2">
                   {principalConsultant.skills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#152238] dark:bg-[#0B1320] border border-brand-steel/20 dark:border-slate-700/80 text-xs font-medium text-slate-100 dark:text-slate-200"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F2F7FD] dark:bg-[#0B1320] border border-[#8EA9D3]/30 dark:border-slate-700/80 text-xs font-semibold text-[#152238] dark:text-slate-200"
                     >
-                      <Check className="w-3.5 h-3.5 text-brand-rust-light shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-brand-rust shrink-0" />
                       <span>{skill}</span>
                     </span>
                   ))}
@@ -153,48 +153,48 @@ export default function AboutPage() {
 
         {/* Mission & Vision Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-20">
-          <div className="bg-[#1C2E4A] dark:bg-[#0E1728] text-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-steel/20 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-steel/20 text-brand-steel-light flex items-center justify-center">
+          <div className="bg-white dark:bg-[#0E1728] text-[#152238] dark:text-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-brand-steel/20 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center">
               <Target className="w-5 h-5" />
             </div>
             <h3 className="text-xl font-bold">Our Mission</h3>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
               To provide business owners and managers with clear, practical roadmaps—reducing operational friction and building steady, long-term commercial growth.
             </p>
           </div>
 
-          <div className="bg-[#1C2E4A] dark:bg-[#111C2E] text-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-rust/30 dark:border-slate-800 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-rust/20 text-brand-rust-light flex items-center justify-center">
+          <div className="bg-white dark:bg-[#111C2E] text-[#152238] dark:text-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="text-xl font-bold">Our Vision</h3>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
               To be a dependable, trusted consulting partner for commercial enterprises—known for practical advice, integrity, and measurable business improvement.
             </p>
           </div>
         </div>
 
         {/* Office Location */}
-        <div className="bg-[#1C2E4A] dark:bg-[#0E1728] rounded-3xl p-6 sm:p-10 border border-brand-steel/20 dark:border-slate-800 shadow-sm">
+        <div className="bg-white dark:bg-[#0E1728] rounded-3xl p-6 sm:p-10 border border-[#8EA9D3]/30 dark:border-slate-800 shadow-sm">
           <div className="text-center max-w-xl mx-auto mb-6 space-y-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-white">Head Office</h3>
-            <p className="text-xs text-slate-300 dark:text-slate-400 font-normal">Supporting clients with strategic advisory and operational excellence.</p>
+            <h3 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white">Head Office</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 font-normal">Supporting clients with strategic advisory and operational excellence.</p>
           </div>
 
           <div className="max-w-md mx-auto">
             {officeLocations.map((loc) => (
-              <div key={loc.city} className="bg-[#152238] dark:bg-[#111C2E] p-5 rounded-2xl shadow-sm border border-brand-steel/20 dark:border-slate-800 space-y-2 text-center">
+              <div key={loc.city} className="bg-[#F2F7FD] dark:bg-[#111C2E] p-5 rounded-2xl shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-2 text-center">
                 <div className="flex items-center justify-center gap-2">
-                  <MapPin className="w-4 h-4 text-brand-rust-light shrink-0" />
-                  <span className="text-base font-bold text-white">
+                  <MapPin className="w-4 h-4 text-brand-rust shrink-0" />
+                  <span className="text-base font-bold text-[#152238] dark:text-white">
                     {loc.city}, {loc.country}
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#1E3150] dark:bg-slate-800 text-brand-steel-light dark:text-slate-300">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#8EA9D3]/20 dark:bg-slate-800 text-[#152238] dark:text-slate-300">
                     {loc.tag}
                   </span>
                 </div>
-                <p className="text-xs text-slate-200 dark:text-slate-400 font-normal">{loc.address}</p>
-                <div className="text-xs font-semibold text-brand-steel-light pt-1">
+                <p className="text-xs text-slate-600 dark:text-slate-400 font-normal">{loc.address}</p>
+                <div className="text-xs font-bold text-[#152238] dark:text-brand-steel-light pt-1">
                   Direct: {loc.phone}
                 </div>
               </div>

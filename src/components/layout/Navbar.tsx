@@ -46,9 +46,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? isDark
-            ? "bg-[#0B1320]/90 backdrop-blur-md shadow-lg border-b border-brand-steel/15 py-3.5"
-            : "bg-[#152238]/90 backdrop-blur-md shadow-lg border-b border-brand-steel/25 py-3.5"
+          ? "bg-[#EBF1FA]/90 dark:bg-[#0B1320]/90 backdrop-blur-md shadow-md border-b border-[#8EA9D3]/30 dark:border-slate-800 py-3.5"
           : "bg-transparent py-5"
       }`}
     >
@@ -57,10 +55,10 @@ export default function Navbar() {
           {/* Logo at Top Left */}
           <Link href="/" className="flex items-center gap-3 group select-none">
             <div className="flex flex-col leading-tight">
-              <span className="text-lg sm:text-xl font-light tracking-tight text-white">
+              <span className="text-lg sm:text-xl font-light tracking-tight text-[#152238] dark:text-white">
                 Factual
               </span>
-              <span className="text-lg sm:text-xl font-bold tracking-tight text-white -mt-0.5">
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-[#152238] dark:text-white -mt-0.5">
                 Solutions
               </span>
             </div>
@@ -92,61 +90,61 @@ export default function Navbar() {
                       href={link.href}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1.5 ${
                         isActive
-                          ? "text-white font-semibold bg-white/15 shadow-sm"
-                          : "text-slate-200 hover:text-white hover:bg-white/10"
+                          ? "text-[#152238] dark:text-white font-bold bg-[#8EA9D3]/20 dark:bg-white/10 shadow-sm"
+                          : "text-[#152238] dark:text-slate-200 hover:text-brand-rust dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
                       }`}
                     >
-                      {link.name}
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-brand-rust-light" : "text-slate-300"}`} />
+                      <span>{link.name}</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-brand-rust" : "text-slate-500 dark:text-slate-400"}`} />
                     </Link>
 
                     {/* Services Mega Dropdown */}
                     {servicesDropdownOpen && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[560px] rounded-2xl shadow-2xl p-5 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 border bg-[#1C2E4A] dark:bg-[#0E182A] border-brand-steel/25 dark:border-slate-700/80 text-white">
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[560px] rounded-2xl shadow-2xl p-5 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 border bg-white dark:bg-[#0E182A] border-[#8EA9D3]/30 dark:border-slate-700/80 text-[#152238] dark:text-white">
                         {/* Business Category */}
                         <Link
                           href="/services?category=business"
-                          className="group/cat p-4 rounded-xl transition-all border bg-[#152238] dark:bg-[#111C2E] border-brand-steel/20 dark:border-slate-800 hover:border-brand-steel/40"
+                          className="group/cat p-4 rounded-xl transition-all border bg-[#F4F8FD] dark:bg-[#111C2E] border-[#8EA9D3]/20 dark:border-slate-800 hover:border-brand-steel"
                         >
                           <div className="flex items-center gap-2.5 mb-2">
-                            <div className="w-8 h-8 rounded-lg bg-brand-steel/20 text-brand-steel-light flex items-center justify-center group-hover/cat:bg-brand-steel group-hover/cat:text-[#152238] transition-colors">
+                            <div className="w-8 h-8 rounded-lg bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center group-hover/cat:bg-[#152238] group-hover/cat:text-white transition-colors">
                               <Briefcase className="w-4 h-4" />
                             </div>
-                            <h4 className="font-semibold text-sm text-white">Business Solutions</h4>
+                            <h4 className="font-bold text-sm text-[#152238] dark:text-white">Business Solutions</h4>
                           </div>
-                          <p className="text-xs text-slate-300 dark:text-slate-400 line-clamp-2">
+                          <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
                             Market analysis, capital budgeting, business planning & commercial sales expansion.
                           </p>
-                          <div className="mt-3 text-xs font-medium text-brand-steel-light flex items-center gap-1 group-hover/cat:text-brand-rust-light">
-                            Explore 5 Services <ArrowRight className="w-3 h-3 group-hover/cat:translate-x-1 transition-transform" />
+                          <div className="mt-3 text-xs font-semibold text-brand-rust dark:text-brand-steel-light flex items-center gap-1 group-hover/cat:translate-x-1 transition-transform">
+                            Explore 5 Services <ArrowRight className="w-3 h-3" />
                           </div>
                         </Link>
 
                         {/* Consultancy Category */}
                         <Link
                           href="/services?category=consultancy"
-                          className="group/cat p-4 rounded-xl transition-all border bg-[#152238] dark:bg-[#111C2E] border-brand-rust/30 dark:border-slate-800 hover:border-brand-rust/50"
+                          className="group/cat p-4 rounded-xl transition-all border bg-[#F4F8FD] dark:bg-[#111C2E] border-brand-rust/20 dark:border-slate-800 hover:border-brand-rust"
                         >
                           <div className="flex items-center gap-2.5 mb-2">
-                            <div className="w-8 h-8 rounded-lg bg-brand-rust/20 text-brand-rust-light flex items-center justify-center group-hover/cat:bg-brand-rust group-hover/cat:text-white transition-colors">
+                            <div className="w-8 h-8 rounded-lg bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light flex items-center justify-center group-hover/cat:bg-brand-rust group-hover/cat:text-white transition-colors">
                               <Compass className="w-4 h-4" />
                             </div>
-                            <h4 className="font-semibold text-sm text-white">Consultancy Services</h4>
+                            <h4 className="font-bold text-sm text-[#152238] dark:text-white">Consultancy Services</h4>
                           </div>
-                          <p className="text-xs text-slate-300 dark:text-slate-400 line-clamp-2">
+                          <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
                             Management consulting, Lean Six Sigma, ERP transformation, and operational excellence.
                           </p>
-                          <div className="mt-3 text-xs font-medium text-brand-rust-light flex items-center gap-1">
-                            Explore 5 Services <ArrowRight className="w-3 h-3 group-hover/cat:translate-x-1 transition-transform" />
+                          <div className="mt-3 text-xs font-semibold text-brand-rust dark:text-brand-rust-light flex items-center gap-1 group-hover/cat:translate-x-1 transition-transform">
+                            Explore 5 Services <ArrowRight className="w-3 h-3" />
                           </div>
                         </Link>
 
                         {/* Bottom Bar in Dropdown */}
-                        <div className="col-span-2 pt-3 border-t border-brand-steel/15 dark:border-slate-800 flex items-center justify-between text-xs text-slate-300 dark:text-slate-400">
+                        <div className="col-span-2 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                           <span className="flex items-center gap-1 font-medium">
-                            <Sparkles className="w-3.5 h-3.5 text-brand-rust-light" /> Need a tailored recommendation?
+                            <Sparkles className="w-3.5 h-3.5 text-brand-rust" /> Need a tailored recommendation?
                           </span>
-                          <Link href="/services#quiz" className="font-semibold text-brand-steel-light hover:text-brand-rust-light">
+                          <Link href="/services#quiz" className="font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust">
                             Take 60-Sec Advisor Quiz &rarr;
                           </Link>
                         </div>
@@ -162,8 +160,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "text-white font-semibold bg-white/15 shadow-sm"
-                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                      ? "text-[#152238] dark:text-white font-bold bg-[#8EA9D3]/20 dark:bg-white/10 shadow-sm"
+                      : "text-[#152238] dark:text-slate-200 hover:text-brand-rust dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
                   }`}
                 >
                   {link.name}
@@ -178,10 +176,10 @@ export default function Navbar() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle Theme"
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-white bg-white/10 hover:bg-white/20 border border-white/10"
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 hover:bg-[#8EA9D3]/30 dark:hover:bg-white/20 border border-[#8EA9D3]/30 dark:border-white/10"
               title={`Switch to ${isDark ? "Logo Navy Blue Mode" : "Deep Midnight Blue Mode"}`}
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-brand-steel-light" />}
+              {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-[#152238]" />}
             </button>
 
             {/* Request Consultation CTA */}
@@ -199,14 +197,14 @@ export default function Navbar() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle Theme"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white bg-white/10 border border-white/10"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 border border-[#8EA9D3]/30 dark:border-white/10"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-brand-steel-light" />}
+              {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-[#152238]" />}
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-white bg-white/10"
+              className="p-2 rounded-xl text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -218,7 +216,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-2xl p-6 space-y-4 animate-in slide-in-from-top-5 duration-200 bg-[#152238] dark:bg-[#0B1320] border-brand-steel/20 dark:border-slate-800 text-white">
+        <div className="lg:hidden border-b shadow-2xl p-6 space-y-4 animate-in slide-in-from-top-5 duration-200 bg-[#EBF1FA] dark:bg-[#0B1320] border-[#8EA9D3]/30 dark:border-slate-800 text-[#152238] dark:text-white">
           <div className="flex flex-col space-y-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -229,8 +227,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
                     isActive
-                      ? "bg-white/15 text-white"
-                      : "text-slate-200 hover:text-white hover:bg-white/5"
+                      ? "bg-[#8EA9D3]/20 dark:bg-white/15 text-[#152238] dark:text-white font-bold"
+                      : "text-slate-700 dark:text-slate-200 hover:text-[#152238] dark:hover:text-white"
                   }`}
                 >
                   {link.name}
@@ -239,7 +237,7 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-brand-steel/15 dark:border-slate-800">
+          <div className="pt-4 border-t border-slate-300 dark:border-slate-800">
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}

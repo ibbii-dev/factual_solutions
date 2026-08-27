@@ -8,22 +8,22 @@
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Logo Primary Navy Blue (Mode 1 / Light) */
-  --bg-primary: #152238;
-  --bg-secondary: #1E3150;
-  --bg-card: #1C2E4A;
-  --text-primary: #FFFFFF;
-  --text-secondary: #CBD5E1;
-  --border-color: rgba(142, 169, 211, 0.2);
+  /* Mode 1 (Light): Logo Steel Navy Blue Theme with Dark Visible Text */
+  --bg-primary: #EBF1FA;
+  --bg-secondary: #DFE8F6;
+  --bg-card: #FFFFFF;
+  --text-primary: #152238;
+  --text-secondary: #334155;
+  --border-color: rgba(142, 169, 211, 0.4);
 
-  --color-rust: #BF4A33;
-  --color-rust-hover: #D4543C;
+  --color-rust: #A33C29;
+  --color-rust-hover: #8F3424;
   --color-steel: #8EA9D3;
   --color-steel-light: #B5C8E6;
 }
 
 html.dark {
-  /* Logo Second Midnight Blue (Mode 2 / Dark) */
+  /* Mode 2 (Dark): Logo Deep Midnight Dark Blue Theme with White Text */
   --bg-primary: #0B1320;
   --bg-secondary: #0E1728;
   --bg-card: #111C2E;
@@ -42,7 +42,7 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
@@ -53,8 +53,8 @@ h1, h2, h3, h4, h5, h6, .font-display {
 
 /* Custom Form Select Options */
 select option, select optgroup {
-  background-color: #152238;
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: #152238;
   font-family: var(--font-body), sans-serif;
   padding: 8px 12px;
 }
