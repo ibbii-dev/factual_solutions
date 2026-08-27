@@ -36,31 +36,27 @@ export const coreMethodologySteps = [
   }
 ];
 
+export const principalConsultant = {
+  name: "Qadeer Ahmad Bhatti",
+  role: "Principal Business Excellence Consultant & Fractional COO",
+  headline: "Business Excellence Consultant | Lean Six Sigma Master Black Belt | TRIZ | PMP | ERP Transformation | Operational Excellence | Continuous Improvement | Business Strategy | Manufacturing Excellence | Fractional COO",
+  bio: "Senior corporate advisor and operational excellence leader with deep expertise guiding enterprises across business transformation, Lean Six Sigma deployment, ERP implementation, strategic restructuring, and manufacturing excellence.",
+  skills: [
+    "Lean Six Sigma Master Black Belt",
+    "TRIZ Problem Solving",
+    "PMP (Project Management Professional)",
+    "ERP Transformation",
+    "Operational Excellence",
+    "Continuous Improvement",
+    "Business Strategy",
+    "Manufacturing Excellence",
+    "Fractional COO Advisory"
+  ],
+  image: "/images/qadeer-ahmad-bhatti.jpg"
+};
+
 export const leadershipTeam = [
-  {
-    name: "Jackob Nelson",
-    role: "Founder & Managing Director",
-    bio: "Over 12 years of hands-on experience advising small to mid-sized enterprises on commercial growth, business planning, and strategic operations.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    name: "Mark Stephens",
-    role: "Head of Strategic Consulting",
-    bio: "Specializes in business analysis, financial modeling, market entry studies, and organizational structuring across retail, trade, and services.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    name: "Hannah Bolton",
-    role: "Branch & Operations Lead",
-    bio: "Manages day-to-day client advisory projects, regional operations, project delivery timelines, and cross-border commercial execution.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"
-  },
-  {
-    name: "Tina Thomson",
-    role: "Client Relations & Advisory Support",
-    bio: "Coordinates initial client consultations, callback requests, ongoing client support, and stakeholder communication.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400"
-  }
+  principalConsultant
 ];
 
 export const officeLocations = [
