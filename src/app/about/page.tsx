@@ -176,27 +176,28 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Office Locations */}
+        {/* Office Location */}
         <div className="bg-[#0E1728] rounded-2xl p-6 sm:p-10 border border-slate-800">
-          <div className="text-center max-w-xl mx-auto mb-8 space-y-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-white">Office Locations</h3>
-            <p className="text-xs text-slate-400">Supporting clients with regional advisory and local support.</p>
+          <div className="text-center max-w-xl mx-auto mb-6 space-y-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-white">Head Office</h3>
+            <p className="text-xs text-slate-400">Supporting clients with strategic advisory and operational excellence.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="max-w-md mx-auto">
             {officeLocations.map((loc) => (
-              <div key={loc.city} className="bg-[#111C2E] p-4 rounded-xl shadow-sm border border-slate-800 space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-white flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-brand-rust shrink-0" /> {loc.city}
+              <div key={loc.city} className="bg-[#111C2E] p-5 rounded-2xl shadow-sm border border-slate-800 space-y-2 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <MapPin className="w-4 h-4 text-brand-rust shrink-0" />
+                  <span className="text-base font-bold text-white">
+                    {loc.city}, {loc.country}
                   </span>
                   <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300">
-                    {loc.country}
+                    {loc.tag}
                   </span>
                 </div>
-                <p className="text-xs text-slate-400 leading-tight">{loc.address}</p>
+                <p className="text-xs text-slate-400">{loc.address}</p>
                 <div className="text-xs font-semibold text-brand-steel-light pt-1">
-                  {loc.phone}
+                  Direct: {loc.phone}
                 </div>
               </div>
             ))}

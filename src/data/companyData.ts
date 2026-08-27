@@ -61,30 +61,16 @@ export const leadershipTeam = [
 
 export const officeLocations = [
   {
-    city: "Main Office",
+    city: "Lahore",
     country: "Pakistan",
-    address: "Executive Business Center, Main Commercial Boulevard",
+    address: "Lahore, Punjab, Pakistan",
     phone: "+92 345 6492113",
-    tag: "Headquarters"
-  },
-  {
-    city: "Riyadh Branch",
-    country: "Saudi Arabia",
-    address: "King Fahd Road, Al Olaya District",
-    phone: "+966 50 492 1180",
-    tag: "GCC Advisory Hub"
-  },
-  {
-    city: "Dubai Representative",
-    country: "UAE",
-    address: "Business Bay, Downtown Commercial District",
-    phone: "+971 50 319 4481",
-    tag: "Regional Office"
+    tag: "Head Office"
   }
 ];
 
 export const contactDetails = {
   phone: "+92 345 6492113",
   email: "contact@factual-solutions.com",
-  hours: "Monday - Friday: 9:00 AM - 6:00 PM (PKT / AST)"
+  hours: "Monday - Friday: 9:00 AM - 6:00 PM (PKT)"
 };

@@ -351,10 +351,10 @@ function ContactContent() {
               </div>
             </div>
 
-            {/* Office Locations */}
+            {/* Head Office Location */}
             <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 dark:border-slate-800 space-y-4">
               <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                Our Office Locations
+                Head Office Location
               </h4>
 
               <div className="space-y-3">
