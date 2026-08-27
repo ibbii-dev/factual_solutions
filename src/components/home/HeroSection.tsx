@@ -14,7 +14,7 @@ import InteractiveHeroCube from "./InteractiveHeroCube";
 
 export default function HeroSection() {
   return (
-    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-[#0B1320] text-white border-b border-slate-800">
+    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1320] text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
@@ -80,10 +80,10 @@ export default function HeroSection() {
 
         </div>
 
-        {/* Human-Developed Core Practice Areas (Replaced AI stats counters) */}
+        {/* 3 Core Practice Areas */}
         <div className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           <div className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
-            <div className="w-9 h-9 rounded-lg bg-brand-steel/15 text-brand-steel-light flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-brand-steel/15 text-brand-navy dark:text-brand-steel-light flex items-center justify-center">
               <Briefcase className="w-4 h-4 text-brand-navy dark:text-brand-steel-light" />
             </div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Business Solutions</h3>

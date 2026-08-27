@@ -10,13 +10,13 @@ import {
   TrendingUp, 
   Layers, 
   BarChart3, 
-  Sparkles,
-  ShieldCheck,
-  BrainCircuit,
-  Scale,
-  Users,
-  GitMerge,
-  Check
+  Sparkles, 
+  ShieldCheck, 
+  BrainCircuit, 
+  Scale, 
+  Users, 
+  GitMerge, 
+  Check 
 } from "lucide-react";
 import { businessServices, consultancyServices } from "@/data/servicesData";
 
@@ -39,15 +39,15 @@ export default function DualEngineSection() {
   const currentServices = activeTab === "business" ? businessServices : consultancyServices;
 
   return (
-    <section className="py-16 sm:py-24 bg-[#0B1320] text-white relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-white dark:bg-[#0B1320] text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-steel/10 text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-steel/10 text-brand-navy dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
             Our Core Services
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
             Tailored Advisory & Business Solutions
           </h2>
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
@@ -62,7 +62,7 @@ export default function DualEngineSection() {
               onClick={() => setActiveTab("business")}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-center truncate ${
                 activeTab === "business"
-                  ? "bg-brand-navy dark:bg-brand-navy-light text-white shadow-sm"
+                  ? "bg-brand-navy text-white shadow-sm"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -102,7 +102,7 @@ export default function DualEngineSection() {
           {currentServices.map((service) => (
             <div
               key={`${activeTab}-${service.id}`}
-              className="bg-slate-50/80 dark:bg-[#111C2E] hover:bg-white dark:hover:bg-[#15233A] rounded-2xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 transition-all duration-200 flex flex-col justify-between"
+              className="bg-slate-50/90 dark:bg-[#111C2E] hover:bg-white dark:hover:bg-[#15233A] rounded-2xl p-6 sm:p-7 border border-slate-200 dark:border-slate-800 transition-all duration-200 flex flex-col justify-between shadow-sm"
             >
               <div>
                 {/* Service Icon */}
@@ -129,8 +129,8 @@ export default function DualEngineSection() {
                 {/* Deliverables Bullet Points */}
                 <div className="space-y-1.5 mb-4">
                   {service.deliverables.slice(0, 3).map((item, dIdx) => (
-                    <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
-                      <Check className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${activeTab === "business" ? "text-brand-steel" : "text-brand-rust"}`} />
+                    <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+                      <Check className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${activeTab === "business" ? "text-brand-navy dark:text-brand-steel" : "text-brand-rust"}`} />
                       <span className="line-clamp-1">{item}</span>
                     </div>
                   ))}

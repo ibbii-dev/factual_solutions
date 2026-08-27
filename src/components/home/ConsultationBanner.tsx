@@ -6,9 +6,9 @@ import { ArrowRight, PhoneCall, ShieldCheck } from "lucide-react";
 
 export default function ConsultationBanner() {
   return (
-    <section className="py-14 sm:py-20 bg-[#0B1320] text-white">
+    <section className="py-14 sm:py-20 bg-[#F8FAFC] dark:bg-[#0B1320] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl bg-[#111C2E] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-xl border border-slate-800">
+        <div className="relative rounded-3xl bg-brand-navy dark:bg-[#111C2E] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-xl border border-slate-700/50 dark:border-slate-800">
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
@@ -27,7 +27,7 @@ export default function ConsultationBanner() {
                 Connect directly with our consulting team to explore market research, business idea validation, financial planning, or sales expansion.
               </p>
 
-              <div className="pt-2 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-slate-400 font-medium">
+              <div className="pt-2 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-slate-300 font-medium">
                 <span className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-brand-steel-light" /> Confidential Discussion
                 </span>

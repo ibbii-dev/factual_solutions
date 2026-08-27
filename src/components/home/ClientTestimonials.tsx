@@ -14,12 +14,12 @@ export default function ClientTestimonials() {
   ];
 
   return (
-    <section className="py-16 bg-[#0E1728] text-white border-y border-slate-800 overflow-hidden">
+    <section className="py-16 bg-slate-100/80 dark:bg-[#0E1728] border-y border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Trusted By Title */}
         <div className="text-center mb-8">
-          <p className="text-xs uppercase font-bold tracking-widest text-slate-400 dark:text-slate-500">
+          <p className="text-xs uppercase font-bold tracking-widest text-slate-500 dark:text-slate-400">
             Advising Businesses Across Key Industry Sectors
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function ClientTestimonials() {
           {industries.map((ind, idx) => (
             <div
               key={idx}
-              className="h-16 rounded-xl bg-white dark:bg-[#111C2E] hover:bg-slate-50 dark:hover:bg-[#16253B] border border-slate-200/70 dark:border-slate-800 hover:border-brand-steel/40 shadow-sm transition-all duration-300 flex flex-col items-center justify-center p-2 text-center group"
+              className="h-16 rounded-xl bg-white dark:bg-[#111C2E] hover:bg-slate-50 dark:hover:bg-[#16253B] border border-slate-200 dark:border-slate-800 hover:border-brand-steel/40 shadow-sm transition-all duration-300 flex flex-col items-center justify-center p-2 text-center group"
             >
               <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-brand-rust transition-colors">
                 {ind.name}
@@ -42,34 +42,34 @@ export default function ClientTestimonials() {
         </div>
 
         {/* Practical Consulting Values */}
-        <div className="mt-12 pt-10 border-t border-slate-200/60 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="mt-12 pt-10 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="space-y-2">
-            <div className="w-10 h-10 rounded-full bg-brand-steel/10 dark:bg-brand-steel/20 text-brand-steel-light flex items-center justify-center mx-auto mb-3">
-              <Shield className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-full bg-brand-steel/15 text-brand-navy dark:text-brand-steel-light flex items-center justify-center mx-auto mb-3">
+              <Shield className="w-5 h-5 text-brand-navy dark:text-brand-steel-light" />
             </div>
             <h4 className="text-base font-bold text-slate-900 dark:text-white">Strict Confidentiality</h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
+            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto font-normal">
               All financial audits, business models, and strategic plans are protected under mutual non-disclosure agreements.
             </p>
           </div>
 
           <div className="space-y-2">
-            <div className="w-10 h-10 rounded-full bg-brand-rust/10 dark:bg-brand-rust/20 text-brand-rust-light flex items-center justify-center mx-auto mb-3">
-              <Target className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-full bg-brand-rust/15 text-brand-rust flex items-center justify-center mx-auto mb-3">
+              <Target className="w-5 h-5 text-brand-rust" />
             </div>
             <h4 className="text-base font-bold text-slate-900 dark:text-white">Practical Action Plans</h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
-              We deliver straightforward, step-by-step recommendations that your internal team can realistically execute.
+            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto font-normal">
+              Every client engagement delivers a clear, step-by-step implementation roadmap with achievable milestones.
             </p>
           </div>
 
           <div className="space-y-2">
-            <div className="w-10 h-10 rounded-full bg-slate-200/80 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 flex items-center justify-center mx-auto mb-3">
-              <Users className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-full bg-emerald-500/15 text-emerald-500 flex items-center justify-center mx-auto mb-3">
+              <Users className="w-5 h-5 text-emerald-500" />
             </div>
-            <h4 className="text-base font-bold text-slate-900 dark:text-white">Hands-On Collaboration</h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
-              Our consultants work directly with your management and staff to ensure smooth rollout and steady progress.
+            <h4 className="text-base font-bold text-slate-900 dark:text-white">Partner-Level Advisory</h4>
+            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto font-normal">
+              Direct access to senior business consultants with continuous communication and progress tracking.
             </p>
           </div>
         </div>

@@ -18,32 +18,35 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem("factual_theme") as Theme;
-    if (saved === "light" || saved === "dark") {
-      setThemeState(saved);
+    const initial = saved === "light" || saved === "dark" ? saved : "dark";
+    setThemeState(initial);
+    if (initial === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      // Default to the stunning brand dark midnight navy theme
-      setThemeState("dark");
+      document.documentElement.classList.remove("dark");
     }
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    localStorage.setItem("factual_theme", theme);
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [theme, mounted]);
-
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === "dark" ? "light" : "dark"));
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+    setThemeState(nextTheme);
+    localStorage.setItem("factual_theme", nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   };
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
+    localStorage.setItem("factual_theme", newTheme);
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   };
 
   return (

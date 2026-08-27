@@ -15,6 +15,14 @@
   --color-steel: #8EA9D3;
   --color-steel-light: #B5C8E6;
   
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --border-subtle: rgba(21, 34, 56, 0.1);
+}
+
+html.dark {
   --bg-primary: #0B1320;
   --bg-secondary: #111C2E;
   --text-primary: #F8FAFC;
@@ -24,9 +32,10 @@
 
 body {
   font-family: var(--font-body), sans-serif;
-  color: #F8FAFC;
-  background-color: #0B1320;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
@@ -37,8 +46,13 @@ h1, h2, h3, h4, h5, h6, .font-display {
 
 /* Bulletproof custom select option styling */
 select option, select optgroup {
-  background-color: #111C2E !important;
-  color: #FFFFFF !important;
+  background-color: #FFFFFF;
+  color: #0F172A;
   font-family: var(--font-body), sans-serif;
   padding: 8px 12px;
+}
+
+html.dark select option, html.dark select optgroup {
+  background-color: #111C2E !important;
+  color: #FFFFFF !important;
 }
