@@ -42,23 +42,59 @@ body {
   background-color: var(--bg-primary);
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
+  top: 0px !important;
 }
 
-/* Arabic Typography overrides */
-html[lang="ar"] body,
-html[lang="ar"] h1,
-html[lang="ar"] h2,
-html[lang="ar"] h3,
-html[lang="ar"] h4,
-html[lang="ar"] h5,
-html[lang="ar"] h6,
-html[lang="ar"] p,
-html[lang="ar"] span,
-html[lang="ar"] button,
-html[lang="ar"] input,
-html[lang="ar"] select,
-html[lang="ar"] a {
-  font-family: var(--font-arabic), 'Cairo', sans-serif !important;
+/* Google Translate Custom Widget Styling */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.goog-te-gadget {
+  font-size: 0px !important;
+  color: transparent !important;
+}
+
+.goog-te-gadget span {
+  display: none !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  margin: 0 !important;
+  padding: 6px 12px !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  background: rgba(142, 169, 211, 0.15) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(142, 169, 211, 0.35) !important;
+  outline: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+html.dark .goog-te-gadget .goog-te-combo {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.goog-te-gadget .goog-te-combo:hover {
+  border-color: var(--color-rust) !important;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {

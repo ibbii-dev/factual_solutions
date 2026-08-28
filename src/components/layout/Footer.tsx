@@ -6,20 +6,14 @@ import Image from "next/image";
 import { 
   ArrowRight, 
   MapPin, 
-  CheckCircle2,
-  Globe
+  CheckCircle2
 } from "lucide-react";
-import { getBusinessServices, getConsultancyServices } from "@/data/servicesData";
+import { businessServices, consultancyServices } from "@/data/servicesData";
 import { officeLocations } from "@/data/companyData";
-import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
-  const { t, language, toggleLanguage, isRTL } = useLanguage();
   const [subscribed, setSubscribed] = useState(false);
   const [email, setEmail] = useState("");
-
-  const businessList = getBusinessServices(language);
-  const consultancyList = getConsultancyServices(language);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,18 +56,18 @@ export default function Footer() {
             </Link>
 
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm font-normal">
-              {t.footer.desc}
+              Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.
             </p>
 
             {/* Newsletter Subscription */}
             <div className="space-y-2.5 pt-1">
               <div className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-steel-light">
-                {t.footer.insightsTitle}
+                Monthly Advisory Insights
               </div>
               {subscribed ? (
                 <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 text-xs flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>{t.footer.subscribed}</span>
+                  <span>Subscribed! You will receive our monthly brief.</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="flex gap-2 max-w-sm">
@@ -82,7 +76,7 @@ export default function Footer() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder={t.footer.emailPlaceholder}
+                    placeholder="Enter business email"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
                   />
                   <button
@@ -90,7 +84,7 @@ export default function Footer() {
                     className="px-4 py-2.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-xs font-bold transition-colors shrink-0 flex items-center justify-center"
                     aria-label="Subscribe"
                   >
-                    <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>
               )}
@@ -100,13 +94,13 @@ export default function Footer() {
           {/* Col 2: Business Solutions (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
-              {t.nav.businessSolutions}
+              Business Solutions
             </h4>
             <ul className="space-y-2 text-xs">
-              {businessList.map((service) => (
+              {businessServices.map((service) => (
                 <li key={service.id}>
                   <Link
-                    href={`/services?category=business&id=${service.id}`}
+                    href={`/services/${service.id}`}
                     className="text-slate-400 hover:text-brand-steel-light transition-colors flex items-center gap-1.5"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-steel/40 shrink-0" />
@@ -120,13 +114,13 @@ export default function Footer() {
           {/* Col 3: Consultancy Services (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
-              {t.nav.consultancyServices}
+              Consultancy Advisory
             </h4>
             <ul className="space-y-2 text-xs">
-              {consultancyList.map((service) => (
+              {consultancyServices.map((service) => (
                 <li key={service.id}>
                   <Link
-                    href={`/services?category=consultancy&id=${service.id}`}
+                    href={`/services/${service.id}`}
                     className="text-slate-400 hover:text-brand-rust-light transition-colors flex items-center gap-1.5"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-rust/40 shrink-0" />
@@ -140,27 +134,17 @@ export default function Footer() {
           {/* Col 4: Head Office (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
-              {t.footer.headOffice}
+              Head Office
             </h4>
             <div className="space-y-2 text-xs text-slate-400">
               {officeLocations.map((loc) => (
                 <div key={loc.city} className="space-y-0.5">
                   <div className="font-semibold text-white flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-brand-rust shrink-0" /> {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
+                    <MapPin className="w-3 h-3 text-brand-rust shrink-0" /> {loc.city}, {loc.country}
                   </div>
-                  <div className="text-[10px] text-slate-400">{language === "ar" ? "المقر الرئيسي" : loc.tag}</div>
+                  <div className="text-[10px] text-slate-400">{loc.tag}</div>
                 </div>
               ))}
-            </div>
-
-            <div className="pt-2">
-              <button
-                onClick={toggleLanguage}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-xs text-white transition-colors"
-              >
-                <Globe className="w-3.5 h-3.5 text-brand-rust" />
-                <span>{language === "en" ? "العربية (Arabic)" : "English"}</span>
-              </button>
             </div>
           </div>
 
@@ -169,13 +153,13 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-slate-500">
           <div>
-            &copy; {new Date().getFullYear()} Factual Solutions. {t.footer.rights}
+            &copy; {new Date().getFullYear()} Factual Solutions. All rights reserved.
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <Link href="/about" className="hover:text-slate-400 transition-colors">{t.nav.about}</Link>
-            <Link href="/services" className="hover:text-slate-400 transition-colors">{t.nav.services}</Link>
-            <Link href="/contact" className="hover:text-slate-400 transition-colors">{t.nav.contact}</Link>
+            <Link href="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
+            <Link href="/services" className="hover:text-slate-400 transition-colors">Services</Link>
+            <Link href="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
           </div>
         </div>
 
