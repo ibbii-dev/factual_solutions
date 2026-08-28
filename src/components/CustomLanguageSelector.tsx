@@ -26,22 +26,35 @@ export default function CustomLanguageSelector() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Read existing translation cookie on mount
-  useEffect(() => {
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(";").shift();
-      return null;
-    };
+  // Helper to read cookies
+  const getCookie = (name: string) => {
+    if (typeof document === "undefined") return null;
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+    return null;
+  };
 
+  useEffect(() => {
+    // Check saved language
     const googTransCookie = getCookie("googtrans");
+    let activeLang = "en";
     if (googTransCookie) {
       const parts = googTransCookie.split("/");
       const lang = parts[parts.length - 1];
       if (lang) {
+        activeLang = lang;
         setCurrentLang(lang);
       }
+    }
+
+    // Apply RTL if Arabic or Urdu
+    if (activeLang === "ar" || activeLang === "ur") {
+      document.documentElement.dir = "rtl";
+      document.documentElement.lang = activeLang;
+    } else {
+      document.documentElement.dir = "ltr";
+      document.documentElement.lang = activeLang;
     }
 
     // Initialize Google Translate Script silently in background
@@ -85,6 +98,15 @@ export default function CustomLanguageSelector() {
     setCurrentLang(langCode);
     setIsOpen(false);
 
+    // Apply RTL/LTR immediately
+    if (langCode === "ar" || langCode === "ur") {
+      document.documentElement.dir = "rtl";
+      document.documentElement.lang = langCode;
+    } else {
+      document.documentElement.dir = "ltr";
+      document.documentElement.lang = langCode;
+    }
+
     // Set cookie across domains and paths
     const domain = window.location.hostname;
     document.cookie = `googtrans=/en/${langCode}; path=/;`;
@@ -97,7 +119,6 @@ export default function CustomLanguageSelector() {
       selectElem.value = langCode;
       selectElem.dispatchEvent(new Event("change"));
     } else {
-      // Reload to apply translation smoothly
       window.location.reload();
     }
   };
