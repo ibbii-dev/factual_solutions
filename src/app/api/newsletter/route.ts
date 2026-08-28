@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const newsletterSubscribers: Set<string> = new Set();
+import { dbSaveSubscriber } from "@/lib/mongodb";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,10 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const normalized = email.trim().toLowerCase();
-    newsletterSubscribers.add(normalized);
-
-    console.log(`[Factual Solutions Backend] New Newsletter Subscriber: ${normalized}`);
+    await dbSaveSubscriber(email);
 
     return NextResponse.json({
       success: true,

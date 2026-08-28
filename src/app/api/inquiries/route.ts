@@ -1,89 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendLeadNotification } from "@/lib/emailService";
-import { generateAiAutoReply, AiAssessmentResult } from "@/lib/aiAgentService";
-
-export interface ServerInquiry {
-  id: string;
-  fullName: string;
-  workEmail: string;
-  companyName: string;
-  phone: string;
-  serviceOfInterest: string;
-  message: string;
-  date: string;
-  status: "New" | "Contacted" | "In Progress" | "Closed";
-  priority: "Normal" | "High" | "Urgent";
-  aiAssessment?: AiAssessmentResult;
-}
-
-// In-memory / server cache fallback
-let memoryInquiries: ServerInquiry[] = [
-  {
-    id: "INQ-2026-001",
-    fullName: "Tariq Al-Mansoor",
-    workEmail: "tariq@alnoorgroup.com",
-    companyName: "Al-Noor Consumer Retail",
-    phone: "+966 50 492 1180",
-    serviceOfInterest: "Specialized Business Solutions",
-    message: "We operate 3 retail branches in Riyadh and are looking for advice on inventory budgeting and store-level financial modeling before opening 2 more stores next quarter.",
-    date: "2026-08-26 14:30",
-    status: "In Progress",
-    priority: "High"
-  },
-  {
-    id: "INQ-2026-002",
-    fullName: "Bilal Farooq",
-    workEmail: "bfarooq@apexpack.com",
-    companyName: "Apex Industrial Packaging",
-    phone: "+92 321 884 1029",
-    serviceOfInterest: "Strategic Management Consulting",
-    message: "We need an operational audit of our factory floor handovers and scrap rates. Looking for an advisory team to conduct a 4-week review.",
-    date: "2026-08-26 11:15",
-    status: "New",
-    priority: "Urgent"
-  },
-  {
-    id: "INQ-2026-003",
-    fullName: "Kamran Qureshi",
-    workEmail: "k.qureshi@novabiz.com.pk",
-    companyName: "Nova Commercial Logistics",
-    phone: "+92 300 551 2291",
-    serviceOfInterest: "Studies & Feasibility Research",
-    message: "Seeking commercial model validation and ROI sensitivity projections for a cold-chain storage facility in Lahore.",
-    date: "2026-08-25 16:45",
-    status: "Contacted",
-    priority: "Normal"
-  }
-];
+import { generateAiAutoReply } from "@/lib/aiAgentService";
+import { dbSaveInquiry, dbGetInquiries, DatabaseInquiry } from "@/lib/mongodb";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get("status");
-    const search = searchParams.get("q");
+    const status = searchParams.get("status") || undefined;
+    const search = searchParams.get("q") || undefined;
 
-    let result = [...memoryInquiries];
-
-    if (status && status !== "All") {
-      result = result.filter((i) => i.status === status);
-    }
-
-    if (search) {
-      const q = search.toLowerCase();
-      result = result.filter(
-        (i) =>
-          i.fullName.toLowerCase().includes(q) ||
-          i.workEmail.toLowerCase().includes(q) ||
-          i.companyName.toLowerCase().includes(q) ||
-          i.serviceOfInterest.toLowerCase().includes(q) ||
-          i.id.toLowerCase().includes(q)
-      );
-    }
+    const inquiries = await dbGetInquiries({ status, search });
 
     return NextResponse.json({
       success: true,
-      count: result.length,
-      data: result
+      count: inquiries.length,
+      data: inquiries
     });
   } catch (error) {
     return NextResponse.json(
@@ -106,7 +37,8 @@ export async function POST(request: NextRequest) {
     }
 
     const now = new Date();
-    const newId = `INQ-${now.getFullYear()}-${String(memoryInquiries.length + 1).padStart(3, "0")}`;
+    const currentInquiries = await dbGetInquiries();
+    const newId = `INQ-${now.getFullYear()}-${String(currentInquiries.length + 1).padStart(3, "0")}`;
     const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
     // Generate AI Agent Diagnostic & Auto-Reply
@@ -118,7 +50,7 @@ export async function POST(request: NextRequest) {
       message: message || ""
     });
 
-    const newInquiry: ServerInquiry = {
+    const newInquiry: DatabaseInquiry = {
       id: newId,
       fullName: fullName.trim(),
       workEmail: workEmail.trim(),
@@ -132,10 +64,10 @@ export async function POST(request: NextRequest) {
       aiAssessment
     };
 
-    // Store in server list
-    memoryInquiries = [newInquiry, ...memoryInquiries];
+    // Save to MongoDB
+    await dbSaveInquiry(newInquiry);
 
-    // Trigger lead notification email / webhook dispatcher with AI auto-reply
+    // Trigger lead notification email / webhook dispatcher
     await sendLeadNotification({
       id: newInquiry.id,
       fullName: newInquiry.fullName,

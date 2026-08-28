@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { dbUpdateInquiryStatus, dbDeleteInquiry } from "@/lib/mongodb";
 
 export async function PATCH(
   request: NextRequest,
@@ -7,12 +8,16 @@ export async function PATCH(
   try {
     const { id } = params;
     const body = await request.json();
-    const { status, priority } = body;
+    const { status } = body;
+
+    if (status) {
+      await dbUpdateInquiryStatus(id, status);
+    }
 
     return NextResponse.json({
       success: true,
       message: `Inquiry ${id} updated successfully.`,
-      updatedFields: { status, priority }
+      updatedFields: { status }
     });
   } catch (error) {
     return NextResponse.json(
@@ -28,6 +33,8 @@ export async function DELETE(
 ) {
   try {
     const { id } = params;
+    await dbDeleteInquiry(id);
+
     return NextResponse.json({
       success: true,
       message: `Inquiry ${id} deleted successfully.`
