@@ -1,172 +1,165 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
-  Briefcase, 
-  Compass, 
-  ArrowRight, 
-  Cpu, 
-  TrendingUp, 
-  Layers, 
-  BarChart3, 
-  Sparkles, 
-  ShieldCheck, 
-  BrainCircuit, 
+  Tv, 
+  FolderPlus, 
   Scale, 
-  Users, 
-  GitMerge, 
-  Check 
+  Monitor, 
+  TrendingUp, 
+  ArrowRight 
 } from "lucide-react";
-import { businessServices, consultancyServices } from "@/data/servicesData";
-
-const iconMap: Record<string, React.ReactNode> = {
-  Cpu: <Cpu className="w-5 h-5" />,
-  TrendingUp: <TrendingUp className="w-5 h-5" />,
-  Layers: <Layers className="w-5 h-5" />,
-  BarChart3: <BarChart3 className="w-5 h-5" />,
-  Sparkles: <Sparkles className="w-5 h-5" />,
-  ShieldCheck: <ShieldCheck className="w-5 h-5" />,
-  BrainCircuit: <BrainCircuit className="w-5 h-5" />,
-  Scale: <Scale className="w-5 h-5" />,
-  Users: <Users className="w-5 h-5" />,
-  GitMerge: <GitMerge className="w-5 h-5" />
-};
 
 export default function DualEngineSection() {
-  const [activeTab, setActiveTab] = useState<"business" | "consultancy">("business");
-
-  const currentServices = activeTab === "business" ? businessServices : consultancyServices;
-
   return (
-    <section className="py-16 sm:py-24 bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-16 sm:py-24 bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Divided Section Header Box */}
-        <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-10 border border-[#8EA9D3]/35 dark:border-slate-800 shadow-sm mb-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-7 space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
-                Practice Divisions
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#152238] dark:text-white">
-                Our Structured Consulting Verticals
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl font-normal leading-relaxed">
-                Choose between our hands-on business modeling division and our senior strategic management advisory.
-              </p>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
+            Our Advisory Services
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#152238] dark:text-white">
+            Comprehensive Consulting Services
+          </h2>
+          <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 font-normal max-w-2xl mx-auto leading-relaxed">
+            Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth.
+          </p>
+        </div>
+
+        {/* 6 Divided Blocks Grid (Matching the exact Taraa layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+          
+          {/* Card 1: Human Resources / Strategic Advisory */}
+          <div className="bg-[#66C2EC] dark:bg-[#153456] rounded-2xl p-7 sm:p-8 flex flex-col items-center text-center justify-center min-h-[280px] sm:min-h-[300px] shadow-sm hover:shadow-md transition-all duration-300 group">
+            {/* Top Outline Icon */}
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform">
+              <Tv className="w-7 h-7 stroke-[1.75]" />
             </div>
 
-            {/* Switcher Controls in Block */}
-            <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="p-1.5 bg-[#EBF1FA] dark:bg-[#15233A] rounded-2xl flex gap-1 border border-[#8EA9D3]/30 dark:border-slate-700 w-full">
-                <button
-                  onClick={() => setActiveTab("business")}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 text-center ${
-                    activeTab === "business"
-                      ? "bg-[#152238] text-white shadow-sm"
-                      : "text-[#152238] dark:text-slate-300 hover:text-brand-rust"
-                  }`}
-                >
-                  <Briefcase className="w-4 h-4 shrink-0" />
-                  <span className="truncate">Business Solutions</span>
-                </button>
+            {/* Title */}
+            <h3 className="text-lg sm:text-xl font-bold text-[#083366] dark:text-white mb-3">
+              Strategic Management Consulting
+            </h3>
 
-                <button
-                  onClick={() => setActiveTab("consultancy")}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 text-center ${
-                    activeTab === "consultancy"
-                      ? "bg-brand-rust text-white shadow-sm"
-                      : "text-[#152238] dark:text-slate-300 hover:text-brand-rust"
-                  }`}
-                >
-                  <Compass className="w-4 h-4 shrink-0" />
-                  <span className="truncate">Consulting Advisory</span>
-                </button>
-              </div>
+            {/* Description */}
+            <p className="text-xs sm:text-sm text-[#083366]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
+              Driving success through tailored strategic plans with a seasoned advisory team. Unlock your operational potential with structured corporate governance.
+            </p>
+          </div>
 
-              <div className="mt-3 text-center text-[11px] text-slate-500 dark:text-slate-400">
-                {activeTab === "business" 
-                  ? "Showing 5 Business Growth & Feasibility Services" 
-                  : "Showing 5 Strategic Management & Operational Services"}
-              </div>
+          {/* Card 2 (CENTER FEATURED HERO CARD): Image Background + Dark Overlay + "Learn more" button */}
+          <div className="relative rounded-2xl overflow-hidden min-h-[280px] sm:min-h-[300px] flex flex-col items-center justify-center text-center p-7 sm:p-8 shadow-md group">
+            {/* Background Corporate Image */}
+            <Image
+              src="/images/consulting-meeting.jpg"
+              alt="Corporate Strategic Consultation"
+              fill
+              className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            />
+
+            {/* Dark Blue Overlay */}
+            <div className="absolute inset-0 bg-[#0B203E]/80 dark:bg-[#07162C]/85 backdrop-blur-[1px]" />
+
+            {/* Center Content */}
+            <div className="relative z-10 space-y-5 max-w-[290px] mx-auto flex flex-col items-center justify-center">
+              <p className="text-sm sm:text-base font-medium text-white leading-relaxed">
+                We help organizations enhance performance and improve workflows to achieve their objectives more efficiently.
+              </p>
+
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-[#005CE6] hover:bg-[#0047BA] text-white text-xs sm:text-sm font-bold shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
+              >
+                <span>Learn more</span>
+              </Link>
             </div>
           </div>
-        </div>
 
-        {/* Divided Services Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentServices.map((service) => (
-            <div
-              key={`${activeTab}-${service.id}`}
-              className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-7 border border-[#8EA9D3]/35 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-brand-steel hover:shadow-md transition-all duration-300 group"
-            >
-              <div>
-                {/* Service Icon & Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <div
-                    className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                      activeTab === "business"
-                        ? "bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light group-hover:bg-[#152238] group-hover:text-white"
-                        : "bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light group-hover:bg-brand-rust group-hover:text-white"
-                    } transition-colors`}
-                  >
-                    {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
-                  </div>
-
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-[#EBF1FA] dark:bg-[#15233A] text-slate-700 dark:text-slate-300">
-                    {service.tags[0]}
-                  </span>
-                </div>
-
-                {/* Title & Description */}
-                <h3 className="text-base sm:text-lg font-bold text-[#152238] dark:text-white mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 font-normal">
-                  {service.shortDescription}
-                </p>
-
-                {/* Deliverables Bullet Points */}
-                <div className="space-y-1.5 mb-5 pt-3 border-t border-[#8EA9D3]/20 dark:border-slate-800">
-                  {service.deliverables.slice(0, 3).map((item, dIdx) => (
-                    <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                      <Check className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${activeTab === "business" ? "text-[#152238] dark:text-brand-steel-light" : "text-brand-rust"}`} />
-                      <span className="line-clamp-1">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Card Action Link */}
-              <div className="pt-4 border-t border-[#8EA9D3]/20 dark:border-slate-800 flex items-center justify-between">
-                <span className="text-[11px] font-medium text-slate-500">
-                  Detailed Scope
-                </span>
-
-                <Link
-                  href={`/services?category=${service.category}&id=${service.id}`}
-                  className={`inline-flex items-center gap-1 text-xs font-bold ${
-                    activeTab === "business"
-                      ? "text-[#152238] dark:text-brand-steel-light group-hover:text-brand-rust"
-                      : "text-brand-rust dark:text-brand-rust-light group-hover:underline"
-                  }`}
-                >
-                  <span>View Deliverables</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+          {/* Card 3: Projects Management / Operational Excellence */}
+          <div className="bg-[#66C2EC] dark:bg-[#153456] rounded-2xl p-7 sm:p-8 flex flex-col items-center text-center justify-center min-h-[280px] sm:min-h-[300px] shadow-sm hover:shadow-md transition-all duration-300 group">
+            {/* Top Outline Icon */}
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform">
+              <FolderPlus className="w-7 h-7 stroke-[1.75]" />
             </div>
-          ))}
+
+            {/* Title */}
+            <h3 className="text-lg sm:text-xl font-bold text-[#083366] dark:text-white mb-3">
+              Projects & Lean Management
+            </h3>
+
+            {/* Description */}
+            <p className="text-xs sm:text-sm text-[#083366]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
+              We provide project management and Lean Six Sigma services to ensure initiatives are executed efficiently, on time, within budget, and with top quality.
+            </p>
+          </div>
+
+          {/* Card 4: Process Transformation & ERP Implementation */}
+          <div className="bg-[#66C2EC] dark:bg-[#153456] rounded-2xl p-7 sm:p-8 flex flex-col items-center text-center justify-center min-h-[280px] sm:min-h-[300px] shadow-sm hover:shadow-md transition-all duration-300 group">
+            {/* Top Outline Icon */}
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform">
+              <Scale className="w-7 h-7 stroke-[1.75]" />
+            </div>
+
+            {/* Title */}
+            <h3 className="text-lg sm:text-xl font-bold text-[#083366] dark:text-white mb-3">
+              Process & ERP Transformation
+            </h3>
+
+            {/* Description */}
+            <p className="text-xs sm:text-sm text-[#083366]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
+              Streamlining business operations, eliminating shop-floor waste, and supervising ERP implementation to ensure maximum productivity and compliance.
+            </p>
+          </div>
+
+          {/* Card 5: Studies & Research / Feasibility */}
+          <div className="bg-[#66C2EC] dark:bg-[#153456] rounded-2xl p-7 sm:p-8 flex flex-col items-center text-center justify-center min-h-[280px] sm:min-h-[300px] shadow-sm hover:shadow-md transition-all duration-300 group">
+            {/* Top Outline Icon */}
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform">
+              <Monitor className="w-7 h-7 stroke-[1.75]" />
+            </div>
+
+            {/* Title */}
+            <h3 className="text-lg sm:text-xl font-bold text-[#083366] dark:text-white mb-3">
+              Studies & Feasibility Research
+            </h3>
+
+            {/* Description */}
+            <p className="text-xs sm:text-sm text-[#083366]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
+              Rigorous market analysis, unit-economic modeling, capital budgeting, and commercial feasibility studies for new ventures and enterprise expansions.
+            </p>
+          </div>
+
+          {/* Card 6: Specialized Consulting Services */}
+          <div className="bg-[#66C2EC] dark:bg-[#153456] rounded-2xl p-7 sm:p-8 flex flex-col items-center text-center justify-center min-h-[280px] sm:min-h-[300px] shadow-sm hover:shadow-md transition-all duration-300 group">
+            {/* Top Outline Icon */}
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform">
+              <TrendingUp className="w-7 h-7 stroke-[1.75]" />
+            </div>
+
+            {/* Title */}
+            <h3 className="text-lg sm:text-xl font-bold text-[#083366] dark:text-white mb-3">
+              Specialized Business Solutions
+            </h3>
+
+            {/* Description */}
+            <p className="text-xs sm:text-sm text-[#083366]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
+              Tailored commercial advisory, sales funnel optimization, customer retention strategies, and transparent monthly KPI analytics reporting.
+            </p>
+          </div>
+
         </div>
 
-        {/* Explore All Link Block */}
+        {/* View All Services Footer Link */}
         <div className="mt-10 sm:mt-12 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#152238] hover:bg-brand-rust text-white text-xs sm:text-sm font-bold transition-all shadow-sm"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust transition-colors"
           >
-            <span>View All 10 Services Catalog</span>
+            <span>Explore all services and detailed engagement deliverables</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

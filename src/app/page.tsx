@@ -1,34 +1,26 @@
 import React from "react";
-import HeroBentoGrid from "@/components/home/HeroBentoGrid";
-import DividedValueBlocks from "@/components/home/DividedValueBlocks";
+import HeroSection from "@/components/home/HeroSection";
 import DualEngineSection from "@/components/home/DualEngineSection";
-import InteractiveFeasibilityBlock from "@/components/home/InteractiveFeasibilityBlock";
 import MethodologySection from "@/components/home/MethodologySection";
-import DividedSectorGrid from "@/components/home/DividedSectorGrid";
+import ClientTestimonials from "@/components/home/ClientTestimonials";
 import ConsultationBanner from "@/components/home/ConsultationBanner";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. Hero Bento Grid with Divided Blocks & 3D Brand Symbol */}
-      <HeroBentoGrid />
+      {/* 1. Hero with Interactive 3D Brand Symbol */}
+      <HeroSection />
 
-      {/* 2. Divided Value Matrix (4-Quadrant Strategic Advantage) */}
-      <DividedValueBlocks />
+      {/* 2. Client Trust & Consulting Principles */}
+      <ClientTestimonials />
 
-      {/* 3. Dual Engine: Business Solutions vs. Consultancy Services (Divided Cards) */}
+      {/* 3. Dual Engine: Business Solutions vs. Consultancy Services */}
       <DualEngineSection />
 
-      {/* 4. Interactive Project Blueprint & Scope Estimator Block */}
-      <InteractiveFeasibilityBlock />
-
-      {/* 5. The Factual Method (4-Phase Structured Advisory Roadmap) */}
+      {/* 4. The Factual Method (4-Step Framework) */}
       <MethodologySection />
 
-      {/* 6. Divided Industry Sector Matrix */}
-      <DividedSectorGrid />
-
-      {/* 7. High-Conversion Dual-Panel Consultation CTA Block */}
+      {/* 5. High-Conversion Consultation CTA */}
       <ConsultationBanner />
     </div>
   );
