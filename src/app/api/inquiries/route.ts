@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendLeadNotification } from "@/lib/emailService";
 
 export interface ServerInquiry {
   id: string;
@@ -122,8 +123,17 @@ export async function POST(request: NextRequest) {
     // Store in server list
     memoryInquiries = [newInquiry, ...memoryInquiries];
 
-    // Log new lead event
-    console.log(`[Factual Solutions Backend] New Lead Received: ${newInquiry.id} from ${newInquiry.fullName} (${newInquiry.workEmail}) for ${newInquiry.serviceOfInterest}`);
+    // Trigger lead notification email / webhook dispatcher
+    await sendLeadNotification({
+      id: newInquiry.id,
+      fullName: newInquiry.fullName,
+      workEmail: newInquiry.workEmail,
+      companyName: newInquiry.companyName,
+      phone: newInquiry.phone,
+      serviceOfInterest: newInquiry.serviceOfInterest,
+      message: newInquiry.message,
+      date: newInquiry.date,
+    });
 
     return NextResponse.json(
       {
