@@ -116,26 +116,26 @@ export default function DualEngineSection() {
                 transition={{ duration: 0.3 }}
                 onMouseEnter={() => setHoveredCard(service.id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className="relative rounded-3xl overflow-hidden min-h-[300px] sm:min-h-[320px] shadow-lg hover:shadow-2xl group select-none cursor-pointer border border-[#8EA9D3]/30 dark:border-slate-800"
+                className="relative rounded-3xl overflow-hidden min-h-[300px] sm:min-h-[320px] shadow-sm hover:shadow-xl group select-none cursor-pointer border border-[#7A98C7]/40 dark:border-slate-800"
               >
-                {/* 1. DEFAULT BASE STATE: Logo Navy-Blue Card */}
+                {/* 1. DEFAULT BASE STATE: Light Navy Blue from the Logo (#8EA9D3 / brand-steel) */}
                 <div
-                  className={`absolute inset-0 bg-[#152238] dark:bg-[#0D192E] p-7 sm:p-8 flex flex-col items-center text-center justify-center transition-all duration-500 ease-out z-10 ${
+                  className={`absolute inset-0 bg-[#8EA9D3] dark:bg-[#1E3352] p-7 sm:p-8 flex flex-col items-center text-center justify-center transition-all duration-500 ease-out z-10 ${
                     isHovered ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
                   }`}
                 >
-                  {/* Top Icon with subtle glow pill */}
-                  <div className="w-12 h-12 rounded-2xl bg-white/10 dark:bg-white/5 border border-white/15 flex items-center justify-center text-brand-steel-light mb-4 group-hover:scale-110 group-hover:bg-brand-rust/20 group-hover:text-brand-rust-light transition-all duration-300">
+                  {/* Top Icon Container */}
+                  <div className="w-12 h-12 rounded-2xl bg-[#152238]/12 dark:bg-white/10 flex items-center justify-center text-[#152238] dark:text-brand-steel-light mb-4 group-hover:scale-110 group-hover:bg-[#152238] group-hover:text-white transition-all duration-300">
                     {icon}
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2.5 font-display tracking-tight">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white mb-2.5 font-display tracking-tight">
                     {service.title}
                   </h3>
 
                   {/* Short Description */}
-                  <p className="text-xs sm:text-sm text-slate-300 dark:text-slate-300 leading-relaxed max-w-[280px] font-normal">
+                  <p className="text-xs sm:text-sm text-[#152238]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
                     {service.shortDescription}
                   </p>
                 </div>
