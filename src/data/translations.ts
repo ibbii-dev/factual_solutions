@@ -96,6 +96,76 @@ export interface TranslationDictionary {
     directEmail: string;
   };
 
+  // About Page
+  aboutPage: {
+    badge: string;
+    headline: string;
+    subheadline: string;
+    philosophyTitle: string;
+    philosophyP1: string;
+    philosophyP2: string;
+    point1: string;
+    point2: string;
+    point3: string;
+    leadershipBadge: string;
+    principalTitle: string;
+    principalSubtitle: string;
+    consultantName: string;
+    consultantRole: string;
+    focusTitle: string;
+    consultantBio: string;
+    skillsTitle: string;
+    scheduleButton: string;
+    missionTitle: string;
+    missionDesc: string;
+    visionTitle: string;
+    visionDesc: string;
+    headOfficeTitle: string;
+    headOfficeSubtitle: string;
+  };
+
+  // Contact Page
+  contactPage: {
+    headline: string;
+    subheadline: string;
+    formTitle: string;
+    formSubtitle: string;
+    fullNameLabel: string;
+    emailLabel: string;
+    companyLabel: string;
+    phoneLabel: string;
+    serviceLabel: string;
+    servicePlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitButton: string;
+    submittingButton: string;
+    confidentialNote: string;
+    successTitle: string;
+    successMessage: string;
+    sendAnother: string;
+    directContactTitle: string;
+    directPhone: string;
+    corporateEmail: string;
+    headOfficeTitle: string;
+  };
+
+  // Services Directory Page
+  servicesPage: {
+    badge: string;
+    headline: string;
+    subheadline: string;
+    allTab: string;
+    businessTab: string;
+    consultingTab: string;
+    searchPlaceholder: string;
+    deliverableLabel: string;
+    viewDetails: string;
+    noResultsTitle: string;
+    noResultsDesc: string;
+    resetFilters: string;
+  };
+
   // Footer
   footer: {
     desc: string;
@@ -244,6 +314,70 @@ export const translations: Record<Language, TranslationDictionary> = {
       whatsapp: "WhatsApp",
       directEmail: "Direct Office Email:"
     },
+    aboutPage: {
+      badge: "About Factual Solutions",
+      headline: "Practical Guidance for Growing Businesses",
+      subheadline: "Factual Solutions was founded to provide business owners and management teams with actionable advisory—helping companies turn promising ideas into profitable, steady operations.",
+      philosophyTitle: "Our Core Philosophy: The Interlocking Puzzle",
+      philosophyP1: "In business, every piece matters. A great product idea requires solid financial planning, and strong sales need reliable operations and risk management to support them.",
+      philosophyP2: "At Factual Solutions, our interlocking cube represents practical alignment across all operational functions—market research, sales strategy, team structure, and financial modeling.",
+      point1: "Fact-based market and competitive research",
+      point2: "Practical financial planning without unnecessary complexity",
+      point3: "Hands-on management support during execution",
+      leadershipBadge: "Practice Leadership",
+      principalTitle: "Principal Consultant",
+      principalSubtitle: "Direct executive advisory, operational transformation, and business excellence.",
+      consultantName: "Qadeer Ahmad Bhatti",
+      consultantRole: "Principal Business Excellence Consultant & Strategic Advisor",
+      focusTitle: "Professional Focus & Expertise",
+      consultantBio: "Senior management consultant and business excellence practitioner specializing in operational restructuring, strategic planning, process optimization, ERP transformation, and commercial performance enhancement.",
+      skillsTitle: "Core Competencies & Frameworks",
+      scheduleButton: "Schedule Advisory Consultation",
+      missionTitle: "Our Mission",
+      missionDesc: "To provide business owners and managers with clear, practical roadmaps—reducing operational friction and building steady, long-term commercial growth.",
+      visionTitle: "Our Vision",
+      visionDesc: "To be a dependable, trusted consulting partner for commercial enterprises—known for practical advice, integrity, and measurable business improvement.",
+      headOfficeTitle: "Head Office",
+      headOfficeSubtitle: "Supporting clients with strategic advisory and operational excellence."
+    },
+    contactPage: {
+      headline: "Contact Our Advisory Team",
+      subheadline: "Get in touch directly with our consultants to discuss your business requirements, market analysis, or operational strategy.",
+      formTitle: "Send a Message",
+      formSubtitle: "Fill in the form below and we will get back to you promptly.",
+      fullNameLabel: "Full Name *",
+      emailLabel: "Email Address *",
+      companyLabel: "Company Name",
+      phoneLabel: "Phone Number",
+      serviceLabel: "Service Area of Interest",
+      servicePlaceholder: "Select a Service (Optional)",
+      messageLabel: "How Can We Help Your Business? *",
+      messagePlaceholder: "Briefly describe your requirements or business challenge...",
+      submitButton: "Submit Consultation Request",
+      submittingButton: "Sending Inquiry...",
+      confidentialNote: "Confidential & Direct Partner Consultation",
+      successTitle: "Inquiry Received Successfully",
+      successMessage: "Thank you, {name}. Our team will review your inquiry and contact you shortly.",
+      sendAnother: "Send Another Inquiry",
+      directContactTitle: "Direct Contact",
+      directPhone: "Direct Phone",
+      corporateEmail: "Corporate Email",
+      headOfficeTitle: "Head Office Location"
+    },
+    servicesPage: {
+      badge: "Dual-Category Capabilities",
+      headline: "Comprehensive Business Solutions & Advisory",
+      subheadline: "Choose between our hands-on Business Solutions for commercial launch and sales expansion, or our senior Consultancy Advisory for management strategy and operational excellence.",
+      allTab: "All",
+      businessTab: "Business",
+      consultingTab: "Consulting",
+      searchPlaceholder: "Search services...",
+      deliverableLabel: "Practical Deliverable",
+      viewDetails: "View Full Details →",
+      noResultsTitle: "No Matching Capabilities Found",
+      noResultsDesc: "Try adjusting your keyword search or switch to 'All' categories.",
+      resetFilters: "Reset Filters"
+    },
     footer: {
       desc: "Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.",
       insightsTitle: "Monthly Advisory Insights",
@@ -389,6 +523,70 @@ export const translations: Record<Language, TranslationDictionary> = {
       callUs: "اتصل بنا",
       whatsapp: "واتساب",
       directEmail: "البريد الإلكتروني المباشر:"
+    },
+    aboutPage: {
+      badge: "عن فاكتشوال سوليوشنز",
+      headline: "استشارات وإرشادات عملية لنمو الشركات وتطورها",
+      subheadline: "تأسست فاكتشوال سوليوشنز لتقديم استشارات عملية وتنفيذية لأصحاب الأعمال وفرق الإدارة—لمساعدة الشركات على تحويل الأفكار الواعدة إلى عمليات تشغيلية مربحة ومستقرة.",
+      philosophyTitle: "فلسفتنا الجوهرية: مكعب التوافق المتكامل",
+      philosophyP1: "في عالم الأعمال، كل جزء له أهمية حاسمة. فالفكرة المميزة تتطلب تخطيطاً مالياً محكماً، والمبيعات القوية تحتاج إلى عمليات تشغيل وإدارة مخاطر موثوقة.",
+      philosophyP2: "في فاكتشوال سوليوشنز، يرمز مكعب علامتنا إلى التوافق العملي بين جميع الوظائف التشغيلية—أبحاث السوق، استراتيجية المبيعات، الهيكل التنظيمي، والنمذجة المالية.",
+      point1: "أبحاث سوقية ودراسات تنافسية مبنية على الحقائق",
+      point2: "تخطيط مالي وتوقعات واقعية دون تعقيدات غير ضرورية",
+      point3: "دعم إداري ميداني ومتابعة مباشرة أثناء التنفيذ",
+      leadershipBadge: "قيادة الممارسة الاستشارية",
+      principalTitle: "كبير المستشارين الاستراتيجيين",
+      principalSubtitle: "استشارات تنفيذية مباشرة، تحول تشغيلي، وتميز مؤسسي.",
+      consultantName: "قدير أحمد بهاتي",
+      consultantRole: "كبير مستشاري التميز المؤسسي والمستشار الاستراتيجي",
+      focusTitle: "مجالات التركيز والخبرة المهنية",
+      consultantBio: "مستشار إداري وخبير تميز مؤسسي متخصص في إعادة الهيكلة التشغيلية، التخطيط الاستراتيجي، تحسين العمليات، تحول أنظمة ERP، وتعزيز الأداء التجاري.",
+      skillsTitle: "الكفاءات الأساسية ومنهجيات العمل",
+      scheduleButton: "حجز جلسة استشارية تنفيذية",
+      missionTitle: "رسالتنا",
+      missionDesc: "تزويد قادة الأعمال والمديرين التنفيذيين بخرائط طريق واضحة وقابلة للتطبيق—لتقليص الاحتكاك التشغيلي وبناء نمو تجاري مستدام طويل الأجل.",
+      visionTitle: "رؤيتنا",
+      visionDesc: "أن نكون الشريك الاستشاري الأكثر موثوقية لقطاعات الأعمال—المعروف بالاستشارات العملية، والنزاهة المهنية، والتحسين الملموس للأداء التجاري.",
+      headOfficeTitle: "المكتب الرئيسي",
+      headOfficeSubtitle: "دعم عملائنا باستشارات استراتيجية وتميز تشغيلي موثوق."
+    },
+    contactPage: {
+      headline: "تواصل مع فريقنا الاستشاري",
+      subheadline: "تواصل مباشرة مع مستشارينا لمناقشة متطلبات عملك، دراسات السوق، أو استراتيجيات التحول التشغيلي.",
+      formTitle: "إرسال رسالة",
+      formSubtitle: "املأ النموذج أدناه وسيقوم فريقنا بالتواصل معك في أقرب وقت.",
+      fullNameLabel: "الاسم الكامل *",
+      emailLabel: "البريد الإلكتروني للعمل *",
+      companyLabel: "اسم الشركة / المنشأة",
+      phoneLabel: "رقم الهاتف",
+      serviceLabel: "مجال الخدمة المطلوب",
+      servicePlaceholder: "اختر الخدمة (اختياري)",
+      messageLabel: "كيف يمكننا مساعدة عملك؟ *",
+      messagePlaceholder: "يرجى تقديم نبذة مختصرة عن متطلبات عملك أو التحديات التي تواجهها...",
+      submitButton: "إرسال طلب الاستشارة",
+      submittingButton: "جارٍ الإرسال...",
+      confidentialNote: "استشارة سرية ومباشرة مع كبار المستشارين",
+      successTitle: "تم استلام طلبك بنجاح",
+      successMessage: "شكراً لك، {name}. سيقوم فريقنا بمراجعة تفاصيل طلبك والتواصل معك قريباً.",
+      sendAnother: "إرسال طلب استشارة آخر",
+      directContactTitle: "التواصل المباشر",
+      directPhone: "الهاتف المباشر",
+      corporateEmail: "البريد المؤسسي",
+      headOfficeTitle: "مقر المكتب الرئيسي"
+    },
+    servicesPage: {
+      badge: "قدرات وقطاعات استشارية مزدوجة",
+      headline: "حلول الأعمال المتكاملة والاستشارات الإدارية",
+      subheadline: "اختر بين حلول الأعمال التطبيقية لإطلاق المشاريع وتوسيع المبيعات، أو الاستشارات الإدارية العليا للاستراتيجية والتميز التشغيلي.",
+      allTab: "الكل",
+      businessTab: "حلول الأعمال",
+      consultingTab: "الاستشارات",
+      searchPlaceholder: "ابحث في الخدمات...",
+      deliverableLabel: "مخرجات العمل الرئيسية",
+      viewDetails: "عرض التفاصيل الكاملة ←",
+      noResultsTitle: "لم يتم العثور على خدمات مطابقة",
+      noResultsDesc: "يرجى تجربة كلمات بحث أخرى أو التبديل إلى تصنيف 'الكل'.",
+      resetFilters: "إعادة ضبط التصفية"
     },
     footer: {
       desc: "استشارات عملية في تخطيط الأعمال، دراسات الجدوى، التخطيط المالي، والاستشارات الإدارية لتحقيق نمو مؤسسي مستدام.",

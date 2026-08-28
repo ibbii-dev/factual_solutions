@@ -6,7 +6,6 @@ import {
   Mail, 
   Phone, 
   MapPin, 
-  Clock, 
   CheckCircle2, 
   ArrowRight,
   ShieldCheck,
@@ -18,10 +17,13 @@ import {
 import { officeLocations, contactDetails } from "@/data/companyData";
 import { allServices } from "@/data/servicesData";
 import { saveInquiry } from "@/data/inquiriesStore";
+import { useLanguage } from "@/context/LanguageContext";
 
 function ContactContent() {
   const searchParams = useSearchParams();
   const prefilledService = searchParams.get("service") || "";
+  const { t, language, isRTL } = useLanguage();
+  const c = t.contactPage;
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -59,7 +61,6 @@ function ContactContent() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Save inquiry to persistent store for Admin Panel
     saveInquiry({
       fullName: formData.fullName,
       workEmail: formData.workEmail,
@@ -89,11 +90,11 @@ function ContactContent() {
         
         {/* Page Hero */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-14">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#152238] dark:text-white">
-            Contact Our Advisory Team
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#152238] dark:text-white font-display">
+            {c.headline}
           </h1>
           <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Get in touch directly with our consultants to discuss your business requirements, market analysis, or operational strategy.
+            {c.subheadline}
           </p>
         </div>
 
@@ -108,11 +109,11 @@ function ContactContent() {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white">
-                    Inquiry Received Successfully
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white font-display">
+                    {c.successTitle}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-                    Thank you, <strong>{formData.fullName}</strong>. Our team will review your inquiry and contact you shortly.
+                    {c.successMessage.replace("{name}", formData.fullName)}
                   </p>
                 </div>
 
@@ -130,17 +131,17 @@ function ContactContent() {
                   }}
                   className="px-6 py-2.5 rounded-xl bg-brand-rust text-white text-xs font-semibold hover:bg-brand-rust-light transition-colors shadow-sm"
                 >
-                  Send Another Inquiry
+                  {c.sendAnother}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white mb-1">
-                    Send a Message
+                  <h3 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white mb-1 font-display">
+                    {c.formTitle}
                   </h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400">
-                    Fill in the form below and we will get back to you promptly.
+                    {c.formSubtitle}
                   </p>
                 </div>
 
@@ -148,21 +149,21 @@ function ContactContent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
-                      Full Name *
+                      {c.fullNameLabel}
                     </label>
                     <input
                       type="text"
                       required
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      placeholder="Your Name"
+                      placeholder={language === "ar" ? "الاسم الكريم" : "Your Name"}
                       className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
-                      Email Address *
+                      {c.emailLabel}
                     </label>
                     <input
                       type="email"
@@ -179,20 +180,20 @@ function ContactContent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
-                      Company Name
+                      {c.companyLabel}
                     </label>
                     <input
                       type="text"
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      placeholder="Your Business or Firm"
+                      placeholder={language === "ar" ? "اسم الشركة أو المشروع" : "Your Business or Firm"}
                       className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
-                      Phone Number
+                      {c.phoneLabel}
                     </label>
                     <input
                       type="tel"
@@ -207,17 +208,17 @@ function ContactContent() {
                 {/* Custom Mobile-Friendly Custom Service Dropdown */}
                 <div className="space-y-1.5 relative" ref={dropdownRef}>
                   <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
-                    Service Area of Interest
+                    {c.serviceLabel}
                   </label>
                   
                   {/* Dropdown Trigger */}
                   <button
                     type="button"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-left flex items-center justify-between text-[#152238] dark:text-white focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-start flex items-center justify-between text-[#152238] dark:text-white focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
                   >
                     <span className={formData.serviceOfInterest ? "text-[#152238] dark:text-white font-semibold" : "text-slate-400"}>
-                      {formData.serviceOfInterest || "Select a Service (Optional)"}
+                      {formData.serviceOfInterest || c.servicePlaceholder}
                     </span>
                     <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 text-brand-rust" : ""}`} />
                   </button>
@@ -228,16 +229,16 @@ function ContactContent() {
                       
                       {/* Business Solutions Group */}
                       <div className="space-y-1 pt-1 first:pt-0">
-                        <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#152238] dark:text-brand-steel-light flex items-center gap-1.5">
+                        <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#152238] dark:text-brand-steel-light flex items-center gap-1.5 font-display">
                           <Briefcase className="w-3.5 h-3.5" />
-                          <span>Business Solutions</span>
+                          <span>{t.nav.businessSolutions}</span>
                         </div>
                         {businessServicesList.map((service) => (
                           <button
                             key={service.id}
                             type="button"
                             onClick={() => selectService(service.title)}
-                            className={`w-full text-left px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center justify-between ${
+                            className={`w-full text-start px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center justify-between ${
                               formData.serviceOfInterest === service.title
                                 ? "bg-[#152238] text-white"
                                 : "text-slate-800 dark:text-slate-200 hover:bg-[#F2F7FD] dark:hover:bg-[#1E3150]/60"
@@ -253,16 +254,16 @@ function ContactContent() {
 
                       {/* Consultancy Advisory Group */}
                       <div className="space-y-1 pt-2">
-                        <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-rust dark:text-brand-rust-light flex items-center gap-1.5">
+                        <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-rust dark:text-brand-rust-light flex items-center gap-1.5 font-display">
                           <Compass className="w-3.5 h-3.5" />
-                          <span>Consultancy Advisory</span>
+                          <span>{t.nav.consultancyServices}</span>
                         </div>
                         {consultancyServicesList.map((service) => (
                           <button
                             key={service.id}
                             type="button"
                             onClick={() => selectService(service.title)}
-                            className={`w-full text-left px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center justify-between ${
+                            className={`w-full text-start px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center justify-between ${
                               formData.serviceOfInterest === service.title
                                 ? "bg-brand-rust text-white"
                                 : "text-slate-800 dark:text-slate-200 hover:bg-[#F2F7FD] dark:hover:bg-[#1E3150]/60"
@@ -283,14 +284,14 @@ function ContactContent() {
                 {/* Message */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
-                    How Can We Help Your Business? *
+                    {c.messageLabel}
                   </label>
                   <textarea
                     rows={4}
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Briefly describe your requirements or business challenge..."
+                    placeholder={c.messagePlaceholder}
                     className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
                   />
                 </div>
@@ -302,18 +303,18 @@ function ContactContent() {
                   className="w-full py-3.5 px-6 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-70"
                 >
                   {isSubmitting ? (
-                    <span>Sending Inquiry...</span>
+                    <span>{c.submittingButton}</span>
                   ) : (
                     <>
-                      <span>Submit Consultation Request</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <span>{c.submitButton}</span>
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                     </>
                   )}
                 </button>
 
                 <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 pt-1">
                   <ShieldCheck className="w-4 h-4 text-[#152238] dark:text-brand-steel-light shrink-0" />
-                  <span>Confidential & Direct Partner Consultation</span>
+                  <span>{c.confidentialNote}</span>
                 </div>
 
               </form>
@@ -325,8 +326,8 @@ function ContactContent() {
             
             {/* Direct Contact Card */}
             <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-4">
-              <h3 className="text-base font-bold text-[#152238] dark:text-white uppercase tracking-wider">
-                Direct Contact
+              <h3 className="text-base font-bold text-[#152238] dark:text-white uppercase tracking-wider font-display">
+                {c.directContactTitle}
               </h3>
 
               <div className="space-y-3">
@@ -338,7 +339,7 @@ function ContactContent() {
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">Direct Phone</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">{c.directPhone}</div>
                     <div className="font-bold text-[#152238] dark:text-white">{contactDetails.phone}</div>
                   </div>
                 </a>
@@ -351,7 +352,7 @@ function ContactContent() {
                     <Mail className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">Corporate Email</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">{c.corporateEmail}</div>
                     <div className="font-bold text-[#152238] dark:text-white truncate">{contactDetails.email}</div>
                   </div>
                 </a>
@@ -360,8 +361,8 @@ function ContactContent() {
 
             {/* Head Office Location */}
             <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-4">
-              <h4 className="text-sm font-bold text-[#152238] dark:text-white uppercase tracking-wider">
-                Head Office Location
+              <h4 className="text-sm font-bold text-[#152238] dark:text-white uppercase tracking-wider font-display">
+                {c.headOfficeTitle}
               </h4>
 
               <div className="space-y-3">
@@ -369,13 +370,15 @@ function ContactContent() {
                   <div key={loc.city} className="p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/20 dark:border-slate-800 space-y-1">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-bold text-[#152238] dark:text-white flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-brand-rust" /> {loc.city}
+                        <MapPin className="w-3.5 h-3.5 text-brand-rust" /> {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
                       </span>
                       <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#8EA9D3]/20 dark:bg-slate-700 text-[#152238] dark:text-slate-300">
-                        {loc.country}
+                        {language === "ar" ? "المقر الرئيسي" : loc.tag}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">{loc.address}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
+                      {language === "ar" ? "لاهور، البنجاب، باكستان" : loc.address}
+                    </p>
                   </div>
                 ))}
               </div>

@@ -24,6 +24,7 @@ import {
 import { allServices, businessServices, consultancyServices, ServiceItem } from "@/data/servicesData";
 import ServiceDetailModal from "@/components/services/ServiceDetailModal";
 import ServiceMatcherQuiz from "@/components/services/ServiceMatcherQuiz";
+import { useLanguage } from "@/context/LanguageContext";
 
 const iconMap: Record<string, React.ReactNode> = {
   Cpu: <Cpu className="w-5 h-5" />,
@@ -42,6 +43,8 @@ function ServicesContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category");
   const initialServiceId = searchParams.get("id");
+  const { t, language, isRTL } = useLanguage();
+  const sp = t.servicesPage;
 
   const [activeCategory, setActiveCategory] = useState<"all" | "business" | "consultancy">(
     initialCategory === "business" || initialCategory === "consultancy"
@@ -75,13 +78,13 @@ function ServicesContent() {
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-            Dual-Category Capabilities
+            {sp.badge}
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#152238] dark:text-white leading-tight break-words">
-            Comprehensive Business Solutions & Advisory
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#152238] dark:text-white leading-tight break-words font-display">
+            {sp.headline}
           </h1>
           <p className="text-sm sm:text-base lg:text-lg text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
-            Choose between our hands-on <strong>Business Solutions</strong> for commercial launch and sales expansion, or our senior <strong>Consultancy Advisory</strong> for management strategy and operational excellence.
+            {sp.subheadline}
           </p>
         </div>
 
@@ -98,7 +101,7 @@ function ServicesContent() {
                   : "text-[#152238] dark:text-slate-300 hover:text-brand-rust"
               }`}
             >
-              All ({allServices.length})
+              {sp.allTab} ({allServices.length})
             </button>
             <button
               onClick={() => setActiveCategory("business")}
@@ -109,7 +112,7 @@ function ServicesContent() {
               }`}
             >
               <Briefcase className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
-              <span className="truncate">Business ({businessServices.length})</span>
+              <span className="truncate">{sp.businessTab} ({businessServices.length})</span>
             </button>
             <button
               onClick={() => setActiveCategory("consultancy")}
@@ -120,19 +123,19 @@ function ServicesContent() {
               }`}
             >
               <Compass className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
-              <span className="truncate">Consulting ({consultancyServices.length})</span>
+              <span className="truncate">{sp.consultingTab} ({consultancyServices.length})</span>
             </button>
           </div>
 
           {/* Search Input */}
           <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className={`w-4 h-4 text-slate-500 absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search services..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl sm:rounded-full bg-[#F2F7FD] dark:bg-slate-800/90 border border-[#8EA9D3]/40 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
+              placeholder={sp.searchPlaceholder}
+              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl sm:rounded-full bg-[#F2F7FD] dark:bg-slate-800/90 border border-[#8EA9D3]/40 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all`}
             />
           </div>
 
@@ -169,13 +172,13 @@ function ServicesContent() {
                             : "bg-brand-rust/20 text-brand-rust dark:text-brand-rust-light"
                         }`}
                       >
-                        {isBusiness ? "Business" : "Consultancy"}
+                        {isBusiness ? (language === "ar" ? "حلول أعمال" : "Business") : (language === "ar" ? "استشارات" : "Consultancy")}
                       </span>
                     </div>
 
                     {/* Title & Short Description */}
                     <div>
-                      <h3 className="text-xl font-bold text-[#152238] dark:text-white leading-snug">
+                      <h3 className="text-xl font-bold text-[#152238] dark:text-white leading-snug font-display">
                         {service.title}
                       </h3>
                       <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed font-normal">
@@ -186,7 +189,7 @@ function ServicesContent() {
                     {/* Benchmark KPI */}
                     <div className="p-3 rounded-2xl bg-[#F2F7FD] dark:bg-[#0E1728] border border-[#8EA9D3]/20 dark:border-slate-800">
                       <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
-                        Practical Deliverable
+                        {sp.deliverableLabel}
                       </div>
                       <div className="text-xs font-bold text-[#152238] dark:text-brand-steel-light mt-0.5">
                         {service.metrics}
@@ -210,7 +213,7 @@ function ServicesContent() {
                       onClick={() => setSelectedService(service)}
                       className="text-xs font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust transition-colors"
                     >
-                      View Full Details &rarr;
+                      {sp.viewDetails}
                     </button>
 
                     <Link
@@ -222,7 +225,7 @@ function ServicesContent() {
                       }`}
                       title="Book this Service"
                     >
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                     </Link>
                   </div>
 
@@ -233,15 +236,15 @@ function ServicesContent() {
         ) : (
           <div className="text-center py-20 bg-white dark:bg-[#111C2E] rounded-3xl border border-[#8EA9D3]/30 dark:border-slate-800 p-8 shadow-sm">
             <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-[#152238] dark:text-white">No Matching Capabilities Found</h3>
+            <h3 className="text-lg font-bold text-[#152238] dark:text-white font-display">{sp.noResultsTitle}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto mt-1 font-normal">
-              Try adjusting your keyword search or switch to "All" categories.
+              {sp.noResultsDesc}
             </p>
             <button
               onClick={() => { setSearchQuery(""); setActiveCategory("all"); }}
               className="mt-4 px-5 py-2 rounded-full bg-[#152238] text-white text-xs font-bold"
             >
-              Reset Filters
+              {sp.resetFilters}
             </button>
           </div>
         )}
