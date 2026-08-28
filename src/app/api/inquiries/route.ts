@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendLeadNotification } from "@/lib/emailService";
+import { generateAiAutoReply, AiAssessmentResult } from "@/lib/aiAgentService";
 
 export interface ServerInquiry {
   id: string;
@@ -12,6 +13,7 @@ export interface ServerInquiry {
   date: string;
   status: "New" | "Contacted" | "In Progress" | "Closed";
   priority: "Normal" | "High" | "Urgent";
+  aiAssessment?: AiAssessmentResult;
 }
 
 // In-memory / server cache fallback
@@ -107,6 +109,15 @@ export async function POST(request: NextRequest) {
     const newId = `INQ-${now.getFullYear()}-${String(memoryInquiries.length + 1).padStart(3, "0")}`;
     const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
+    // Generate AI Agent Diagnostic & Auto-Reply
+    const aiAssessment = await generateAiAutoReply({
+      fullName,
+      workEmail,
+      companyName: companyName || "",
+      serviceOfInterest: serviceOfInterest || "General Business Advisory",
+      message: message || ""
+    });
+
     const newInquiry: ServerInquiry = {
       id: newId,
       fullName: fullName.trim(),
@@ -117,13 +128,14 @@ export async function POST(request: NextRequest) {
       message: (message || "").trim(),
       date: dateStr,
       status: "New",
-      priority: priority || "Normal"
+      priority: priority || "Normal",
+      aiAssessment
     };
 
     // Store in server list
     memoryInquiries = [newInquiry, ...memoryInquiries];
 
-    // Trigger lead notification email / webhook dispatcher
+    // Trigger lead notification email / webhook dispatcher with AI auto-reply
     await sendLeadNotification({
       id: newInquiry.id,
       fullName: newInquiry.fullName,
@@ -138,8 +150,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: "Inquiry registered successfully. Our consultants will contact you shortly.",
-        data: newInquiry
+        message: "Inquiry registered successfully. AI preliminary assessment generated.",
+        data: newInquiry,
+        aiAssessment
       },
       { status: 201 }
     );

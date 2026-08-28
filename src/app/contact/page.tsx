@@ -7,17 +7,28 @@ import {
   Phone, 
   MapPin, 
   CheckCircle2, 
-  ArrowRight,
-  ShieldCheck,
-  Briefcase,
-  Compass,
-  ChevronDown,
-  Check
+  ArrowRight, 
+  ShieldCheck, 
+  Briefcase, 
+  Compass, 
+  ChevronDown, 
+  Check,
+  Sparkles,
+  Bot,
+  FileText
 } from "lucide-react";
 import { officeLocations, contactDetails } from "@/data/companyData";
 import { allServices } from "@/data/servicesData";
 import { saveInquiry } from "@/data/inquiriesStore";
 import { useLanguage } from "@/context/LanguageContext";
+
+interface AiAssessmentData {
+  clientName: string;
+  industryCategory: string;
+  executiveSummary: string;
+  keyStrategicFocus: string[];
+  recommendedConsultingPath: string;
+}
 
 function ContactContent() {
   const searchParams = useSearchParams();
@@ -39,6 +50,7 @@ function ContactContent() {
 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [aiAssessment, setAiAssessment] = useState<AiAssessmentData | null>(null);
 
   useEffect(() => {
     if (prefilledService) {
@@ -70,16 +82,18 @@ function ContactContent() {
       message: formData.message,
     };
 
-    // Save locally for instant reactivity
     saveInquiry(payload);
 
-    // Send to backend API
     try {
-      await fetch("/api/inquiries", {
+      const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
+      const data = await res.json();
+      if (data.aiAssessment) {
+        setAiAssessment(data.aiAssessment);
+      }
     } catch (err) {
       console.error("API error:", err);
     }
@@ -118,35 +132,79 @@ function ContactContent() {
           {/* Left: Consultation Form (7 cols) */}
           <div className="lg:col-span-7 bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800">
             {submitted ? (
-              <div className="text-center py-10 space-y-5">
-                <div className="w-14 h-14 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white font-display">
-                    {c.successTitle}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-                    {c.successMessage.replace("{name}", formData.fullName)}
-                  </p>
+              <div className="py-6 space-y-6 text-left">
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300">
+                  <CheckCircle2 className="w-7 h-7 text-emerald-500 shrink-0" />
+                  <div>
+                    <h3 className="text-base font-bold">{c.successTitle}</h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-300">
+                      {c.successMessage.replace("{name}", formData.fullName)}
+                    </p>
+                  </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFormData({
-                      fullName: "",
-                      workEmail: "",
-                      companyName: "",
-                      phone: "",
-                      serviceOfInterest: "",
-                      message: "",
-                    });
-                  }}
-                  className="px-6 py-2.5 rounded-xl bg-brand-rust text-white text-xs font-semibold hover:bg-brand-rust-light transition-colors shadow-sm"
-                >
-                  {c.sendAnother}
-                </button>
+                {/* AI Agent Auto-Reply Diagnostic Card */}
+                {aiAssessment && (
+                  <div className="p-5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-brand-steel/40 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-brand-rust text-white flex items-center justify-center">
+                          <Bot className="w-4 h-4" />
+                        </div>
+                        <span className="text-xs font-bold text-[#152238] dark:text-white uppercase tracking-wider">
+                          AI Advisory Preliminary Diagnostic
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-steel/20 text-[#152238] dark:text-brand-steel-light border border-brand-steel/30">
+                        {aiAssessment.industryCategory}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">Consulting Focus Area</div>
+                      <div className="text-xs font-semibold text-[#152238] dark:text-white">{aiAssessment.recommendedConsultingPath}</div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">3 Key Milestone Focus Points for Discovery Call:</div>
+                      <ul className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
+                        {aiAssessment.keyStrategicFocus.map((pt, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="w-4 h-4 rounded-full bg-brand-rust/20 text-brand-rust dark:text-brand-rust-light font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/60 dark:bg-black/20 border border-black/5 dark:border-white/5 text-[11px] text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-brand-rust shrink-0" />
+                      <span>An executive summary and confirmation email have been dispatched to <strong>{formData.workEmail}</strong>.</span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="text-center pt-2">
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setAiAssessment(null);
+                      setFormData({
+                        fullName: "",
+                        workEmail: "",
+                        companyName: "",
+                        phone: "",
+                        serviceOfInterest: "",
+                        message: "",
+                      });
+                    }}
+                    className="px-6 py-2.5 rounded-xl bg-brand-rust text-white text-xs font-semibold hover:bg-brand-rust-light transition-colors shadow-sm"
+                  >
+                    {c.sendAnother}
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -200,7 +258,7 @@ function ContactContent() {
                       type="text"
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      placeholder={language === "ar" ? "اسم الشركة أو المشروع" : "Your Business or Firm"}
+                      placeholder="Company / Enterprise"
                       className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
                     />
                   </div>
@@ -213,82 +271,75 @@ function ContactContent() {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+92 345 0000000"
+                      placeholder="+92 300 000 0000"
                       className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
                     />
                   </div>
                 </div>
 
-                {/* Custom Mobile-Friendly Custom Service Dropdown */}
+                {/* Service of Interest */}
                 <div className="space-y-1.5 relative" ref={dropdownRef}>
                   <label className="text-xs font-semibold text-[#152238] dark:text-slate-300">
                     {c.serviceLabel}
                   </label>
                   
-                  {/* Dropdown Trigger */}
-                  <button
-                    type="button"
+                  <div
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-start flex items-center justify-between text-[#152238] dark:text-white focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white cursor-pointer flex items-center justify-between"
                   >
-                    <span className={formData.serviceOfInterest ? "text-[#152238] dark:text-white font-semibold" : "text-slate-400"}>
-                      {formData.serviceOfInterest || c.servicePlaceholder}
+                    <span className={formData.serviceOfInterest ? "text-[#152238] dark:text-white font-medium" : "text-slate-400"}>
+                      {formData.serviceOfInterest || (language === "ar" ? "اختر الخدمة المطلوبة" : "Select Service Area")}
                     </span>
-                    <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 text-brand-rust" : ""}`} />
-                  </button>
+                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 text-brand-rust" : ""}`} />
+                  </div>
 
-                  {/* Custom Dropdown Menu */}
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-white dark:bg-[#101826] border border-[#8EA9D3]/40 dark:border-slate-700 rounded-2xl shadow-2xl max-h-72 overflow-y-auto p-2 space-y-3 divide-y divide-slate-100 dark:divide-slate-800">
+                    <div className="absolute top-full left-0 right-0 mt-1.5 rounded-2xl bg-white dark:bg-[#0E182A] border border-[#8EA9D3]/40 dark:border-slate-700 shadow-2xl p-3 z-50 max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
                       
-                      {/* Business Solutions Group */}
-                      <div className="space-y-1 pt-1 first:pt-0">
-                        <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#152238] dark:text-brand-steel-light flex items-center gap-1.5 font-display">
-                          <Briefcase className="w-3.5 h-3.5" />
-                          <span>{t.nav.businessSolutions}</span>
+                      <div className="pb-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-brand-steel mb-1 px-2 flex items-center gap-1.5">
+                          <Briefcase className="w-3 h-3" />
+                          <span>Business Solutions (6 Practices)</span>
                         </div>
-                        {businessServicesList.map((service) => (
-                          <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => selectService(service.title)}
-                            className={`w-full text-start px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center justify-between ${
-                              formData.serviceOfInterest === service.title
-                                ? "bg-[#152238] text-white"
-                                : "text-slate-800 dark:text-slate-200 hover:bg-[#F2F7FD] dark:hover:bg-[#1E3150]/60"
-                            }`}
-                          >
-                            <span>{service.title}</span>
-                            {formData.serviceOfInterest === service.title && (
-                              <Check className="w-4 h-4 text-brand-steel-light shrink-0" />
-                            )}
-                          </button>
-                        ))}
+                        <div className="space-y-0.5">
+                          {businessServicesList.map((srv) => (
+                            <div
+                              key={srv.id}
+                              onClick={() => selectService(srv.title)}
+                              className={`px-3 py-2 rounded-xl text-xs flex items-center justify-between cursor-pointer transition-colors ${
+                                formData.serviceOfInterest === srv.title
+                                  ? "bg-[#152238] text-white font-bold"
+                                  : "hover:bg-[#F2F7FD] dark:hover:bg-[#1A2942] text-slate-700 dark:text-slate-200"
+                              }`}
+                            >
+                              <span>{srv.title}</span>
+                              {formData.serviceOfInterest === srv.title && <Check className="w-3.5 h-3.5" />}
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
-                      {/* Consultancy Advisory Group */}
-                      <div className="space-y-1 pt-2">
-                        <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-rust dark:text-brand-rust-light flex items-center gap-1.5 font-display">
-                          <Compass className="w-3.5 h-3.5" />
-                          <span>{t.nav.consultancyServices}</span>
+                      <div className="pt-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-brand-rust mb-1 px-2 flex items-center gap-1.5">
+                          <Compass className="w-3 h-3" />
+                          <span>Consultancy Services (6 Practices)</span>
                         </div>
-                        {consultancyServicesList.map((service) => (
-                          <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => selectService(service.title)}
-                            className={`w-full text-start px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors flex items-center justify-between ${
-                              formData.serviceOfInterest === service.title
-                                ? "bg-brand-rust text-white"
-                                : "text-slate-800 dark:text-slate-200 hover:bg-[#F2F7FD] dark:hover:bg-[#1E3150]/60"
-                            }`}
-                          >
-                            <span>{service.title}</span>
-                            {formData.serviceOfInterest === service.title && (
-                              <Check className="w-4 h-4 text-white shrink-0" />
-                            )}
-                          </button>
-                        ))}
+                        <div className="space-y-0.5">
+                          {consultancyServicesList.map((srv) => (
+                            <div
+                              key={srv.id}
+                              onClick={() => selectService(srv.title)}
+                              className={`px-3 py-2 rounded-xl text-xs flex items-center justify-between cursor-pointer transition-colors ${
+                                formData.serviceOfInterest === srv.title
+                                  ? "bg-brand-rust text-white font-bold"
+                                  : "hover:bg-[#F2F7FD] dark:hover:bg-[#1A2942] text-slate-700 dark:text-slate-200"
+                              }`}
+                            >
+                              <span>{srv.title}</span>
+                              {formData.serviceOfInterest === srv.title && <Check className="w-3.5 h-3.5" />}
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
                     </div>
@@ -305,94 +356,99 @@ function ContactContent() {
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder={c.messagePlaceholder}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all"
+                    placeholder={language === "ar" ? "اشرح احتياجات مشروعك وأهداف العمل..." : "Briefly describe your requirements or strategic objectives..."}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/40 dark:border-slate-700 text-sm text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all resize-none"
                   />
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit CTA */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 px-6 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-70"
+                  className="w-full py-3.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
                 >
-                  {isSubmitting ? (
-                    <span>{c.submittingButton}</span>
-                  ) : (
-                    <>
-                      <span>{c.submitButton}</span>
-                      <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-                    </>
-                  )}
+                  <span>{isSubmitting ? (language === "ar" ? "جارٍ الإرسال والتحليل الذكي..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
-                <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 pt-1">
-                  <ShieldCheck className="w-4 h-4 text-[#152238] dark:text-brand-steel-light shrink-0" />
+                <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
+                  <ShieldCheck className="w-3.5 h-3.5 text-brand-rust" />
                   <span>{c.confidentialNote}</span>
                 </div>
-
               </form>
             )}
           </div>
 
-          {/* Right: Contact Details & Head Office (5 cols) */}
+          {/* Right: Contact Hub Details (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* Direct Contact Card */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-4">
-              <h3 className="text-base font-bold text-[#152238] dark:text-white uppercase tracking-wider font-display">
+            <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-5">
+              <h3 className="text-lg font-bold text-[#152238] dark:text-white font-display">
                 {c.directContactTitle}
               </h3>
-
-              <div className="space-y-3">
+              
+              <div className="space-y-4">
                 <a
-                  href={`tel:${contactDetails.phone}`}
-                  className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] hover:bg-[#E2ECF9] transition-colors text-[#152238] dark:text-white font-medium"
+                  href={`mailto:${contactDetails.email}`}
+                  className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/30 dark:border-slate-700/80 hover:border-brand-rust transition-colors group"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-brand-rust/15 text-brand-rust flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">{c.directPhone}</div>
-                    <div className="font-bold text-[#152238] dark:text-white">{contactDetails.phone}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                      {c.corporateEmail}
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-[#152238] dark:text-white group-hover:text-brand-rust transition-colors">
+                      {contactDetails.email}
+                    </div>
                   </div>
                 </a>
 
                 <a
-                  href={`mailto:${contactDetails.email}`}
-                  className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] hover:bg-[#E2ECF9] transition-colors text-[#152238] dark:text-white font-medium"
+                  href={`tel:${contactDetails.phone.replace(/\s+/g, '')}`}
+                  className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/30 dark:border-slate-700/80 hover:border-brand-rust transition-colors group"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-brand-steel/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4" />
                   </div>
-                  <div className="truncate">
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">{c.corporateEmail}</div>
-                    <div className="font-bold text-[#152238] dark:text-white truncate">{contactDetails.email}</div>
+                  <div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                      {c.directPhone}
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-[#152238] dark:text-white group-hover:text-brand-rust transition-colors">
+                      {contactDetails.phone}
+                    </div>
                   </div>
                 </a>
               </div>
             </div>
 
-            {/* Head Office Location */}
+            {/* Office Locations */}
             <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-4">
-              <h4 className="text-sm font-bold text-[#152238] dark:text-white uppercase tracking-wider font-display">
+              <h3 className="text-lg font-bold text-[#152238] dark:text-white font-display">
                 {c.headOfficeTitle}
-              </h4>
-
+              </h3>
+              
               <div className="space-y-3">
                 {officeLocations.map((loc) => (
-                  <div key={loc.city} className="p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/20 dark:border-slate-800 space-y-1">
+                  <div
+                    key={loc.city}
+                    className="p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/30 dark:border-slate-700/80 space-y-1"
+                  >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold text-[#152238] dark:text-white flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-brand-rust" /> {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
-                      </span>
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#8EA9D3]/20 dark:bg-slate-700 text-[#152238] dark:text-slate-300">
+                      <div className="font-bold text-xs sm:text-sm text-[#152238] dark:text-white flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-brand-rust shrink-0" />
+                        <span>{language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}</span>
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-rust/10 text-brand-rust dark:text-brand-rust-light border border-brand-rust/20">
                         {language === "ar" ? "المقر الرئيسي" : loc.tag}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">
-                      {language === "ar" ? "لاهور، البنجاب، باكستان" : loc.address}
-                    </p>
+                    <div className="text-xs text-slate-600 dark:text-slate-400 pl-5">
+                      {loc.address}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -409,7 +465,7 @@ function ContactContent() {
 
 export default function ContactPage() {
   return (
-    <Suspense fallback={<div className="pt-32 text-center text-slate-400">Loading contact page...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#EBF1FA] dark:bg-[#0B1320] pt-32 text-center text-slate-400">Loading Contact...</div>}>
       <ContactContent />
     </Suspense>
   );

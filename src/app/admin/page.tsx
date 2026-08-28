@@ -556,6 +556,20 @@ export default function AdminPage() {
               </div>
             </div>
 
+            {/* AI Strategic Assessment Box */}
+            <div className="p-4 rounded-2xl bg-[#080D16] border border-brand-steel/30 space-y-2.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-brand-steel-light uppercase">
+                <ShieldCheck className="w-4 h-4 text-brand-rust" />
+                <span>AI Agent Diagnostic & Engagement Blueprint</span>
+              </div>
+              <p className="text-xs text-slate-300">
+                <strong>Preliminary Advisory Focus:</strong> Structured feasibility and financial unit economics audit for {selectedInquiry.companyName || "client"}.
+              </p>
+              <div className="text-[11px] text-slate-400">
+                ✅ Instant personalized confirmation & consultation roadmapping auto-reply dispatched.
+              </div>
+            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-slate-400">Mark Status:</span>
