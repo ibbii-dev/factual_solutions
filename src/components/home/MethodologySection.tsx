@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Search, Compass, Zap, CheckCircle2, ArrowRight } from "lucide-react";
-import { coreMethodologySteps } from "@/data/companyData";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 const stepIcons = [
   <Search key="1" className="w-5 h-5" />,
@@ -13,6 +13,8 @@ const stepIcons = [
 ];
 
 export default function MethodologySection() {
+  const { t, isRTL } = useLanguage();
+
   return (
     <section className="py-16 sm:py-24 bg-[#DFE8F6] dark:bg-[#0B1320] text-[#152238] dark:text-white relative overflow-hidden border-t border-[#8EA9D3]/30 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -20,19 +22,19 @@ export default function MethodologySection() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/25 text-[#152238] dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
-            Our Advisory Process
+            {t.methodology.eyebrow}
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#152238] dark:text-white">
-            A Structured 4-Step Advisory Framework
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#152238] dark:text-white font-display">
+            {t.methodology.title}
           </h2>
           <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-            We follow a practical, disciplined consulting process from initial business review through to hands-on execution and performance tracking.
+            {t.methodology.subtitle}
           </p>
         </div>
 
         {/* 4 Steps Grid */}
         <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {coreMethodologySteps.map((step, idx) => (
+          {t.methodology.steps.map((step, idx) => (
             <div
               key={step.step}
               className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-7 border border-[#8EA9D3]/30 dark:border-slate-800 flex flex-col justify-between shadow-sm"
@@ -54,9 +56,9 @@ export default function MethodologySection() {
                 </div>
 
                 <div className="text-[11px] font-bold uppercase tracking-wider text-brand-rust dark:text-brand-steel-light mb-1.5">
-                  Phase {step.step}
+                  {t.methodology.phase} {step.step}
                 </div>
-                <h3 className="text-lg font-bold text-[#152238] dark:text-white mb-2.5">
+                <h3 className="text-lg font-bold text-[#152238] dark:text-white mb-2.5 font-display">
                   {step.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
@@ -65,7 +67,7 @@ export default function MethodologySection() {
               </div>
 
               <div className="mt-6 pt-3 border-t border-[#8EA9D3]/20 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
-                <span>Phase Outcome</span>
+                <span>{t.methodology.phaseOutcome}</span>
                 <span className="font-bold text-[#152238] dark:text-brand-steel-light">{step.outcome}</span>
               </div>
             </div>
@@ -78,8 +80,8 @@ export default function MethodologySection() {
             href="/about"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#152238] hover:bg-brand-rust text-white text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm"
           >
-            <span>Learn About Our Advisory Philosophy & Leadership</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>{t.methodology.learnLeadership}</span>
+            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
         </div>
 

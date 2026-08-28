@@ -11,30 +11,33 @@ import {
   PhoneCall 
 } from "lucide-react";
 import InteractiveHeroCube from "./InteractiveHeroCube";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HeroSection() {
+  const { t, isRTL } = useLanguage();
+
   return (
     <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white border-b border-[#8EA9D3]/30 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Strategic Positioning & Copy */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-start">
             
             {/* Direct Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#15233A] shadow-sm border border-[#8EA9D3]/40 dark:border-slate-700 text-xs font-semibold text-[#152238] dark:text-brand-steel-light max-w-full">
               <span className="flex h-2 w-2 rounded-full bg-brand-rust shrink-0" />
-              <span>Business Solutions & Management Consulting</span>
+              <span>{t.hero.badge}</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#152238] dark:text-white leading-[1.18] sm:leading-[1.12] break-words">
-              Consulting People to Grow Their Business.
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#152238] dark:text-white leading-[1.2] sm:leading-[1.15] break-words font-display">
+              {t.hero.headline}
             </h1>
 
             {/* Sub-headline */}
             <p className="text-sm sm:text-base lg:text-lg text-slate-700 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-              We provide practical business planning, market analysis, investment modeling, and management consulting to help companies build solid operations and steady commercial growth.
+              {t.hero.subheadline}
             </p>
 
             {/* Action Buttons */}
@@ -43,8 +46,8 @@ export default function HeroSection() {
                 href="/services"
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-sm font-semibold transition-all duration-200 shadow-sm"
               >
-                <span>View All Services</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>{t.hero.viewServices}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
               </Link>
 
               <Link
@@ -52,7 +55,7 @@ export default function HeroSection() {
                 className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white dark:bg-[#15233A] text-[#152238] dark:text-white text-sm font-semibold border border-[#8EA9D3]/40 dark:border-slate-700 hover:border-[#152238] dark:hover:border-brand-steel transition-all duration-200 shadow-sm"
               >
                 <PhoneCall className="w-4 h-4 text-brand-rust" />
-                <span>Request a Consultation</span>
+                <span>{t.hero.requestConsultation}</span>
               </Link>
             </div>
 
@@ -60,15 +63,15 @@ export default function HeroSection() {
             <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs font-medium text-slate-700 dark:text-slate-400">
               <div className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span>Direct Hands-On Advisory</span>
+                <span>{t.hero.handsOn}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-[#152238] dark:text-brand-steel-light shrink-0" />
-                <span>Confidential Client Engagements</span>
+                <span>{t.hero.confidential}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Briefcase className="w-4 h-4 text-brand-rust shrink-0" />
-                <span>Actionable Roadmaps</span>
+                <span>{t.hero.actionable}</span>
               </div>
             </div>
           </div>
@@ -86,9 +89,9 @@ export default function HeroSection() {
             <div className="w-9 h-9 rounded-lg bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center">
               <Briefcase className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-[#152238] dark:text-white">Business Solutions</h3>
+            <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">{t.hero.businessSolutionsTitle}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-              New business idea modeling, comprehensive market analysis, capital budgeting, and sales growth strategies.
+              {t.hero.businessSolutionsDesc}
             </p>
           </div>
 
@@ -96,9 +99,9 @@ export default function HeroSection() {
             <div className="w-9 h-9 rounded-lg bg-brand-rust/15 text-brand-rust flex items-center justify-center">
               <Compass className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-[#152238] dark:text-white">Consultancy Advisory</h3>
+            <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">{t.hero.consultancyTitle}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-              Strategic management consulting, risk mitigation, performance tracking, and organizational leadership.
+              {t.hero.consultancyDesc}
             </p>
           </div>
 
@@ -106,9 +109,9 @@ export default function HeroSection() {
             <div className="w-9 h-9 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <ShieldCheck className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-[#152238] dark:text-white">Empirical & Practical</h3>
+            <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">{t.hero.empiricalTitle}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-              Clear, step-by-step guidance tailored to your industry, team capability, and real market conditions.
+              {t.hero.empiricalDesc}
             </p>
           </div>
         </div>

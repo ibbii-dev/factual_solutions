@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,6 +7,7 @@
 :root {
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
+  --font-arabic: 'Cairo', sans-serif;
 
   /* Mode 1: Logo Navy Blue Light Theme */
   --bg-primary: #DDE7F6;
@@ -41,6 +42,23 @@ body {
   background-color: var(--bg-primary);
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Arabic Typography overrides */
+html[lang="ar"] body,
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6,
+html[lang="ar"] p,
+html[lang="ar"] span,
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] select,
+html[lang="ar"] a {
+  font-family: var(--font-arabic), 'Cairo', sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {

@@ -13,80 +13,34 @@ import {
   BarChart3,
   ArrowRight 
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-interface ServiceCardData {
-  id: string;
-  category: "business" | "consultancy";
-  icon: React.ReactNode;
-  title: string;
-  shortDescription: string;
-  hoverDetail: string;
-  image: string;
-  link: string;
-}
+const cardIcons: Record<string, React.ReactNode> = {
+  "strategic-consulting": <Tv className="w-7 h-7 stroke-[1.75]" />,
+  "investment-planning": <BarChart3 className="w-7 h-7 stroke-[1.75]" />,
+  "projects-management": <FolderPlus className="w-7 h-7 stroke-[1.75]" />,
+  "process-transformation": <Scale className="w-7 h-7 stroke-[1.75]" />,
+  "studies-research": <Monitor className="w-7 h-7 stroke-[1.75]" />,
+  "business-growth": <TrendingUp className="w-7 h-7 stroke-[1.75]" />
+};
 
-const serviceCards: ServiceCardData[] = [
-  {
-    id: "strategic-consulting",
-    category: "consultancy",
-    icon: <Tv className="w-7 h-7 stroke-[1.75]" />,
-    title: "Strategic Management Consulting",
-    shortDescription: "Driving success through tailored strategic plans with a seasoned advisory team. Unlock your operational potential with structured corporate governance.",
-    hoverDetail: "We help organizations align leadership, resolve operational bottlenecks, and execute structured corporate growth strategies.",
-    image: "/images/service-strategy.jpg",
-    link: "/services?category=consultancy&id=strategic-consulting"
-  },
-  {
-    id: "investment-planning",
-    category: "business",
-    icon: <BarChart3 className="w-7 h-7 stroke-[1.75]" />,
-    title: "Financial Modeling & Budgeting",
-    shortDescription: "Realistic financial forecasting, unit economics, cash flow modeling, and investor-ready documentation for growing companies.",
-    hoverDetail: "We construct 3-year cash flow projections, unit-economic models, and CapEx/OpEx budgets for banks, partners, and executive decisions.",
-    image: "/images/service-financial.jpg",
-    link: "/services?category=business&id=investment-planning"
-  },
-  {
-    id: "projects-management",
-    category: "consultancy",
-    icon: <FolderPlus className="w-7 h-7 stroke-[1.75]" />,
-    title: "Projects & Lean Management",
-    shortDescription: "We provide project management and Lean Six Sigma services to ensure initiatives are executed efficiently, on time, within budget, and with top quality.",
-    hoverDetail: "Certified PMP and Master Black Belt leadership ensuring zero-waste project execution, milestone accountability, and verified ROI.",
-    image: "/images/service-projects.jpg",
-    link: "/services?category=consultancy&id=leadership-advisory"
-  },
-  {
-    id: "process-transformation",
-    category: "consultancy",
-    icon: <Scale className="w-7 h-7 stroke-[1.75]" />,
-    title: "Process & ERP Transformation",
-    shortDescription: "Streamlining business operations, eliminating shop-floor waste, and supervising ERP implementation to ensure maximum productivity and compliance.",
-    hoverDetail: "We optimize departmental handovers, eliminate operational scrap, and manage ERP software rollouts to modernize enterprise workflows.",
-    image: "/images/service-erp.jpg",
-    link: "/services?category=consultancy&id=risk-management"
-  },
-  {
-    id: "studies-research",
-    category: "business",
-    icon: <Monitor className="w-7 h-7 stroke-[1.75]" />,
-    title: "Studies & Feasibility Research",
-    shortDescription: "Rigorous market analysis, unit-economic modeling, capital budgeting, and commercial feasibility studies for new ventures and enterprise expansions.",
-    hoverDetail: "Empirical market research, customer demand surveys, competitor benchmarking, and bank-ready commercial feasibility studies.",
-    image: "/images/service-research.jpg",
-    link: "/services?category=business&id=business-idea"
-  },
-  {
-    id: "business-growth",
-    category: "business",
-    icon: <TrendingUp className="w-7 h-7 stroke-[1.75]" />,
-    title: "Specialized Business Solutions",
-    shortDescription: "Tailored commercial advisory, sales funnel optimization, customer retention strategies, and transparent monthly KPI analytics reporting.",
-    hoverDetail: "Identifying sales conversion bottlenecks, restructuring customer acquisition funnels, and scaling recurring commercial revenue.",
-    image: "/images/service-growth.jpg",
-    link: "/services?category=business&id=business-growth"
-  }
-];
+const cardImages: Record<string, string> = {
+  "strategic-consulting": "/images/service-strategy.jpg",
+  "investment-planning": "/images/service-financial.jpg",
+  "projects-management": "/images/service-projects.jpg",
+  "process-transformation": "/images/service-erp.jpg",
+  "studies-research": "/images/service-research.jpg",
+  "business-growth": "/images/service-growth.jpg"
+};
+
+const cardLinks: Record<string, string> = {
+  "strategic-consulting": "/services?category=consultancy&id=strategic-consulting",
+  "investment-planning": "/services?category=business&id=investment-planning",
+  "projects-management": "/services?category=consultancy&id=leadership-advisory",
+  "process-transformation": "/services?category=consultancy&id=risk-management",
+  "studies-research": "/services?category=business&id=business-idea",
+  "business-growth": "/services?category=business&id=business-growth"
+};
 
 // Framer Motion Animation Variants
 const containerVariants = {
@@ -114,6 +68,7 @@ const cardVariants = {
 };
 
 export default function DualEngineSection() {
+  const { t, isRTL } = useLanguage();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   return (
@@ -129,13 +84,13 @@ export default function DualEngineSection() {
           className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
-            Our Advisory Services
+            {t.services.eyebrow}
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
-            Comprehensive Consulting Services
+            {t.services.title}
           </h2>
           <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 font-normal max-w-2xl mx-auto leading-relaxed">
-            Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth.
+            {t.services.subtitle}
           </p>
         </motion.div>
 
@@ -147,8 +102,11 @@ export default function DualEngineSection() {
           viewport={{ once: true, margin: "-70px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
         >
-          {serviceCards.map((service) => {
+          {t.services.cards.map((service) => {
             const isHovered = hoveredCard === service.id;
+            const icon = cardIcons[service.id] || <Tv className="w-7 h-7" />;
+            const image = cardImages[service.id] || "/images/service-strategy.jpg";
+            const link = cardLinks[service.id] || "/services";
 
             return (
               <motion.div
@@ -168,7 +126,7 @@ export default function DualEngineSection() {
                 >
                   {/* Top Outline Icon */}
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
+                    {icon}
                   </div>
 
                   {/* Title */}
@@ -190,7 +148,7 @@ export default function DualEngineSection() {
                 >
                   {/* Background Image */}
                   <Image
-                    src={service.image}
+                    src={image}
                     alt={service.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -211,11 +169,11 @@ export default function DualEngineSection() {
                     </p>
 
                     <Link
-                      href={service.link}
+                      href={link}
                       className="inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-[#005CE6] hover:bg-[#0047BA] text-white text-xs sm:text-sm font-bold shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 gap-1.5"
                     >
-                      <span>Learn more</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>{t.services.learnMore}</span>
+                      <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                     </Link>
                   </div>
                 </div>
@@ -237,8 +195,8 @@ export default function DualEngineSection() {
             href="/services"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust transition-colors"
           >
-            <span>Explore all services and detailed engagement deliverables</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>{t.services.exploreAll}</span>
+            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
         </motion.div>
 

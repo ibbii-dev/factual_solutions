@@ -14,13 +14,16 @@ import {
   Sparkles,
   PhoneCall,
   Sun,
-  Moon
+  Moon,
+  Globe
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage, t, isRTL } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
@@ -34,10 +37,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Services", href: "/services", hasDropdown: true },
-    { name: "About Us", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: t.nav.home, href: "/" },
+    { name: t.nav.services, href: "/services", hasDropdown: true },
+    { name: t.nav.about, href: "/about" },
+    { name: t.nav.contact, href: "/contact" },
   ];
 
   const isDark = theme === "dark";
@@ -52,7 +55,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo at Top Left */}
+          
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group select-none">
             <div className="flex flex-col leading-tight">
               <span className="text-lg sm:text-xl font-light tracking-tight text-[#152238] dark:text-white">
@@ -100,7 +104,7 @@ export default function Navbar() {
 
                     {/* Services Mega Dropdown */}
                     {servicesDropdownOpen && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[560px] rounded-2xl shadow-2xl p-5 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 border bg-white dark:bg-[#0E182A] border-[#8EA9D3]/30 dark:border-slate-700/80 text-[#152238] dark:text-white">
+                      <div className={`absolute top-full ${isRTL ? 'right-0' : 'left-1/2 -translate-x-1/2'} mt-1 w-[560px] rounded-2xl shadow-2xl p-5 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 border bg-white dark:bg-[#0E182A] border-[#8EA9D3]/30 dark:border-slate-700/80 text-[#152238] dark:text-white`}>
                         {/* Business Category */}
                         <Link
                           href="/services?category=business"
@@ -110,13 +114,13 @@ export default function Navbar() {
                             <div className="w-8 h-8 rounded-lg bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center group-hover/cat:bg-[#152238] group-hover/cat:text-white transition-colors">
                               <Briefcase className="w-4 h-4" />
                             </div>
-                            <h4 className="font-bold text-sm text-[#152238] dark:text-white">Business Solutions</h4>
+                            <h4 className="font-bold text-sm text-[#152238] dark:text-white">{t.nav.businessSolutions}</h4>
                           </div>
                           <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
-                            Market analysis, capital budgeting, business planning & commercial sales expansion.
+                            {t.nav.businessDesc}
                           </p>
                           <div className="mt-3 text-xs font-semibold text-brand-rust dark:text-brand-steel-light flex items-center gap-1 group-hover/cat:translate-x-1 transition-transform">
-                            Explore 5 Services <ArrowRight className="w-3 h-3" />
+                            {t.nav.exploreServices} <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                           </div>
                         </Link>
 
@@ -129,23 +133,23 @@ export default function Navbar() {
                             <div className="w-8 h-8 rounded-lg bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light flex items-center justify-center group-hover/cat:bg-brand-rust group-hover/cat:text-white transition-colors">
                               <Compass className="w-4 h-4" />
                             </div>
-                            <h4 className="font-bold text-sm text-[#152238] dark:text-white">Consultancy Services</h4>
+                            <h4 className="font-bold text-sm text-[#152238] dark:text-white">{t.nav.consultancyServices}</h4>
                           </div>
                           <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
-                            Management consulting, Lean Six Sigma, ERP transformation, and operational excellence.
+                            {t.nav.consultancyDesc}
                           </p>
                           <div className="mt-3 text-xs font-semibold text-brand-rust dark:text-brand-rust-light flex items-center gap-1 group-hover/cat:translate-x-1 transition-transform">
-                            Explore 5 Services <ArrowRight className="w-3 h-3" />
+                            {t.nav.exploreServices} <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                           </div>
                         </Link>
 
                         {/* Bottom Bar in Dropdown */}
                         <div className="col-span-2 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
                           <span className="flex items-center gap-1 font-medium">
-                            <Sparkles className="w-3.5 h-3.5 text-brand-rust" /> Need a tailored recommendation?
+                            <Sparkles className="w-3.5 h-3.5 text-brand-rust" /> {t.nav.quizPrompt}
                           </span>
                           <Link href="/services#quiz" className="font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust">
-                            Take 60-Sec Advisor Quiz &rarr;
+                            {t.nav.takeQuiz}
                           </Link>
                         </div>
                       </div>
@@ -170,13 +174,24 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Right Action Icons & CTA Button */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Right Action Icons: Language Toggle + Theme Toggle + CTA */}
+          <div className="hidden lg:flex items-center gap-2.5">
+            {/* Language Switcher Button */}
+            <button
+              onClick={toggleLanguage}
+              aria-label="Switch Language"
+              className="px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold transition-all text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 hover:bg-[#8EA9D3]/30 dark:hover:bg-white/20 border border-[#8EA9D3]/30 dark:border-white/10"
+              title={`Switch to ${language === "en" ? "Arabic (العربية)" : "English"}`}
+            >
+              <Globe className="w-3.5 h-3.5 text-brand-rust" />
+              <span>{language === "en" ? "العربية" : "EN"}</span>
+            </button>
+
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle Theme"
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 hover:bg-[#8EA9D3]/30 dark:hover:bg-white/20 border border-[#8EA9D3]/30 dark:border-white/10"
+              className="w-9 h-9 rounded-full flex items-center justify-center transition-colors text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 hover:bg-[#8EA9D3]/30 dark:hover:bg-white/20 border border-[#8EA9D3]/30 dark:border-white/10"
               title={`Switch to ${isDark ? "Logo Navy Blue Mode" : "Deep Midnight Blue Mode"}`}
             >
               {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-[#152238]" />}
@@ -188,12 +203,21 @@ export default function Navbar() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-rust hover:bg-brand-rust-light text-white text-xs font-bold transition-all duration-200 shadow-md"
             >
               <PhoneCall className="w-3.5 h-3.5" />
-              <span>Request Consultation</span>
+              <span>{t.nav.requestConsultation}</span>
             </Link>
           </div>
 
-          {/* Mobile Menu & Theme Toggle */}
+          {/* Mobile Menu & Controls */}
           <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={toggleLanguage}
+              aria-label="Switch Language"
+              className="px-2.5 py-1.5 rounded-full flex items-center gap-1 text-xs font-bold text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 border border-[#8EA9D3]/30 dark:border-white/10"
+            >
+              <Globe className="w-3.5 h-3.5 text-brand-rust" />
+              <span>{language === "en" ? "عربي" : "EN"}</span>
+            </button>
+
             <button
               onClick={toggleTheme}
               aria-label="Toggle Theme"
@@ -237,14 +261,22 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-slate-300 dark:border-slate-800">
+          <div className="pt-4 border-t border-slate-300 dark:border-slate-800 flex flex-col gap-2">
+            <button
+              onClick={toggleLanguage}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white dark:bg-[#15233A] border border-[#8EA9D3]/40 text-[#152238] dark:text-white font-bold text-xs"
+            >
+              <Globe className="w-4 h-4 text-brand-rust" />
+              <span>{language === "en" ? "التبديل إلى اللغة العربية" : "Switch to English"}</span>
+            </button>
+
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-brand-rust text-white font-bold text-sm shadow-md"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Request Consultation</span>
+              <span>{t.nav.requestConsultation}</span>
             </Link>
           </div>
         </div>
