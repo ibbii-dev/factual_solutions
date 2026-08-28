@@ -34,12 +34,12 @@ const cardImages: Record<string, string> = {
 };
 
 const cardLinks: Record<string, string> = {
-  "strategic-consulting": "/services?category=consultancy&id=strategic-consulting",
-  "investment-planning": "/services?category=business&id=investment-planning",
-  "projects-management": "/services?category=consultancy&id=leadership-advisory",
-  "process-transformation": "/services?category=consultancy&id=risk-management",
-  "studies-research": "/services?category=business&id=business-idea",
-  "business-growth": "/services?category=business&id=business-growth"
+  "strategic-consulting": "/services/strategic-consulting",
+  "investment-planning": "/services/investment-planning",
+  "projects-management": "/services/projects-management",
+  "process-transformation": "/services/process-transformation",
+  "studies-research": "/services/studies-research",
+  "business-growth": "/services/business-growth"
 };
 
 // Framer Motion Animation Variants
@@ -106,7 +106,7 @@ export default function DualEngineSection() {
             const isHovered = hoveredCard === service.id;
             const icon = cardIcons[service.id] || <Tv className="w-7 h-7" />;
             const image = cardImages[service.id] || "/images/service-strategy.jpg";
-            const link = cardLinks[service.id] || "/services";
+            const link = cardLinks[service.id] || `/services/${service.id}`;
 
             return (
               <motion.div

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, Suspense, useEffect } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { 
@@ -19,10 +19,10 @@ import {
   GitMerge, 
   Cpu, 
   TrendingUp, 
-  HelpCircle
+  HelpCircle,
+  Target
 } from "lucide-react";
-import { getServices, getBusinessServices, getConsultancyServices, ServiceItem } from "@/data/servicesData";
-import ServiceDetailModal from "@/components/services/ServiceDetailModal";
+import { getServices, getBusinessServices, getConsultancyServices } from "@/data/servicesData";
 import ServiceMatcherQuiz from "@/components/services/ServiceMatcherQuiz";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -36,13 +36,13 @@ const iconMap: Record<string, React.ReactNode> = {
   BrainCircuit: <BrainCircuit className="w-5 h-5" />,
   Scale: <Scale className="w-5 h-5" />,
   Users: <Users className="w-5 h-5" />,
-  GitMerge: <GitMerge className="w-5 h-5" />
+  GitMerge: <GitMerge className="w-5 h-5" />,
+  Target: <Target className="w-5 h-5" />
 };
 
 function ServicesContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category");
-  const initialServiceId = searchParams.get("id");
   const { t, language, isRTL } = useLanguage();
   const sp = t.servicesPage;
 
@@ -56,14 +56,6 @@ function ServicesContent() {
       : "all"
   );
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
-
-  useEffect(() => {
-    if (initialServiceId) {
-      const match = currentAllServices.find((s) => s.id === initialServiceId);
-      if (match) setSelectedService(match);
-    }
-  }, [initialServiceId, language]);
 
   const filteredServices = currentAllServices.filter((service) => {
     const matchesCategory =
@@ -182,9 +174,11 @@ function ServicesContent() {
 
                     {/* Title & Short Description */}
                     <div>
-                      <h3 className="text-xl font-bold text-[#152238] dark:text-white leading-snug font-display">
-                        {service.title}
-                      </h3>
+                      <Link href={`/services/${service.id}`} className="hover:text-brand-rust transition-colors">
+                        <h3 className="text-xl font-bold text-[#152238] dark:text-white leading-snug font-display">
+                          {service.title}
+                        </h3>
+                      </Link>
                       <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed font-normal">
                         {service.shortDescription}
                       </p>
@@ -211,14 +205,15 @@ function ServicesContent() {
                     </div>
                   </div>
 
-                  {/* Card Bottom CTA */}
+                  {/* Card Bottom CTA: Direct link to full dedicated page */}
                   <div className="pt-6 mt-6 border-t border-[#8EA9D3]/20 dark:border-slate-800 flex items-center justify-between">
-                    <button
-                      onClick={() => setSelectedService(service)}
-                      className="text-xs font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust transition-colors"
+                    <Link
+                      href={`/services/${service.id}`}
+                      className="text-xs font-bold text-[#152238] dark:text-brand-steel-light hover:text-brand-rust transition-colors flex items-center gap-1"
                     >
-                      {sp.viewDetails}
-                    </button>
+                      <span>{sp.viewDetails}</span>
+                      <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                    </Link>
 
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
@@ -227,7 +222,7 @@ function ServicesContent() {
                           ? "bg-[#152238] hover:bg-brand-rust"
                           : "bg-brand-rust hover:bg-brand-rust-light"
                       }`}
-                      title="Book this Service"
+                      title={language === "ar" ? "طلب استشارة لهذه الخدمة" : "Book this Service"}
                     >
                       <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                     </Link>
@@ -259,14 +254,6 @@ function ServicesContent() {
         </div>
 
       </div>
-
-      {/* Service Detail Modal */}
-      {selectedService && (
-        <ServiceDetailModal
-          service={selectedService}
-          onClose={() => setSelectedService(null)}
-        />
-      )}
     </div>
   );
 }
