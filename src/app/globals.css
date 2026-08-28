@@ -43,14 +43,27 @@ body {
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
   top: 0px !important;
+  position: static !important;
 }
 
-/* Google Translate Custom Widget Styling */
+/* Completely remove and hide all vintage Google Translate top bars & iframes */
+.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
-.goog-te-banner-frame {
+iframe.goog-te-banner-frame,
+.goog-te-balloon-frame,
+#goog-gt-tt,
+.goog-te-banner,
+.skiptranslate:not(.google-translate-wrapper) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body > .skiptranslate {
+  display: none !important;
 }
 
 .goog-tooltip,
@@ -62,39 +75,6 @@ body {
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
-}
-
-.goog-te-gadget {
-  font-size: 0px !important;
-  color: transparent !important;
-}
-
-.goog-te-gadget span {
-  display: none !important;
-}
-
-.goog-te-gadget .goog-te-combo {
-  margin: 0 !important;
-  padding: 6px 12px !important;
-  border-radius: 9999px !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  background: rgba(142, 169, 211, 0.15) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid rgba(142, 169, 211, 0.35) !important;
-  outline: none !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-}
-
-html.dark .goog-te-gadget .goog-te-combo {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-.goog-te-gadget .goog-te-combo:hover {
-  border-color: var(--color-rust) !important;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {

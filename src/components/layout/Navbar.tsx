@@ -17,7 +17,7 @@ import {
   Moon
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
-import GoogleTranslate from "@/components/GoogleTranslate";
+import CustomLanguageSelector from "@/components/CustomLanguageSelector";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -172,12 +172,10 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Right Action Icons: Google Translate + Theme Toggle + CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            {/* Google Translate Dropdown Widget */}
-            <div className="flex items-center">
-              <GoogleTranslate />
-            </div>
+          {/* Right Action Icons: Custom Modern Language Selector + Theme Toggle + CTA */}
+          <div className="hidden lg:flex items-center gap-2.5">
+            {/* Custom Modern Flag Language Selector */}
+            <CustomLanguageSelector />
 
             {/* Theme Toggle Button */}
             <button
@@ -201,7 +199,7 @@ export default function Navbar() {
 
           {/* Mobile Menu & Controls */}
           <div className="flex items-center gap-2 lg:hidden">
-            <GoogleTranslate />
+            <CustomLanguageSelector />
 
             <button
               onClick={toggleTheme}
