@@ -16,12 +16,12 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 
 const cardIcons: Record<string, React.ReactNode> = {
-  "strategic-consulting": <Tv className="w-7 h-7 stroke-[1.75]" />,
-  "investment-planning": <BarChart3 className="w-7 h-7 stroke-[1.75]" />,
-  "projects-management": <FolderPlus className="w-7 h-7 stroke-[1.75]" />,
-  "process-transformation": <Scale className="w-7 h-7 stroke-[1.75]" />,
-  "studies-research": <Monitor className="w-7 h-7 stroke-[1.75]" />,
-  "business-growth": <TrendingUp className="w-7 h-7 stroke-[1.75]" />
+  "strategic-consulting": <Tv className="w-6 h-6 stroke-[1.75]" />,
+  "investment-planning": <BarChart3 className="w-6 h-6 stroke-[1.75]" />,
+  "projects-management": <FolderPlus className="w-6 h-6 stroke-[1.75]" />,
+  "process-transformation": <Scale className="w-6 h-6 stroke-[1.75]" />,
+  "studies-research": <Monitor className="w-6 h-6 stroke-[1.75]" />,
+  "business-growth": <TrendingUp className="w-6 h-6 stroke-[1.75]" />
 };
 
 const cardImages: Record<string, string> = {
@@ -104,7 +104,7 @@ export default function DualEngineSection() {
         >
           {t.services.cards.map((service) => {
             const isHovered = hoveredCard === service.id;
-            const icon = cardIcons[service.id] || <Tv className="w-7 h-7" />;
+            const icon = cardIcons[service.id] || <Tv className="w-6 h-6" />;
             const image = cardImages[service.id] || "/images/service-strategy.jpg";
             const link = cardLinks[service.id] || `/services/${service.id}`;
 
@@ -116,31 +116,31 @@ export default function DualEngineSection() {
                 transition={{ duration: 0.3 }}
                 onMouseEnter={() => setHoveredCard(service.id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className="relative rounded-2xl overflow-hidden min-h-[290px] sm:min-h-[310px] shadow-sm hover:shadow-xl group select-none cursor-pointer"
+                className="relative rounded-3xl overflow-hidden min-h-[300px] sm:min-h-[320px] shadow-lg hover:shadow-2xl group select-none cursor-pointer border border-[#8EA9D3]/30 dark:border-slate-800"
               >
-                {/* 1. DEFAULT BASE STATE: Sky-Blue Card */}
+                {/* 1. DEFAULT BASE STATE: Logo Navy-Blue Card */}
                 <div
-                  className={`absolute inset-0 bg-[#66C2EC] dark:bg-[#153456] p-7 sm:p-8 flex flex-col items-center text-center justify-center transition-all duration-500 ease-out z-10 ${
+                  className={`absolute inset-0 bg-[#152238] dark:bg-[#0D192E] p-7 sm:p-8 flex flex-col items-center text-center justify-center transition-all duration-500 ease-out z-10 ${
                     isHovered ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
                   }`}
                 >
-                  {/* Top Outline Icon */}
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[#083366] dark:text-sky-200 mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {/* Top Icon with subtle glow pill */}
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 dark:bg-white/5 border border-white/15 flex items-center justify-center text-brand-steel-light mb-4 group-hover:scale-110 group-hover:bg-brand-rust/20 group-hover:text-brand-rust-light transition-all duration-300">
                     {icon}
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg sm:text-xl font-bold text-[#083366] dark:text-white mb-3 font-display">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2.5 font-display tracking-tight">
                     {service.title}
                   </h3>
 
                   {/* Short Description */}
-                  <p className="text-xs sm:text-sm text-[#083366]/85 dark:text-slate-200 leading-relaxed max-w-[280px] font-normal">
+                  <p className="text-xs sm:text-sm text-slate-300 dark:text-slate-300 leading-relaxed max-w-[280px] font-normal">
                     {service.shortDescription}
                   </p>
                 </div>
 
-                {/* 2. HOVER STATE: Image Background + Dark Blue Overlay + Detail + "Learn more" Button */}
+                {/* 2. HOVER STATE: Image Background + Dark Navy Overlay + Detail + "Learn more" Button */}
                 <div
                   className={`absolute inset-0 flex flex-col items-center justify-center text-center p-7 sm:p-8 transition-all duration-500 ease-out z-20 ${
                     isHovered ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-105 pointer-events-none"
@@ -155,22 +155,22 @@ export default function DualEngineSection() {
                     className="object-cover object-center transition-transform duration-700 ease-out scale-105"
                   />
 
-                  {/* Dark Blue Overlay */}
-                  <div className="absolute inset-0 bg-[#0B203E]/85 dark:bg-[#07162C]/90 backdrop-blur-[2px]" />
+                  {/* Deep Brand Navy Overlay */}
+                  <div className="absolute inset-0 bg-[#0B1526]/90 dark:bg-[#070D18]/92 backdrop-blur-[2px]" />
 
                   {/* Hover Content */}
                   <div className="relative z-10 space-y-4 max-w-[280px] mx-auto flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-300">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-sky-300 font-display">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-steel-light font-display">
                       {service.title}
                     </span>
 
-                    <p className="text-xs sm:text-sm font-medium text-white leading-relaxed line-clamp-4">
+                    <p className="text-xs sm:text-sm font-medium text-slate-200 leading-relaxed line-clamp-4">
                       {service.hoverDetail}
                     </p>
 
                     <Link
                       href={link}
-                      className="inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-[#005CE6] hover:bg-[#0047BA] text-white text-xs sm:text-sm font-bold shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 gap-1.5"
+                      className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-xs sm:text-sm font-bold shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 gap-1.5"
                     >
                       <span>{t.services.learnMore}</span>
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
