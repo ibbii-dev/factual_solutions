@@ -44,23 +44,35 @@ export default function ServiceDetailPage() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleQuickSubmit = (e: React.FormEvent) => {
+  const handleQuickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    saveInquiry({
+    const payload = {
       fullName: formData.name,
       workEmail: formData.email,
       phone: formData.phone,
       companyName: formData.company,
       serviceOfInterest: service?.title || "Specific Service Inquiry",
       message: formData.message || `Direct consultation request for ${service?.title}`
-    });
+    };
+
+    saveInquiry(payload);
+
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error("API error:", err);
+    }
 
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 600);
+    }, 400);
   };
 
   if (!service) {

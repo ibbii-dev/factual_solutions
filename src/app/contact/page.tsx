@@ -57,23 +57,37 @@ function ContactContent() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    saveInquiry({
+    const payload = {
       fullName: formData.fullName,
       workEmail: formData.workEmail,
       companyName: formData.companyName || "",
       phone: formData.phone || "",
       serviceOfInterest: formData.serviceOfInterest || "General Consultation",
       message: formData.message,
-    });
+    };
+
+    // Save locally for instant reactivity
+    saveInquiry(payload);
+
+    // Send to backend API
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error("API error:", err);
+    }
 
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 600);
+    }, 400);
   };
 
   const selectService = (serviceTitle: string) => {

@@ -71,8 +71,25 @@ export default function AdminPage() {
     }
   }, [isAuthenticated]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: authEmail, password: authPassword })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem("factual_admin_logged_in", "true");
+        setAuthError("");
+        return;
+      }
+    } catch (err) {
+      console.error("Auth API error:", err);
+    }
+
     if (
       (authEmail.toLowerCase().trim() === "admin@factual-solutions.com" || authEmail.toLowerCase().trim() === "admin") &&
       (authPassword === "admin123" || authPassword === "factual2026" || authPassword === "admin")
