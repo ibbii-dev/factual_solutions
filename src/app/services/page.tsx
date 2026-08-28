@@ -21,7 +21,7 @@ import {
   TrendingUp, 
   HelpCircle
 } from "lucide-react";
-import { allServices, businessServices, consultancyServices, ServiceItem } from "@/data/servicesData";
+import { getServices, getBusinessServices, getConsultancyServices, ServiceItem } from "@/data/servicesData";
 import ServiceDetailModal from "@/components/services/ServiceDetailModal";
 import ServiceMatcherQuiz from "@/components/services/ServiceMatcherQuiz";
 import { useLanguage } from "@/context/LanguageContext";
@@ -46,6 +46,10 @@ function ServicesContent() {
   const { t, language, isRTL } = useLanguage();
   const sp = t.servicesPage;
 
+  const currentAllServices = getServices(language);
+  const currentBusinessServices = getBusinessServices(language);
+  const currentConsultancyServices = getConsultancyServices(language);
+
   const [activeCategory, setActiveCategory] = useState<"all" | "business" | "consultancy">(
     initialCategory === "business" || initialCategory === "consultancy"
       ? initialCategory
@@ -56,12 +60,12 @@ function ServicesContent() {
 
   useEffect(() => {
     if (initialServiceId) {
-      const match = allServices.find((s) => s.id === initialServiceId);
+      const match = currentAllServices.find((s) => s.id === initialServiceId);
       if (match) setSelectedService(match);
     }
-  }, [initialServiceId]);
+  }, [initialServiceId, language]);
 
-  const filteredServices = allServices.filter((service) => {
+  const filteredServices = currentAllServices.filter((service) => {
     const matchesCategory =
       activeCategory === "all" || service.category === activeCategory;
     const matchesSearch =
@@ -101,7 +105,7 @@ function ServicesContent() {
                   : "text-[#152238] dark:text-slate-300 hover:text-brand-rust"
               }`}
             >
-              {sp.allTab} ({allServices.length})
+              {sp.allTab} ({currentAllServices.length})
             </button>
             <button
               onClick={() => setActiveCategory("business")}
@@ -112,7 +116,7 @@ function ServicesContent() {
               }`}
             >
               <Briefcase className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
-              <span className="truncate">{sp.businessTab} ({businessServices.length})</span>
+              <span className="truncate">{sp.businessTab} ({currentBusinessServices.length})</span>
             </button>
             <button
               onClick={() => setActiveCategory("consultancy")}
@@ -123,7 +127,7 @@ function ServicesContent() {
               }`}
             >
               <Compass className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
-              <span className="truncate">{sp.consultingTab} ({consultancyServices.length})</span>
+              <span className="truncate">{sp.consultingTab} ({currentConsultancyServices.length})</span>
             </button>
           </div>
 

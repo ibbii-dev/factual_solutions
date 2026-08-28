@@ -9,7 +9,7 @@ import {
   CheckCircle2,
   Globe
 } from "lucide-react";
-import { businessServices, consultancyServices } from "@/data/servicesData";
+import { getBusinessServices, getConsultancyServices } from "@/data/servicesData";
 import { officeLocations } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -17,6 +17,9 @@ export default function Footer() {
   const { t, language, toggleLanguage, isRTL } = useLanguage();
   const [subscribed, setSubscribed] = useState(false);
   const [email, setEmail] = useState("");
+
+  const businessList = getBusinessServices(language);
+  const consultancyList = getConsultancyServices(language);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +103,7 @@ export default function Footer() {
               {t.nav.businessSolutions}
             </h4>
             <ul className="space-y-2 text-xs">
-              {businessServices.map((service) => (
+              {businessList.map((service) => (
                 <li key={service.id}>
                   <Link
                     href={`/services?category=business&id=${service.id}`}
@@ -120,7 +123,7 @@ export default function Footer() {
               {t.nav.consultancyServices}
             </h4>
             <ul className="space-y-2 text-xs">
-              {consultancyServices.map((service) => (
+              {consultancyList.map((service) => (
                 <li key={service.id}>
                   <Link
                     href={`/services?category=consultancy&id=${service.id}`}
@@ -143,9 +146,9 @@ export default function Footer() {
               {officeLocations.map((loc) => (
                 <div key={loc.city} className="space-y-0.5">
                   <div className="font-semibold text-white flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-brand-rust shrink-0" /> {loc.city}
+                    <MapPin className="w-3 h-3 text-brand-rust shrink-0" /> {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
                   </div>
-                  <div className="text-[10px] text-slate-400">{loc.tag}</div>
+                  <div className="text-[10px] text-slate-400">{language === "ar" ? "المقر الرئيسي" : loc.tag}</div>
                 </div>
               ))}
             </div>
