@@ -1,6 +1,13 @@
-// MongoDB Connection Helper for Serverless Next.js
-// Supports MongoDB Atlas URI via process.env.MONGODB_URI
-// Includes connection caching across serverless invocations and graceful fallback.
+import dns from "dns";
+
+// Configure high-speed resilient DNS resolvers for MongoDB SRV lookups
+try {
+  if (typeof dns.setServers === "function") {
+    dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  }
+} catch (e) {
+  // Ignore in browser/edge runtimes
+}
 
 export interface DatabaseInquiry {
   id: string;
