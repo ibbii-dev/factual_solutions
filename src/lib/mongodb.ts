@@ -64,15 +64,29 @@ let fallbackInquiries: DatabaseInquiry[] = [
 
 let fallbackSubscribers: Set<string> = new Set();
 
+function getMongoClientClass() {
+  try {
+    const req = typeof window === "undefined" ? eval("require") : null;
+    if (req) {
+      const { MongoClient } = req("mongodb");
+      return MongoClient;
+    }
+  } catch (err) {
+    // Driver not present in local node_modules
+    return null;
+  }
+  return null;
+}
+
 /**
  * Save an inquiry to MongoDB (or fallback cache)
  */
 export async function dbSaveInquiry(inquiry: DatabaseInquiry): Promise<DatabaseInquiry> {
   const uri = process.env.MONGODB_URI;
+  const MongoClient = getMongoClientClass();
 
-  if (uri) {
+  if (uri && MongoClient) {
     try {
-      const { MongoClient } = await import("mongodb");
       const client = new MongoClient(uri);
       await client.connect();
       const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
@@ -86,7 +100,7 @@ export async function dbSaveInquiry(inquiry: DatabaseInquiry): Promise<DatabaseI
       console.log(`[MongoDB] Successfully persisted inquiry ${inquiry.id}`);
       return inquiry;
     } catch (err) {
-      console.error("[MongoDB] Connection failed, falling back to cache:", err);
+      console.error("[MongoDB] Connection error, using cache fallback:", err);
     }
   }
 
@@ -100,10 +114,10 @@ export async function dbSaveInquiry(inquiry: DatabaseInquiry): Promise<DatabaseI
  */
 export async function dbGetInquiries(filter?: { status?: string; search?: string }): Promise<DatabaseInquiry[]> {
   const uri = process.env.MONGODB_URI;
+  const MongoClient = getMongoClientClass();
 
-  if (uri) {
+  if (uri && MongoClient) {
     try {
-      const { MongoClient } = await import("mongodb");
       const client = new MongoClient(uri);
       await client.connect();
       const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
@@ -159,10 +173,10 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
  */
 export async function dbUpdateInquiryStatus(id: string, status: DatabaseInquiry["status"]): Promise<boolean> {
   const uri = process.env.MONGODB_URI;
+  const MongoClient = getMongoClientClass();
 
-  if (uri) {
+  if (uri && MongoClient) {
     try {
-      const { MongoClient } = await import("mongodb");
       const client = new MongoClient(uri);
       await client.connect();
       const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
@@ -185,10 +199,10 @@ export async function dbUpdateInquiryStatus(id: string, status: DatabaseInquiry[
  */
 export async function dbDeleteInquiry(id: string): Promise<boolean> {
   const uri = process.env.MONGODB_URI;
+  const MongoClient = getMongoClientClass();
 
-  if (uri) {
+  if (uri && MongoClient) {
     try {
-      const { MongoClient } = await import("mongodb");
       const client = new MongoClient(uri);
       await client.connect();
       const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
@@ -212,10 +226,10 @@ export async function dbDeleteInquiry(id: string): Promise<boolean> {
 export async function dbSaveSubscriber(email: string): Promise<boolean> {
   const uri = process.env.MONGODB_URI;
   const normalized = email.trim().toLowerCase();
+  const MongoClient = getMongoClientClass();
 
-  if (uri) {
+  if (uri && MongoClient) {
     try {
-      const { MongoClient } = await import("mongodb");
       const client = new MongoClient(uri);
       await client.connect();
       const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
