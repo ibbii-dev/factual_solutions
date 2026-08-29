@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import AiAdvisoryChatbot from "@/components/AiAdvisoryChatbot";
 
 export const metadata: Metadata = {
   title: "Factual Solutions | Business & Management Consulting",
@@ -28,6 +29,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
+            <AiAdvisoryChatbot />
           </LanguageProvider>
         </ThemeProvider>
       </body>
