@@ -30,7 +30,8 @@ import {
   Lock,
   LogOut,
   KeyRound,
-  ExternalLink
+  ExternalLink,
+  Database
 } from "lucide-react";
 
 export default function AdminPage() {
@@ -52,6 +53,29 @@ export default function AdminPage() {
     serviceOfInterest: "Business Growth & Sales Optimization",
     message: ""
   });
+
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState("");
+
+  const handleSyncAtlas = async () => {
+    setSyncing(true);
+    setSyncMessage("");
+    try {
+      const res = await fetch("/api/admin/seed", { method: "POST" });
+      const data = await res.json();
+      if (data.success) {
+        setSyncMessage("✅ Atlas Synced: " + JSON.stringify(data.collectionsCreated));
+        loadData();
+      } else {
+        setSyncMessage("⚠️ " + data.message);
+      }
+    } catch (err: any) {
+      setSyncMessage("❌ Error: " + err.message);
+    } finally {
+      setSyncing(false);
+      setTimeout(() => setSyncMessage(""), 6000);
+    }
+  };
 
   // Check login session on load
   useEffect(() => {
@@ -295,6 +319,15 @@ export default function AdminPage() {
 
           <div className="flex flex-wrap items-center gap-2">
             <button
+              onClick={handleSyncAtlas}
+              disabled={syncing}
+              className="px-3 py-2 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 text-xs font-bold transition-colors flex items-center gap-1.5 border border-emerald-700/50 shadow-sm disabled:opacity-50"
+              title="Initialize and Sync Collections to MongoDB Atlas"
+            >
+              <Database className={`w-3.5 h-3.5 ${syncing ? "animate-spin" : ""}`} />
+              <span>{syncing ? "Syncing..." : "Sync MongoDB Atlas"}</span>
+            </button>
+            <button
               onClick={loadData}
               className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 transition-colors flex items-center gap-1.5"
             >
@@ -333,6 +366,13 @@ export default function AdminPage() {
             </button>
           </div>
         </div>
+
+        {syncMessage && (
+          <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+            <Database className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{syncMessage}</span>
+          </div>
+        )}
 
         {/* Executive Metric Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
