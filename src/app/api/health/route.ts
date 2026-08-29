@@ -1,4 +1,11 @@
 import { NextResponse } from "next/server";
+import dns from "dns";
+
+try {
+  if (typeof dns.setServers === "function") {
+    dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  }
+} catch (e) {}
 
 export async function GET() {
   const uri = process.env.MONGODB_URI;
@@ -9,12 +16,14 @@ export async function GET() {
 
   if (uri) {
     try {
-      // Safe dynamic require that doesn't break Webpack if driver is loading
       const req = typeof window === "undefined" ? eval("require") : null;
       if (req) {
         try {
           const { MongoClient } = req("mongodb");
-          const client = new MongoClient(uri);
+          const client = new MongoClient(uri, {
+            serverSelectionTimeoutMS: 5000,
+            connectTimeoutMS: 5000
+          });
           await client.connect();
           const db = client.db(dbName);
           await db.command({ ping: 1 });
