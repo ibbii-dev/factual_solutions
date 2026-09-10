@@ -35,7 +35,7 @@ export default function AboutPage() {
   const currentSkills = language === "ar" ? arabicSkills : principalConsultant.skills;
 
   return (
-    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-white/80 dark:bg-[#0E1626]/75 backdrop-blur-[2px] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}

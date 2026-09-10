@@ -69,7 +69,7 @@ function ServicesContent() {
   });
 
   return (
-    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
+    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-white/80 dark:bg-[#0E1626]/75 backdrop-blur-[2px] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Page Header */}
@@ -86,10 +86,10 @@ function ServicesContent() {
         </ScrollReveal>
 
         {/* Filter and Search Bar */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 mb-10 sm:mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white/90 dark:bg-[#131E33]/85 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 mb-10 sm:mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
           
           {/* Category Toggle Tabs */}
-          <div className="grid grid-cols-3 sm:flex p-1 bg-[#DFE8F6] dark:bg-[#15233A] rounded-xl sm:rounded-full w-full md:w-auto gap-1 border border-[#8EA9D3]/30 dark:border-slate-700">
+          <div className="grid grid-cols-3 sm:flex p-1 bg-slate-100 dark:bg-[#15233A] rounded-xl sm:rounded-full w-full md:w-auto gap-1 border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setActiveCategory("all")}
               className={`px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[11px] sm:text-xs font-bold transition-all text-center truncate ${

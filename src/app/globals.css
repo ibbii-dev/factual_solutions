@@ -9,13 +9,13 @@
   --font-body: 'Inter', sans-serif;
   --font-arabic: 'Cairo', sans-serif;
 
-  /* Mode 1: Logo Navy Blue Light Theme */
-  --bg-primary: #DDE7F6;
-  --bg-secondary: #D1DFEF;
+  /* Mode 1: Pure White Light Theme */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
   --bg-card: #FFFFFF;
-  --text-primary: #152238;
-  --text-secondary: #2B3D5B;
-  --border-color: rgba(21, 34, 56, 0.15);
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --border-color: rgba(15, 23, 42, 0.08);
 
   --color-rust: #A33C29;
   --color-rust-hover: #8F2F1F;
@@ -23,16 +23,16 @@
 }
 
 html.dark {
-  /* Mode 2: Logo Deep Midnight Dark Blue Theme */
-  --bg-primary: #0B1320;
-  --bg-secondary: #0E1728;
-  --bg-card: #111C2E;
+  /* Mode 2: Soft Executive Slate Navy (Reduced dark theme) */
+  --bg-primary: #0E1626;
+  --bg-secondary: #121B2D;
+  --bg-card: #162238;
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
   --border-color: rgba(255, 255, 255, 0.08);
 
-  --color-rust: #A33C29;
-  --color-rust-hover: #BF4A33;
+  --color-rust: #BF4A33;
+  --color-rust-hover: #D9534F;
   --color-steel: #8EA9D3;
 }
 

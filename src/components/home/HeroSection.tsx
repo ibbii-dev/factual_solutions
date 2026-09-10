@@ -18,7 +18,7 @@ export default function HeroSection() {
   const { t, isRTL } = useLanguage();
 
   return (
-    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white border-b border-[#8EA9D3]/30 dark:border-slate-800 transition-colors duration-300">
+    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-white/80 dark:bg-[#0E1626]/75 backdrop-blur-[2px] text-[#152238] dark:text-white border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           

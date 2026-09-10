@@ -152,11 +152,11 @@ export default function AnimatedBackground() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none transition-opacity duration-700"
+      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none bg-white dark:bg-[#0E1626] transition-colors duration-300"
     >
       {/* 1. Subtle Architectural Grid */}
       <div 
-        className="absolute inset-0 opacity-[0.035] dark:opacity-[0.05] bg-[radial-gradient(#152238_1px,transparent_1px)] dark:bg-[radial-gradient(#8EA9D3_1px,transparent_1px)] [background-size:28px_28px]" 
+        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.045] bg-[radial-gradient(#152238_1px,transparent_1px)] dark:bg-[radial-gradient(#8EA9D3_1px,transparent_1px)] [background-size:28px_28px]" 
       />
 
       {/* 2. Brand Midnight Navy Ambient Mesh Orb (Deep Upper Left) */}
@@ -171,7 +171,7 @@ export default function AnimatedBackground() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-32 -left-32 w-[520px] sm:w-[720px] h-[520px] sm:h-[720px] rounded-full bg-gradient-to-br from-[#1E2E59]/30 via-[#152238]/20 to-transparent blur-[110px] dark:from-[#1E2E59]/40 dark:via-[#0B1320]/30"
+        className="absolute -top-32 -left-32 w-[520px] sm:w-[720px] h-[520px] sm:h-[720px] rounded-full bg-gradient-to-br from-[#8EA9D3]/12 via-[#152238]/5 to-transparent blur-[120px] dark:from-[#1E2E59]/35 dark:via-[#131E33]/25"
       />
 
       {/* 3. Brand Terracotta Rust Ambient Orb (Warm Strategic Glow - Center Right) */}
@@ -187,7 +187,7 @@ export default function AnimatedBackground() {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute top-1/4 -right-28 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-bl from-[#A33C29]/15 via-[#BF4A33]/10 to-transparent blur-[120px] dark:from-[#A33C29]/22 dark:via-[#BF4A33]/12"
+        className="absolute top-1/4 -right-28 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-bl from-[#A33C29]/10 via-[#BF4A33]/5 to-transparent blur-[125px] dark:from-[#A33C29]/18 dark:via-[#BF4A33]/10"
       />
 
       {/* 4. Brand Ice Steel Blue Ambient Orb (Lower Left & Center) */}
@@ -203,13 +203,13 @@ export default function AnimatedBackground() {
           ease: "easeInOut",
           delay: 4,
         }}
-        className="absolute -bottom-36 left-1/4 w-[480px] sm:w-[680px] h-[480px] sm:h-[680px] rounded-full bg-gradient-to-tr from-[#8EA9D3]/20 via-[#4A72B2]/12 to-transparent blur-[115px] dark:from-[#8EA9D3]/20 dark:via-[#1E3150]/25"
+        className="absolute -bottom-36 left-1/4 w-[480px] sm:w-[680px] h-[480px] sm:h-[680px] rounded-full bg-gradient-to-tr from-[#8EA9D3]/12 via-[#4A72B2]/6 to-transparent blur-[120px] dark:from-[#8EA9D3]/18 dark:via-[#1E3150]/20"
       />
 
       {/* 5. Subtle Interlocking Light Accents (Inspired by Cube Axis) */}
       <motion.div
         animate={{
-          opacity: [0.3, 0.6, 0.3],
+          opacity: [0.2, 0.45, 0.2],
           scale: [0.98, 1.05, 0.98],
         }}
         transition={{
@@ -217,17 +217,17 @@ export default function AnimatedBackground() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-radial from-brand-steel/10 via-transparent to-transparent blur-[130px] dark:from-brand-steel/8"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-radial from-brand-steel/6 via-transparent to-transparent blur-[130px] dark:from-brand-steel/8"
       />
 
       {/* 6. Dynamic Interactive Constellation Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full opacity-60 dark:opacity-90"
       />
 
-      {/* 7. Soft Vignette for Depth Focus */}
-      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-[#0B1320]/25 dark:to-[#0B1320]/60" />
+      {/* 7. Soft Vignette for Depth Focus in Dark Mode */}
+      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-transparent dark:to-[#0E1626]/40" />
     </div>
   );
 }

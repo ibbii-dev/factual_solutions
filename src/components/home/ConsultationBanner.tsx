@@ -10,9 +10,9 @@ export default function ConsultationBanner() {
   const { t, isRTL } = useLanguage();
 
   return (
-    <section className="py-14 sm:py-20 bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] transition-colors duration-300">
+    <section className="py-14 sm:py-20 bg-white/80 dark:bg-[#0E1626]/75 backdrop-blur-[2px] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal variant="zoom-in" duration={0.7} className="relative rounded-3xl bg-gradient-to-br from-[#152238] via-[#1A2C49] to-[#111C2E] dark:from-[#111C2E] dark:via-[#16253C] dark:to-[#0B1320] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-2xl border border-[#8EA9D3]/30 dark:border-slate-800">
+        <ScrollReveal variant="zoom-in" duration={0.7} className="relative rounded-3xl bg-gradient-to-br from-[#152238] via-[#1A2C49] to-[#111C2E] dark:from-[#131E33] dark:via-[#182640] dark:to-[#0E1626] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-2xl border border-slate-200/40 dark:border-slate-800">
           
           {/* Subtle Ambient Glow inside Banner */}
           <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-brand-rust/20 blur-3xl pointer-events-none" />

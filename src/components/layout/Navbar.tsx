@@ -47,7 +47,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#EBF1FA]/90 dark:bg-[#0B1320]/90 backdrop-blur-md shadow-md border-b border-[#8EA9D3]/30 dark:border-slate-800 py-3.5"
+          ? "bg-white/90 dark:bg-[#0E1626]/90 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-slate-800 py-3.5"
           : "bg-transparent py-5"
       }`}
     >
@@ -223,7 +223,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-2xl p-6 space-y-4 animate-in slide-in-from-top-5 duration-200 bg-[#EBF1FA] dark:bg-[#0B1320] border-[#8EA9D3]/30 dark:border-slate-800 text-[#152238] dark:text-white">
+        <div className="lg:hidden border-b shadow-2xl p-6 space-y-4 animate-in slide-in-from-top-5 duration-200 bg-white/95 dark:bg-[#0E1626]/95 backdrop-blur-xl border-slate-200/80 dark:border-slate-800 text-[#152238] dark:text-white">
           <div className="flex flex-col space-y-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;

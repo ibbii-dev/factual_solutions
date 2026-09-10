@@ -25,7 +25,7 @@ export default function ClientTestimonials() {
   ];
 
   return (
-    <section className="py-16 bg-[#DFE8F6]/75 dark:bg-[#0E1728]/70 backdrop-blur-sm text-[#152238] dark:text-white border-y border-[#8EA9D3]/30 dark:border-slate-800 overflow-hidden transition-colors duration-300">
+    <section className="py-16 bg-slate-50/80 dark:bg-[#121B2D]/80 backdrop-blur-sm text-[#152238] dark:text-white border-y border-slate-200/80 dark:border-slate-800/80 overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Trusted By Title */}

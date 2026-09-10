@@ -77,8 +77,8 @@ export default function ServiceDetailPage() {
 
   if (!service) {
     return (
-      <div className="pt-36 pb-24 min-h-screen bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white flex items-center justify-center">
-        <div className="text-center p-8 bg-white dark:bg-[#111C2E] rounded-3xl border border-[#8EA9D3]/30 dark:border-slate-800 max-w-md mx-auto shadow-sm">
+      <div className="pt-36 pb-24 min-h-screen bg-white/80 dark:bg-[#0E1626]/75 text-[#152238] dark:text-white flex items-center justify-center">
+        <div className="text-center p-8 bg-white dark:bg-[#131E33] rounded-3xl border border-slate-200/80 dark:border-slate-800 max-w-md mx-auto shadow-sm">
           <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
           <h2 className="text-xl font-bold font-display">
             {language === "ar" ? "الخدمة غير موجودة" : "Service Not Found"}
@@ -169,7 +169,7 @@ export default function ServiceDetailPage() {
   };
 
   return (
-    <div className="pt-28 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-white/80 dark:bg-[#0E1626]/75 text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumb Navigation */}

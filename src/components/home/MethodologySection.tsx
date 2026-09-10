@@ -17,7 +17,7 @@ export default function MethodologySection() {
   const { t, isRTL } = useLanguage();
 
   return (
-    <section className="py-16 sm:py-24 bg-[#DFE8F6]/75 dark:bg-[#0B1320]/65 backdrop-blur-sm text-[#152238] dark:text-white relative overflow-hidden border-t border-[#8EA9D3]/30 dark:border-slate-800 transition-colors duration-300">
+    <section className="py-16 sm:py-24 bg-slate-50/80 dark:bg-[#121B2D]/80 backdrop-blur-sm text-[#152238] dark:text-white relative overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
