@@ -1,5 +1,6 @@
 import { allServices } from "@/data/servicesData";
 import { IInquiry, IService, ISubscriber, IAdminUser } from "@/models";
+import { getDatabase } from "@/lib/mongodb";
 
 const INITIAL_SEED_INQUIRIES: Omit<IInquiry, "_id">[] = [
   {
@@ -106,10 +107,14 @@ export async function seedDatabase(): Promise<{
   }
 
   try {
-    const { MongoClient } = await import("mongodb");
-    const client = new MongoClient(uri);
-    await client.connect();
-    const db = client.db(dbName);
+    const db = await getDatabase();
+    if (!db) {
+      return {
+        success: false,
+        message: "Failed to connect to MongoDB database instance.",
+        collectionsCreated: {}
+      };
+    }
 
     // 1. Seed Services
     const servicesColl = db.collection("services");
@@ -153,8 +158,6 @@ export async function seedDatabase(): Promise<{
       { $set: INITIAL_ADMIN },
       { upsert: true }
     );
-
-    await client.close();
 
     return {
       success: true,

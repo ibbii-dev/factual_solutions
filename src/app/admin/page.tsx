@@ -85,7 +85,18 @@ export default function AdminPage() {
     }
   }, []);
 
-  const loadData = () => {
+  const loadData = async () => {
+    try {
+      const res = await fetch("/api/inquiries");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setInquiries(json.data);
+        return;
+      }
+    } catch (err) {
+      console.error("Error loading live inquiries from Atlas:", err);
+    }
+    // Fallback to local store if serverless connection is cold
     setInquiries(getInquiries());
   };
 
@@ -137,27 +148,71 @@ export default function AdminPage() {
     sessionStorage.removeItem("factual_admin_logged_in");
   };
 
-  const handleStatusChange = (id: string, newStatus: Inquiry["status"]) => {
-    const updated = updateInquiryStatus(id, newStatus);
-    setInquiries(updated);
+  const handleStatusChange = async (id: string, newStatus: Inquiry["status"]) => {
+    // Optimistic UI state update
+    setInquiries((prev) => prev.map((item) => (item.id === id ? { ...item, status: newStatus } : item)));
     if (selectedInquiry && selectedInquiry.id === id) {
       setSelectedInquiry({ ...selectedInquiry, status: newStatus });
     }
+
+    try {
+      await fetch(`/api/inquiries/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+    } catch (err) {
+      console.error("Failed to update status in MongoDB Atlas:", err);
+    }
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to remove this inquiry?")) {
-      const updated = deleteInquiry(id);
-      setInquiries(updated);
+  const handleDelete = async (id: string) => {
+    if (confirm("Are you sure you want to remove this inquiry from MongoDB Atlas?")) {
+      // Optimistic UI state update
+      setInquiries((prev) => prev.filter((item) => item.id !== id));
       if (selectedInquiry && selectedInquiry.id === id) {
         setSelectedInquiry(null);
+      }
+
+      try {
+        await fetch(`/api/inquiries/${id}`, {
+          method: "DELETE"
+        });
+      } catch (err) {
+        console.error("Failed to delete inquiry from MongoDB Atlas:", err);
       }
     }
   };
 
-  const handleAddInquiry = (e: React.FormEvent) => {
+  const handleAddInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newInquiryData.fullName || !newInquiryData.workEmail) return;
+
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newInquiryData)
+      });
+      const data = await res.json();
+      if (data.success && data.data) {
+        setInquiries((prev) => [data.data, ...prev]);
+        setShowAddModal(false);
+        setNewInquiryData({
+          fullName: "",
+          workEmail: "",
+          companyName: "",
+          phone: "",
+          serviceOfInterest: "Business Growth & Sales Optimization",
+          message: ""
+        });
+        return;
+      }
+    } catch (err) {
+      console.error("Failed to persist new inquiry to Atlas:", err);
+    }
+
+    // Fallback
     saveInquiry(newInquiryData);
     setNewInquiryData({
       fullName: "",

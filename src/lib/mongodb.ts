@@ -1,15 +1,18 @@
+import { MongoClient } from "mongodb";
+export type MongoDatabase = ReturnType<MongoClient["db"]>;
 import dns from "dns";
 
-// Configure high-speed resilient DNS resolvers for MongoDB SRV lookups
+// Configure resilient DNS resolvers for MongoDB Atlas SRV lookups in Node.js
 try {
   if (typeof dns.setServers === "function") {
     dns.setServers(["8.8.8.8", "1.1.1.1"]);
   }
 } catch (e) {
-  // Ignore in browser/edge runtimes
+  // Ignore in non-Node environments
 }
 
 export interface DatabaseInquiry {
+  _id?: string | any;
   id: string;
   fullName: string;
   workEmail: string;
@@ -22,14 +25,28 @@ export interface DatabaseInquiry {
   priority: "Normal" | "High" | "Urgent";
   aiAssessment?: any;
   createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface DatabaseSubscriber {
+  _id?: string | any;
   email: string;
+  source?: string;
   subscribedAt: Date;
+  isActive?: boolean;
 }
 
-// In-memory persistent cache for serverless environments when MONGODB_URI is not set
+export interface DatabaseChatLog {
+  _id?: string | any;
+  sessionId: string;
+  role: "user" | "assistant" | "system";
+  content: string;
+  timestamp: Date;
+  leadCaptured?: boolean;
+  metadata?: any;
+}
+
+// In-memory fallback cache when MongoDB is initializing or offline
 let fallbackInquiries: DatabaseInquiry[] = [
   {
     id: "INQ-2026-001",
@@ -41,7 +58,8 @@ let fallbackInquiries: DatabaseInquiry[] = [
     message: "We operate 3 retail branches in Riyadh and are looking for advice on inventory budgeting and store-level financial modeling before opening 2 more stores next quarter.",
     date: "2026-08-26 14:30",
     status: "In Progress",
-    priority: "High"
+    priority: "High",
+    createdAt: new Date("2026-08-26T14:30:00Z")
   },
   {
     id: "INQ-2026-002",
@@ -53,7 +71,8 @@ let fallbackInquiries: DatabaseInquiry[] = [
     message: "We need an operational audit of our factory floor handovers and scrap rates. Looking for an advisory team to conduct a 4-week review.",
     date: "2026-08-26 11:15",
     status: "New",
-    priority: "Urgent"
+    priority: "Urgent",
+    createdAt: new Date("2026-08-26T11:15:00Z")
   },
   {
     id: "INQ-2026-003",
@@ -65,75 +84,99 @@ let fallbackInquiries: DatabaseInquiry[] = [
     message: "Seeking commercial model validation and ROI sensitivity projections for a cold-chain storage facility in Lahore.",
     date: "2026-08-25 16:45",
     status: "Contacted",
-    priority: "Normal"
+    priority: "Normal",
+    createdAt: new Date("2026-08-25T16:45:00Z")
   }
 ];
 
-let fallbackSubscribers: Set<string> = new Set();
+let fallbackSubscribers: DatabaseSubscriber[] = [
+  { email: "director@gulfinvestments.com", source: "Website Footer", subscribedAt: new Date(), isActive: true },
+  { email: "cfo@pakventures.pk", source: "Executive Briefing", subscribedAt: new Date(), isActive: true }
+];
 
-function getMongoClientClass() {
-  try {
-    const req = typeof window === "undefined" ? eval("require") : null;
-    if (req) {
-      const { MongoClient } = req("mongodb");
-      return MongoClient;
+let fallbackChatLogs: DatabaseChatLog[] = [];
+
+// ==========================================
+// Official MongoDB Singleton Client Promise
+// ==========================================
+declare global {
+  // eslint-disable-next-line no-var
+  var _mongoClientPromise: Promise<MongoClient> | undefined;
+}
+
+const uri = process.env.MONGODB_URI;
+const dbName = process.env.MONGODB_DB_NAME || "factual_solutions";
+
+let clientPromise: Promise<MongoClient> | null = null;
+
+if (uri) {
+  const options = {
+    serverSelectionTimeoutMS: 8000,
+    connectTimeoutMS: 8000,
+    maxPoolSize: 10
+  };
+
+  if (process.env.NODE_ENV === "development") {
+    if (!global._mongoClientPromise) {
+      const client = new MongoClient(uri, options);
+      global._mongoClientPromise = client.connect();
     }
+    clientPromise = global._mongoClientPromise;
+  } else {
+    const client = new MongoClient(uri, options);
+    clientPromise = client.connect();
+  }
+}
+
+/**
+ * Get connected MongoDB Database instance
+ */
+export async function getDatabase(): Promise<MongoDatabase | null> {
+  if (!clientPromise) return null;
+  try {
+    const client = await clientPromise;
+    return client.db(dbName);
   } catch (err) {
-    // Driver not present in local node_modules
+    console.error("[MongoDB] Connection failure:", err);
     return null;
   }
-  return null;
 }
 
 /**
- * Save an inquiry to MongoDB (or fallback cache)
+ * Test connectivity to MongoDB Atlas
  */
-export async function dbSaveInquiry(inquiry: DatabaseInquiry): Promise<DatabaseInquiry> {
-  const uri = process.env.MONGODB_URI;
-  const MongoClient = getMongoClientClass();
-
-  if (uri && MongoClient) {
-    try {
-      const client = new MongoClient(uri);
-      await client.connect();
-      const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
-      const collection = db.collection("inquiries");
-
-      await collection.insertOne({
-        ...inquiry,
-        createdAt: new Date()
-      });
-      await client.close();
-      console.log(`[MongoDB] Successfully persisted inquiry ${inquiry.id}`);
-      return inquiry;
-    } catch (err) {
-      console.error("[MongoDB] Connection error, using cache fallback:", err);
+export async function dbTestConnection(): Promise<{ connected: boolean; message: string; dbName: string }> {
+  try {
+    const db = await getDatabase();
+    if (!db) {
+      return { connected: false, message: "MONGODB_URI not configured or client initialization failed", dbName };
     }
+    const result = await db.command({ ping: 1 });
+    return {
+      connected: result.ok === 1,
+      message: result.ok === 1 ? "Connected successfully to MongoDB Atlas Cluster0" : "Ping command returned non-ok",
+      dbName
+    };
+  } catch (err: any) {
+    return { connected: false, message: err.message || "Failed to reach MongoDB", dbName };
   }
-
-  // Fallback
-  fallbackInquiries = [inquiry, ...fallbackInquiries];
-  return inquiry;
 }
 
-/**
- * Get all inquiries with optional filter from MongoDB (or fallback cache)
- */
+// ==========================================
+// INQUIRIES CRUD OPERATIONS
+// ==========================================
+
 export async function dbGetInquiries(filter?: { status?: string; search?: string }): Promise<DatabaseInquiry[]> {
-  const uri = process.env.MONGODB_URI;
-  const MongoClient = getMongoClientClass();
-
-  if (uri && MongoClient) {
-    try {
-      const client = new MongoClient(uri);
-      await client.connect();
-      const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
+  try {
+    const db = await getDatabase();
+    if (db) {
       const collection = db.collection("inquiries");
-
       const query: any = {};
+
       if (filter?.status && filter.status !== "All") {
         query.status = filter.status;
       }
+
       if (filter?.search) {
         const regex = new RegExp(filter.search, "i");
         query.$or = [
@@ -145,15 +188,13 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
         ];
       }
 
-      const results = await collection.find(query).sort({ date: -1 }).toArray();
-      await client.close();
-
-      if (results && results.length > 0) {
-        return results;
+      const docs = await collection.find(query).sort({ createdAt: -1, date: -1 }).toArray();
+      if (docs && docs.length > 0) {
+        return docs.map((d: any) => ({ ...d, _id: d._id?.toString() }));
       }
-    } catch (err) {
-      console.error("[MongoDB] Retrieval failed, using fallback cache:", err);
     }
+  } catch (err) {
+    console.error("[MongoDB] dbGetInquiries failed, using fallback:", err);
   }
 
   // Fallback
@@ -175,85 +216,186 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
   return res;
 }
 
-/**
- * Update an inquiry status in MongoDB
- */
+export async function dbGetInquiryById(id: string): Promise<DatabaseInquiry | null> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("inquiries");
+      const doc = await collection.findOne({ id });
+      if (doc) {
+        return { ...doc, _id: doc._id?.toString() };
+      }
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetInquiryById error:", err);
+  }
+
+  return fallbackInquiries.find((i) => i.id === id) || null;
+}
+
+export async function dbSaveInquiry(inquiry: DatabaseInquiry): Promise<DatabaseInquiry> {
+  const record: DatabaseInquiry = {
+    ...inquiry,
+    createdAt: inquiry.createdAt || new Date(),
+    updatedAt: new Date()
+  };
+
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("inquiries");
+      await collection.insertOne(record);
+      console.log(`[MongoDB] Persisted inquiry ${record.id} to Atlas`);
+      return record;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSaveInquiry failed, caching in memory:", err);
+  }
+
+  fallbackInquiries = [record, ...fallbackInquiries];
+  return record;
+}
+
 export async function dbUpdateInquiryStatus(id: string, status: DatabaseInquiry["status"]): Promise<boolean> {
-  const uri = process.env.MONGODB_URI;
-  const MongoClient = getMongoClientClass();
-
-  if (uri && MongoClient) {
-    try {
-      const client = new MongoClient(uri);
-      await client.connect();
-      const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
+  try {
+    const db = await getDatabase();
+    if (db) {
       const collection = db.collection("inquiries");
-
-      await collection.updateOne({ id }, { $set: { status } });
-      await client.close();
-      return true;
-    } catch (err) {
-      console.error("[MongoDB] Update status failed:", err);
+      const res = await collection.updateOne(
+        { id },
+        { $set: { status, updatedAt: new Date() } }
+      );
+      if (res.matchedCount > 0) return true;
     }
+  } catch (err) {
+    console.error("[MongoDB] dbUpdateInquiryStatus error:", err);
   }
 
-  fallbackInquiries = fallbackInquiries.map((item) => (item.id === id ? { ...item, status } : item));
+  fallbackInquiries = fallbackInquiries.map((i) => (i.id === id ? { ...i, status, updatedAt: new Date() } : i));
   return true;
 }
 
-/**
- * Delete an inquiry in MongoDB
- */
 export async function dbDeleteInquiry(id: string): Promise<boolean> {
-  const uri = process.env.MONGODB_URI;
-  const MongoClient = getMongoClientClass();
-
-  if (uri && MongoClient) {
-    try {
-      const client = new MongoClient(uri);
-      await client.connect();
-      const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
+  try {
+    const db = await getDatabase();
+    if (db) {
       const collection = db.collection("inquiries");
-
-      await collection.deleteOne({ id });
-      await client.close();
-      return true;
-    } catch (err) {
-      console.error("[MongoDB] Delete failed:", err);
+      const res = await collection.deleteOne({ id });
+      if (res.deletedCount > 0) return true;
     }
+  } catch (err) {
+    console.error("[MongoDB] dbDeleteInquiry error:", err);
   }
 
-  fallbackInquiries = fallbackInquiries.filter((item) => item.id !== id);
+  fallbackInquiries = fallbackInquiries.filter((i) => i.id !== id);
   return true;
 }
 
-/**
- * Save subscriber email in MongoDB
- */
-export async function dbSaveSubscriber(email: string): Promise<boolean> {
-  const uri = process.env.MONGODB_URI;
+// ==========================================
+// SUBSCRIBERS CRUD OPERATIONS
+// ==========================================
+
+export async function dbSaveSubscriber(email: string, source: string = "Website Footer"): Promise<boolean> {
   const normalized = email.trim().toLowerCase();
-  const MongoClient = getMongoClientClass();
+  const newSub: DatabaseSubscriber = {
+    email: normalized,
+    source,
+    subscribedAt: new Date(),
+    isActive: true
+  };
 
-  if (uri && MongoClient) {
-    try {
-      const client = new MongoClient(uri);
-      await client.connect();
-      const db = client.db(process.env.MONGODB_DB_NAME || "factual_solutions");
+  try {
+    const db = await getDatabase();
+    if (db) {
       const collection = db.collection("subscribers");
-
       await collection.updateOne(
         { email: normalized },
-        { $setOnInsert: { email: normalized, subscribedAt: new Date() } },
+        { $setOnInsert: newSub },
         { upsert: true }
       );
-      await client.close();
       return true;
-    } catch (err) {
-      console.error("[MongoDB] Subscriber save failed:", err);
     }
+  } catch (err) {
+    console.error("[MongoDB] dbSaveSubscriber failed:", err);
   }
 
-  fallbackSubscribers.add(normalized);
+  if (!fallbackSubscribers.some((s) => s.email === normalized)) {
+    fallbackSubscribers.push(newSub);
+  }
   return true;
+}
+
+export async function dbGetSubscribers(): Promise<DatabaseSubscriber[]> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("subscribers");
+      const docs = await collection.find({}).sort({ subscribedAt: -1 }).toArray();
+      if (docs && docs.length > 0) {
+        return docs.map((d: any) => ({ ...d, _id: d._id?.toString() }));
+      }
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetSubscribers error:", err);
+  }
+
+  return fallbackSubscribers;
+}
+
+// ==========================================
+// AI CHAT LOGGING OPERATIONS
+// ==========================================
+
+export async function dbSaveChatLog(log: DatabaseChatLog): Promise<boolean> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("chat_logs");
+      await collection.insertOne({
+        ...log,
+        timestamp: log.timestamp || new Date()
+      });
+      return true;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSaveChatLog error:", err);
+  }
+
+  fallbackChatLogs.push(log);
+  return true;
+}
+
+// ==========================================
+// EXECUTIVE DASHBOARD STATS
+// ==========================================
+
+export async function dbGetDashboardStats(): Promise<{
+  totalInquiries: number;
+  newInquiries: number;
+  inProgress: number;
+  contacted: number;
+  closed: number;
+  totalSubscribers: number;
+  recentInquiries: DatabaseInquiry[];
+  serviceBreakdown: Record<string, number>;
+}> {
+  const inquiries = await dbGetInquiries();
+  const subscribers = await dbGetSubscribers();
+
+  const serviceBreakdown: Record<string, number> = {};
+  inquiries.forEach((inq) => {
+    const svc = inq.serviceOfInterest || "General Consultation";
+    serviceBreakdown[svc] = (serviceBreakdown[svc] || 0) + 1;
+  });
+
+  return {
+    totalInquiries: inquiries.length,
+    newInquiries: inquiries.filter((i) => i.status === "New").length,
+    inProgress: inquiries.filter((i) => i.status === "In Progress").length,
+    contacted: inquiries.filter((i) => i.status === "Contacted").length,
+    closed: inquiries.filter((i) => i.status === "Closed").length,
+    totalSubscribers: subscribers.length,
+    recentInquiries: inquiries.slice(0, 5),
+    serviceBreakdown
+  };
 }

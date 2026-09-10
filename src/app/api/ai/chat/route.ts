@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allServices } from "@/data/servicesData";
-import { dbSaveInquiry } from "@/lib/mongodb";
+import { dbSaveInquiry, dbSaveChatLog } from "@/lib/mongodb";
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -137,6 +137,27 @@ export async function POST(request: NextRequest) {
       reply = `I would be delighted to connect you directly with our Senior Consulting Partners.\n\nPlease type your **Work Email** and **Phone Number** (or Company Name) here in the chat, and I will instantly create an executive consultation lead in our system!`;
     } else {
       reply = `Hello! I am **JARVIS**, your 24/7 AI Corporate Advisor at **Factual Solutions**.\n\nWe provide empirical, data-backed business planning, market feasibility analysis, and strategic management consulting across Saudi Arabia, Pakistan, and the GCC.\n\nHow can I support your strategic goals today? You can ask me about our 12 consulting practices, request an operational audit, or ask to book a partner consultation.`;
+    }
+
+    // Log interaction to MongoDB Atlas chat_logs
+    try {
+      const sessionId = userProfile?.email || detectedEmail || "session_" + (messages[0]?.content.slice(0, 15) || "chat");
+      await dbSaveChatLog({
+        sessionId,
+        role: "user",
+        content: latestMessage,
+        timestamp: new Date(),
+        leadCaptured
+      });
+      await dbSaveChatLog({
+        sessionId,
+        role: "assistant",
+        content: reply,
+        timestamp: new Date(),
+        leadCaptured
+      });
+    } catch (logErr) {
+      console.error("Chat log save error:", logErr);
     }
 
     return NextResponse.json({

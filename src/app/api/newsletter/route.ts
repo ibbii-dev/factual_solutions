@@ -1,23 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
-import { dbSaveSubscriber } from "@/lib/mongodb";
+import { dbSaveSubscriber, dbGetSubscribers } from "@/lib/mongodb";
+
+export async function GET() {
+  try {
+    const subscribers = await dbGetSubscribers();
+    return NextResponse.json({
+      success: true,
+      count: subscribers.length,
+      data: subscribers
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: "Failed to retrieve subscriber list." },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email } = body;
+    const { email, source } = body;
 
-    if (!email || !email.includes("@")) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailRegex.test(email.trim())) {
       return NextResponse.json(
-        { success: false, message: "Valid email address is required." },
+        { success: false, message: "Valid corporate or personal email address is required." },
         { status: 400 }
       );
     }
 
-    await dbSaveSubscriber(email);
+    await dbSaveSubscriber(email, source || "Website Footer");
 
     return NextResponse.json({
       success: true,
-      message: "Subscribed successfully to monthly advisory insights."
+      message: "Subscribed successfully to Factual Solutions monthly corporate insights."
     });
   } catch (error) {
     return NextResponse.json(
