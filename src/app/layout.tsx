@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AnimatedBackground from "@/components/layout/AnimatedBackground";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import AiAdvisoryChatbot from "@/components/AiAdvisoryChatbot";
@@ -23,11 +24,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="font-sans antialiased bg-[#0B1320] text-slate-100 selection:bg-brand-steel/40 selection:text-white min-h-screen flex flex-col justify-between transition-colors duration-300">
+      <body className="font-sans antialiased bg-[#0B1320] text-slate-100 selection:bg-brand-steel/40 selection:text-white min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
         <ThemeProvider>
           <LanguageProvider>
+            <AnimatedBackground />
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow relative z-0">{children}</main>
             <Footer />
             <AiAdvisoryChatbot />
           </LanguageProvider>

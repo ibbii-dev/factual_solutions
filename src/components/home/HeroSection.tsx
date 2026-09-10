@@ -12,21 +12,22 @@ import {
 } from "lucide-react";
 import InteractiveHeroCube from "./InteractiveHeroCube";
 import { useLanguage } from "@/context/LanguageContext";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
 export default function HeroSection() {
   const { t, isRTL } = useLanguage();
 
   return (
-    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white border-b border-[#8EA9D3]/30 dark:border-slate-800 transition-colors duration-300">
+    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white border-b border-[#8EA9D3]/30 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Strategic Positioning & Copy */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-start">
+          <ScrollReveal variant="fade-up" duration={0.7} className="lg:col-span-7 space-y-6 text-center lg:text-start">
             
             {/* Direct Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#15233A] shadow-sm border border-[#8EA9D3]/40 dark:border-slate-700 text-xs font-semibold text-[#152238] dark:text-brand-steel-light max-w-full">
-              <span className="flex h-2 w-2 rounded-full bg-brand-rust shrink-0" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-[#15233A]/90 backdrop-blur-md shadow-sm border border-[#8EA9D3]/40 dark:border-slate-700 text-xs font-semibold text-[#152238] dark:text-brand-steel-light max-w-full">
+              <span className="flex h-2 w-2 rounded-full bg-brand-rust shrink-0 animate-pulse" />
               <span>{t.hero.badge}</span>
             </div>
 
@@ -44,7 +45,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2 w-full">
               <Link
                 href="/services"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-sm font-semibold transition-all duration-200 shadow-sm"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-lg hover:shadow-brand-rust/20"
               >
                 <span>{t.hero.viewServices}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
@@ -52,7 +53,7 @@ export default function HeroSection() {
 
               <Link
                 href="/contact"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white dark:bg-[#15233A] text-[#152238] dark:text-white text-sm font-semibold border border-[#8EA9D3]/40 dark:border-slate-700 hover:border-[#152238] dark:hover:border-brand-steel transition-all duration-200 shadow-sm"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/90 dark:bg-[#15233A]/90 backdrop-blur-md text-[#152238] dark:text-white text-sm font-semibold border border-[#8EA9D3]/40 dark:border-slate-700 hover:border-[#152238] dark:hover:border-brand-steel transition-all duration-200 shadow-sm"
               >
                 <PhoneCall className="w-4 h-4 text-brand-rust" />
                 <span>{t.hero.requestConsultation}</span>
@@ -74,18 +75,18 @@ export default function HeroSection() {
                 <span>{t.hero.actionable}</span>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Clean 3D Brand Symbol */}
-          <div className="lg:col-span-5 flex justify-center items-center w-full">
+          <ScrollReveal variant="zoom-in" delay={0.2} duration={0.8} className="lg:col-span-5 flex justify-center items-center w-full">
             <InteractiveHeroCube />
-          </div>
+          </ScrollReveal>
 
         </div>
 
         {/* 3 Core Practice Areas */}
-        <div className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <div className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-[#8EA9D3]/30 dark:border-slate-800 shadow-sm space-y-2">
+        <StaggerContainer delayChildren={0.3} staggerChildren={0.15} className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <StaggerItem className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-[#8EA9D3]/30 dark:border-slate-800 shadow-sm space-y-2 hover:-translate-y-1 transition-transform duration-300">
             <div className="w-9 h-9 rounded-lg bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center">
               <Briefcase className="w-4 h-4" />
             </div>
@@ -93,9 +94,9 @@ export default function HeroSection() {
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
               {t.hero.businessSolutionsDesc}
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-brand-rust/25 dark:border-slate-800 shadow-sm space-y-2">
+          <StaggerItem className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-brand-rust/25 dark:border-slate-800 shadow-sm space-y-2 hover:-translate-y-1 transition-transform duration-300">
             <div className="w-9 h-9 rounded-lg bg-brand-rust/15 text-brand-rust flex items-center justify-center">
               <Compass className="w-4 h-4" />
             </div>
@@ -103,9 +104,9 @@ export default function HeroSection() {
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
               {t.hero.consultancyDesc}
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-emerald-500/25 dark:border-slate-800 shadow-sm space-y-2">
+          <StaggerItem className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-emerald-500/25 dark:border-slate-800 shadow-sm space-y-2 hover:-translate-y-1 transition-transform duration-300">
             <div className="w-9 h-9 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <ShieldCheck className="w-4 h-4" />
             </div>
@@ -113,8 +114,8 @@ export default function HeroSection() {
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
               {t.hero.empiricalDesc}
             </p>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
 
       </div>
     </section>

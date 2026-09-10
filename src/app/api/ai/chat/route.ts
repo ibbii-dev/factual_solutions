@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     let reply = "";
 
     if (leadCaptured) {
-      reply = `Thank you! I have registered your consultation request directly with our Senior Advisory Partners (Reference: **${captureDetails?.id}**).\n\nOur advisory team will review your inquiry and connect with you at **${captureDetails?.email}** within 1 business day. In the meantime, would you like me to generate a preliminary feasibility framework for your project?`;
+      reply = `Thank you! I am **JARVIS**, and I have registered your consultation request directly with our Senior Advisory Partners (Reference: **${captureDetails?.id}**).\n\nOur advisory team will review your inquiry and connect with you at **${captureDetails?.email}** within 1 business day. In the meantime, would you like me to generate a preliminary feasibility framework for your project?`;
     } else if (
       latestLower.includes("business idea") ||
       latestLower.includes("startup") ||
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
     ) {
       reply = `I would be delighted to connect you directly with our Senior Consulting Partners.\n\nPlease type your **Work Email** and **Phone Number** (or Company Name) here in the chat, and I will instantly create an executive consultation lead in our system!`;
     } else {
-      reply = `Thank you for reaching out to **Factual Solutions Corporate Advisory**.\n\nWe provide empirical, data-backed business planning, market feasibility analysis, and strategic management consulting across Saudi Arabia, Pakistan, and the GCC.\n\nHow can our advisory team support your strategic goals today? You can ask about our 12 consulting practices, request an operational audit, or ask to book a partner consultation.`;
+      reply = `Hello! I am **JARVIS**, your 24/7 AI Corporate Advisor at **Factual Solutions**.\n\nWe provide empirical, data-backed business planning, market feasibility analysis, and strategic management consulting across Saudi Arabia, Pakistan, and the GCC.\n\nHow can I support your strategic goals today? You can ask me about our 12 consulting practices, request an operational audit, or ask to book a partner consultation.`;
     }
 
     return NextResponse.json({

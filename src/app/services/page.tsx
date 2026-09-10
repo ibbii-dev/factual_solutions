@@ -25,6 +25,7 @@ import {
 import { getServices, getBusinessServices, getConsultancyServices } from "@/data/servicesData";
 import ServiceMatcherQuiz from "@/components/services/ServiceMatcherQuiz";
 import { useLanguage } from "@/context/LanguageContext";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
 const iconMap: Record<string, React.ReactNode> = {
   Cpu: <Cpu className="w-5 h-5" />,
@@ -68,12 +69,12 @@ function ServicesContent() {
   });
 
   return (
-    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
+    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-[11px] sm:text-xs font-bold uppercase tracking-wider">
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light text-[11px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md">
             {sp.badge}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#152238] dark:text-white leading-tight break-words font-display">
@@ -82,10 +83,10 @@ function ServicesContent() {
           <p className="text-sm sm:text-base lg:text-lg text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
             {sp.subheadline}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Filter and Search Bar */}
-        <div className="bg-white dark:bg-[#111C2E] rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 mb-10 sm:mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 mb-10 sm:mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
           
           {/* Category Toggle Tabs */}
           <div className="grid grid-cols-3 sm:flex p-1 bg-[#DFE8F6] dark:bg-[#15233A] rounded-xl sm:rounded-full w-full md:w-auto gap-1 border border-[#8EA9D3]/30 dark:border-slate-700">
@@ -135,24 +136,25 @@ function ServicesContent() {
             />
           </div>
 
-        </div>
+        </ScrollReveal>
 
         {/* Services Cards Grid */}
         {filteredServices.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20">
+          <StaggerContainer delayChildren={0.1} staggerChildren={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20">
             {filteredServices.map((service) => {
               const isBusiness = service.category === "business";
               return (
-                <div
+                <StaggerItem
                   key={service.id}
-                  className="bg-white dark:bg-[#111C2E] hover:bg-[#F2F7FD] dark:hover:bg-[#15233A] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 flex flex-col justify-between transition-all duration-200"
+                  variant="fade-up"
+                  className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md hover:bg-[#F2F7FD] dark:hover:bg-[#15233A] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 flex flex-col justify-between hover:border-brand-steel hover:-translate-y-1 transition-all duration-300 group"
                 >
                   <div className="space-y-4">
                     
                     {/* Card Top: Icon & Badge */}
                     <div className="flex items-center justify-between">
                       <div
-                        className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm ${
                           isBusiness
                             ? "bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light"
                             : "bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light"
@@ -185,7 +187,7 @@ function ServicesContent() {
                     </div>
 
                     {/* Benchmark KPI */}
-                    <div className="p-3 rounded-2xl bg-[#F2F7FD] dark:bg-[#0E1728] border border-[#8EA9D3]/20 dark:border-slate-800">
+                    <div className="p-3 rounded-2xl bg-[#F2F7FD]/90 dark:bg-[#0E1728]/90 border border-[#8EA9D3]/20 dark:border-slate-800">
                       <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
                         {sp.deliverableLabel}
                       </div>
@@ -217,7 +219,7 @@ function ServicesContent() {
 
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
-                      className={`p-2 rounded-xl text-white transition-all duration-200 ${
+                      className={`p-2 rounded-xl text-white transition-all duration-200 shadow-sm ${
                         isBusiness
                           ? "bg-[#152238] hover:bg-brand-rust"
                           : "bg-brand-rust hover:bg-brand-rust-light"
@@ -228,12 +230,12 @@ function ServicesContent() {
                     </Link>
                   </div>
 
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         ) : (
-          <div className="text-center py-20 bg-white dark:bg-[#111C2E] rounded-3xl border border-[#8EA9D3]/30 dark:border-slate-800 p-8 shadow-sm">
+          <ScrollReveal variant="fade" className="text-center py-20 bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-3xl border border-[#8EA9D3]/30 dark:border-slate-800 p-8 shadow-sm">
             <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
             <h3 className="text-lg font-bold text-[#152238] dark:text-white font-display">{sp.noResultsTitle}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto mt-1 font-normal">
@@ -241,17 +243,17 @@ function ServicesContent() {
             </p>
             <button
               onClick={() => { setSearchQuery(""); setActiveCategory("all"); }}
-              className="mt-4 px-5 py-2 rounded-full bg-[#152238] text-white text-xs font-bold"
+              className="mt-4 px-5 py-2 rounded-full bg-[#152238] text-white text-xs font-bold shadow-sm hover:bg-brand-rust transition-colors"
             >
               {sp.resetFilters}
             </button>
-          </div>
+          </ScrollReveal>
         )}
 
         {/* Interactive Matcher Quiz */}
-        <div className="mb-20">
+        <ScrollReveal variant="fade-up" delay={0.15} className="mb-20">
           <ServiceMatcherQuiz />
-        </div>
+        </ScrollReveal>
 
       </div>
     </div>

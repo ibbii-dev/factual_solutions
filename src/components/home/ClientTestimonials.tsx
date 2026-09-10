@@ -3,6 +3,7 @@
 import React from "react";
 import { Shield, Target, Users } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
 export default function ClientTestimonials() {
   const { t, language } = useLanguage();
@@ -24,22 +25,23 @@ export default function ClientTestimonials() {
   ];
 
   return (
-    <section className="py-16 bg-[#DFE8F6] dark:bg-[#0E1728] text-[#152238] dark:text-white border-y border-[#8EA9D3]/30 dark:border-slate-800 overflow-hidden transition-colors duration-300">
+    <section className="py-16 bg-[#DFE8F6]/75 dark:bg-[#0E1728]/70 backdrop-blur-sm text-[#152238] dark:text-white border-y border-[#8EA9D3]/30 dark:border-slate-800 overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Trusted By Title */}
-        <div className="text-center mb-8">
+        <ScrollReveal variant="fade-up" className="text-center mb-8">
           <p className="text-xs uppercase font-bold tracking-widest text-[#152238]/70 dark:text-slate-400">
             {t.trust.title}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Industry Focus Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 items-center justify-center">
+        <StaggerContainer delayChildren={0.1} staggerChildren={0.08} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 items-center justify-center">
           {industries.map((ind, idx) => (
-            <div
+            <StaggerItem
               key={idx}
-              className="h-16 rounded-xl bg-white dark:bg-[#111C2E] hover:bg-[#F2F7FD] dark:hover:bg-[#16253B] border border-[#8EA9D3]/30 dark:border-slate-800 hover:border-brand-steel shadow-sm transition-all duration-300 flex flex-col items-center justify-center p-2 text-center group"
+              variant="zoom-in"
+              className="h-16 rounded-xl bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md hover:bg-[#F2F7FD] dark:hover:bg-[#16253B] border border-[#8EA9D3]/30 dark:border-slate-800 hover:border-brand-steel hover:-translate-y-1 shadow-sm transition-all duration-300 flex flex-col items-center justify-center p-2 text-center group cursor-default"
             >
               <span className="text-xs font-bold text-[#152238] dark:text-slate-200 group-hover:text-brand-rust transition-colors truncate max-w-full px-1">
                 {ind.name}
@@ -47,42 +49,42 @@ export default function ClientTestimonials() {
               <span className="text-[9px] uppercase tracking-wider text-slate-500 dark:text-slate-500 font-medium">
                 {ind.type}
               </span>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Practical Consulting Values */}
-        <div className="mt-12 pt-10 border-t border-[#8EA9D3]/30 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="space-y-2">
-            <div className="w-10 h-10 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center mx-auto mb-3">
+        <StaggerContainer delayChildren={0.2} staggerChildren={0.15} className="mt-12 pt-10 border-t border-[#8EA9D3]/30 dark:border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <StaggerItem className="space-y-2">
+            <div className="w-10 h-10 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center mx-auto mb-3 shadow-sm">
               <Shield className="w-5 h-5" />
             </div>
             <h4 className="text-base font-bold text-[#152238] dark:text-white font-display">{t.trust.confidentialityTitle}</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto font-normal">
               {t.trust.confidentialityDesc}
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="space-y-2">
-            <div className="w-10 h-10 rounded-full bg-brand-rust/15 text-brand-rust flex items-center justify-center mx-auto mb-3">
+          <StaggerItem className="space-y-2">
+            <div className="w-10 h-10 rounded-full bg-brand-rust/15 text-brand-rust flex items-center justify-center mx-auto mb-3 shadow-sm">
               <Target className="w-5 h-5" />
             </div>
             <h4 className="text-base font-bold text-[#152238] dark:text-white font-display">{t.trust.actionPlansTitle}</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto font-normal">
               {t.trust.actionPlansDesc}
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="space-y-2">
-            <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-3">
+          <StaggerItem className="space-y-2">
+            <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-3 shadow-sm">
               <Users className="w-5 h-5" />
             </div>
             <h4 className="text-base font-bold text-[#152238] dark:text-white font-display">{t.trust.partnerAdvisoryTitle}</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs mx-auto font-normal">
               {t.trust.partnerAdvisoryDesc}
             </p>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
 
       </div>
     </section>

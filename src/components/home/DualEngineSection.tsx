@@ -72,7 +72,7 @@ export default function DualEngineSection() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300 overflow-hidden">
+    <section className="py-16 sm:py-24 bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white transition-colors duration-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header with Scroll Reveal */}

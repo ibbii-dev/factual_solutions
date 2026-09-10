@@ -45,7 +45,7 @@ export default function AiAdvisoryChatbot() {
     {
       id: "welcome-1",
       role: "assistant",
-      content: "Welcome to **Factual Solutions Corporate Advisory**.\n\nI am your 24/7 AI Strategic Consultant. How can I assist your business planning, market feasibility, or operational transformation today?",
+      content: "Welcome to **Factual Solutions Corporate Advisory**.\n\nI am **JARVIS**, your 24/7 AI Strategic Consultant. How can I assist your business planning, market feasibility, or operational transformation today?",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     }
   ]);
@@ -98,7 +98,7 @@ export default function AiAdvisoryChatbot() {
         content: data.reply || "Thank you for reaching out. A Senior Consultant will be in touch shortly.",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         isLeadCard: data.leadCaptured,
-        leadDetails: data.captureDetails
+        leadDetails: data.leadDetails
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
@@ -118,13 +118,13 @@ export default function AiAdvisoryChatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans print:hidden">
+    <div className="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-50 flex flex-col items-end">
       {/* Floating Launcher Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-3 px-4 py-3 rounded-full bg-[#10192A] hover:bg-[#16233B] text-white border border-brand-rust/50 shadow-2xl shadow-brand-rust/20 transition-all duration-300 hover:scale-105 hover:border-brand-rust"
-          aria-label="Open AI Corporate Advisor"
+          className="group relative flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-[#10192A] to-[#15243E] border border-brand-steel/40 text-white shadow-2xl hover:shadow-brand-rust/20 hover:border-brand-rust transition-all duration-300 hover:scale-105"
+          aria-label="Open JARVIS AI Corporate Advisory Chat"
         >
           {/* Pulsating Ping */}
           <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
@@ -138,10 +138,10 @@ export default function AiAdvisoryChatbot() {
 
           <div className="text-left">
             <div className="text-xs font-bold text-slate-100 flex items-center gap-1.5">
-              <span>AI Corporate Advisor</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">24/7</span>
+              <span>JARVIS</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">24/7 AI</span>
             </div>
-            <div className="text-[10px] text-slate-400">Ask strategic questions & get instant advice</div>
+            <div className="text-[10px] text-slate-400">Ask JARVIS strategic questions & get advice</div>
           </div>
         </button>
       )}
@@ -170,9 +170,9 @@ export default function AiAdvisoryChatbot() {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  Factual Solutions AI
+                  JARVIS AI
                   <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-brand-rust/20 text-brand-rust-light border border-brand-rust/30">
-                    Partner Advisor
+                    Corporate Advisor
                   </span>
                 </h3>
                 <div className="text-[11px] text-emerald-400 font-medium flex items-center gap-1.5">
@@ -252,7 +252,7 @@ export default function AiAdvisoryChatbot() {
                 </div>
                 <div className="bg-[#142034] text-slate-400 border border-slate-800 rounded-2xl rounded-bl-none p-3 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-brand-rust animate-ping"></span>
-                  <span>Synthesizing strategic advisory analysis...</span>
+                  <span>JARVIS is synthesizing strategic advisory analysis...</span>
                 </div>
               </div>
             )}
@@ -285,7 +285,7 @@ export default function AiAdvisoryChatbot() {
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Ask about feasibility, factory audits, services, or leave your email..."
+              placeholder="Ask JARVIS about feasibility, factory audits, services, or leave your email..."
               className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#09101C] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-rust focus:ring-1 focus:ring-brand-rust transition-all"
             />
             <button

@@ -21,6 +21,7 @@ import { officeLocations, contactDetails } from "@/data/companyData";
 import { allServices } from "@/data/servicesData";
 import { saveInquiry } from "@/data/inquiriesStore";
 import { useLanguage } from "@/context/LanguageContext";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 interface AiAssessmentData {
   clientName: string;
@@ -113,24 +114,24 @@ function ContactContent() {
   const consultancyServicesList = allServices.filter((s) => s.category === "consultancy");
 
   return (
-    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#EBF1FA]/70 dark:bg-[#0B1320]/60 backdrop-blur-[2px] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-14">
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-14">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#152238] dark:text-white font-display">
             {c.headline}
           </h1>
           <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
             {c.subheadline}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Form and Hub Details Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left: Consultation Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800">
+          <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800">
             {submitted ? (
               <div className="py-6 space-y-6 text-left">
                 <div className="flex items-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300">
@@ -152,7 +153,7 @@ function ContactContent() {
                           <Bot className="w-4 h-4" />
                         </div>
                         <span className="text-xs font-bold text-[#152238] dark:text-white uppercase tracking-wider">
-                          AI Advisory Preliminary Diagnostic
+                          JARVIS AI Preliminary Diagnostic
                         </span>
                       </div>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-steel/20 text-[#152238] dark:text-brand-steel-light border border-brand-steel/30">
@@ -377,13 +378,13 @@ function ContactContent() {
                 </div>
               </form>
             )}
-          </div>
+          </ScrollReveal>
 
           {/* Right: Contact Hub Details (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          <ScrollReveal variant="fade-up" delay={0.2} duration={0.65} className="lg:col-span-5 space-y-6">
             
             {/* Direct Contact Card */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-5">
+            <div className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-5">
               <h3 className="text-lg font-bold text-[#152238] dark:text-white font-display">
                 {c.directContactTitle}
               </h3>
@@ -391,7 +392,7 @@ function ContactContent() {
               <div className="space-y-4">
                 <a
                   href={`mailto:${contactDetails.email}`}
-                  className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/30 dark:border-slate-700/80 hover:border-brand-rust transition-colors group"
+                  className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F2F7FD]/90 dark:bg-[#15233A]/90 border border-[#8EA9D3]/30 dark:border-slate-700/80 hover:border-brand-rust transition-colors group"
                 >
                   <div className="w-9 h-9 rounded-xl bg-brand-rust/15 text-brand-rust dark:text-brand-rust-light flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
@@ -408,7 +409,7 @@ function ContactContent() {
 
                 <a
                   href={`tel:${contactDetails.phone.replace(/\s+/g, '')}`}
-                  className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/30 dark:border-slate-700/80 hover:border-brand-rust transition-colors group"
+                  className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F2F7FD]/90 dark:bg-[#15233A]/90 border border-[#8EA9D3]/30 dark:border-slate-700/80 hover:border-brand-rust transition-colors group"
                 >
                   <div className="w-9 h-9 rounded-xl bg-brand-steel/20 text-[#152238] dark:text-brand-steel-light flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
@@ -426,7 +427,7 @@ function ContactContent() {
             </div>
 
             {/* Office Locations */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-4">
+            <div className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-sm border border-[#8EA9D3]/30 dark:border-slate-800 space-y-4">
               <h3 className="text-lg font-bold text-[#152238] dark:text-white font-display">
                 {c.headOfficeTitle}
               </h3>
@@ -435,7 +436,7 @@ function ContactContent() {
                 {officeLocations.map((loc) => (
                   <div
                     key={loc.city}
-                    className="p-3.5 rounded-2xl bg-[#F2F7FD] dark:bg-[#15233A] border border-[#8EA9D3]/30 dark:border-slate-700/80 space-y-1"
+                    className="p-3.5 rounded-2xl bg-[#F2F7FD]/90 dark:bg-[#15233A]/90 border border-[#8EA9D3]/30 dark:border-slate-700/80 space-y-1"
                   >
                     <div className="flex items-center justify-between">
                       <div className="font-bold text-xs sm:text-sm text-[#152238] dark:text-white flex items-center gap-1.5">
@@ -454,7 +455,7 @@ function ContactContent() {
               </div>
             </div>
 
-          </div>
+          </ScrollReveal>
 
         </div>
 
