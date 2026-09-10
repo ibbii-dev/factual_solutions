@@ -1,14 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { contactDetails } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function WhatsAppButton() {
   const { language } = useLanguage();
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  useEffect(() => {
+    const handleChatState = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isOpen: boolean }>;
+      if (customEvent.detail) {
+        setIsChatOpen(customEvent.detail.isOpen);
+      }
+    };
+
+    window.addEventListener("jarvis-chat-state", handleChatState);
+    return () => window.removeEventListener("jarvis-chat-state", handleChatState);
+  }, []);
 
   // Clean phone number for WhatsApp wa.me link
-  const rawPhone = contactDetails.phone.replace(/[^0-9]/g, "");
+  const rawPhone = contactDetails.whatsappRaw || contactDetails.phone.replace(/[^0-9]/g, "");
   const defaultMessage = language === "ar" 
     ? "مرحباً فاكتشوال سوليوشنز، أود الاستفسار عن خدمات الاستشارات وتخطيط الأعمال."
     : "Hello Factual Solutions, I would like to inquire about your business consulting services.";
@@ -16,22 +29,26 @@ export default function WhatsAppButton() {
   const whatsappUrl = `https://wa.me/${rawPhone}?text=${encodeURIComponent(defaultMessage)}`;
 
   return (
-    <div className="fixed bottom-5 left-5 sm:bottom-7 sm:left-7 z-50 flex flex-col items-start print:hidden">
+    <div 
+      className={`fixed bottom-4 left-4 sm:bottom-7 sm:left-7 z-40 print:hidden transition-all duration-300 ${
+        isChatOpen ? "max-sm:opacity-0 max-sm:pointer-events-none max-sm:scale-90" : "opacity-100 scale-100"
+      }`}
+    >
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white/95 dark:bg-gradient-to-r dark:from-[#10192A] dark:to-[#15243E] border border-slate-200/90 dark:border-brand-steel/40 text-[#152238] dark:text-white shadow-xl shadow-slate-200/60 dark:shadow-2xl dark:shadow-black/60 hover:border-emerald-500 dark:hover:border-emerald-400/80 transition-all duration-300 hover:scale-105 backdrop-blur-md"
+        className="group relative flex items-center justify-center gap-2.5 w-12 h-12 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 rounded-full bg-white/95 dark:bg-gradient-to-r dark:from-[#10192A] dark:to-[#15243E] border border-slate-200/90 dark:border-brand-steel/40 text-[#152238] dark:text-white shadow-xl shadow-slate-200/60 dark:shadow-2xl dark:shadow-black/60 hover:border-emerald-500 dark:hover:border-emerald-400/80 transition-all duration-300 hover:scale-105 backdrop-blur-md"
         aria-label="Contact Factual Solutions on WhatsApp"
       >
         {/* Pulsating Online Status Dot */}
-        <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+        <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 flex h-3 w-3 sm:h-3.5 sm:w-3.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white dark:border-[#10192A]"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-emerald-500 border-2 border-white dark:border-[#10192A]"></span>
         </span>
 
         {/* WhatsApp Icon with Brand Accent */}
-        <div className="w-8 h-8 rounded-full bg-emerald-500/15 dark:bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
+        <div className="w-8 h-8 rounded-full bg-emerald-500/15 dark:bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform shrink-0">
           <svg
             className="w-4 h-4 fill-current"
             viewBox="0 0 24 24"
@@ -41,8 +58,8 @@ export default function WhatsAppButton() {
           </svg>
         </div>
 
-        {/* Brand Text - Simple, clean "WhatsApp" */}
-        <span className="text-xs sm:text-sm font-semibold tracking-wide text-slate-800 dark:text-slate-100 pr-1">
+        {/* Brand Text - Visible on Tablet/Desktop, clean icon on mobile */}
+        <span className="hidden sm:inline-block text-xs sm:text-sm font-semibold tracking-wide text-slate-800 dark:text-slate-100 pr-1">
           {language === "ar" ? "واتساب" : "WhatsApp"}
         </span>
       </a>
