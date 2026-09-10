@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import { MessageCircle } from "lucide-react";
+import React from "react";
 import { contactDetails } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function WhatsAppButton() {
   const { language } = useLanguage();
-  const [isHovered, setIsHovered] = useState(false);
 
   // Clean phone number for WhatsApp wa.me link
   const rawPhone = contactDetails.phone.replace(/[^0-9]/g, "");
@@ -23,8 +21,6 @@ export default function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         className="group relative flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white/95 dark:bg-gradient-to-r dark:from-[#10192A] dark:to-[#15243E] border border-slate-200/90 dark:border-brand-steel/40 text-[#152238] dark:text-white shadow-xl shadow-slate-200/60 dark:shadow-2xl dark:shadow-black/60 hover:border-emerald-500 dark:hover:border-emerald-400/80 transition-all duration-300 hover:scale-105 backdrop-blur-md"
         aria-label="Contact Factual Solutions on WhatsApp"
       >
@@ -34,7 +30,7 @@ export default function WhatsAppButton() {
           <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white dark:border-[#10192A]"></span>
         </span>
 
-        {/* WhatsApp Icon with Brand Accents */}
+        {/* WhatsApp Icon with Brand Accent */}
         <div className="w-8 h-8 rounded-full bg-emerald-500/15 dark:bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
           <svg
             className="w-4 h-4 fill-current"
@@ -45,18 +41,10 @@ export default function WhatsAppButton() {
           </svg>
         </div>
 
-        {/* Text Details */}
-        <div className="text-left">
-          <div className="text-xs font-bold text-[#152238] dark:text-slate-100 flex items-center gap-1.5">
-            <span>{language === "ar" ? "واتساب المباشر" : "WhatsApp"}</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-semibold border border-emerald-500/25">
-              Direct
-            </span>
-          </div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-            {contactDetails.phone}
-          </div>
-        </div>
+        {/* Brand Text - Simple, clean "WhatsApp" */}
+        <span className="text-xs sm:text-sm font-semibold tracking-wide text-slate-800 dark:text-slate-100 pr-1">
+          {language === "ar" ? "واتساب" : "WhatsApp"}
+        </span>
       </a>
     </div>
   );
