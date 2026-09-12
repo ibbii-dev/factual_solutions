@@ -4,6 +4,7 @@ import DualEngineSection from "@/components/home/DualEngineSection";
 import MethodologySection from "@/components/home/MethodologySection";
 import ClientTestimonials from "@/components/home/ClientTestimonials";
 import ConsultationBanner from "@/components/home/ConsultationBanner";
+import LatestInsightsSection from "@/components/home/LatestInsightsSection";
 
 export default function HomePage() {
   return (
@@ -20,7 +21,10 @@ export default function HomePage() {
       {/* 4. The Factual Method (4-Step Framework) */}
       <MethodologySection />
 
-      {/* 5. High-Conversion Consultation CTA */}
+      {/* 5. Executive Insights & Thought Leadership */}
+      <LatestInsightsSection />
+
+      {/* 6. High-Conversion Consultation CTA */}
       <ConsultationBanner />
     </div>
   );

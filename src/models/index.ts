@@ -84,3 +84,26 @@ export interface IAdminUser {
   role: "SuperAdmin" | "SeniorConsultant" | "Analyst";
   lastLogin: Date;
 }
+
+export interface IBlogPost {
+  _id?: string;
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  coverImage?: string;
+  category: string;
+  author: {
+    name: string;
+    role: string;
+    avatar?: string;
+  };
+  readTime: string;
+  tags: string[];
+  status: "published" | "draft";
+  featured?: boolean;
+  publishedAt: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
