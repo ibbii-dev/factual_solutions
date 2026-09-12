@@ -901,7 +901,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             }`}
           >
             <Bot className="w-3.5 h-3.5" />
-            <span>JARVIS AI Chats</span>
+            <span>AI Chat Logs</span>
           </button>
 
           <button
@@ -1248,7 +1248,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         )}
 
         {/* ============================================================== */}
-        {/* TAB 3: JARVIS AI CHAT LOGS                                     */}
+        {/* TAB 3: AI CHAT LOGS                                           */}
         {/* ============================================================== */}
         {activeTab === "chatlogs" && (
           <div className="space-y-6">
@@ -1256,7 +1256,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <Bot className="w-4 h-4 text-brand-rust" />
-                  <span>JARVIS AI Real-Time Conversational Transcripts</span>
+                  <span>AI Real-Time Conversational Transcripts</span>
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
                   Live interaction memory synced directly into MongoDB Atlas `chat_logs` collection.
@@ -1274,7 +1274,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-xl">
               {chatLogs.length === 0 ? (
                 <div className="py-12 text-center text-slate-500 text-xs">
-                  No chat logs recorded yet. All inquiries initiated with JARVIS will stream here automatically.
+                  No chat logs recorded yet. All inquiries initiated with the AI Advisor will stream here automatically.
                 </div>
               ) : (
                 chatLogs.map((log, idx) => (
@@ -1291,7 +1291,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         {log.role === "assistant" ? (
                           <>
                             <Bot className="w-3.5 h-3.5 text-brand-rust" />
-                            <span className="text-brand-steel-light">JARVIS AI</span>
+                            <span className="text-brand-steel-light">AI Advisor</span>
                           </>
                         ) : (
                           <>
@@ -1755,13 +1755,13 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 </div>
               </div>
 
-              {/* JARVIS AI Strategic Assessment */}
+              {/* AI Strategic Assessment */}
               {selectedInquiry.aiAssessment && (
                 <div className="p-4 rounded-2xl bg-[#101C30]/90 border border-brand-steel/30 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-brand-steel-light font-bold text-xs">
                       <Sparkles className="w-4 h-4 text-brand-rust" />
-                      <span>JARVIS AI Strategic Diagnostic</span>
+                      <span>AI Strategic Diagnostic</span>
                     </div>
                     <span className="text-[10px] text-slate-400 font-mono">
                       Category: {selectedInquiry.aiAssessment.industryCategory || "Advisory"}
