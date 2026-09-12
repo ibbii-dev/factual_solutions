@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
-import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
-import AiAdvisoryChatbot from "@/components/AiAdvisoryChatbot";
+import SiteShell from "@/components/layout/SiteShell";
 
 export const metadata: Metadata = {
   title: "Factual Solutions | Business & Management Consulting",
@@ -28,12 +24,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-white dark:bg-[#0E1626] text-[#0F172A] dark:text-slate-100 selection:bg-brand-steel/30 selection:text-brand-navy min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
         <ThemeProvider>
           <LanguageProvider>
-            <AnimatedBackground />
-            <Navbar />
-            <main className="flex-grow relative z-0">{children}</main>
-            <Footer />
-            <WhatsAppButton />
-            <AiAdvisoryChatbot />
+            <SiteShell>{children}</SiteShell>
           </LanguageProvider>
         </ThemeProvider>
       </body>
