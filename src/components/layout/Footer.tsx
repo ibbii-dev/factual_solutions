@@ -6,7 +6,8 @@ import Image from "next/image";
 import { 
   ArrowRight, 
   MapPin, 
-  CheckCircle2
+  CheckCircle2,
+  Lock
 } from "lucide-react";
 import { businessServices, consultancyServices } from "@/data/servicesData";
 import { officeLocations } from "@/data/companyData";
@@ -170,6 +171,14 @@ export default function Footer() {
             <Link href="/about" className="hover:text-slate-400 transition-colors">About Us</Link>
             <Link href="/services" className="hover:text-slate-400 transition-colors">Services</Link>
             <Link href="/contact" className="hover:text-slate-400 transition-colors">Contact</Link>
+            <Link 
+              href="/admin" 
+              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-brand-rust transition-colors font-medium"
+              title="Executive Admin Panel"
+            >
+              <Lock className="w-3.5 h-3.5 text-brand-rust" />
+              <span>Admin Portal</span>
+            </Link>
           </div>
         </div>
 

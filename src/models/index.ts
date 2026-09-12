@@ -1,3 +1,11 @@
+export interface IInquiryReply {
+  id: string;
+  author: string;
+  content: string;
+  sentAt: string;
+  channel: "Email" | "WhatsApp" | "Internal Note";
+}
+
 export interface IInquiry {
   _id?: string;
   id: string;
@@ -19,6 +27,8 @@ export interface IInquiry {
     consultantPrepNotes?: string;
     autoReplyEmailBody?: string;
   };
+  replies?: IInquiryReply[];
+  internalNotes?: string;
   createdAt: Date;
   updatedAt?: Date;
 }

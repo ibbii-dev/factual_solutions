@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 export type MongoDatabase = ReturnType<MongoClient["db"]>;
 import dns from "dns";
+import { IInquiryReply } from "@/models";
 
 // Configure resilient DNS resolvers for MongoDB Atlas SRV lookups in Node.js
 try {
@@ -24,6 +25,8 @@ export interface DatabaseInquiry {
   status: "New" | "Contacted" | "In Progress" | "Closed";
   priority: "Normal" | "High" | "Urgent";
   aiAssessment?: any;
+  replies?: IInquiryReply[];
+  internalNotes?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -291,6 +294,53 @@ export async function dbDeleteInquiry(id: string): Promise<boolean> {
   return true;
 }
 
+export async function dbAddInquiryReply(id: string, reply: IInquiryReply): Promise<boolean> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("inquiries");
+      const res = await collection.updateOne(
+        { id },
+        { 
+          $push: { replies: reply } as any,
+          $set: { status: "Contacted", updatedAt: new Date() }
+        }
+      );
+      if (res.matchedCount > 0) return true;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbAddInquiryReply error:", err);
+  }
+
+  fallbackInquiries = fallbackInquiries.map((i) => {
+    if (i.id === id) {
+      const existingReplies = i.replies || [];
+      return { ...i, replies: [...existingReplies, reply], status: "Contacted", updatedAt: new Date() };
+    }
+    return i;
+  });
+  return true;
+}
+
+export async function dbUpdateInquiryNotes(id: string, internalNotes: string): Promise<boolean> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("inquiries");
+      const res = await collection.updateOne(
+        { id },
+        { $set: { internalNotes, updatedAt: new Date() } }
+      );
+      if (res.matchedCount > 0) return true;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbUpdateInquiryNotes error:", err);
+  }
+
+  fallbackInquiries = fallbackInquiries.map((i) => (i.id === id ? { ...i, internalNotes, updatedAt: new Date() } : i));
+  return true;
+}
+
 // ==========================================
 // SUBSCRIBERS CRUD OPERATIONS
 // ==========================================
@@ -363,6 +413,23 @@ export async function dbSaveChatLog(log: DatabaseChatLog): Promise<boolean> {
 
   fallbackChatLogs.push(log);
   return true;
+}
+
+export async function dbGetChatLogs(limit: number = 60): Promise<DatabaseChatLog[]> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const collection = db.collection("chat_logs");
+      const docs = await collection.find({}).sort({ timestamp: -1 }).limit(limit).toArray();
+      if (docs && docs.length > 0) {
+        return docs.map((d: any) => ({ ...d, _id: d._id?.toString() }));
+      }
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetChatLogs error:", err);
+  }
+
+  return fallbackChatLogs.slice(0, limit);
 }
 
 // ==========================================
