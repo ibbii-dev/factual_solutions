@@ -45,10 +45,10 @@ export default function LatestInsightsSection() {
           <ScrollReveal variant="fade-up" className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-rust/10 dark:bg-brand-rust/20 border border-brand-rust/30 text-brand-rust dark:text-brand-rust-light text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Thought Leadership & Research</span>
+              <span>Thought Leadership & Blog</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#152238] dark:text-white font-display">
-              Latest Strategic Insights
+              Latest Strategic Blog
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               Practical frameworks, corporate valuation models, and market intelligence published by our senior practice leaders.
@@ -60,7 +60,7 @@ export default function LatestInsightsSection() {
               href="/blog"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs sm:text-sm font-bold hover:bg-brand-rust dark:hover:bg-brand-rust hover:text-white dark:hover:text-white transition-all shadow-md group"
             >
-              <span>Explore All Insights</span>
+              <span>Explore All Blogs</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </ScrollReveal>

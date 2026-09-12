@@ -17,7 +17,7 @@ export default function BlogArticleClientActions({ title }: { title: string }) {
   const handleShare = (platform: "linkedin" | "twitter" | "whatsapp") => {
     if (typeof window === "undefined") return;
     const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(`Insight: ${title} | Factual Solutions`);
+    const text = encodeURIComponent(`Blog: ${title} | Factual Solutions`);
 
     let shareUrl = "";
     if (platform === "linkedin") {

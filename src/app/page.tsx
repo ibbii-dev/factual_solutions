@@ -21,7 +21,7 @@ export default function HomePage() {
       {/* 4. The Factual Method (4-Step Framework) */}
       <MethodologySection />
 
-      {/* 5. Executive Insights & Thought Leadership */}
+      {/* 5. Strategic Blog & Thought Leadership */}
       <LatestInsightsSection />
 
       {/* 6. High-Conversion Consultation CTA */}

@@ -31,12 +31,12 @@ export async function generateMetadata({
   if (!post) {
     return {
       title: "Article Not Found | Factual Solutions",
-      description: "The requested executive strategic insight could not be found."
+      description: "The requested executive blog post could not be found."
     };
   }
 
   return {
-    title: `${post.title} | Factual Solutions Executive Insights`,
+    title: `${post.title} | Factual Solutions Blog`,
     description: post.excerpt || "Strategic advisory and management consulting intelligence.",
     openGraph: {
       title: post.title,
@@ -178,7 +178,7 @@ export default async function BlogPostPage({
         <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
           <Link href="/" className="hover:text-brand-rust transition-colors">Home</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/blog" className="hover:text-brand-rust transition-colors">Insights</Link>
+          <Link href="/blog" className="hover:text-brand-rust transition-colors">Blog</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           <span className="text-slate-700 dark:text-slate-300 truncate max-w-[200px] sm:max-w-xs">
             {post.category}
@@ -315,7 +315,7 @@ export default async function BlogPostPage({
               <span>Direct Partner Consultation</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold font-display">
-              Apply These Insights to Your Enterprise
+              Apply These Strategies to Your Enterprise
             </h3>
             <p className="text-xs sm:text-sm text-white/85 leading-relaxed">
               Schedule a confidential 45-minute working session with our practice partners to review your strategic challenges and financial projections.
@@ -336,13 +336,13 @@ export default async function BlogPostPage({
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-16 border-t border-slate-200 dark:border-slate-800 space-y-8">
           <div className="flex items-center justify-between">
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-display">
-              Further Executive Perspectives
+              Further Executive Blog Posts
             </h3>
             <Link
               href="/blog"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-rust dark:text-brand-rust-light hover:underline"
             >
-              <span>View All Insights</span>
+              <span>View All Blogs</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

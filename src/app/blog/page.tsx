@@ -87,11 +87,11 @@ function BlogContent() {
         <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-rust/10 dark:bg-brand-rust/20 border border-brand-rust/30 text-brand-rust dark:text-brand-rust-light text-xs font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Strategic Intelligence & Insights</span>
+            <span>Strategic Intelligence & Blog</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white font-display">
-            Executive Perspectives & Advisory Briefings
+            Executive Blog & Advisory Perspectives
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
@@ -156,7 +156,7 @@ function BlogContent() {
           </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white">No articles found</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            No published insights match your current search or category filter. Try clearing your filters or search terms.
+            No published blog posts match your current search or category filter. Try clearing your filters or search terms.
           </p>
           <button
             onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }}
@@ -261,7 +261,7 @@ function BlogContent() {
                       href={`/blog/${featuredPost.slug}`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-xs font-bold transition-all shadow-md shadow-brand-rust/20 group/btn"
                     >
-                      <span>Read Insight</span>
+                      <span>Read Blog</span>
                       <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
                     </Link>
                   </div>

@@ -913,7 +913,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Blog & Insights ({blogPosts.length})</span>
+            <span>Blog ({blogPosts.length})</span>
           </button>
 
           <button
@@ -1414,7 +1414,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         )}
 
         {/* ============================================================== */}
-        {/* TAB 4: BLOG & INSIGHTS MANAGEMENT                             */}
+        {/* TAB 4: BLOG MANAGEMENT                                       */}
         {/* ============================================================== */}
         {activeTab === "blog" && (
           <div className="space-y-6">
