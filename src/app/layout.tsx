@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { UserAuthProvider } from "@/context/UserAuthContext";
 import AuthModal from "@/components/auth/AuthModal";
 import SiteShell from "@/components/layout/SiteShell";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   title: "Factual Solutions | Business & Management Consulting",

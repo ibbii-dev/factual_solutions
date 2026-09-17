@@ -72,21 +72,21 @@ function BlogContent() {
     : filteredPosts;
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors pt-32 sm:pt-36 pb-20">
+    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors pt-28 sm:pt-36 pb-20">
       
       {/* 1. Header Hero Section */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-12 sm:pb-16">
+      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10 sm:pb-16">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#A33C29]/10 text-[#A33C29] text-[11px] font-bold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#A33C29]/10 text-[#A33C29] text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Strategic Intelligence &amp; Blog</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display leading-tight">
             Executive Blog &amp; Advisory Perspectives
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Data-backed methodologies, corporate finance research, and practical operational frameworks curated by our senior consulting partners.
           </p>
         </div>

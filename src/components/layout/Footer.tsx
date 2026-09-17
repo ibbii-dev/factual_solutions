@@ -62,7 +62,7 @@ export default function Footer() {
                   <span>Briefing request sent. Our advisory team will contact you.</span>
                 </div>
               ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 w-full">
                   <input
                     type="email"
                     required
@@ -73,7 +73,7 @@ export default function Footer() {
                   />
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-lg bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase text-center"
                   >
                     SEND BRIEFING REQUEST
                   </button>

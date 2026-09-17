@@ -96,17 +96,17 @@ export default function ClientPortalPage() {
   // If not authenticated, show welcoming portal sign in screen
   if (!isLoading && !user) {
     return (
-      <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white pt-36 pb-24 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white dark:bg-[#111C2E] rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl p-8 text-center space-y-6">
-          <div className="w-16 h-16 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center mx-auto">
-            <ShieldCheck className="w-8 h-8" />
+      <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white dark:bg-[#111C2E] rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center mx-auto">
+            <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#A33C29]">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#A33C29]">
               SECURE CLIENT ENVIRONMENT
             </span>
-            <h1 className="text-2xl font-bold font-display text-[#152238] dark:text-white">
+            <h1 className="text-xl sm:text-2xl font-bold font-display text-[#152238] dark:text-white">
               Enterprise Client Portal
             </h1>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -117,7 +117,7 @@ export default function ClientPortalPage() {
           <div className="space-y-3 pt-2">
             <button
               onClick={() => openAuthModal("login")}
-              className="w-full py-3.5 px-5 rounded-full bg-[#152238] hover:bg-[#1E3150] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 hover:scale-[1.01]"
+              className="w-full py-3 sm:py-3.5 px-5 rounded-full bg-[#152238] hover:bg-[#1E3150] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 hover:scale-[1.01]"
             >
               <User className="w-4 h-4" />
               <span>Sign In to Access Portal</span>
@@ -125,7 +125,7 @@ export default function ClientPortalPage() {
 
             <button
               onClick={() => openAuthModal("login")}
-              className="w-full py-3 px-5 rounded-full bg-white dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 sm:py-3 px-5 rounded-full bg-white dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -148,30 +148,30 @@ export default function ClientPortalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white pt-32 sm:pt-36 pb-24 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Portal Header & Client Identity */}
-        <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-6 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="relative w-14 h-14 rounded-2xl overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
+        <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
+          <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-base sm:text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
               {user?.avatar ? (
                 <Image src={user.avatar} alt={user.name} fill className="object-cover" />
               ) : (
                 <span>{user?.name?.charAt(0) || "C"}</span>
               )}
             </div>
-            <div className="space-y-0.5">
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-bold font-display text-[#152238] dark:text-white">
+            <div className="space-y-0.5 min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-lg sm:text-2xl font-bold font-display text-[#152238] dark:text-white truncate">
                   {user?.name}
                 </h1>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span className="text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
                   Verified Client
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                {user?.email} &bull; Connected via {user?.provider === "google" ? "Google Authentication" : "Corporate Email"}
+              <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                {user?.email} &bull; Connected via {user?.provider === "google" ? "Google" : "Email"}
               </p>
             </div>
           </div>
@@ -334,22 +334,31 @@ export default function ClientPortalPage() {
                           <span className="text-[10px] uppercase font-bold text-slate-400 mb-3 block">
                             Milestone Tracking
                           </span>
-                          <div className="grid grid-cols-4 gap-2 text-center text-[10px] font-bold">
+                          <div className="grid grid-cols-4 gap-1.5 sm:gap-2 text-center text-[8.5px] sm:text-[10px] font-bold">
                             <div className="space-y-1">
                               <div className="h-1.5 rounded-full bg-[#152238] dark:bg-white" />
-                              <span className="text-[#152238] dark:text-white">1. Submitted</span>
+                              <span className="text-[#152238] dark:text-white block leading-tight">1. Submitted</span>
                             </div>
                             <div className="space-y-1">
                               <div className={`h-1.5 rounded-full ${inq.status !== 'New' ? 'bg-[#152238] dark:bg-white' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                              <span className={inq.status !== 'New' ? 'text-[#152238] dark:text-white' : 'text-slate-400'}>2. Under Review</span>
+                              <span className={`${inq.status !== 'New' ? 'text-[#152238] dark:text-white' : 'text-slate-400'} block leading-tight`}>
+                                <span className="sm:hidden">2. Review</span>
+                                <span className="hidden sm:inline">2. Under Review</span>
+                              </span>
                             </div>
                             <div className="space-y-1">
                               <div className={`h-1.5 rounded-full ${inq.status === 'In Progress' || inq.status === 'Closed' ? 'bg-[#152238] dark:bg-white' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                              <span className={inq.status === 'In Progress' || inq.status === 'Closed' ? 'text-[#152238] dark:text-white' : 'text-slate-400'}>3. Advisor Assigned</span>
+                              <span className={`${inq.status === 'In Progress' || inq.status === 'Closed' ? 'text-[#152238] dark:text-white' : 'text-slate-400'} block leading-tight`}>
+                                <span className="sm:hidden">3. Assigned</span>
+                                <span className="hidden sm:inline">3. Advisor Assigned</span>
+                              </span>
                             </div>
                             <div className="space-y-1">
                               <div className={`h-1.5 rounded-full ${inq.status === 'Closed' ? 'bg-emerald-500' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                              <span className={inq.status === 'Closed' ? 'text-emerald-600' : 'text-slate-400'}>4. Deliverables Ready</span>
+                              <span className={`${inq.status === 'Closed' ? 'text-emerald-600' : 'text-slate-400'} block leading-tight`}>
+                                <span className="sm:hidden">4. Ready</span>
+                                <span className="hidden sm:inline">4. Deliverables Ready</span>
+                              </span>
                             </div>
                           </div>
                         </div>

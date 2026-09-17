@@ -96,11 +96,11 @@ export default function IndustrySectorsSection() {
             >
               <div className="space-y-4">
                 {/* Icon box + category badge */}
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
                     {sector.icon}
                   </div>
-                  <span className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                  <span className="text-[9.5px] sm:text-[10px] font-bold tracking-wider text-slate-500 uppercase shrink-0 whitespace-nowrap">
                     {sector.badge}
                   </span>
                 </div>

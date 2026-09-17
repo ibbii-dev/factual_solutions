@@ -134,12 +134,13 @@ export default function CustomLanguageSelector() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 hover:bg-[#8EA9D3]/30 dark:hover:bg-white/20 border border-[#8EA9D3]/30 dark:border-white/10 shadow-sm"
+        className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold transition-all duration-200 text-[#152238] dark:text-white bg-[#8EA9D3]/20 dark:bg-white/10 hover:bg-[#8EA9D3]/30 dark:hover:bg-white/20 border border-[#8EA9D3]/30 dark:border-white/10 shadow-sm shrink-0 select-none"
         aria-expanded={isOpen}
       >
-        <span className="text-sm">{selectedLanguage.flag}</span>
-        <span className="font-semibold">{selectedLanguage.native}</span>
-        <ChevronDown className={`w-3.5 h-3.5 text-slate-500 dark:text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-rust" : ""}`} />
+        <span className="text-xs sm:text-sm">{selectedLanguage.flag}</span>
+        <span className="font-semibold hidden sm:inline">{selectedLanguage.native}</span>
+        <span className="font-bold sm:hidden text-[10px] tracking-wider uppercase">{selectedLanguage.code.slice(0, 2)}</span>
+        <ChevronDown className={`w-3 sm:w-3.5 h-3 sm:h-3.5 text-slate-500 dark:text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-rust" : ""}`} />
       </button>
 
       {/* Modern Luxury Dropdown Menu */}

@@ -116,9 +116,9 @@ export default function DualEngineSection() {
             >
               <div className="space-y-4">
                 {/* Top Number Badge and Tag */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <span
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
+                    className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
                       service.isRustNum
                         ? "bg-[#A33C29] text-white"
                         : "bg-[#152238] text-white"
@@ -126,7 +126,7 @@ export default function DualEngineSection() {
                   >
                     {service.num}
                   </span>
-                  <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  <span className="text-[9.5px] sm:text-[10px] font-semibold px-2 sm:px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 whitespace-nowrap">
                     {service.tag}
                   </span>
                 </div>

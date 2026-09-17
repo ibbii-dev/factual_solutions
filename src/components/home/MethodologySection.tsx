@@ -77,9 +77,9 @@ export default function MethodologySection() {
             >
               <div className="space-y-3.5">
                 {/* Top Badge & Icon */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <span
-                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                    className={`text-[9.5px] sm:text-[10px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
                       step.isRustPhase
                         ? "bg-[#A33C29]/15 text-[#A33C29]"
                         : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
@@ -87,7 +87,9 @@ export default function MethodologySection() {
                   >
                     {step.phase}
                   </span>
-                  {step.icon}
+                  <div className="shrink-0">
+                    {step.icon}
+                  </div>
                 </div>
 
                 {/* Title and Desc */}

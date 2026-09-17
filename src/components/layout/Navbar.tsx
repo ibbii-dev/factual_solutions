@@ -84,28 +84,35 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       {/* Top Advisory Ribbon */}
-      <div className="bg-[#152238] dark:bg-[#090F1A] text-slate-300 py-1.5 px-4 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/10 select-none">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 mx-auto sm:mx-0">
+      <div className="bg-[#152238] dark:bg-[#090F1A] text-slate-300 py-1.5 px-3 sm:px-4 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/10 select-none overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          
+          {/* Left: Indicator & Core Practice Areas */}
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-hidden min-w-0">
             <span className="w-1.5 h-1.5 rounded-full bg-[#A33C29] animate-pulse shrink-0" />
-            <span className="tracking-widest uppercase font-semibold text-slate-200">
-              CORPORATE SOLUTIONS <span className="text-slate-500 mx-1">•</span> MANAGEMENT CONSULTING <span className="text-slate-500 mx-1">•</span> FINANCIAL ADVISORY
+            <span className="tracking-wider uppercase font-semibold text-slate-200 truncate">
+              <span className="sm:hidden text-[9px] tracking-wide">FS ADVISORY &bull; FINANCIAL &bull; MANAGEMENT</span>
+              <span className="hidden sm:inline">CORPORATE SOLUTIONS <span className="text-slate-500 mx-1">•</span> MANAGEMENT CONSULTING <span className="text-slate-500 mx-1">•</span> FINANCIAL ADVISORY</span>
             </span>
           </div>
-          <div className="hidden sm:flex items-center gap-4 text-slate-400 text-[11px]">
+
+          {/* Right: Portal Access & Global Practice */}
+          <div className="flex items-center gap-2 sm:gap-4 text-slate-400 text-[10px] sm:text-[11px] shrink-0">
             {user ? (
               <Link href="/portal" className="text-emerald-400 font-semibold hover:underline flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                Portal: {user.name.split(" ")[0]}
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                <span className="truncate max-w-[85px] sm:max-w-none">Portal: {user.name.split(" ")[0]}</span>
               </Link>
             ) : (
-              <button onClick={() => openAuthModal("login")} className="hover:text-white transition-colors cursor-pointer">
-                Client Portal Sign In
+              <button onClick={() => openAuthModal("login")} className="text-[#8EA9D3] sm:text-slate-300 hover:text-white font-semibold transition-colors cursor-pointer whitespace-nowrap">
+                <span className="sm:hidden">Portal Sign In</span>
+                <span className="hidden sm:inline">Client Portal Sign In</span>
               </button>
             )}
-            <span className="text-slate-600">|</span>
-            <span className="text-slate-300 font-medium">Global Practice: KSA &amp; UAE</span>
+            <span className="text-slate-600 hidden sm:inline">|</span>
+            <span className="text-slate-300 font-medium hidden md:inline">Global Practice: KSA &amp; UAE</span>
           </div>
+
         </div>
       </div>
 
@@ -113,16 +120,16 @@ export default function Navbar() {
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 dark:bg-[#0E1626]/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-slate-800 py-2.5"
-            : "bg-white/90 dark:bg-[#0E1626]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/60 py-3.5"
+            ? "bg-white/95 dark:bg-[#0E1626]/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-slate-800 py-2 sm:py-2.5"
+            : "bg-white/90 dark:bg-[#0E1626]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/60 py-2 sm:py-3.5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-2">
             
             {/* Brand Logo */}
-            <Link href="/" className="flex items-center gap-3 group select-none">
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-105 shrink-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-105 shrink-0">
                 <Image
                   src="/images/logo-symbol.png"
                   alt="Factual Solutions Symbol"
@@ -131,13 +138,13 @@ export default function Navbar() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex flex-col leading-tight">
+              <div className="flex flex-col leading-tight min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-base sm:text-lg font-bold tracking-tight text-[#152238] dark:text-white">
+                  <span className="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-[#152238] dark:text-white truncate">
                     Factual Solutions
                   </span>
                 </div>
-                <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase -mt-0.5">
+                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase -mt-0.5 truncate">
                   Engineering &amp; Advisory
                 </span>
               </div>
@@ -426,20 +433,20 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu & Controls */}
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden shrink-0">
               <CustomLanguageSelector />
 
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 shrink-0"
               >
                 {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-[#152238]" />}
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 rounded-lg text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10"
+                className="p-1.5 rounded-lg text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10 shrink-0"
                 aria-label="Toggle Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

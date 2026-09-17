@@ -163,7 +163,7 @@ export default function ServiceDetailPage() {
   };
 
   return (
-    <div className="pt-32 sm:pt-36 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-36 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumb Navigation */}

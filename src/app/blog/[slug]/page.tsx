@@ -169,7 +169,7 @@ export default async function BlogPostPage({
   };
 
   return (
-    <article className="min-h-screen bg-slate-50 dark:bg-[#070D18] text-slate-900 dark:text-slate-100 transition-colors pt-28 pb-20">
+    <article className="min-h-screen bg-slate-50 dark:bg-[#070D18] text-slate-900 dark:text-slate-100 transition-colors pt-28 sm:pt-36 pb-20">
       
       {/* 1. Article Hero & Header */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -180,14 +180,14 @@ export default async function BlogPostPage({
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           <Link href="/blog" className="hover:text-brand-rust transition-colors">Blog</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-slate-700 dark:text-slate-300 truncate max-w-[200px] sm:max-w-xs">
+          <span className="text-slate-700 dark:text-slate-300 truncate max-w-[180px] sm:max-w-xs">
             {post.category}
           </span>
         </div>
 
         {/* Category & Meta */}
-        <div className="flex flex-wrap items-center gap-3 pt-2">
-          <span className="px-3.5 py-1.5 rounded-full bg-brand-rust/10 text-brand-rust dark:text-brand-rust-light font-bold text-xs uppercase tracking-wider border border-brand-rust/20">
+        <div className="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
+          <span className="px-3 py-1 rounded-full bg-brand-rust/10 text-brand-rust dark:text-brand-rust-light font-bold text-[11px] sm:text-xs uppercase tracking-wider border border-brand-rust/20">
             {post.category}
           </span>
           <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
@@ -202,7 +202,7 @@ export default async function BlogPostPage({
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white font-display leading-[1.15]">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white font-display leading-tight sm:leading-[1.15]">
           {post.title}
         </h1>
 
