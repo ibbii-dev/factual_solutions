@@ -1,91 +1,129 @@
 "use client";
 
 import React from "react";
-import { Search, Compass, Zap, CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { 
+  Search, 
+  FileText, 
+  Wrench, 
+  Gauge, 
+  ArrowRight,
+  Sparkles
+} from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
-const stepIcons = [
-  <Search key="1" className="w-5 h-5" />,
-  <Compass key="2" className="w-5 h-5" />,
-  <Zap key="3" className="w-5 h-5" />,
-  <CheckCircle2 key="4" className="w-5 h-5" />
+const frameworkSteps = [
+  {
+    phase: "Phase 01",
+    isRustPhase: false,
+    icon: <Search className="w-4 h-4 text-slate-400" />,
+    title: "Discovery & Business Assessment",
+    description: "We audit your existing workflows, market position, and financial sheet to identify critical bottlenecks and growth opportunities.",
+    outcome: "Diagnostic Matrix"
+  },
+  {
+    phase: "Phase 02",
+    isRustPhase: true,
+    icon: <FileText className="w-4 h-4 text-[#A33C29]" />,
+    title: "Strategic Planning & Analysis",
+    description: "We construct tailored market forecasts, execution milestones, and commercial budgets tailored to your sector and goals.",
+    outcome: "Action Roadmap"
+  },
+  {
+    phase: "Phase 03",
+    isRustPhase: false,
+    icon: <Wrench className="w-4 h-4 text-slate-400" />,
+    title: "Execution & Hands-On Guidance",
+    description: "We work directly with your leadership and team to implement business changes under structured governance and management practices.",
+    outcome: "Operational Delivery"
+  },
+  {
+    phase: "Phase 04",
+    isRustPhase: false,
+    icon: <Gauge className="w-4 h-4 text-slate-400" />,
+    title: "Review & Performance Tracking",
+    description: "We provide ongoing tracking and progress reports with practical KPIs to make sure your business stays on track and achieves steady growth.",
+    outcome: "Verified Milestone Metrics"
+  }
 ];
 
 export default function MethodologySection() {
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
 
   return (
-    <section className="py-16 sm:py-24 bg-slate-50/80 dark:bg-[#121B2D]/80 backdrop-blur-sm text-[#152238] dark:text-white relative overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="methodology" className="py-20 sm:py-24 bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8EA9D3]/25 text-[#152238] dark:text-brand-steel-light text-xs font-semibold uppercase tracking-wider">
-            {t.methodology.eyebrow}
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#152238] dark:text-white font-display">
-            {t.methodology.title}
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-2 mb-12 sm:mb-16">
+          <span className="text-[11px] font-bold tracking-widest uppercase text-[#A33C29]">
+            ENGAGEMENT PROCESS
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+            A Structured 4–Step Advisory Framework
           </h2>
-          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-            {t.methodology.subtitle}
+          <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
+            We follow a practical disciplined consulting process from infrastructure review through hands-on execution and performance training.
           </p>
         </ScrollReveal>
 
-        {/* 4 Steps Grid */}
-        <StaggerContainer delayChildren={0.15} staggerChildren={0.12} className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {t.methodology.steps.map((step, idx) => (
+        {/* 4 Cards Row */}
+        <StaggerContainer delayChildren={0.1} staggerChildren={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {frameworkSteps.map((step, idx) => (
             <StaggerItem
-              key={step.step}
-              variant="fade-up"
-              className="bg-white/85 dark:bg-[#111C2E]/80 backdrop-blur-md rounded-3xl p-6 sm:p-7 border border-[#8EA9D3]/30 dark:border-slate-800 flex flex-col justify-between shadow-sm hover:border-brand-steel hover:-translate-y-1 transition-all duration-300 group"
+              key={idx}
+              className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
             >
-              <div>
-                {/* Step Icon Badge */}
-                <div
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 shadow-sm ${
-                    idx === 0
-                      ? "bg-[#8EA9D3]/25 text-[#152238] dark:text-brand-steel-light"
-                      : idx === 1
-                      ? "bg-[#152238] text-white dark:bg-[#1E3150]"
-                      : idx === 2
-                      ? "bg-brand-rust/20 text-brand-rust dark:text-brand-rust-light"
-                      : "bg-emerald-500/20 text-emerald-600 dark:text-emerald-300"
-                  }`}
-                >
-                  {stepIcons[idx]}
+              <div className="space-y-3.5">
+                {/* Top Badge & Icon */}
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                      step.isRustPhase
+                        ? "bg-[#A33C29]/15 text-[#A33C29]"
+                        : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                    }`}
+                  >
+                    {step.phase}
+                  </span>
+                  {step.icon}
                 </div>
 
-                <div className="text-[11px] font-bold uppercase tracking-wider text-brand-rust dark:text-brand-steel-light mb-1.5">
-                  {t.methodology.phase} {step.step}
+                {/* Title and Desc */}
+                <div className="space-y-1.5">
+                  <h3 className="text-sm sm:text-base font-bold text-[#152238] dark:text-white font-display">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                    {step.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-[#152238] dark:text-white mb-2.5 font-display">
-                  {step.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                  {step.description}
-                </p>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-[#8EA9D3]/20 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
-                <span>{t.methodology.phaseOutcome}</span>
-                <span className="font-bold text-[#152238] dark:text-brand-steel-light">{step.outcome}</span>
+              {/* Expected Outcome Box */}
+              <div className="mt-6 pt-3.5 border-t border-slate-100 dark:border-slate-800 space-y-0.5">
+                <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">
+                  EXPECTED OUTCOME:
+                </span>
+                <span className="text-xs font-bold text-[#152238] dark:text-slate-200 block">
+                  {step.outcome}
+                </span>
               </div>
             </StaggerItem>
           ))}
         </StaggerContainer>
 
-        {/* Bottom CTA Banner */}
-        <ScrollReveal variant="zoom-in" delay={0.2} className="mt-12 text-center">
+        {/* Bottom Link */}
+        <div className="mt-10 sm:mt-12 text-center">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#152238] hover:bg-brand-rust text-white text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-lg"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-[#A33C29] transition-colors"
           >
-            <span>{t.methodology.learnLeadership}</span>
-            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+            <span>Learn More About our Methodology &amp; Governance Standards</span>
+            <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
           </Link>
-        </ScrollReveal>
+        </div>
 
       </div>
     </section>

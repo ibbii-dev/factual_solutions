@@ -2,70 +2,80 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, PhoneCall, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, PhoneCall } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function ConsultationBanner() {
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
 
   return (
-    <section className="py-14 sm:py-20 bg-white/80 dark:bg-[#0E1626]/75 backdrop-blur-[2px] transition-colors duration-300">
+    <section className="py-14 sm:py-20 bg-[#FAFBFD] dark:bg-[#0B1320] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal variant="zoom-in" duration={0.7} className="relative rounded-3xl bg-gradient-to-br from-[#152238] via-[#1A2C49] to-[#111C2E] dark:from-[#131E33] dark:via-[#182640] dark:to-[#0E1626] text-white overflow-hidden p-8 sm:p-12 lg:p-14 shadow-2xl border border-slate-200/40 dark:border-slate-800">
-          
-          {/* Subtle Ambient Glow inside Banner */}
-          <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-brand-rust/20 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-brand-steel/20 blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <ScrollReveal variant="fade-up" duration={0.6}>
+          <div className="relative rounded-3xl bg-[#0E1B33] dark:bg-[#080E1A] text-white p-8 sm:p-12 lg:p-16 overflow-hidden border border-white/10 shadow-2xl">
             
-            {/* Left Content */}
-            <div className="lg:col-span-8 space-y-4 text-start">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-brand-steel-light text-xs font-semibold backdrop-blur-md">
-                <span className="flex h-2 w-2 rounded-full bg-brand-rust shrink-0 animate-pulse" />
-                <span>{t.cta.badge}</span>
+            {/* Subtle radial light highlight in background */}
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#8EA9D3]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#A33C29]/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 max-w-3xl space-y-5">
+              
+              {/* Eyebrow Pill */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 text-brand-steel-light text-[11px] font-bold uppercase tracking-wider">
+                <span>ADVISORY ENGAGEMENT</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight font-display">
-                {t.cta.title}
+              {/* Headline */}
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display leading-tight">
+                Ready to Discuss Your Business Goals?
               </h2>
 
-              <p className="text-xs sm:text-sm md:text-base text-slate-200 dark:text-slate-300 max-w-2xl leading-relaxed font-normal">
-                {t.cta.description}
+              {/* Subheadline */}
+              <p className="text-xs sm:text-base text-slate-300 font-normal leading-relaxed max-w-2xl">
+                Connect directly with our consulting team to explore market research, business plan validation, financial modeling, or sales workflows.
               </p>
 
-              <div className="pt-2 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-slate-300 font-medium">
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-brand-steel-light" /> {t.cta.confidential}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <PhoneCall className="w-4 h-4 text-brand-steel-light" /> {t.cta.callback}
-                </span>
+              {/* 3 Checkmarks */}
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 text-xs text-slate-300 font-medium">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#A33C29]" />
+                  <span>Confidential Discussion</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#A33C29]" />
+                  <span>Direct Consultant Callback</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#A33C29]" />
+                  <span>No Immediate Commitment</span>
+                </div>
               </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <span>Request a Consultation</span>
+                  <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                </Link>
+
+                <Link
+                  href="/contact?type=discovery"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  <PhoneCall className="w-3.5 h-3.5 text-brand-steel-light" />
+                  <span>Book a Discovery Call</span>
+                </Link>
+              </div>
+
             </div>
-
-            {/* Right CTA Buttons */}
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-brand-rust hover:bg-brand-rust-light text-white text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-brand-rust/30 hover:scale-[1.02] text-center"
-              >
-                <span>{t.cta.requestButton}</span>
-                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-              </Link>
-
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all text-center hover:scale-[1.02]"
-              >
-                <span>{t.cta.exploreButton}</span>
-              </Link>
-            </div>
-
           </div>
-
         </ScrollReveal>
+
       </div>
     </section>
   );

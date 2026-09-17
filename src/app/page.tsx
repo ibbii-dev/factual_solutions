@@ -1,30 +1,34 @@
 import React from "react";
 import HeroSection from "@/components/home/HeroSection";
+import ClientTestimonials from "@/components/home/ClientTestimonials";
+import IndustrySectorsSection from "@/components/home/IndustrySectorsSection";
 import DualEngineSection from "@/components/home/DualEngineSection";
 import MethodologySection from "@/components/home/MethodologySection";
-import ClientTestimonials from "@/components/home/ClientTestimonials";
-import ConsultationBanner from "@/components/home/ConsultationBanner";
 import LatestInsightsSection from "@/components/home/LatestInsightsSection";
+import ConsultationBanner from "@/components/home/ConsultationBanner";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* 1. Hero with Interactive 3D Brand Symbol */}
+    <div className="flex flex-col min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320]">
+      {/* 1. Hero with Left Copy & Right Factual Enterprise Engine Dashboard */}
       <HeroSection />
 
-      {/* 2. Client Trust & Consulting Principles */}
+      {/* 2. Client Trust & Consulting Value Pillars */}
       <ClientTestimonials />
 
-      {/* 3. Dual Engine: Business Solutions vs. Consultancy Services */}
+      {/* 3. Industry Specializations: Advising Businesses Across Key Industry Sectors */}
+      <IndustrySectorsSection />
+
+      {/* 4. Comprehensive Consulting Services (01 to 06 Cards) */}
       <DualEngineSection />
 
-      {/* 4. The Factual Method (4-Step Framework) */}
+      {/* 5. A Structured 4-Step Advisory Framework */}
       <MethodologySection />
 
-      {/* 5. Strategic Blog & Thought Leadership */}
+      {/* 6. Thought Leadership & Latest Strategic Blog */}
       <LatestInsightsSection />
 
-      {/* 6. High-Conversion Consultation CTA */}
+      {/* 7. Pre-Footer High-Conversion Consultation CTA */}
       <ConsultationBanner />
     </div>
   );
