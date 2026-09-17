@@ -112,7 +112,7 @@ export default function DualEngineSection() {
           {consultingServices.map((service) => (
             <StaggerItem
               key={service.num}
-              className="bg-white dark:bg-[#111C2E] p-6 sm:p-7 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-lg hover:border-slate-300 transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white dark:bg-[#111C2E] p-6 sm:p-7 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div className="space-y-4">
                 {/* Top Number Badge and Tag */}

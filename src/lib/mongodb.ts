@@ -286,7 +286,7 @@ export async function dbTestConnection(): Promise<{ connected: boolean; message:
 // INQUIRIES CRUD OPERATIONS
 // ==========================================
 
-export async function dbGetInquiries(filter?: { status?: string; search?: string }): Promise<DatabaseInquiry[]> {
+export async function dbGetInquiries(filter?: { status?: string; search?: string; email?: string }): Promise<DatabaseInquiry[]> {
   try {
     const db = await getDatabase();
     if (db) {
@@ -295,6 +295,10 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
 
       if (filter?.status && filter.status !== "All") {
         query.status = filter.status;
+      }
+
+      if (filter?.email) {
+        query.workEmail = { $regex: new RegExp(`^${filter.email.trim()}$`, "i") };
       }
 
       if (filter?.search) {
@@ -321,6 +325,10 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
   let res = [...fallbackInquiries];
   if (filter?.status && filter.status !== "All") {
     res = res.filter((i) => i.status === filter.status);
+  }
+  if (filter?.email) {
+    const targetEmail = filter.email.toLowerCase().trim();
+    res = res.filter((i) => i.workEmail.toLowerCase().trim() === targetEmail);
   }
   if (filter?.search) {
     const q = filter.search.toLowerCase();

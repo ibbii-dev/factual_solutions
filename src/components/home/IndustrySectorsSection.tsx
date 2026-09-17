@@ -92,7 +92,7 @@ export default function IndustrySectorsSection() {
           {sectors.map((sector) => (
             <StaggerItem
               key={sector.id}
-              className="bg-white dark:bg-[#111C2E] p-6 sm:p-7 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 transition-all duration-200 flex flex-col justify-between group"
+              className="bg-white dark:bg-[#111C2E] p-6 sm:p-7 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-[#8EA9D3]/60 transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="space-y-4">
                 {/* Icon box + category badge */}

@@ -73,7 +73,7 @@ export default function MethodologySection() {
           {frameworkSteps.map((step, idx) => (
             <StaggerItem
               key={idx}
-              className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className="bg-white dark:bg-[#111C2E] p-5 sm:p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
             >
               <div className="space-y-3.5">
                 {/* Top Badge & Icon */}

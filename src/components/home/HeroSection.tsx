@@ -170,9 +170,9 @@ export default function HeroSection() {
                       strokeDasharray="4 4"
                     />
                     {/* Data Node Dots */}
-                    <circle cx="120" cy="60" r="4" fill="#152238" className="cursor-pointer hover:r-5 transition-all" />
-                    <circle cx="240" cy="35" r="4" fill="#152238" className="cursor-pointer hover:r-5 transition-all" />
-                    <circle cx="320" cy="15" r="5" fill="#A33C29" stroke="#fff" strokeWidth="2" />
+                    <circle cx="120" cy="60" r="4.5" fill="#152238" className="cursor-pointer hover:r-6 hover:fill-[#A33C29] transition-all" />
+                    <circle cx="240" cy="35" r="4.5" fill="#152238" className="cursor-pointer hover:r-6 hover:fill-[#A33C29] transition-all" />
+                    <circle cx="320" cy="15" r="5.5" fill="#A33C29" stroke="#fff" strokeWidth="2" className="cursor-pointer hover:r-7 transition-all animate-pulse" />
                   </svg>
                 </div>
 

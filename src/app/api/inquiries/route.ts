@@ -8,8 +8,9 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status") || undefined;
     const search = searchParams.get("q") || undefined;
+    const email = searchParams.get("email") || undefined;
 
-    const inquiries = await dbGetInquiries({ status, search });
+    const inquiries = await dbGetInquiries({ status, search, email });
 
     return NextResponse.json({
       success: true,

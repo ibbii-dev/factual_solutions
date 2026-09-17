@@ -227,6 +227,8 @@ export default function Footer() {
             <Link href="/services" className="hover:text-white transition-colors">Terms of Engagement</Link>
             <span>•</span>
             <Link href="/contact" className="hover:text-white transition-colors">Regulatory Disclosures</Link>
+            <span>•</span>
+            <Link href="/admin" className="text-slate-500 hover:text-slate-300 transition-colors text-[10px]">Staff Admin</Link>
           </div>
         </div>
 
