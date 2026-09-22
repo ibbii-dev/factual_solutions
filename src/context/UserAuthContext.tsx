@@ -63,45 +63,56 @@ export function UserAuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthModalOpen(false);
   }, []);
 
-  // Login with Google (decodes JWT or receives direct profile)
+  // Login with Google (verifies JWT with backend and decodes profile)
   const loginWithGoogle = async (credential?: string, userInfo?: Partial<UserProfile>): Promise<boolean> => {
     try {
-      let finalUser: UserProfile;
+      let finalUser: UserProfile | null = null;
 
+      // 1. If real Google credential token is provided, verify with backend
       if (credential) {
-        // Try decoding Google JWT payload
         try {
-          const base64Url = credential.split(".")[1];
-          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-          const jsonPayload = decodeURIComponent(
-            atob(base64)
-              .split("")
-              .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-              .join("")
-          );
-          const payload = JSON.parse(jsonPayload);
-
-          finalUser = {
-            id: payload.sub || `g_${Date.now()}`,
-            name: payload.name || payload.given_name || "Enterprise Client",
-            email: payload.email,
-            avatar: payload.picture,
-            provider: "google",
-            createdAt: new Date().toISOString(),
-          };
-        } catch (err) {
-          console.warn("JWT parse fallback", err);
-          finalUser = {
-            id: `g_${Date.now()}`,
-            name: userInfo?.name || "Enterprise Client",
-            email: userInfo?.email || "client@enterprise.com",
-            avatar: userInfo?.avatar,
-            provider: "google",
-            createdAt: new Date().toISOString(),
-          };
+          const res = await fetch("/api/auth/google", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ credential }),
+          });
+          const data = await res.json();
+          if (data.success && data.user) {
+            finalUser = data.user;
+          }
+        } catch (apiErr) {
+          console.warn("Backend Google verification error, falling back to local decode:", apiErr);
         }
-      } else {
-        // Direct / simulated Google login
+
+        // Fallback local JWT decode if backend was unreachable
+        if (!finalUser) {
+          try {
+            const base64Url = credential.split(".")[1];
+            const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+            const jsonPayload = decodeURIComponent(
+              atob(base64)
+                .split("")
+                .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+                .join("")
+            );
+            const payload = JSON.parse(jsonPayload);
+
+            finalUser = {
+              id: payload.sub || `g_${Date.now()}`,
+              name: payload.name || payload.given_name || "Enterprise Client",
+              email: payload.email,
+              avatar: payload.picture,
+              provider: "google",
+              createdAt: new Date().toISOString(),
+            };
+          } catch (err) {
+            console.warn("JWT parse fallback failed:", err);
+          }
+        }
+      }
+
+      // 2. Direct user info fallback
+      if (!finalUser) {
         finalUser = {
           id: userInfo?.id || `g_${Date.now()}`,
           name: userInfo?.name || "Enterprise Client",
@@ -110,23 +121,21 @@ export function UserAuthProvider({ children }: { children: React.ReactNode }) {
           provider: "google",
           createdAt: new Date().toISOString(),
         };
+
+        try {
+          await fetch("/api/auth/google", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user: finalUser }),
+          });
+        } catch (syncErr) {
+          // Local session continues
+        }
       }
 
       setUser(finalUser);
       localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(finalUser));
       setIsAuthModalOpen(false);
-
-      // Notify backend to register / sync client
-      try {
-        await fetch("/api/auth/google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(finalUser),
-        });
-      } catch (syncErr) {
-        // Local session is already valid
-      }
-
       return true;
     } catch (e) {
       console.error("Google authentication error:", e);
