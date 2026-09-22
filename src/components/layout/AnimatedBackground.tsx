@@ -83,26 +83,9 @@ export default function AnimatedBackground() {
       tick += 1;
       ctx.clearRect(0, 0, width, height);
 
-      // Draw faint constellation lines
+      // Draw soft ambient floating particles without connecting grid lines
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 130) {
-            const lineAlpha = (1 - dist / 130) * 0.12;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(142, 169, 211, ${lineAlpha})`;
-            ctx.lineWidth = 0.75;
-            ctx.stroke();
-          }
-        }
 
         // Mouse gentle interaction
         if (mouseX > 0 && mouseY > 0) {
@@ -154,12 +137,7 @@ export default function AnimatedBackground() {
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none bg-white dark:bg-[#0E1626] transition-colors duration-300"
     >
-      {/* 1. Subtle Architectural Grid */}
-      <div 
-        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.045] bg-[radial-gradient(#152238_1px,transparent_1px)] dark:bg-[radial-gradient(#8EA9D3_1px,transparent_1px)] [background-size:28px_28px]" 
-      />
-
-      {/* 2. Brand Midnight Navy Ambient Mesh Orb (Deep Upper Left) */}
+      {/* 1. Brand Midnight Navy Ambient Mesh Orb (Deep Upper Left) */}
       <motion.div
         animate={{
           x: [0, 50, -30, 0],
@@ -220,10 +198,10 @@ export default function AnimatedBackground() {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-radial from-brand-steel/6 via-transparent to-transparent blur-[130px] dark:from-brand-steel/8"
       />
 
-      {/* 6. Dynamic Interactive Constellation Canvas */}
+      {/* 5. Dynamic Interactive Ambient Dust / Bokeh Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-60 dark:opacity-90"
+        className="absolute inset-0 w-full h-full opacity-25 dark:opacity-35"
       />
 
       {/* 7. Soft Vignette for Depth Focus in Dark Mode */}
