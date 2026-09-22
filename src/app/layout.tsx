@@ -28,7 +28,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('factual_theme');
+                  if (saved === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased bg-white dark:bg-[#0E1626] text-[#0F172A] dark:text-slate-100 selection:bg-brand-steel/30 selection:text-brand-navy min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
         <ThemeProvider>
           <LanguageProvider>
