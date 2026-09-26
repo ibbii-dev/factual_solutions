@@ -6,7 +6,6 @@ import Image from "next/image";
 import { 
   ArrowRight, 
   ShieldCheck, 
-  TrendingUp, 
   FileText, 
   ArrowUpRight,
   Layers,
@@ -150,54 +149,9 @@ export default function HeroSection() {
                 </span>
               </div>
 
-              {/* Chart Card */}
-              <div className="bg-[#F8FAFD] dark:bg-[#0A1220] rounded-xl p-3 sm:p-4 border border-slate-100 dark:border-slate-800/80 space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 truncate">
-                    Capital Velocity Metrics
-                  </span>
-                  <span className="text-[10.5px] sm:text-[11px] font-extrabold text-[#A33C29] flex items-center gap-0.5 shrink-0 whitespace-nowrap">
-                    <TrendingUp className="w-3 h-3" /> +24.8% YOY
-                  </span>
-                </div>
-
-                {/* SVG Curve Chart */}
-                <div className="relative h-28 w-full">
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 320 100" fill="none">
-                    <defs>
-                      <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#8EA9D3" stopOpacity="0.4" />
-                        <stop offset="100%" stopColor="#8EA9D3" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-                    {/* Background fill */}
-                    <path
-                      d="M 0 85 C 40 80, 80 75, 120 60 C 160 48, 200 52, 240 35 C 280 20, 300 25, 320 15 L 320 100 L 0 100 Z"
-                      fill="url(#chartGradient)"
-                    />
-                    {/* Smooth curve line */}
-                    <path
-                      d="M 0 85 C 40 80, 80 75, 120 60 C 160 48, 200 52, 240 35 C 280 20, 300 25, 320 15"
-                      stroke="#152238"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                    />
-                    {/* Secondary accent projection line */}
-                    <path
-                      d="M 0 90 C 50 85, 100 70, 150 65 C 200 60, 250 40, 320 30"
-                      stroke="#8EA9D3"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                    />
-                    {/* Data Node Dots */}
-                    <circle cx="120" cy="60" r="4.5" fill="#152238" className="cursor-pointer hover:r-6 hover:fill-[#A33C29] transition-all" />
-                    <circle cx="240" cy="35" r="4.5" fill="#152238" className="cursor-pointer hover:r-6 hover:fill-[#A33C29] transition-all" />
-                    <circle cx="320" cy="15" r="5.5" fill="#A33C29" stroke="#fff" strokeWidth="2" className="cursor-pointer hover:r-7 transition-all animate-pulse" />
-                  </svg>
-                </div>
-
-                {/* 3 Metrics Row */}
-                <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-2 border-t border-slate-200/60 dark:border-slate-800 text-center">
+              {/* Executive Operational KPIs */}
+              <div className="bg-[#F8FAFD] dark:bg-[#0A1220] rounded-xl p-3 sm:p-4 border border-slate-100 dark:border-slate-800/80 space-y-2">
+                <div className="grid grid-cols-3 gap-1 sm:gap-2 text-center">
                   <div className="space-y-0.5 px-0.5">
                     <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-medium block truncate">Execution</span>
                     <p className="text-xs sm:text-sm font-bold text-[#152238] dark:text-white">91.4%</p>
