@@ -10,6 +10,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  themeColor: "#FFFFFF",
 };
 
 export const metadata: Metadata = {
@@ -35,13 +36,20 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var saved = localStorage.getItem('factual_theme');
+                  // Purge previous stale dark defaults from older versions
+                  if (localStorage.getItem('factual_theme_pref') === null) {
+                    localStorage.removeItem('factual_theme');
+                    localStorage.setItem('factual_theme_pref', 'light');
+                  }
+                  var saved = localStorage.getItem('factual_theme_pref');
                   if (saved === 'dark') {
                     document.documentElement.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');
                   }
-                } catch (e) {}
+                } catch (e) {
+                  document.documentElement.classList.remove('dark');
+                }
               })();
             `,
           }}
