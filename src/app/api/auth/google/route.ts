@@ -47,10 +47,10 @@ export async function POST(request: NextRequest) {
         const tokenInfo: GoogleTokenInfo = await verifyRes.json();
 
         // Check if token belongs to this project's Google Client ID if configured
-        const expectedClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-        if (expectedClientId && tokenInfo.aud && tokenInfo.aud !== expectedClientId) {
+        const expectedClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID;
+        if (expectedClientId && tokenInfo.aud && tokenInfo.aud !== expectedClientId && tokenInfo.azp !== expectedClientId) {
           return NextResponse.json(
-            { success: false, message: "Google token audience (aud) mismatch" },
+            { success: false, message: "Google token audience mismatch" },
             { status: 403 }
           );
         }
