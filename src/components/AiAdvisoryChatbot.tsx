@@ -16,9 +16,11 @@ import {
   History,
   Clock,
   Search,
-  ArrowRight
+  ArrowRight,
+  Calendar
 } from "lucide-react";
 import { contactDetails } from "@/data/companyData";
+import PartnerBookingWidget from "@/components/calendar/PartnerBookingWidget";
 
 interface Message {
   id: string;
@@ -49,7 +51,7 @@ const QUICK_PROMPTS = [
 export default function AiAdvisoryChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState<"chat" | "history">("chat");
+  const [activeTab, setActiveTab] = useState<"chat" | "calendar" | "history">("chat");
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -347,6 +349,18 @@ export default function AiAdvisoryChatbot() {
               </button>
               <button
                 type="button"
+                onClick={() => setActiveTab("calendar")}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === "calendar"
+                    ? "bg-gradient-to-r from-brand-rust to-[#933423] text-white shadow-sm"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Schedule</span>
+              </button>
+              <button
+                type="button"
                 onClick={() => {
                   setActiveTab("history");
                   fetchHistory();
@@ -506,6 +520,26 @@ export default function AiAdvisoryChatbot() {
                 </div>
               </form>
             </>
+          )}
+
+          {activeTab === "calendar" && (
+            <div className="flex-1 overflow-y-auto p-3.5 custom-scrollbar">
+              <PartnerBookingWidget
+                compact
+                onBookingComplete={(details) => {
+                  setMessages((prev) => [
+                    ...prev,
+                    {
+                      id: `booking-${Date.now()}`,
+                      role: "assistant",
+                      content: `🗓️ **Consultation Confirmed: ${details.meetingType}**\n\n- **Date & Time:** ${details.date} at ${details.time} (${details.timezone})\n- **Attendee:** ${details.clientName} (${details.clientEmail})\n- **Ref:** \`${details.id}\`\n\nA senior advisory partner has reserved your slot. A direct calendar invitation with the meeting link has been prepared.`,
+                      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                    }
+                  ]);
+                  setActiveTab("chat");
+                }}
+              />
+            </div>
           )}
 
           {activeTab === "history" && (

@@ -329,36 +329,94 @@ export default function ClientPortalPage() {
                     {isExpanded && (
                       <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800 space-y-6">
                         
-                        {/* 1. Status Progress Tracker */}
-                        <div className="bg-slate-50 dark:bg-slate-900/80 rounded-xl p-4 border border-slate-100 dark:border-slate-800">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 mb-3 block">
-                            Milestone Tracking
-                          </span>
-                          <div className="grid grid-cols-4 gap-1.5 sm:gap-2 text-center text-[8.5px] sm:text-[10px] font-bold">
-                            <div className="space-y-1">
-                              <div className="h-1.5 rounded-full bg-[#152238] dark:bg-white" />
-                              <span className="text-[#152238] dark:text-white block leading-tight">1. Submitted</span>
+                        {/* 1. Structured Visual Project Timeline */}
+                        <div className="bg-slate-50 dark:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200/90 dark:border-slate-800 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/70 dark:border-slate-800 pb-3">
+                            <div>
+                              <div className="text-[10px] uppercase font-bold text-[#A33C29] tracking-wider">
+                                ADVISORY ENGAGEMENT LIFECYCLE
+                              </div>
+                              <h4 className="text-sm font-bold text-[#152238] dark:text-white font-display">
+                                Project Milestone Timeline
+                              </h4>
                             </div>
-                            <div className="space-y-1">
-                              <div className={`h-1.5 rounded-full ${inq.status !== 'New' ? 'bg-[#152238] dark:bg-white' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                              <span className={`${inq.status !== 'New' ? 'text-[#152238] dark:text-white' : 'text-slate-400'} block leading-tight`}>
-                                <span className="sm:hidden">2. Review</span>
-                                <span className="hidden sm:inline">2. Under Review</span>
-                              </span>
+                            <div className="text-[11px] text-slate-500 font-medium">
+                              Estimated Turnaround: <span className="font-bold text-[#152238] dark:text-white">3&ndash;5 Business Days</span>
                             </div>
-                            <div className="space-y-1">
-                              <div className={`h-1.5 rounded-full ${inq.status === 'In Progress' || inq.status === 'Closed' ? 'bg-[#152238] dark:bg-white' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                              <span className={`${inq.status === 'In Progress' || inq.status === 'Closed' ? 'text-[#152238] dark:text-white' : 'text-slate-400'} block leading-tight`}>
-                                <span className="sm:hidden">3. Assigned</span>
-                                <span className="hidden sm:inline">3. Advisor Assigned</span>
-                              </span>
+                          </div>
+
+                          {/* 3-Stage Connected Stepper */}
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
+                            {/* Stage 1 */}
+                            <div className={`p-4 rounded-xl border transition-all ${
+                              inq.status === 'New' || inq.status === 'Contacted' || inq.status === 'In Progress' || inq.status === 'Closed'
+                                ? 'bg-white dark:bg-[#111C2E] border-slate-200 dark:border-slate-700 shadow-xs'
+                                : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
+                            }`}>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#152238] text-white">
+                                  Stage 1
+                                </span>
+                                <span className={`text-[10px] font-bold ${inq.status !== 'New' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500'}`}>
+                                  {inq.status !== 'New' ? '✓ Completed' : '● In Review'}
+                                </span>
+                              </div>
+                              <h5 className="text-xs font-bold text-[#152238] dark:text-white">Partner Review</h5>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                                Confidentiality triage, initial scope analysis, and senior partner routing.
+                              </p>
                             </div>
-                            <div className="space-y-1">
-                              <div className={`h-1.5 rounded-full ${inq.status === 'Closed' ? 'bg-emerald-500' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                              <span className={`${inq.status === 'Closed' ? 'text-emerald-600' : 'text-slate-400'} block leading-tight`}>
-                                <span className="sm:hidden">4. Ready</span>
-                                <span className="hidden sm:inline">4. Deliverables Ready</span>
-                              </span>
+
+                            {/* Stage 2 */}
+                            <div className={`p-4 rounded-xl border transition-all ${
+                              inq.status === 'In Progress' || inq.status === 'Closed'
+                                ? 'bg-white dark:bg-[#111C2E] border-slate-200 dark:border-slate-700 shadow-xs'
+                                : inq.status === 'Contacted'
+                                ? 'bg-amber-500/5 border-amber-500/30'
+                                : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
+                            }`}>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#A33C29] text-white">
+                                  Stage 2
+                                </span>
+                                <span className={`text-[10px] font-bold ${
+                                  inq.status === 'In Progress' || inq.status === 'Closed'
+                                    ? 'text-emerald-600 dark:text-emerald-400'
+                                    : inq.status === 'Contacted'
+                                    ? 'text-amber-500 animate-pulse'
+                                    : 'text-slate-400'
+                                }`}>
+                                  {inq.status === 'In Progress' || inq.status === 'Closed'
+                                    ? '✓ Completed'
+                                    : inq.status === 'Contacted'
+                                    ? '● Active Diagnostic'
+                                    : '○ Scheduled'}
+                                </span>
+                              </div>
+                              <h5 className="text-xs font-bold text-[#152238] dark:text-white">Feasibility Diagnostic</h5>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                                Operational bottlenecks, financial modeling, scrap/working capital audit.
+                              </p>
+                            </div>
+
+                            {/* Stage 3 */}
+                            <div className={`p-4 rounded-xl border transition-all ${
+                              inq.status === 'Closed'
+                                ? 'bg-white dark:bg-[#111C2E] border-emerald-500/40 shadow-xs'
+                                : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
+                            }`}>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                                  Stage 3
+                                </span>
+                                <span className={`text-[10px] font-bold ${inq.status === 'Closed' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
+                                  {inq.status === 'Closed' ? '✓ Ready' : '○ Upcoming'}
+                                </span>
+                              </div>
+                              <h5 className="text-xs font-bold text-[#152238] dark:text-white">Formal Proposal</h5>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                                Executive deliverables, strategic roadmap, and contract execution terms.
+                              </p>
                             </div>
                           </div>
                         </div>

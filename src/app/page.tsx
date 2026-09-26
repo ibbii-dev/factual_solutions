@@ -3,6 +3,7 @@ import HeroSection from "@/components/home/HeroSection";
 import ClientTestimonials from "@/components/home/ClientTestimonials";
 import IndustrySectorsSection from "@/components/home/IndustrySectorsSection";
 import DualEngineSection from "@/components/home/DualEngineSection";
+import RoiCalculator from "@/components/home/RoiCalculator";
 import MethodologySection from "@/components/home/MethodologySection";
 import LatestInsightsSection from "@/components/home/LatestInsightsSection";
 import ConsultationBanner from "@/components/home/ConsultationBanner";
@@ -22,7 +23,10 @@ export default function HomePage() {
       {/* 4. Comprehensive Consulting Services (01 to 06 Cards) */}
       <DualEngineSection />
 
-      {/* 5. A Structured 4-Step Advisory Framework */}
+      {/* 5. Interactive ROI & Turnaround Diagnostic Calculator */}
+      <RoiCalculator />
+
+      {/* 6. A Structured 4-Step Advisory Framework */}
       <MethodologySection />
 
       {/* 6. Thought Leadership & Latest Strategic Blog */}

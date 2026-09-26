@@ -14,13 +14,15 @@ import {
   ChevronDown, 
   Check,
   Sparkles,
-  Bot
+  Bot,
+  Calendar
 } from "lucide-react";
 import { officeLocations, contactDetails } from "@/data/companyData";
 import { allServices } from "@/data/servicesData";
 import { saveInquiry } from "@/data/inquiriesStore";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import PartnerBookingWidget from "@/components/calendar/PartnerBookingWidget";
 
 interface AiAssessmentData {
   clientName: string;
@@ -51,6 +53,7 @@ function ContactContent() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [aiAssessment, setAiAssessment] = useState<AiAssessmentData | null>(null);
+  const [activeMode, setActiveMode] = useState<"inquiry" | "calendar">("inquiry");
 
   useEffect(() => {
     if (prefilledService) {
@@ -117,7 +120,7 @@ function ContactContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
-        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-14">
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#A33C29]/10 text-[#A33C29] text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest">
             <span>DIRECT ENGAGEMENT</span>
           </div>
@@ -127,14 +130,50 @@ function ContactContent() {
           <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
             {c.subheadline}
           </p>
+
+          {/* Mode Switcher Tabs */}
+          <div className="pt-4 flex items-center justify-center">
+            <div className="inline-flex p-1 rounded-2xl bg-white dark:bg-[#111C2E] border border-slate-200/90 dark:border-slate-800 shadow-xs">
+              <button
+                type="button"
+                onClick={() => setActiveMode("inquiry")}
+                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeMode === "inquiry"
+                    ? "bg-[#152238] dark:bg-white text-white dark:text-[#152238] shadow-sm"
+                    : "text-slate-600 dark:text-slate-400 hover:text-[#A33C29]"
+                }`}
+              >
+                <Bot className="w-3.5 h-3.5 text-[#A33C29]" />
+                <span>Advisory Inquiry &amp; AI Diagnostic</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveMode("calendar")}
+                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                  activeMode === "calendar"
+                    ? "bg-[#A33C29] text-white shadow-sm"
+                    : "text-slate-600 dark:text-slate-400 hover:text-[#A33C29]"
+                }`}
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Partner Calendar (30-Min Discovery)</span>
+              </button>
+            </div>
+          </div>
         </ScrollReveal>
 
-        {/* Form and Hub Details Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          
-          {/* Left: Consultation Form (7 cols) */}
-          <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs border border-slate-200/90 dark:border-slate-800">
-            {submitted ? (
+        {activeMode === "calendar" ? (
+          <div className="max-w-4xl mx-auto mb-16">
+            <PartnerBookingWidget />
+          </div>
+        ) : (
+          /* Form and Hub Details Grid */
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            
+            {/* Left: Consultation Form (7 cols) */}
+            <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs border border-slate-200/90 dark:border-slate-800">
+              {submitted ? (
               <div className="py-6 space-y-6 text-left">
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300">
                   <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0" />
@@ -482,6 +521,7 @@ function ContactContent() {
           </ScrollReveal>
 
         </div>
+      )}
 
       </div>
     </div>

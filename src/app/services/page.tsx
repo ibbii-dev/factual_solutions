@@ -20,10 +20,12 @@ import {
   Cpu, 
   TrendingUp, 
   HelpCircle,
-  Target
+  Target,
+  FileText
 } from "lucide-react";
 import { getServices, getBusinessServices, getConsultancyServices } from "@/data/servicesData";
 import ServiceMatcherQuiz from "@/components/services/ServiceMatcherQuiz";
+import ExecutiveBlueprintModal from "@/components/services/ExecutiveBlueprintModal";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
@@ -57,6 +59,7 @@ function ServicesContent() {
       : "all"
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [isBlueprintModalOpen, setIsBlueprintModalOpen] = useState(false);
 
   const filteredServices = currentAllServices.filter((service) => {
     const matchesCategory =
@@ -83,6 +86,16 @@ function ServicesContent() {
           <p className="text-xs sm:text-base lg:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
             {sp.subheadline}
           </p>
+
+          <div className="pt-2">
+            <button
+              onClick={() => setIsBlueprintModalOpen(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-sm hover:scale-[1.02]"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Download 1-Page Feasibility Blueprint (PDF)</span>
+            </button>
+          </div>
         </ScrollReveal>
 
         {/* Filter and Search Bar */}
@@ -256,6 +269,11 @@ function ServicesContent() {
         </ScrollReveal>
 
       </div>
+
+      <ExecutiveBlueprintModal
+        isOpen={isBlueprintModalOpen}
+        onClose={() => setIsBlueprintModalOpen(false)}
+      />
     </div>
   );
 }

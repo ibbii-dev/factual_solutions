@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 :root {
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
-  --font-arabic: 'Cairo', sans-serif;
+  --font-arabic: 'Tajawal', 'Cairo', sans-serif;
 
   /* Mode 1: Pure White Light Theme */
   --bg-primary: #FFFFFF;
@@ -44,6 +44,22 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
   top: 0px !important;
   position: static !important;
+}
+
+/* Executive Arabic Typography & RTL Balancing */
+[dir="rtl"],
+[dir="rtl"] body {
+  font-family: var(--font-arabic), 'Cairo', sans-serif !important;
+  letter-spacing: 0px !important;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] .font-display {
+  font-family: var(--font-arabic), 'Cairo', sans-serif !important;
+  line-height: 1.35 !important;
 }
 
 /* Completely remove and hide all vintage Google Translate top bars & iframes */

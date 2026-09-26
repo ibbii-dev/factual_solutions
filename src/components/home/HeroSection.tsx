@@ -19,11 +19,32 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 export default function HeroSection() {
   const { t, isRTL } = useLanguage();
   const [activeMetric, setActiveMetric] = useState<number | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
-    <section className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <section 
+      onMouseMove={handleMouseMove}
+      className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300"
+    >
+      {/* Dynamic Cursor-responsive spotlight */}
+      <div 
+        className="pointer-events-none absolute -inset-px opacity-0 sm:opacity-100 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(142, 169, 211, 0.08), transparent 80%)`,
+        }}
+      />
+
       {/* Subtle ambient background glow */}
       <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#8EA9D3]/10 dark:bg-[#8EA9D3]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-20 w-72 h-72 bg-[#A33C29]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
@@ -101,7 +122,7 @@ export default function HeroSection() {
 
           {/* Right Column: Factual Enterprise Engine Dashboard Card */}
           <ScrollReveal variant="zoom-in" delay={0.2} duration={0.7} className="lg:col-span-5 flex justify-center w-full">
-            <div className="w-full max-w-md bg-white dark:bg-[#111C2E] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-4 sm:p-6 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.08)] space-y-4">
+            <div className="w-full max-w-md bg-white/95 dark:bg-[#111C2E]/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 dark:border-slate-700/70 p-4 sm:p-6 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.12)] space-y-4 hover:shadow-[0_25px_60px_-10px_rgba(163,60,41,0.15)] transition-all duration-300">
               
               {/* Header: Logo + Title + Status */}
               <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">

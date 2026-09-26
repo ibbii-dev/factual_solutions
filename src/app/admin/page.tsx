@@ -614,14 +614,65 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
     }
   };
 
-  // Export Inquiries to CSV
-  const handleExportCSV = () => {
+  // Export Inquiries to Excel / CSV with UTF-8 BOM for Arabic & International characters
+  const handleExportCSV = (format: "csv" | "excel" = "csv") => {
+    const listToExport = filteredInquiries.length > 0 ? filteredInquiries : inquiries;
+
+    if (format === "excel") {
+      // Excel XML format
+      let excelContent = `<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?>
+      <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+      <Worksheet ss:Name="Inquiries"><Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">Client Name</Data></Cell>
+        <Cell><Data ss:Type="String">Work Email</Data></Cell>
+        <Cell><Data ss:Type="String">Company</Data></Cell>
+        <Cell><Data ss:Type="String">Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Service Requested</Data></Cell>
+        <Cell><Data ss:Type="String">Status</Data></Cell>
+        <Cell><Data ss:Type="String">Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Replies</Data></Cell>
+        <Cell><Data ss:Type="String">Message</Data></Cell>
+      </Row>`;
+
+      listToExport.forEach(i => {
+        excelContent += `
+        <Row>
+          <Cell><Data ss:Type="String">${i.id || ''}</Data></Cell>
+          <Cell><Data ss:Type="String">${(i.fullName || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</Data></Cell>
+          <Cell><Data ss:Type="String">${(i.workEmail || '').replace(/&/g, '&amp;')}</Data></Cell>
+          <Cell><Data ss:Type="String">${(i.companyName || '').replace(/&/g, '&amp;')}</Data></Cell>
+          <Cell><Data ss:Type="String">${i.phone || ''}</Data></Cell>
+          <Cell><Data ss:Type="String">${(i.serviceOfInterest || '').replace(/&/g, '&amp;')}</Data></Cell>
+          <Cell><Data ss:Type="String">${i.status || ''}</Data></Cell>
+          <Cell><Data ss:Type="String">${i.priority || ''}</Data></Cell>
+          <Cell><Data ss:Type="String">${i.date || ''}</Data></Cell>
+          <Cell><Data ss:Type="Number">${i.replies?.length || 0}</Data></Cell>
+          <Cell><Data ss:Type="String">${(i.message || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</Data></Cell>
+        </Row>`;
+      });
+
+      excelContent += `</Table></Worksheet></Workbook>`;
+      const blob = new Blob([excelContent], { type: "application/vnd.ms-excel;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `factual_inquiries_${new Date().toISOString().slice(0,10)}.xls`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+
     const headers = "ID,Name,Email,Company,Phone,Service,Status,Priority,Date,RepliesCount,Message\n";
-    const rows = inquiries.map(i => 
-      `"${i.id}","${i.fullName}","${i.workEmail}","${i.companyName || ''}","${i.phone || ''}","${i.serviceOfInterest}","${i.status}","${i.priority}","${i.date}","${i.replies?.length || 0}","${(i.message || '').replace(/"/g, '""')}"`
+    const rows = listToExport.map(i => 
+      `"${i.id}","${(i.fullName || '').replace(/"/g, '""')}","${i.workEmail}","${(i.companyName || '').replace(/"/g, '""')}","${i.phone || ''}","${(i.serviceOfInterest || '').replace(/"/g, '""')}","${i.status}","${i.priority}","${i.date}","${i.replies?.length || 0}","${(i.message || '').replace(/"/g, '""')}"`
     ).join("\n");
     
-    const blob = new Blob([headers + rows], { type: "text/csv;charset=utf-8;" });
+    // Add UTF-8 BOM (\uFEFF) so Excel respects Arabic and Unicode names
+    const blob = new Blob(["\uFEFF" + headers + rows], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -1034,11 +1085,20 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   <RefreshCw className={`w-4 h-4 ${isLoadingInquiries ? 'animate-spin' : ''}`} />
                 </button>
                 <button
-                  onClick={handleExportCSV}
+                  onClick={() => handleExportCSV("csv")}
                   className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 transition-colors border border-slate-700"
+                  title="Export to CSV"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Export CSV</span>
+                </button>
+                <button
+                  onClick={() => handleExportCSV("excel")}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-950/40 hover:bg-emerald-800/50 text-xs font-semibold text-emerald-400 hover:text-white transition-colors border border-emerald-500/30"
+                  title="Export to Excel (.xls)"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Export Excel</span>
                 </button>
                 <button
                   onClick={() => setShowAddModal(true)}
@@ -1143,6 +1203,36 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                           </td>
                           <td className="py-3.5 px-4 text-right" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-end gap-1.5">
+                              {/* Quick WhatsApp Action */}
+                              <a
+                                href={`https://wa.me/${(inq.phone || "").replace(/[^0-9]/g, "") || "923241775662"}?text=${encodeURIComponent(
+                                  `Hello ${inq.fullName}, regarding your consultation inquiry #${inq.id} on ${inq.serviceOfInterest} with Factual Solutions Advisory:`
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-1.5 rounded-lg bg-emerald-950/60 hover:bg-emerald-600 text-emerald-400 hover:text-white transition-colors border border-emerald-500/30"
+                                title="Fast-Track WhatsApp"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                  <path d="M17.472 14.382c-.301-.15-1.781-.879-2.057-.98-.276-.1-.477-.15-.678.15-.201.3-.778.98-.954 1.18-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.495-.896-.799-1.501-1.787-1.677-2.088-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.201-.301.301-.502.1-.201.05-.376-.025-.527-.075-.15-.678-1.634-.929-2.237-.245-.588-.494-.508-.678-.517l-.578-.01c-.201 0-.527.075-.803.376s-1.054 1.03-1.054 2.511c0 1.482 1.079 2.912 1.23 3.113.15.201 2.123 3.242 5.143 4.547.718.31 1.279.496 1.716.635.722.23 1.379.197 1.898.12.578-.087 1.781-.728 2.032-1.431.251-.703.251-1.305.175-1.431-.075-.125-.276-.201-.577-.351zM12.042 21.996h-.008a9.93 9.93 0 0 1-5.068-1.391l-.364-.216-3.766.988 1.005-3.67-.237-.378a9.92 9.92 0 0 1-1.523-5.275c0-5.485 4.464-9.95 9.955-9.95 2.657 0 5.155 1.036 7.032 2.915a9.88 9.88 0 0 1 2.913 7.034c0 5.487-4.465 9.953-9.957 9.953z" />
+                                </svg>
+                              </a>
+
+                              {/* Quick Email Action */}
+                              <a
+                                href={`mailto:${inq.workEmail}?subject=${encodeURIComponent(
+                                  `Factual Solutions Advisory: Consultation Response (#${inq.id})`
+                                )}&body=${encodeURIComponent(
+                                  `Dear ${inq.fullName},\n\nThank you for reaching out to Factual Solutions regarding ${inq.serviceOfInterest}.\n\nOur Senior Advisory Partners have reviewed your inquiry (#${inq.id}) and would like to propose a 30-minute discovery call to outline our feasibility framework.\n\nBest regards,\nExecutive Advisory Board\nFactual Solutions`
+                                )}`}
+                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-brand-steel/30 text-slate-300 hover:text-white transition-colors border border-slate-700"
+                                title="Direct Email Client"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <Mail className="w-3.5 h-3.5" />
+                              </a>
+
                               <button
                                 onClick={() => setSelectedInquiry(inq)}
                                 className="p-1.5 rounded-lg bg-slate-800 hover:bg-brand-rust/30 text-slate-300 hover:text-white transition-colors"
