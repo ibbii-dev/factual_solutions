@@ -7,10 +7,16 @@ export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
+    // Skip canvas loop on small mobile viewports or if user prefers reduced motion to preserve 100% CPU
+    if (typeof window === "undefined") return;
+    const isMobile = window.innerWidth < 768;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isMobile || prefersReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     let animationFrameId: number;
@@ -23,9 +29,9 @@ export default function AnimatedBackground() {
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
-    // Subtle floating particles matching logo colors
+    // Floating particles matching logo colors
     interface Particle {
       x: number;
       y: number;
@@ -37,7 +43,6 @@ export default function AnimatedBackground() {
       pulseSpeed: number;
     }
 
-    // Logo brand colors in RGBA
     const colors = [
       "142, 169, 211", // Steel Blue #8EA9D3
       "163, 63, 46",   // Terracotta Rust #A33F2E
@@ -45,19 +50,19 @@ export default function AnimatedBackground() {
       "191, 74, 51",   // Warm Rust Light #BF4A33
     ];
 
-    const particleCount = Math.min(Math.floor((width * height) / 28000), 45);
+    const particleCount = 20; // Lightweight particle count for optimal fps
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        radius: Math.random() * 2 + 1,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        radius: Math.random() * 1.5 + 1,
         color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.35 + 0.15,
-        pulseSpeed: 0.015 + Math.random() * 0.02,
+        alpha: Math.random() * 0.25 + 0.1,
+        pulseSpeed: 0.015 + Math.random() * 0.015,
       });
     }
 
@@ -74,49 +79,52 @@ export default function AnimatedBackground() {
       mouseY = -1000;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     let tick = 0;
+    let isPaused = false;
+
+    const handleVisibilityChange = () => {
+      isPaused = document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     const render = () => {
-      tick += 1;
-      ctx.clearRect(0, 0, width, height);
+      if (!isPaused) {
+        tick += 1;
+        ctx.clearRect(0, 0, width, height);
 
-      // Draw soft ambient floating particles without connecting grid lines
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
+        for (let i = 0; i < particles.length; i++) {
+          const p1 = particles[i];
 
-        // Mouse gentle interaction
-        if (mouseX > 0 && mouseY > 0) {
-          const mdx = p1.x - mouseX;
-          const mdy = p1.y - mouseY;
-          const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-          if (mdist < 140) {
-            const force = (1 - mdist / 140) * 0.5;
-            p1.x += (mdx / mdist) * force;
-            p1.y += (mdy / mdist) * force;
+          // Gentle mouse reaction
+          if (mouseX > 0 && mouseY > 0) {
+            const mdx = p1.x - mouseX;
+            const mdy = p1.y - mouseY;
+            const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+            if (mdist < 120) {
+              const force = (1 - mdist / 120) * 0.35;
+              p1.x += (mdx / mdist) * force;
+              p1.y += (mdy / mdist) * force;
+            }
           }
+
+          p1.x += p1.vx;
+          p1.y += p1.vy;
+
+          if (p1.x < -10) p1.x = width + 10;
+          if (p1.x > width + 10) p1.x = -10;
+          if (p1.y < -10) p1.y = height + 10;
+          if (p1.y > height + 10) p1.y = -10;
+
+          // Pure fill without expensive shadowBlur for max CPU/GPU efficiency
+          const currentAlpha = p1.alpha + Math.sin(tick * p1.pulseSpeed) * 0.05;
+          ctx.beginPath();
+          ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p1.color}, ${Math.max(0.04, currentAlpha)})`;
+          ctx.fill();
         }
-
-        // Particle update
-        p1.x += p1.vx;
-        p1.y += p1.vy;
-
-        if (p1.x < -20) p1.x = width + 20;
-        if (p1.x > width + 20) p1.x = -20;
-        if (p1.y < -20) p1.y = height + 20;
-        if (p1.y > height + 20) p1.y = -20;
-
-        // Draw particle
-        const currentAlpha = p1.alpha + Math.sin(tick * p1.pulseSpeed) * 0.08;
-        ctx.beginPath();
-        ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p1.color}, ${Math.max(0.05, currentAlpha)})`;
-        ctx.shadowColor = `rgba(${p1.color}, 0.5)`;
-        ctx.shadowBlur = 8;
-        ctx.fill();
-        ctx.shadowBlur = 0;
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -128,6 +136,7 @@ export default function AnimatedBackground() {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -140,71 +149,54 @@ export default function AnimatedBackground() {
       {/* 1. Brand Midnight Navy Ambient Mesh Orb (Deep Upper Left) */}
       <motion.div
         animate={{
-          x: [0, 50, -30, 0],
-          y: [0, -40, 30, 0],
-          scale: [1, 1.15, 0.95, 1],
+          x: [0, 40, -20, 0],
+          y: [0, -30, 20, 0],
         }}
         transition={{
-          duration: 22,
+          duration: 28,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-32 -left-32 w-[520px] sm:w-[720px] h-[520px] sm:h-[720px] rounded-full bg-gradient-to-br from-[#8EA9D3]/12 via-[#152238]/5 to-transparent blur-[120px] dark:from-[#1E2E59]/35 dark:via-[#131E33]/25"
+        className="absolute -top-32 -left-32 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-br from-[#8EA9D3]/10 via-[#152238]/5 to-transparent blur-[90px] dark:from-[#1E2E59]/30 dark:via-[#131E33]/20 transform-gpu will-change-transform"
       />
 
-      {/* 3. Brand Terracotta Rust Ambient Orb (Warm Strategic Glow - Center Right) */}
+      {/* 2. Brand Terracotta Rust Ambient Orb (Warm Strategic Glow - Center Right) */}
       <motion.div
         animate={{
-          x: [0, -60, 40, 0],
-          y: [0, 50, -40, 0],
-          scale: [1, 1.12, 0.92, 1],
+          x: [0, -50, 30, 0],
+          y: [0, 40, -30, 0],
         }}
         transition={{
-          duration: 26,
+          duration: 32,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute top-1/4 -right-28 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-bl from-[#A33C29]/10 via-[#BF4A33]/5 to-transparent blur-[125px] dark:from-[#A33C29]/18 dark:via-[#BF4A33]/10"
+        className="absolute top-1/4 -right-28 w-[400px] sm:w-[580px] h-[400px] sm:h-[580px] rounded-full bg-gradient-to-bl from-[#A33C29]/8 via-[#BF4A33]/4 to-transparent blur-[95px] dark:from-[#A33C29]/15 dark:via-[#BF4A33]/8 transform-gpu will-change-transform"
       />
 
-      {/* 4. Brand Ice Steel Blue Ambient Orb (Lower Left & Center) */}
+      {/* 3. Brand Ice Steel Blue Ambient Orb (Lower Left & Center) */}
       <motion.div
         animate={{
-          x: [0, 70, -50, 0],
-          y: [0, -60, 50, 0],
-          scale: [0.95, 1.18, 1, 0.95],
+          x: [0, 50, -40, 0],
+          y: [0, -50, 40, 0],
         }}
         transition={{
-          duration: 30,
+          duration: 36,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 4,
         }}
-        className="absolute -bottom-36 left-1/4 w-[480px] sm:w-[680px] h-[480px] sm:h-[680px] rounded-full bg-gradient-to-tr from-[#8EA9D3]/12 via-[#4A72B2]/6 to-transparent blur-[120px] dark:from-[#8EA9D3]/18 dark:via-[#1E3150]/20"
+        className="absolute -bottom-36 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full bg-gradient-to-tr from-[#8EA9D3]/10 via-[#4A72B2]/5 to-transparent blur-[90px] dark:from-[#8EA9D3]/15 dark:via-[#1E3150]/15 transform-gpu will-change-transform"
       />
 
-      {/* 5. Subtle Interlocking Light Accents (Inspired by Cube Axis) */}
-      <motion.div
-        animate={{
-          opacity: [0.2, 0.45, 0.2],
-          scale: [0.98, 1.05, 0.98],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-radial from-brand-steel/6 via-transparent to-transparent blur-[130px] dark:from-brand-steel/8"
-      />
-
-      {/* 5. Dynamic Interactive Ambient Dust / Bokeh Canvas */}
+      {/* 4. Dynamic Interactive Ambient Dust / Bokeh Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-25 dark:opacity-35"
+        className="absolute inset-0 w-full h-full opacity-20 dark:opacity-30 hidden md:block"
       />
 
-      {/* 7. Soft Vignette for Depth Focus in Dark Mode */}
+      {/* 5. Soft Vignette for Depth Focus in Dark Mode */}
       <div className="absolute inset-0 bg-radial from-transparent via-transparent to-transparent dark:to-[#0E1626]/40" />
     </div>
   );
