@@ -4,6 +4,8 @@ export interface IInquiryReply {
   content: string;
   sentAt: string;
   channel: "Email" | "WhatsApp" | "Internal Note";
+  subject?: string;
+  deliveryStatus?: "Sent" | "Logged" | "Failed";
 }
 
 export interface IInquiry {

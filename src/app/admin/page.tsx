@@ -115,10 +115,26 @@ export default function AdminPage() {
 
   // Reply Composer State inside selected inquiry modal
   const [replyText, setReplyText] = useState("");
+  const [replySubject, setReplySubject] = useState("");
   const [replyChannel, setReplyChannel] = useState<"Email" | "WhatsApp" | "Internal Note">("Email");
   const [replyAuthor, setReplyAuthor] = useState("Managing Partner");
+  const [showEmailPreview, setShowEmailPreview] = useState(false);
   const [isSendingReply, setIsSendingReply] = useState(false);
   const [replyFeedback, setReplyFeedback] = useState("");
+
+  // Mailing Diagnostics State (System Hub)
+  const [mailSettings, setMailSettings] = useState<{
+    provider: string;
+    providerName: string;
+    isConfigured: boolean;
+    senderAddress: string;
+    notificationEmail: string;
+    hasResendKey: boolean;
+    hasWebhook: boolean;
+  } | null>(null);
+  const [testEmailTarget, setTestEmailTarget] = useState("");
+  const [isSendingTestEmail, setIsSendingTestEmail] = useState(false);
+  const [testEmailFeedback, setTestEmailFeedback] = useState("");
 
   // New Inquiry Form
   const [newInquiryData, setNewInquiryData] = useState({
@@ -422,6 +438,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       if (activeTab === "system") {
         checkHealth();
         loadInquiries();
+        loadMailSettings();
       }
     }
   }, [isAuthenticated, activeTab]);
@@ -533,6 +550,55 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
     }
   };
 
+  // Select inquiry and initialize response composer
+  const handleSelectInquiry = (inq: IInquiry) => {
+    setSelectedInquiry(inq);
+    setReplySubject(`Factual Solutions Advisory: Response to Consultation #${inq.id}`);
+    setReplyText(inq.aiAssessment?.autoReplyEmailBody || "");
+    setReplyChannel("Email");
+    setShowEmailPreview(false);
+    setReplyFeedback("");
+  };
+
+  // Load mailing system configuration status
+  const loadMailSettings = async () => {
+    try {
+      const res = await fetch("/api/admin/mail-settings");
+      const data = await res.json();
+      if (data.success && data.status) {
+        setMailSettings(data.status);
+      }
+    } catch (err) {
+      console.error("Failed to load mail settings:", err);
+    }
+  };
+
+  // Dispatch diagnostic verification email
+  const handleSendTestEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!testEmailTarget.trim() || isSendingTestEmail) return;
+    setIsSendingTestEmail(true);
+    setTestEmailFeedback("");
+    try {
+      const res = await fetch("/api/admin/mail-settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetEmail: testEmailTarget.trim() })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setTestEmailFeedback(`✅ ${data.message}`);
+      } else {
+        setTestEmailFeedback(`⚠️ ${data.message || "Failed to dispatch test email."}`);
+      }
+    } catch (err: any) {
+      setTestEmailFeedback(`❌ Error: ${err.message}`);
+    } finally {
+      setIsSendingTestEmail(false);
+      setTimeout(() => setTestEmailFeedback(""), 8000);
+    }
+  };
+
   // Send / Record Reply
   const handleSendReply = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -542,11 +608,13 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
     setReplyFeedback("");
 
     try {
+      const defaultSubj = `Factual Solutions Advisory: Response to Consultation #${selectedInquiry.id}`;
       const res = await fetch(`/api/inquiries/${selectedInquiry.id}/reply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           author: replyAuthor,
+          subject: replySubject.trim() || defaultSubj,
           content: replyText,
           channel: replyChannel
         })
@@ -555,7 +623,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       const data = await res.json();
 
       if (data.success) {
-        setReplyFeedback(`✅ Reply logged & status updated to Contacted.`);
+        setReplyFeedback(data.message || `✅ Reply dispatched successfully.`);
         
         // Append reply locally in selected inquiry
         const updatedReplies = [...(selectedInquiry.replies || []), data.reply];
@@ -565,13 +633,9 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         setInquiries((prev) => prev.map((inq) => (inq.id === selectedInquiry.id ? updatedInquiry : inq)));
         setReplyText("");
 
-        // If WhatsApp, automatically open link
+        // If WhatsApp, automatically open link in new tab
         if (replyChannel === "WhatsApp" && data.whatsappUrl) {
           window.open(data.whatsappUrl, "_blank");
-        } else if (replyChannel === "Email") {
-          // Open client's email in default mail app as well
-          const mailto = `mailto:${selectedInquiry.workEmail}?subject=${encodeURIComponent(`Factual Solutions Advisory: Consultation Response (#${selectedInquiry.id})`)}&body=${encodeURIComponent(replyText)}`;
-          window.location.href = mailto;
         }
       } else {
         setReplyFeedback(`⚠️ ${data.message}`);
@@ -580,7 +644,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       setReplyFeedback(`❌ Error: ${err.message}`);
     } finally {
       setIsSendingReply(false);
-      setTimeout(() => setReplyFeedback(""), 5000);
+      setTimeout(() => setReplyFeedback(""), 9000);
     }
   };
 
@@ -1138,7 +1202,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         <tr
                           key={inq.id}
                           className="hover:bg-slate-800/30 transition-colors group cursor-pointer"
-                          onClick={() => setSelectedInquiry(inq)}
+                          onClick={() => handleSelectInquiry(inq)}
                         >
                           <td className="py-3.5 px-4 font-mono font-bold text-brand-steel-light">
                             {inq.id}
@@ -1234,7 +1298,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                               </a>
 
                               <button
-                                onClick={() => setSelectedInquiry(inq)}
+                                onClick={() => handleSelectInquiry(inq)}
                                 className="p-1.5 rounded-lg bg-slate-800 hover:bg-brand-rust/30 text-slate-300 hover:text-white transition-colors"
                                 title="View & Reply"
                               >
@@ -1497,6 +1561,114 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       );
                     })
                   )}
+                </div>
+              </div>
+            </div>
+
+            {/* ============================================================== */}
+            {/* EXECUTIVE MAILING SYSTEM & DISPATCH HUB                       */}
+            {/* ============================================================== */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Mail Gateway Status Card */}
+              <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-brand-rust" />
+                    <span>Executive Mailing Gateway Telemetry</span>
+                  </h3>
+                  <button
+                    onClick={loadMailSettings}
+                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+                    title="Refresh Mail Status"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex justify-between py-2 border-b border-slate-800">
+                    <span className="text-slate-400">Dispatch Gateway:</span>
+                    <span className="font-bold text-brand-steel-light flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${mailSettings?.hasResendKey ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`}></span>
+                      {mailSettings?.providerName || (mailSettings?.hasResendKey ? "Resend API (Live Inbox Dispatch)" : "Audit Log Mode")}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between py-2 border-b border-slate-800">
+                    <span className="text-slate-400">Outbound Sender Identity:</span>
+                    <span className="font-mono text-white text-[11px] truncate max-w-[240px]">
+                      {mailSettings?.senderAddress || "Factual Solutions Advisory <onboarding@resend.dev>"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between py-2 border-b border-slate-800">
+                    <span className="text-slate-400">Lead Alerts Target:</span>
+                    <span className="font-mono text-white text-[11px] truncate max-w-[240px]">
+                      {mailSettings?.notificationEmail || "qadeer@factualsolutions.com"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between py-2 border-b border-slate-800">
+                    <span className="text-slate-400">Portal Client Replies:</span>
+                    <span className="font-bold text-emerald-400">
+                      Enabled (Admin Panel Direct Dispatch)
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-[#080D16] border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                  💡 When responding to client inquiries in the <strong>Inquiries tab</strong>, choosing <span className="text-white font-semibold">Email</span> will automatically format an executive branded advisory email and dispatch it directly to the client's work email address.
+                </div>
+              </div>
+
+              {/* Diagnostic Test Email Dispatcher */}
+              <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Send className="w-4 h-4 text-emerald-400" />
+                  <span>Mailing System Verification &amp; Test Dispatch</span>
+                </h3>
+
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Transmit an instant diagnostic verification email to verify your outbound mailing credentials and client presentation.
+                </p>
+
+                <form onSubmit={handleSendTestEmail} className="space-y-3">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+                      Recipient Verification Email:
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={testEmailTarget}
+                      onChange={(e) => setTestEmailTarget(e.target.value)}
+                      placeholder={mailSettings?.notificationEmail || "qadeer@factualsolutions.com"}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSendingTestEmail}
+                    className="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-steel to-slate-700 hover:from-brand-steel-light hover:to-slate-600 text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    <Send className={`w-3.5 h-3.5 ${isSendingTestEmail ? "animate-spin" : ""}`} />
+                    <span>{isSendingTestEmail ? "Transmitting Diagnostic Email..." : "Transmit Diagnostic Test Email"}</span>
+                  </button>
+
+                  {testEmailFeedback && (
+                    <div className={`text-xs p-2.5 rounded-xl border ${
+                      testEmailFeedback.startsWith("✅")
+                        ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/20"
+                        : "bg-amber-500/10 text-amber-300 border-amber-500/20"
+                    }`}>
+                      {testEmailFeedback}
+                    </div>
+                  )}
+                </form>
+
+                <div className="pt-2 text-[10.5px] text-slate-500 font-mono">
+                  Environment variables: RESEND_API_KEY &bull; NOTIFICATION_EMAIL &bull; EMAIL_FROM
                 </div>
               </div>
             </div>
@@ -1882,27 +2054,40 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
                   <span>Official Client Responses ({selectedInquiry.replies?.length || 0})</span>
                   {selectedInquiry.replies && selectedInquiry.replies.length > 0 && (
-                    <span className="text-emerald-400 text-[10px] font-normal">Active thread logged in Atlas</span>
+                    <span className="text-emerald-400 text-[10px] font-normal flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />
+                      Active thread logged in Atlas
+                    </span>
                   )}
                 </div>
 
                 {!selectedInquiry.replies || selectedInquiry.replies.length === 0 ? (
                   <div className="p-4 rounded-2xl bg-[#080E18] border border-slate-800/80 text-center text-slate-500 text-xs">
-                    No replies sent yet. Use the response composer below to contact this client.
+                    No replies sent yet. Use the response composer below to contact this client directly from the portal.
                   </div>
                 ) : (
                   <div className="space-y-2.5">
                     {selectedInquiry.replies.map((reply) => (
                       <div key={reply.id} className="p-3.5 rounded-2xl bg-[#0E1726] border border-slate-800 space-y-1.5">
-                        <div className="flex items-center justify-between text-[10.5px] text-slate-400 font-medium">
+                        <div className="flex flex-wrap items-center justify-between gap-1.5 text-[10.5px] text-slate-400 font-medium">
                           <span className="flex items-center gap-1.5">
                             <span className="font-bold text-white">{reply.author}</span>
-                            <span className="px-1.5 py-0.2 rounded bg-brand-steel/20 text-brand-steel-light text-[9.5px]">
+                            <span className="px-1.5 py-0.5 rounded bg-brand-steel/20 text-brand-steel-light text-[9.5px]">
                               via {reply.channel}
                             </span>
+                            {reply.deliveryStatus === "Sent" && (
+                              <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9.5px] font-semibold flex items-center gap-1">
+                                <CheckCircle2 className="w-2.5 h-2.5" /> Dispatched
+                              </span>
+                            )}
                           </span>
                           <span>{reply.sentAt}</span>
                         </div>
+                        {reply.subject && (
+                          <div className="text-[11px] font-semibold text-brand-steel-light">
+                            Subject: {reply.subject}
+                          </div>
+                        )}
                         <div className="text-slate-200 whitespace-pre-wrap leading-relaxed text-xs">
                           {reply.content}
                         </div>
@@ -1917,7 +2102,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="flex items-center justify-between">
                   <div className="font-bold text-xs text-white flex items-center gap-2">
                     <Send className="w-3.5 h-3.5 text-brand-rust" />
-                    <span>Compose Official Partner Response</span>
+                    <span>Executive Response Composer</span>
                   </div>
 
                   {selectedInquiry.aiAssessment?.autoReplyEmailBody && (
@@ -1932,18 +2117,116 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   )}
                 </div>
 
-                <textarea
-                  rows={5}
-                  value={replyText}
-                  onChange={(e) => setReplyText(e.target.value)}
-                  placeholder="Draft your proposal, discovery session invitation, or message to the client..."
-                  className="w-full p-3.5 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
-                />
+                {/* Recipient & Channel Overview */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-[#080D16] border border-slate-800 text-xs">
+                  <div className="flex items-center gap-2 text-slate-300 truncate">
+                    <Mail className="w-3.5 h-3.5 text-brand-rust shrink-0" />
+                    <span className="truncate">
+                      To: <strong className="text-white">{selectedInquiry.fullName}</strong> &lt;{selectedInquiry.workEmail}&gt;
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <span className="text-[10px] text-slate-500 font-mono">Ref: #{selectedInquiry.id}</span>
+                  </div>
+                </div>
 
+                {/* Subject & Author Fields (for Email channel) */}
+                {replyChannel === "Email" && (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                    <div className="md:col-span-2">
+                      <label className="block text-[10.5px] font-semibold text-slate-300 mb-1">
+                        Email Subject Line:
+                      </label>
+                      <input
+                        type="text"
+                        value={replySubject}
+                        onChange={(e) => setReplySubject(e.target.value)}
+                        placeholder={`Factual Solutions Advisory: Response to Consultation #${selectedInquiry.id}`}
+                        className="w-full px-3 py-2 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10.5px] font-semibold text-slate-300 mb-1">
+                        Signatory / Partner:
+                      </label>
+                      <input
+                        type="text"
+                        value={replyAuthor}
+                        onChange={(e) => setReplyAuthor(e.target.value)}
+                        placeholder="Managing Partner"
+                        className="w-full px-3 py-2 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Message Body */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[10.5px] font-semibold text-slate-300">
+                      Response Message Body:
+                    </label>
+                    {replyChannel === "Email" && (
+                      <button
+                        type="button"
+                        onClick={() => setShowEmailPreview(!showEmailPreview)}
+                        className="text-[10.5px] text-brand-steel-light hover:text-white underline transition-colors"
+                      >
+                        {showEmailPreview ? "Hide Branded Preview" : "Preview Branded Email"}
+                      </button>
+                    )}
+                  </div>
+                  <textarea
+                    rows={6}
+                    value={replyText}
+                    onChange={(e) => setReplyText(e.target.value)}
+                    placeholder="Draft your proposal, discovery session invitation, or message to the client..."
+                    className="w-full p-3.5 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
+                  />
+                </div>
+
+                {/* Live Branded Email Preview */}
+                {replyChannel === "Email" && showEmailPreview && (
+                  <div className="p-4 rounded-xl bg-[#080E18] border border-brand-steel/40 space-y-3">
+                    <div className="text-[10.5px] font-bold uppercase tracking-wider text-brand-steel-light flex items-center gap-1.5">
+                      <Eye className="w-3 h-3" />
+                      <span>Client Email Preview (Branded Layout)</span>
+                    </div>
+
+                    <div className="bg-white text-slate-900 rounded-lg p-5 text-xs shadow-inner space-y-3 font-sans">
+                      <div className="bg-[#0E1726] text-white p-3 rounded-md border-b-2 border-brand-rust">
+                        <div className="text-[9px] uppercase tracking-wider text-brand-rust-light font-bold">Executive Advisory Response</div>
+                        <div className="text-sm font-bold">Factual Solutions Advisory</div>
+                      </div>
+
+                      <div className="font-semibold text-slate-900">
+                        Dear {selectedInquiry.fullName},
+                      </div>
+
+                      <div className="text-slate-800 whitespace-pre-wrap leading-relaxed">
+                        {replyText.trim() || "(Enter response text above to preview body...)"}
+                      </div>
+
+                      <div className="bg-slate-50 border border-slate-200 p-2.5 rounded text-[11px] text-slate-600">
+                        <div><strong>Ref ID:</strong> #{selectedInquiry.id}</div>
+                        <div><strong>Practice:</strong> {selectedInquiry.serviceOfInterest}</div>
+                        <div><strong>Prepared By:</strong> {replyAuthor}</div>
+                      </div>
+
+                      <div className="pt-2 border-t border-slate-200 text-slate-600 text-[11px]">
+                        <div>Warm regards,</div>
+                        <div className="font-bold text-slate-900">{replyAuthor}</div>
+                        <div className="text-slate-500 text-[10px]">Factual Solutions Advisory Practice &bull; GCC & International</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Channel Switcher & Submission */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
                   {/* Channel Selection */}
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-400 font-medium">Send via:</span>
+                    <span className="text-[11px] text-slate-400 font-medium">Dispatch via:</span>
                     {(["Email", "WhatsApp", "Internal Note"] as const).map((ch) => (
                       <button
                         key={ch}
@@ -1953,28 +2236,56 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                           replyChannel === ch
                             ? ch === "WhatsApp"
                               ? "bg-emerald-600 text-white"
-                              : "bg-brand-rust text-white"
+                              : ch === "Email"
+                              ? "bg-brand-rust text-white shadow-sm"
+                              : "bg-brand-steel text-white"
                             : "bg-slate-800 text-slate-400 hover:text-white"
                         }`}
                       >
-                        {ch}
+                        {ch === "Email" ? "✉️ Official Email" : ch === "WhatsApp" ? "💬 WhatsApp" : "📝 Note"}
                       </button>
                     ))}
                   </div>
 
                   {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={!replyText.trim() || isSendingReply}
-                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all disabled:opacity-40 flex items-center justify-center gap-1.5 shadow-md"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{isSendingReply ? "Logging..." : `Dispatch & Record (${replyChannel})`}</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    {replyChannel === "Email" && (
+                      <a
+                        href={`mailto:${selectedInquiry.workEmail}?subject=${encodeURIComponent(
+                          replySubject || `Factual Solutions Advisory: Response #${selectedInquiry.id}`
+                        )}&body=${encodeURIComponent(replyText)}`}
+                        className="text-[10px] text-slate-400 hover:text-white underline transition-colors"
+                        title="Open local desktop email client"
+                      >
+                        Local Mail App
+                      </a>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={!replyText.trim() || isSendingReply}
+                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all disabled:opacity-40 flex items-center justify-center gap-1.5 shadow-md"
+                    >
+                      <Send className={`w-3.5 h-3.5 ${isSendingReply ? "animate-spin" : ""}`} />
+                      <span>
+                        {isSendingReply
+                          ? "Dispatching..."
+                          : replyChannel === "Email"
+                          ? "Dispatch Email to Client"
+                          : replyChannel === "WhatsApp"
+                          ? "Launch WhatsApp"
+                          : "Save Internal Note"}
+                      </span>
+                    </button>
+                  </div>
                 </div>
 
                 {replyFeedback && (
-                  <div className="text-xs font-medium text-center pt-1 text-slate-300">
+                  <div className={`text-xs font-medium text-center p-2 rounded-lg ${
+                    replyFeedback.startsWith("✅")
+                      ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
+                      : "bg-amber-500/10 text-amber-300 border border-amber-500/20"
+                  }`}>
                     {replyFeedback}
                   </div>
                 )}
