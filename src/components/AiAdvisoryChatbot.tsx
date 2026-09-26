@@ -16,8 +16,7 @@ import {
   History,
   Clock,
   Search,
-  ArrowRight,
-  ExternalLink
+  ArrowRight
 } from "lucide-react";
 import { contactDetails } from "@/data/companyData";
 
@@ -54,7 +53,6 @@ export default function AiAdvisoryChatbot() {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // History state
   const [historyLogs, setHistoryLogs] = useState<ChatLogItem[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [historySearch, setHistorySearch] = useState("");
@@ -70,7 +68,6 @@ export default function AiAdvisoryChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Broadcast chat state to other components (e.g. WhatsApp button on mobile)
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("jarvis-chat-state", { detail: { isOpen } }));
   }, [isOpen]);
@@ -188,7 +185,6 @@ export default function AiAdvisoryChatbot() {
     }
   };
 
-  // Organize history logs into query and response pairs
   const pairedHistory = useMemo(() => {
     const list: {
       id: string;
@@ -198,7 +194,6 @@ export default function AiAdvisoryChatbot() {
       leadCaptured?: boolean;
     }[] = [];
 
-    // History is returned sorted descending by timestamp
     for (let i = 0; i < historyLogs.length; i++) {
       const item = historyLogs[i];
       if (item.role === "user") {
@@ -239,25 +234,21 @@ export default function AiAdvisoryChatbot() {
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-7 sm:right-7 z-50 flex flex-col items-end print:hidden">
-      {/* Floating Launcher Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
           className="group relative flex items-center gap-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-[#0C1527] via-[#111F38] to-[#172A4C] border border-brand-steel/40 text-white shadow-2xl shadow-black/60 hover:shadow-brand-rust/25 hover:border-brand-rust transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-md"
           aria-label="Open JARVIS AI Corporate Advisory Chat"
         >
-          {/* Pulsating Online Beacon */}
           <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-rust opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-brand-rust border-2 border-[#0C1527]"></span>
           </span>
 
-          {/* JARVIS Glowing Core Emblem */}
           <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-brand-rust/30 to-brand-rust/10 border border-brand-rust/50 flex items-center justify-center text-brand-rust-light group-hover:rotate-12 transition-transform shadow-inner shrink-0">
             <Sparkles className="w-4 h-4 text-brand-rust group-hover:scale-110 transition-transform" />
           </div>
 
-          {/* Clean Brand Typography */}
           <div className="flex items-center gap-1.5 text-left pr-1">
             <div className="flex flex-col">
               <div className="text-xs sm:text-sm font-bold tracking-wider text-slate-100 flex items-center gap-1.5">
@@ -274,7 +265,6 @@ export default function AiAdvisoryChatbot() {
         </button>
       )}
 
-      {/* Chatbot Window UI */}
       {isOpen && (
         <div
           className={`flex flex-col bg-[#0B1322]/98 backdrop-blur-2xl border border-slate-700/70 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5 ${
@@ -283,10 +273,8 @@ export default function AiAdvisoryChatbot() {
               : "w-[calc(100vw-1.5rem)] sm:w-[420px] h-[80vh] max-h-[620px]"
           }`}
         >
-          {/* Top Brand Accent Line */}
           <div className="h-1 bg-gradient-to-r from-brand-rust via-brand-steel to-emerald-400 shrink-0" />
 
-          {/* Executive Header */}
           <div className="px-4 py-3 bg-gradient-to-r from-[#0F1A2E] via-[#122038] to-[#152542] border-b border-slate-800 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="relative w-9 h-9 rounded-2xl bg-gradient-to-br from-brand-rust/25 to-brand-rust/5 border border-brand-rust/40 flex items-center justify-center overflow-hidden shadow-inner">
@@ -315,7 +303,6 @@ export default function AiAdvisoryChatbot() {
               </div>
             </div>
 
-            {/* Header Control Buttons */}
             <div className="flex items-center gap-1">
               <button
                 onClick={handleResetChat}
@@ -344,7 +331,6 @@ export default function AiAdvisoryChatbot() {
             </div>
           </div>
 
-          {/* Header Tab Bar: Chat & History */}
           <div className="px-3.5 py-2 bg-[#091120] border-b border-slate-800/90 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-1 bg-[#060C17] p-1 rounded-xl border border-slate-800">
               <button
@@ -395,10 +381,8 @@ export default function AiAdvisoryChatbot() {
             )}
           </div>
 
-          {/* VIEW 1: ACTIVE CHAT TAB */}
           {activeTab === "chat" && (
             <>
-              {/* Messages Feed */}
               <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3.5 custom-scrollbar text-xs leading-relaxed">
                 {messages.map((msg) => (
                   <div
@@ -422,7 +406,6 @@ export default function AiAdvisoryChatbot() {
                         {msg.content}
                       </div>
 
-                      {/* High-Impact Lead Captured Certificate Card */}
                       {msg.isLeadCard && msg.leadDetails && (
                         <div className="mt-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 text-[11px] space-y-1.5 shadow-md">
                           <div className="font-bold flex items-center gap-1.5 text-emerald-200 text-xs">
@@ -479,7 +462,6 @@ export default function AiAdvisoryChatbot() {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Curated Quick Strategic Prompts */}
               <div className="px-3 py-2 bg-[#0C1525]/90 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
                 {QUICK_PROMPTS.map((item, idx) => (
                   <button
@@ -492,7 +474,6 @@ export default function AiAdvisoryChatbot() {
                 ))}
               </div>
 
-              {/* Executive Input Dock */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -527,10 +508,8 @@ export default function AiAdvisoryChatbot() {
             </>
           )}
 
-          {/* VIEW 2: HISTORY TAB */}
           {activeTab === "history" && (
             <div className="flex-1 flex flex-col overflow-hidden">
-              {/* History Search & Filter */}
               <div className="p-3 bg-[#0C1525]/90 border-b border-slate-800 flex items-center gap-2 shrink-0">
                 <div className="relative flex-1">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -544,7 +523,6 @@ export default function AiAdvisoryChatbot() {
                 </div>
               </div>
 
-              {/* History List */}
               <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3 custom-scrollbar text-xs">
                 {isLoadingHistory ? (
                   <div className="py-12 flex flex-col items-center justify-center text-center space-y-3">
@@ -577,7 +555,6 @@ export default function AiAdvisoryChatbot() {
                       key={item.id}
                       className="p-3.5 rounded-2xl bg-[#111C2E]/90 border border-slate-700/70 hover:border-brand-steel/50 transition-all space-y-2.5 shadow-sm group"
                     >
-                      {/* Query Header */}
                       <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800/80 pb-2">
                         <span className="flex items-center gap-1 text-slate-300 font-medium">
                           <Clock className="w-3 h-3 text-brand-rust" />
@@ -590,7 +567,6 @@ export default function AiAdvisoryChatbot() {
                         )}
                       </div>
 
-                      {/* User Query */}
                       <div className="flex items-start gap-2">
                         <span className="text-[10px] font-bold text-brand-rust uppercase tracking-wider shrink-0 mt-0.5">
                           Query:
@@ -600,14 +576,12 @@ export default function AiAdvisoryChatbot() {
                         </p>
                       </div>
 
-                      {/* Assistant Response Preview */}
                       {item.assistantText && (
                         <div className="p-2.5 rounded-xl bg-[#0B1322] border border-slate-800/90 text-slate-300 text-[11.5px] leading-relaxed line-clamp-3">
                           {item.assistantText}
                         </div>
                       )}
 
-                      {/* Action buttons */}
                       <div className="flex items-center justify-end gap-2 pt-1">
                         <button
                           type="button"
@@ -623,7 +597,6 @@ export default function AiAdvisoryChatbot() {
                 )}
               </div>
 
-              {/* History Footer Dock */}
               <div className="p-3 bg-[#0D1627] border-t border-slate-800/90 flex items-center justify-between shrink-0">
                 <span className="text-[10px] text-slate-500">Live MongoDB Atlas Archive</span>
                 <button
