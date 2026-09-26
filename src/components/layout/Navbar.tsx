@@ -96,21 +96,18 @@ export default function Navbar() {
             </span>
           </div>
 
-          {/* Right: Portal Access & Global Practice */}
+          {/* Right: Global Practice & Active User Session */}
           <div className="flex items-center gap-2 sm:gap-4 text-slate-400 text-[10px] sm:text-[11px] shrink-0">
-            {user ? (
-              <Link href="/portal" className="text-emerald-400 font-semibold hover:underline flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                <span className="truncate max-w-[85px] sm:max-w-none">Portal: {user.name.split(" ")[0]}</span>
-              </Link>
-            ) : (
-              <button onClick={() => openAuthModal("login")} className="text-[#8EA9D3] sm:text-slate-300 hover:text-white font-semibold transition-colors cursor-pointer whitespace-nowrap">
-                <span className="sm:hidden">Portal Sign In</span>
-                <span className="hidden sm:inline">Client Portal Sign In</span>
-              </button>
+            {user && (
+              <>
+                <Link href="/portal" className="text-emerald-400 font-semibold hover:underline flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                  <span className="truncate max-w-[85px] sm:max-w-none">Portal: {user.name.split(" ")[0]}</span>
+                </Link>
+                <span className="text-slate-600 hidden sm:inline">|</span>
+              </>
             )}
-            <span className="text-slate-600 hidden sm:inline">|</span>
-            <span className="text-slate-300 font-medium hidden md:inline">Global Practice: KSA &amp; UAE</span>
+            <span className="text-slate-300 font-medium hidden sm:inline">Global Practice: KSA &amp; UAE</span>
           </div>
 
         </div>
