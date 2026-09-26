@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { 
   Bot, 
@@ -11,7 +11,13 @@ import {
   CheckCircle2, 
   Maximize2, 
   Minimize2,
-  MessageCircle
+  MessageCircle,
+  MessageSquare,
+  History,
+  Clock,
+  Search,
+  ArrowRight,
+  ExternalLink
 } from "lucide-react";
 import { contactDetails } from "@/data/companyData";
 
@@ -22,6 +28,15 @@ interface Message {
   timestamp: string;
   isLeadCard?: boolean;
   leadDetails?: any;
+}
+
+interface ChatLogItem {
+  _id?: string;
+  sessionId?: string;
+  role: "user" | "assistant" | "system";
+  content: string;
+  timestamp: string | Date;
+  leadCaptured?: boolean;
 }
 
 const QUICK_PROMPTS = [
@@ -35,8 +50,14 @@ const QUICK_PROMPTS = [
 export default function AiAdvisoryChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<"chat" | "history">("chat");
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // History state
+  const [historyLogs, setHistoryLogs] = useState<ChatLogItem[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+  const [historySearch, setHistorySearch] = useState("");
 
   const initialMessage: Message = {
     id: "welcome-jarvis",
@@ -59,11 +80,26 @@ export default function AiAdvisoryChatbot() {
   };
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && activeTab === "chat") {
       scrollToBottom();
       setTimeout(() => inputRef.current?.focus(), 250);
     }
-  }, [messages, isOpen]);
+  }, [messages, isOpen, activeTab]);
+
+  const fetchHistory = async () => {
+    setIsLoadingHistory(true);
+    try {
+      const res = await fetch("/api/admin/chat-logs");
+      const data = await res.json();
+      if (data.success && Array.isArray(data.data)) {
+        setHistoryLogs(data.data);
+      }
+    } catch (e) {
+      console.error("Failed to load advisory history logs:", e);
+    } finally {
+      setIsLoadingHistory(false);
+    }
+  };
 
   const handleResetChat = () => {
     setMessages([
@@ -129,9 +165,81 @@ export default function AiAdvisoryChatbot() {
     }
   };
 
+  const handleLoadHistoryToChat = (query: string, reply?: string) => {
+    setActiveTab("chat");
+    if (reply) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `user-hist-${Date.now()}`,
+          role: "user",
+          content: query,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        },
+        {
+          id: `ai-hist-${Date.now() + 1}`,
+          role: "assistant",
+          content: reply,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        }
+      ]);
+    } else {
+      handleSendMessage(query);
+    }
+  };
+
+  // Organize history logs into query and response pairs
+  const pairedHistory = useMemo(() => {
+    const list: {
+      id: string;
+      userText: string;
+      assistantText: string;
+      timestamp: string;
+      leadCaptured?: boolean;
+    }[] = [];
+
+    // History is returned sorted descending by timestamp
+    for (let i = 0; i < historyLogs.length; i++) {
+      const item = historyLogs[i];
+      if (item.role === "user") {
+        const nextItem = historyLogs[i - 1];
+        const prevItem = historyLogs[i + 1];
+        const assistantMsg =
+          nextItem && nextItem.role === "assistant" && nextItem.sessionId === item.sessionId
+            ? nextItem.content
+            : prevItem && prevItem.role === "assistant" && prevItem.sessionId === item.sessionId
+            ? prevItem.content
+            : "";
+
+        list.push({
+          id: item._id || `log-${i}`,
+          userText: item.content,
+          assistantText: assistantMsg,
+          timestamp: new Date(item.timestamp).toLocaleString([], {
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          }),
+          leadCaptured: item.leadCaptured
+        });
+      }
+    }
+
+    if (historySearch.trim()) {
+      const q = historySearch.toLowerCase();
+      return list.filter(
+        (p) =>
+          p.userText.toLowerCase().includes(q) ||
+          p.assistantText.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [historyLogs, historySearch]);
+
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-7 sm:right-7 z-50 flex flex-col items-end print:hidden">
-      {/* Redesigned Floating Launcher Button */}
+      {/* Floating Launcher Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -149,7 +257,7 @@ export default function AiAdvisoryChatbot() {
             <Sparkles className="w-4 h-4 text-brand-rust group-hover:scale-110 transition-transform" />
           </div>
 
-          {/* Clean Brand Typography - Compact on mobile, rich on desktop */}
+          {/* Clean Brand Typography */}
           <div className="flex items-center gap-1.5 text-left pr-1">
             <div className="flex flex-col">
               <div className="text-xs sm:text-sm font-bold tracking-wider text-slate-100 flex items-center gap-1.5">
@@ -166,7 +274,7 @@ export default function AiAdvisoryChatbot() {
         </button>
       )}
 
-      {/* Redesigned Chatbot Window UI */}
+      {/* Chatbot Window UI */}
       {isOpen && (
         <div
           className={`flex flex-col bg-[#0B1322]/98 backdrop-blur-2xl border border-slate-700/70 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5 ${
@@ -236,132 +344,299 @@ export default function AiAdvisoryChatbot() {
             </div>
           </div>
 
-          {/* Messages Feed */}
-          <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3.5 custom-scrollbar text-xs leading-relaxed">
-            {messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+          {/* Header Tab Bar: Chat & History */}
+          <div className="px-3.5 py-2 bg-[#091120] border-b border-slate-800/90 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-1 bg-[#060C17] p-1 rounded-xl border border-slate-800">
+              <button
+                type="button"
+                onClick={() => setActiveTab("chat")}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === "chat"
+                    ? "bg-gradient-to-r from-brand-rust to-[#933423] text-white shadow-sm"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
               >
-                {msg.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-brand-rust/25 to-brand-rust/10 border border-brand-rust/35 flex items-center justify-center shrink-0 mt-0.5 text-brand-rust-light shadow-inner">
-                    <Bot className="w-3.5 h-3.5" />
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>Chat</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab("history");
+                  fetchHistory();
+                }}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === "history"
+                    ? "bg-gradient-to-r from-brand-rust to-[#933423] text-white shadow-sm"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <History className="w-3.5 h-3.5" />
+                <span>History</span>
+                {historyLogs.length > 0 && (
+                  <span className="text-[9.5px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300 font-mono">
+                    {Math.ceil(historyLogs.length / 2)}
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {activeTab === "history" && (
+              <button
+                type="button"
+                onClick={fetchHistory}
+                disabled={isLoadingHistory}
+                className="text-[11px] text-slate-400 hover:text-white flex items-center gap-1 font-medium transition-colors px-2 py-1 rounded-md hover:bg-slate-800/70"
+                title="Refresh history from database"
+              >
+                <RotateCcw className={`w-3 h-3 ${isLoadingHistory ? "animate-spin text-brand-rust" : ""}`} />
+                <span>Refresh</span>
+              </button>
+            )}
+          </div>
+
+          {/* VIEW 1: ACTIVE CHAT TAB */}
+          {activeTab === "chat" && (
+            <>
+              {/* Messages Feed */}
+              <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3.5 custom-scrollbar text-xs leading-relaxed">
+                {messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    {msg.role === "assistant" && (
+                      <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-brand-rust/25 to-brand-rust/10 border border-brand-rust/35 flex items-center justify-center shrink-0 mt-0.5 text-brand-rust-light shadow-inner">
+                        <Bot className="w-3.5 h-3.5" />
+                      </div>
+                    )}
+
+                    <div
+                      className={`max-w-[88%] sm:max-w-[82%] rounded-2xl p-3.5 ${
+                        msg.role === "user"
+                          ? "bg-gradient-to-br from-brand-rust to-[#933423] text-white shadow-lg shadow-brand-rust/20 rounded-tr-sm"
+                          : "bg-[#111C2E]/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm"
+                      }`}
+                    >
+                      <div className="whitespace-pre-wrap font-sans text-xs sm:text-[12.5px] leading-relaxed">
+                        {msg.content}
+                      </div>
+
+                      {/* High-Impact Lead Captured Certificate Card */}
+                      {msg.isLeadCard && msg.leadDetails && (
+                        <div className="mt-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 text-[11px] space-y-1.5 shadow-md">
+                          <div className="font-bold flex items-center gap-1.5 text-emerald-200 text-xs">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                            <span>Corporate Advisory Lead Logged</span>
+                          </div>
+                          <div className="text-slate-300">
+                            Reference Code: <span className="font-mono text-emerald-300 font-semibold">{msg.leadDetails.id}</span>
+                          </div>
+                          {msg.leadDetails.email && (
+                            <div className="text-slate-300">
+                              Assigned to Partner Routing: <span className="text-white font-medium">{msg.leadDetails.email}</span>
+                            </div>
+                          )}
+                          <a
+                            href={`https://wa.me/${contactDetails.whatsappRaw || "923241775662"}?text=${encodeURIComponent(`Hello Factual Solutions, I submitted advisory inquiry #${msg.leadDetails.id} via JARVIS.`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[10.5px] transition-colors shadow"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5" />
+                            <span>Fast-Track via Partner WhatsApp</span>
+                          </a>
+                        </div>
+                      )}
+
+                      <div
+                        className={`text-[9px] mt-1.5 font-medium ${
+                          msg.role === "user" ? "text-white/70 text-right" : "text-slate-500 text-left"
+                        }`}
+                      >
+                        {msg.timestamp}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {isLoading && (
+                  <div className="flex gap-2.5 justify-start">
+                    <div className="w-7 h-7 rounded-xl bg-brand-rust/20 border border-brand-rust/35 flex items-center justify-center shrink-0">
+                      <Bot className="w-3.5 h-3.5 text-brand-rust animate-pulse" />
+                    </div>
+                    <div className="bg-[#111C2E]/90 text-slate-300 border border-slate-700/60 rounded-2xl rounded-tl-sm p-3 flex items-center gap-2.5">
+                      <div className="flex gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.3s]"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.15s]"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce"></span>
+                      </div>
+                      <span className="text-[11px] text-slate-400">JARVIS is formulating corporate advisory response...</span>
+                    </div>
                   </div>
                 )}
 
-                <div
-                  className={`max-w-[88%] sm:max-w-[82%] rounded-2xl p-3.5 ${
-                    msg.role === "user"
-                      ? "bg-gradient-to-br from-brand-rust to-[#933423] text-white shadow-lg shadow-brand-rust/20 rounded-tr-sm"
-                      : "bg-[#111C2E]/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm"
-                  }`}
-                >
-                  <div className="whitespace-pre-wrap font-sans text-xs sm:text-[12.5px] leading-relaxed">
-                    {msg.content}
-                  </div>
+                <div ref={messagesEndRef} />
+              </div>
 
-                  {/* High-Impact Lead Captured Certificate Card */}
-                  {msg.isLeadCard && msg.leadDetails && (
-                    <div className="mt-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 text-[11px] space-y-1.5 shadow-md">
-                      <div className="font-bold flex items-center gap-1.5 text-emerald-200 text-xs">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>Corporate Advisory Lead Logged</span>
+              {/* Curated Quick Strategic Prompts */}
+              <div className="px-3 py-2 bg-[#0C1525]/90 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+                {QUICK_PROMPTS.map((item, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSendMessage(item.query)}
+                    className="whitespace-nowrap px-2.5 py-1 rounded-full bg-slate-800/70 hover:bg-brand-rust/20 hover:border-brand-rust/50 text-[10.5px] font-medium text-slate-300 hover:text-white border border-slate-700/60 transition-all shrink-0 hover:scale-102"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Executive Input Dock */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendMessage();
+                }}
+                className="p-3 bg-[#0D1627] border-t border-slate-800/90 flex flex-col gap-1.5 shrink-0"
+              >
+                <div className="flex items-center gap-2">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    placeholder="Ask JARVIS about feasibility, audits, operations..."
+                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#070D18] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel focus:ring-1 focus:ring-brand-steel/40 transition-all"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!inputMessage.trim() || isLoading}
+                    className="p-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust disabled:opacity-35 text-white transition-all shrink-0 shadow-md hover:scale-105 active:scale-95"
+                    title="Send message"
+                    aria-label="Send message"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="flex items-center justify-between text-[9.5px] text-slate-500 px-1 font-medium">
+                  <span>🔒 Enterprise Confidential</span>
+                  <span>Factual Solutions Advisory</span>
+                </div>
+              </form>
+            </>
+          )}
+
+          {/* VIEW 2: HISTORY TAB */}
+          {activeTab === "history" && (
+            <div className="flex-1 flex flex-col overflow-hidden">
+              {/* History Search & Filter */}
+              <div className="p-3 bg-[#0C1525]/90 border-b border-slate-800 flex items-center gap-2 shrink-0">
+                <div className="relative flex-1">
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    value={historySearch}
+                    onChange={(e) => setHistorySearch(e.target.value)}
+                    placeholder="Search past advisory consultations..."
+                    className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#070D18] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* History List */}
+              <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3 custom-scrollbar text-xs">
+                {isLoadingHistory ? (
+                  <div className="py-12 flex flex-col items-center justify-center text-center space-y-3">
+                    <div className="w-8 h-8 rounded-full border-2 border-brand-rust/30 border-t-brand-rust animate-spin" />
+                    <span className="text-slate-400 text-xs">Loading consultation history from MongoDB Atlas...</span>
+                  </div>
+                ) : pairedHistory.length === 0 ? (
+                  <div className="py-12 px-4 flex flex-col items-center justify-center text-center space-y-3">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-800/60 border border-slate-700 flex items-center justify-center text-slate-400">
+                      <Clock className="w-6 h-6" />
+                    </div>
+                    <div className="space-y-1 max-w-[280px]">
+                      <h4 className="text-sm font-semibold text-slate-200">No Chat History Found</h4>
+                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                        {historySearch ? "No consultation logs matched your search terms." : "Conversations with JARVIS are securely archived here."}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("chat")}
+                      className="mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] text-white text-xs font-semibold shadow hover:scale-102 transition-all"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      <span>Start a Consultation</span>
+                    </button>
+                  </div>
+                ) : (
+                  pairedHistory.map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-3.5 rounded-2xl bg-[#111C2E]/90 border border-slate-700/70 hover:border-brand-steel/50 transition-all space-y-2.5 shadow-sm group"
+                    >
+                      {/* Query Header */}
+                      <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800/80 pb-2">
+                        <span className="flex items-center gap-1 text-slate-300 font-medium">
+                          <Clock className="w-3 h-3 text-brand-rust" />
+                          <span>{item.timestamp}</span>
+                        </span>
+                        {item.leadCaptured && (
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[9.5px] font-semibold">
+                            Lead Captured
+                          </span>
+                        )}
                       </div>
-                      <div className="text-slate-300">
-                        Reference Code: <span className="font-mono text-emerald-300 font-semibold">{msg.leadDetails.id}</span>
+
+                      {/* User Query */}
+                      <div className="flex items-start gap-2">
+                        <span className="text-[10px] font-bold text-brand-rust uppercase tracking-wider shrink-0 mt-0.5">
+                          Query:
+                        </span>
+                        <p className="text-slate-100 font-medium text-xs leading-snug">
+                          {item.userText}
+                        </p>
                       </div>
-                      {msg.leadDetails.email && (
-                        <div className="text-slate-300">
-                          Assigned to Partner Routing: <span className="text-white font-medium">{msg.leadDetails.email}</span>
+
+                      {/* Assistant Response Preview */}
+                      {item.assistantText && (
+                        <div className="p-2.5 rounded-xl bg-[#0B1322] border border-slate-800/90 text-slate-300 text-[11.5px] leading-relaxed line-clamp-3">
+                          {item.assistantText}
                         </div>
                       )}
-                      <a
-                        href={`https://wa.me/${contactDetails.whatsappRaw || "923241775662"}?text=${encodeURIComponent(`Hello Factual Solutions, I submitted advisory inquiry #${msg.leadDetails.id} via JARVIS.`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[10.5px] transition-colors shadow"
-                      >
-                        <MessageCircle className="w-3.5 h-3.5" />
-                        <span>Fast-Track via Partner WhatsApp</span>
-                      </a>
+
+                      {/* Action buttons */}
+                      <div className="flex items-center justify-end gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => handleLoadHistoryToChat(item.userText, item.assistantText)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-brand-rust/20 text-slate-300 hover:text-white border border-slate-700 hover:border-brand-rust/40 text-[11px] font-medium transition-all"
+                        >
+                          <span>Load into Chat</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
-                  )}
-
-                  <div
-                    className={`text-[9px] mt-1.5 font-medium ${
-                      msg.role === "user" ? "text-white/70 text-right" : "text-slate-500 text-left"
-                    }`}
-                  >
-                    {msg.timestamp}
-                  </div>
-                </div>
+                  ))
+                )}
               </div>
-            ))}
 
-            {isLoading && (
-              <div className="flex gap-2.5 justify-start">
-                <div className="w-7 h-7 rounded-xl bg-brand-rust/20 border border-brand-rust/35 flex items-center justify-center shrink-0">
-                  <Bot className="w-3.5 h-3.5 text-brand-rust animate-pulse" />
-                </div>
-                <div className="bg-[#111C2E]/90 text-slate-300 border border-slate-700/60 rounded-2xl rounded-tl-sm p-3 flex items-center gap-2.5">
-                  <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.3s]"></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.15s]"></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce"></span>
-                  </div>
-                  <span className="text-[11px] text-slate-400">JARVIS is formulating corporate advisory response...</span>
-                </div>
+              {/* History Footer Dock */}
+              <div className="p-3 bg-[#0D1627] border-t border-slate-800/90 flex items-center justify-between shrink-0">
+                <span className="text-[10px] text-slate-500">Live MongoDB Atlas Archive</span>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("chat")}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] text-white text-xs font-semibold shadow hover:scale-102 active:scale-95 transition-all"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Return to Chat</span>
+                </button>
               </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Curated Quick Strategic Prompts */}
-          <div className="px-3 py-2 bg-[#0C1525]/90 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            {QUICK_PROMPTS.map((item, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleSendMessage(item.query)}
-                className="whitespace-nowrap px-2.5 py-1 rounded-full bg-slate-800/70 hover:bg-brand-rust/20 hover:border-brand-rust/50 text-[10.5px] font-medium text-slate-300 hover:text-white border border-slate-700/60 transition-all shrink-0 hover:scale-102"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Executive Input Dock */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSendMessage();
-            }}
-            className="p-3 bg-[#0D1627] border-t border-slate-800/90 flex flex-col gap-1.5 shrink-0"
-          >
-            <div className="flex items-center gap-2">
-              <input
-                ref={inputRef}
-                type="text"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Ask JARVIS about feasibility, audits, operations..."
-                className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#070D18] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel focus:ring-1 focus:ring-brand-steel/40 transition-all"
-              />
-              <button
-                type="submit"
-                disabled={!inputMessage.trim() || isLoading}
-                className="p-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust disabled:opacity-35 text-white transition-all shrink-0 shadow-md hover:scale-105 active:scale-95"
-                title="Send message"
-                aria-label="Send message"
-              >
-                <Send className="w-4 h-4" />
-              </button>
             </div>
-            <div className="flex items-center justify-between text-[9.5px] text-slate-500 px-1 font-medium">
-              <span>🔒 Enterprise Confidential</span>
-              <span>Factual Solutions Advisory</span>
-            </div>
-          </form>
+          )}
         </div>
       )}
     </div>
