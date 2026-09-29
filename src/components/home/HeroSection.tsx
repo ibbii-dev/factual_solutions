@@ -15,6 +15,9 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
+const BG_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_230229_7c9bc431-46cf-489a-948d-e8144d8eb5d4.mp4";
+
 export default function HeroSection() {
   const { t, isRTL } = useLanguage();
   const [activeMetric, setActiveMetric] = useState<number | null>(null);
@@ -33,17 +36,32 @@ export default function HeroSection() {
       onMouseMove={handleMouseMove}
       className="relative pt-24 sm:pt-32 md:pt-36 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300"
     >
+      {/* Cinematic Looping Background Video */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-35 dark:opacity-25 transition-opacity duration-1000"
+          src={BG_VIDEO}
+        />
+        {/* Soft atmospheric gradient scrim ensuring 100% text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FAFBFD]/90 via-[#FAFBFD]/75 to-[#FAFBFD]/60 dark:from-[#131B2E]/90 dark:via-[#131B2E]/80 dark:to-[#131B2E]/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FAFBFD] dark:to-[#131B2E]" />
+      </div>
+
       {/* Dynamic Cursor-responsive spotlight */}
       <div 
-        className="pointer-events-none absolute -inset-px opacity-0 sm:opacity-100 transition-opacity duration-300"
+        className="pointer-events-none absolute -inset-px opacity-0 sm:opacity-100 transition-opacity duration-300 z-1"
         style={{
           background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(142, 169, 211, 0.08), transparent 80%)`,
         }}
       />
 
       {/* Subtle ambient background glow */}
-      <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#8EA9D3]/10 dark:bg-[#8EA9D3]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -left-20 w-72 h-72 bg-[#A33C29]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#8EA9D3]/10 dark:bg-[#8EA9D3]/5 rounded-full blur-3xl pointer-events-none z-1" />
+      <div className="absolute top-1/2 -left-20 w-72 h-72 bg-[#A33C29]/5 rounded-full blur-3xl pointer-events-none z-1" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
