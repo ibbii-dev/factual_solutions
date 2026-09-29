@@ -102,7 +102,7 @@ function ServicesContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={sp.searchPlaceholder}
-              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all`}
+              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all`}
             />
             {searchQuery && (
               <button
@@ -129,7 +129,7 @@ function ServicesContent() {
                     
                     {/* Card Top: Icon & Indicator */}
                     <div className="flex items-center justify-between">
-                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#152238] dark:bg-[#1E2D4A] text-white group-hover:scale-105 transition-transform duration-300 shadow-xs">
+                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#152238] dark:bg-white/10 dark:border dark:border-white/10 text-white group-hover:scale-105 transition-transform duration-300 shadow-xs">
                         {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
                       </div>
 
@@ -151,7 +151,7 @@ function ServicesContent() {
                     </div>
 
                     {/* Benchmark KPI */}
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#0E1524] border border-slate-100 dark:border-slate-700/60">
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
                       <div className="text-[10px] uppercase font-bold text-slate-400">
                         {sp.deliverableLabel}
                       </div>
@@ -172,7 +172,7 @@ function ServicesContent() {
                   </div>
 
                   {/* Card Bottom CTA */}
-                  <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <div className="pt-5 mt-5 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
                     <Link
                       href={`/services/${service.id}`}
                       className="text-xs font-bold text-[#152238] dark:text-slate-200 hover:text-[#A33C29] transition-colors flex items-center gap-1"
@@ -183,7 +183,7 @@ function ServicesContent() {
 
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
-                      className="p-2 rounded-xl text-white transition-all duration-200 shadow-xs bg-[#152238] hover:bg-[#A33C29]"
+                      className="p-2 rounded-xl text-white transition-all duration-200 shadow-xs bg-[#152238] dark:bg-white/10 dark:hover:bg-[#A33C29] hover:bg-[#A33C29]"
                       title={language === "ar" ? "طلب استشارة لهذه الخدمة" : "Book this Service"}
                     >
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -203,7 +203,7 @@ function ServicesContent() {
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 px-5 py-2 rounded-full bg-[#152238] text-white text-xs font-bold shadow-xs hover:bg-[#A33C29] transition-colors"
+              className="mt-4 px-5 py-2 rounded-full bg-[#152238] dark:bg-white text-white dark:text-[#152238] text-xs font-bold shadow-xs hover:bg-[#A33C29] dark:hover:bg-slate-100 transition-colors"
             >
               {sp.resetFilters}
             </button>

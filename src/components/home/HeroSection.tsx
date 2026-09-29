@@ -86,7 +86,7 @@ export default function HeroSection() {
                 {isAr ? "المعيار الاستشاري" : "Industry Benchmark"}
               </div>
             </div>
-            <div className="border-s border-slate-200/80 dark:border-white/10">
+            <div className="border-s-0 md:border-s border-slate-200/80 dark:border-white/10">
               <div className="text-xl sm:text-2xl font-extrabold text-[#152238] dark:text-white font-display">18+</div>
               <div className="text-[11px] text-slate-600 dark:text-slate-300 font-semibold mt-0.5">
                 {isAr ? "ممارسة متخصصة" : "Advisory Practices"}

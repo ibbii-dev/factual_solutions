@@ -181,17 +181,17 @@ export default function PartnerBookingWidget({
         </div>
 
         {/* Timezone picker */}
-        <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs text-slate-600 dark:text-slate-300 shrink-0">
+        <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 px-3 py-1.5 rounded-xl text-xs text-slate-600 dark:text-slate-300 shrink-0">
           <Globe className="w-3.5 h-3.5 text-[#A33C29]" />
           <select
             value={selectedTimezone}
             onChange={(e) => setSelectedTimezone(e.target.value)}
             className="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer text-[#152238] dark:text-white"
           >
-            <option value="Asia/Riyadh">Riyadh (AST GMT+3)</option>
-            <option value="Asia/Dubai">Dubai (GST GMT+4)</option>
-            <option value="Europe/London">London (BST GMT+1)</option>
-            <option value="America/New_York">New York (EST GMT-5)</option>
+            <option value="Asia/Riyadh" className="dark:bg-slate-900">Riyadh (AST GMT+3)</option>
+            <option value="Asia/Dubai" className="dark:bg-slate-900">Dubai (GST GMT+4)</option>
+            <option value="Europe/London" className="dark:bg-slate-900">London (BST GMT+1)</option>
+            <option value="America/New_York" className="dark:bg-slate-900">New York (EST GMT-5)</option>
           </select>
         </div>
       </div>
@@ -216,8 +216,8 @@ export default function PartnerBookingWidget({
                 onClick={() => setSelectedMeetingType(track.id)}
                 className={`p-3 rounded-2xl border text-left transition-all ${
                   selectedMeetingType === track.id
-                    ? "bg-[#152238] dark:bg-[#1E3150] text-white border-transparent shadow-md"
-                    : "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300"
+                    ? "bg-[#152238] dark:bg-white/15 text-white border-transparent shadow-md"
+                    : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                 }`}
               >
                 <div className="text-xs font-bold">{track.label}</div>
@@ -247,7 +247,7 @@ export default function PartnerBookingWidget({
                 className={`p-2.5 rounded-xl border text-center transition-all ${
                   selectedDateIndex === idx
                     ? "bg-[#A33C29] text-white border-[#A33C29] shadow-sm scale-102"
-                    : "bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300"
+                    : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                 }`}
               >
                 <span className="text-[10px] font-semibold block uppercase tracking-wider opacity-75">
@@ -276,7 +276,7 @@ export default function PartnerBookingWidget({
                 className={`py-2 px-1 rounded-xl text-xs font-semibold border transition-all text-center ${
                   selectedTime === slot
                     ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
-                    : "bg-white dark:bg-[#0E1524] border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500"
+                    : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-emerald-500"
                 }`}
               >
                 {slot}
@@ -286,7 +286,7 @@ export default function PartnerBookingWidget({
         </div>
 
         {/* Step 4: Executive Details */}
-        <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-white/10">
           <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
             <User className="w-3.5 h-3.5 text-[#A33C29]" />
             <span>4. Attendee Details</span>
@@ -298,7 +298,7 @@ export default function PartnerBookingWidget({
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               placeholder="Your Full Name"
-              className="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
             />
             <input
               type="email"
@@ -306,14 +306,14 @@ export default function PartnerBookingWidget({
               value={clientEmail}
               onChange={(e) => setClientEmail(e.target.value)}
               placeholder="Corporate Work Email"
-              className="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
             />
             <input
               type="text"
               value={clientCompany}
               onChange={(e) => setClientCompany(e.target.value)}
               placeholder="Company / Enterprise"
-              className="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
             />
           </div>
         </div>

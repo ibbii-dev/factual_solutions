@@ -77,8 +77,8 @@ export default function ServiceDetailPage() {
 
   if (!service) {
     return (
-      <div className="pt-36 pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white flex items-center justify-center">
-        <div className="text-center p-8 bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 max-w-md mx-auto shadow-xs">
+      <div className="pt-36 pb-24 min-h-screen text-[#152238] dark:text-white flex items-center justify-center">
+        <div className="text-center p-8 bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl rounded-2xl border border-slate-200/90 dark:border-white/15 max-w-md mx-auto shadow-xs">
           <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
           <h2 className="text-xl font-bold font-display">
             {language === "ar" ? "الخدمة غير موجودة" : "Service Not Found"}
@@ -207,8 +207,8 @@ export default function ServiceDetailPage() {
             </p>
 
             {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-              <div className="bg-slate-50 dark:bg-[#15233A] p-3.5 rounded-xl border border-slate-100 dark:border-slate-700/60">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-slate-100 dark:border-white/10">
+              <div className="bg-white dark:bg-white/5 p-3.5 rounded-xl border border-slate-200/80 dark:border-white/10 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">
                   <Clock className="w-3.5 h-3.5 text-[#A33C29]" /> {labels.statsTimeline}
                 </div>
@@ -217,7 +217,7 @@ export default function ServiceDetailPage() {
                 </div>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#15233A] p-3.5 rounded-xl border border-slate-100 dark:border-slate-700/60">
+              <div className="bg-white dark:bg-white/5 p-3.5 rounded-xl border border-slate-200/80 dark:border-white/10 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">
                   <Layers className="w-3.5 h-3.5 text-slate-500" /> {labels.statsDeliverables}
                 </div>
@@ -226,7 +226,7 @@ export default function ServiceDetailPage() {
                 </div>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#15233A] p-3.5 rounded-xl border border-slate-100 dark:border-slate-700/60 col-span-2 sm:col-span-2">
+              <div className="bg-white dark:bg-white/5 p-3.5 rounded-xl border border-slate-200/80 dark:border-white/10 shadow-2xs col-span-2 sm:col-span-2">
                 <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> {labels.statsLead}
                 </div>
@@ -394,7 +394,7 @@ export default function ServiceDetailPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder={language === "ar" ? "الاسم" : "Your Name"}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
                     />
                   </div>
 
@@ -408,7 +408,7 @@ export default function ServiceDetailPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="name@company.com"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
                     />
                   </div>
 
@@ -421,7 +421,7 @@ export default function ServiceDetailPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+92 345 0000000"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
                     />
                   </div>
 
@@ -434,7 +434,7 @@ export default function ServiceDetailPage() {
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder={language === "ar" ? "اسم الشركة" : "Company / Firm"}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
                     />
                   </div>
 
@@ -462,7 +462,7 @@ export default function ServiceDetailPage() {
             </div>
 
             {/* Related Capabilities */}
-            <div className="bg-white dark:bg-[#182238] rounded-2xl p-5 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-3">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-5 shadow-xs border border-slate-200/90 dark:border-white/15 space-y-3">
               <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#152238] dark:text-slate-300 font-display">
                 {labels.relatedTitle}
               </h4>
@@ -471,7 +471,7 @@ export default function ServiceDetailPage() {
                   <Link
                     key={rel.id}
                     href={`/services/${rel.id}`}
-                    className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-between group block"
+                    className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-100 dark:border-white/5 transition-colors flex items-center justify-between group block"
                   >
                     <div className="truncate pr-2">
                       <div className="text-xs font-bold text-[#152238] dark:text-white truncate">

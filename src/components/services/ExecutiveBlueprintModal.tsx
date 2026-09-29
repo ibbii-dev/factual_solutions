@@ -67,11 +67,11 @@ export default function ExecutiveBlueprintModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="w-full max-w-3xl bg-white dark:bg-[#131B2E] rounded-3xl border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
+        className="w-full max-w-3xl bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Bar */}
-        <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-700/60 flex items-center justify-between bg-slate-50 dark:bg-[#0E1524]">
+        <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900/80">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-[#A33C29]/15 text-[#A33C29] flex items-center justify-center font-bold">
               <FileText className="w-4 h-4" />
@@ -133,7 +133,7 @@ export default function ExecutiveBlueprintModal({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Tariq Al-Ghamdi"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                   />
                 </div>
 
@@ -147,7 +147,7 @@ export default function ExecutiveBlueprintModal({
                     value={workEmail}
                     onChange={(e) => setWorkEmail(e.target.value)}
                     placeholder="tariq@enterprise.com.sa"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                   />
                 </div>
 
@@ -161,7 +161,7 @@ export default function ExecutiveBlueprintModal({
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="e.g. Al-Mashriq Holding"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                     />
                   </div>
 
@@ -172,13 +172,13 @@ export default function ExecutiveBlueprintModal({
                     <select
                       value={industry}
                       onChange={(e) => setIndustry(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
                     >
-                      <option value="Manufacturing & Logistics">Manufacturing &amp; Logistics</option>
-                      <option value="Retail & Multi-Branch">Retail &amp; Multi-Branch Networks</option>
-                      <option value="Real Estate & Construction">Real Estate &amp; Construction</option>
-                      <option value="Financial & Investment Funds">Financial &amp; Investment Funds</option>
-                      <option value="Healthcare & Life Sciences">Healthcare &amp; Life Sciences</option>
+                      <option value="Manufacturing & Logistics" className="dark:bg-slate-900">Manufacturing &amp; Logistics</option>
+                      <option value="Retail & Multi-Branch" className="dark:bg-slate-900">Retail &amp; Multi-Branch Networks</option>
+                      <option value="Real Estate & Construction" className="dark:bg-slate-900">Real Estate &amp; Construction</option>
+                      <option value="Financial & Investment Funds" className="dark:bg-slate-900">Financial &amp; Investment Funds</option>
+                      <option value="Healthcare & Life Sciences" className="dark:bg-slate-900">Healthcare &amp; Life Sciences</option>
                     </select>
                   </div>
                 </div>

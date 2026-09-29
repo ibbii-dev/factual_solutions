@@ -115,7 +115,7 @@ export default function DualEngineSection() {
         <div className="mt-12 sm:mt-16 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#152238] hover:bg-[#1E3150] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#152238] dark:bg-white text-white dark:text-[#152238] hover:bg-[#1E3150] dark:hover:bg-slate-100 text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
             <span>{isAr ? "عرض جميع الممارسات الـ 18" : "Explore All 18 Advisory Practices"}</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />

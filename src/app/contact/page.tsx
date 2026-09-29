@@ -184,7 +184,7 @@ function ContactContent() {
 
                 {/* AI Agent Diagnostic Card */}
                 {aiAssessment && (
-                  <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3.5">
+                  <div className="p-5 rounded-xl bg-white dark:bg-white/5 border border-slate-200/90 dark:border-white/10 space-y-3.5 shadow-sm">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-md bg-[#A33C29] text-white flex items-center justify-center">
@@ -194,7 +194,7 @@ function ContactContent() {
                           JARVIS AI Preliminary Diagnostic
                         </span>
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
                         {aiAssessment.industryCategory}
                       </span>
                     </div>
@@ -268,7 +268,7 @@ function ContactContent() {
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder={language === "ar" ? "الاسم الكريم" : "Your Name"}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
                     />
                   </div>
 
@@ -282,7 +282,7 @@ function ContactContent() {
                       value={formData.workEmail}
                       onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
                       placeholder="name@company.com"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
                     />
                   </div>
                 </div>
@@ -298,7 +298,7 @@ function ContactContent() {
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       placeholder="Company / Enterprise"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
                     />
                   </div>
 
@@ -311,7 +311,7 @@ function ContactContent() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+92 300 000 0000"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all"
                     />
                   </div>
                 </div>
@@ -324,7 +324,7 @@ function ContactContent() {
                   
                   <div
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white cursor-pointer flex items-center justify-between"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white cursor-pointer flex items-center justify-between"
                   >
                     <span className={formData.serviceOfInterest ? "text-[#152238] dark:text-white font-medium" : "text-slate-400"}>
                       {formData.serviceOfInterest || (language === "ar" ? "اختر الخدمة المطلوبة" : "Select Service Area")}
@@ -333,15 +333,15 @@ function ContactContent() {
                   </div>
 
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-1.5 rounded-xl bg-white dark:bg-[#0E182A] border border-slate-200 dark:border-slate-700 shadow-xl p-2 z-50 max-h-72 overflow-y-auto space-y-0.5">
+                    <div className="absolute top-full left-0 right-0 mt-1.5 rounded-xl bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 shadow-xl p-2 z-50 max-h-72 overflow-y-auto space-y-0.5">
                       {allServices.map((srv) => (
                         <div
                           key={srv.id}
                           onClick={() => selectService(srv.title)}
                           className={`px-3 py-2 rounded-lg text-xs flex items-center justify-between cursor-pointer transition-colors ${
                             formData.serviceOfInterest === srv.title
-                              ? "bg-[#152238] dark:bg-[#1E2D4A] text-white font-bold"
-                              : "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
+                              ? "bg-[#152238] dark:bg-white/15 text-white font-bold"
+                              : "hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200"
                           }`}
                         >
                           <span>{srv.title}</span>
@@ -363,7 +363,7 @@ function ContactContent() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder={language === "ar" ? "اشرح احتياجات مشروعك وأهداف العمل..." : "Briefly describe your requirements or strategic objectives..."}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all resize-none"
                   />
                 </div>
 
@@ -397,7 +397,7 @@ function ContactContent() {
               <div className="space-y-3">
                 <a
                   href={`mailto:${contactDetails.email}`}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 transition-colors shadow-2xs group"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors shadow-2xs group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#A33C29]/15 text-[#A33C29] flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
@@ -414,7 +414,7 @@ function ContactContent() {
 
                 <a
                   href={`tel:${contactDetails.phone.replace(/\s+/g, '')}`}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 transition-colors shadow-2xs group"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-colors shadow-2xs group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#152238]/10 text-[#152238] dark:text-slate-300 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
@@ -463,7 +463,7 @@ function ContactContent() {
                 {officeLocations.map((loc) => (
                   <div
                     key={loc.city}
-                    className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-1"
+                    className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 shadow-2xs space-y-1"
                   >
                     <div className="flex items-center justify-between">
                       <div className="font-bold text-xs text-[#152238] dark:text-white flex items-center gap-1.5">
@@ -494,7 +494,7 @@ function ContactContent() {
 
 export default function ContactPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] pt-32 text-center text-slate-400">Loading Contact...</div>}>
+    <Suspense fallback={<div className="min-h-screen pt-32 text-center text-slate-400">Loading Contact...</div>}>
       <ContactContent />
     </Suspense>
   );

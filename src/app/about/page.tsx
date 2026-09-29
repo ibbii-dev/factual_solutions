@@ -201,13 +201,13 @@ export default function AboutPage() {
 
           <div className="max-w-md mx-auto">
             {officeLocations.map((loc) => (
-              <div key={loc.city} className="bg-slate-50 dark:bg-slate-900 p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-2 text-center">
+              <div key={loc.city} className="bg-white dark:bg-white/5 p-5 rounded-xl border border-slate-200/80 dark:border-white/10 space-y-2 text-center shadow-2xs">
                 <div className="flex items-center justify-center gap-2">
                   <MapPin className="w-4 h-4 text-[#A33C29] shrink-0" />
                   <span className="text-base font-bold text-[#152238] dark:text-white">
                     {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
                     {language === "ar" ? "المقر الرئيسي" : loc.tag}
                   </span>
                 </div>

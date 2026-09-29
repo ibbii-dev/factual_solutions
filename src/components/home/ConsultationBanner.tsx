@@ -65,9 +65,9 @@ export default function ConsultationBanner() {
 
                 <Link
                   href="/contact?type=discovery"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all duration-200 hover:-translate-y-0.5 text-center"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-[#152238] dark:text-white text-xs sm:text-sm font-semibold border border-slate-200/90 dark:border-white/20 transition-all duration-200 hover:-translate-y-0.5 text-center shadow-xs"
                 >
-                  <PhoneCall className="w-3.5 h-3.5 text-brand-steel-light" />
+                  <PhoneCall className="w-3.5 h-3.5 text-[#A33C29] dark:text-brand-steel-light" />
                   <span>Book a Discovery Call</span>
                 </Link>
               </div>

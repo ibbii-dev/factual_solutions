@@ -158,7 +158,7 @@ export default function WhatWeThinkPage() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-[#15233A] text-[#152238] dark:text-white text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-[#152238] dark:hover:border-white transition-all shadow-xs"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-white/10 text-[#152238] dark:text-white text-xs sm:text-sm font-semibold border border-slate-200/90 dark:border-white/15 hover:border-[#152238] dark:hover:border-white transition-all shadow-xs"
             >
               <span>{isAr ? "استكشف ما نقوم به (الممارسات)" : "Explore What We Do"}</span>
               <ArrowRight className="w-4 h-4 rtl:rotate-180" />

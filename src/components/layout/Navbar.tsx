@@ -190,7 +190,7 @@ export default function Navbar() {
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white dark:bg-[#0E1526]/85 backdrop-blur-xl shadow-md border-b border-slate-200/90 dark:border-white/10 py-2 sm:py-2.5"
+            ? "bg-white dark:bg-slate-900/80 backdrop-blur-xl shadow-md border-b border-slate-200/90 dark:border-white/10 py-2 sm:py-2.5"
             : "bg-white dark:bg-black/35 backdrop-blur-lg border-b border-slate-200/90 dark:border-white/10 py-2.5 sm:py-3.5"
         }`}
       >
@@ -214,7 +214,7 @@ export default function Navbar() {
                     Factual Solutions
                   </span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase -mt-0.5 truncate">
+                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase -mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
                   {language === "ar" ? "شركاؤكم في التميز المؤسسي" : "Your Business Excellence Partners"}
                 </span>
               </div>
@@ -255,8 +255,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[390px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-[#131B2E] border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-[100] overflow-hidden"
-                            style={{ backgroundColor: isDark ? "#131B2E" : "#FFFFFF" }}
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[390px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white z-[100] overflow-hidden"
                           >
                             <div className="flex flex-col space-y-1">
                               {featuredServicesList.map((srv) => {
@@ -266,7 +265,7 @@ export default function Navbar() {
                                     key={srv.href}
                                     href={srv.href}
                                     onClick={() => setServicesDropdownOpen(false)}
-                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238] flex items-center gap-3"
+                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-white/10 hover:bg-[#FAFBFD] dark:hover:bg-white/10 flex items-center gap-3"
                                   >
                                     <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
                                       <IconComp className="w-4 h-4" />
@@ -297,7 +296,7 @@ export default function Navbar() {
                               <Link
                                 href="/services#quiz"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1E2E4A] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                                className="font-bold text-xs text-white bg-[#152238] dark:bg-white/10 dark:hover:bg-[#A33C29] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
                               >
                                 <span>{language === "ar" ? "اختبار التوجيه" : "Advisor Quiz"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
@@ -338,8 +337,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[380px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-[#131B2E] border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-[100] overflow-hidden"
-                            style={{ backgroundColor: isDark ? "#131B2E" : "#FFFFFF" }}
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[380px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white z-[100] overflow-hidden"
                           >
                             <div className="flex flex-col space-y-1">
                               {whoWeAreList.map((item) => {
@@ -349,7 +347,7 @@ export default function Navbar() {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setWhoWeAreDropdownOpen(false)}
-                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238] flex items-center gap-3"
+                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-white/10 hover:bg-[#FAFBFD] dark:hover:bg-white/10 flex items-center gap-3"
                                   >
                                     <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
                                       <IconComp className="w-4 h-4" />
@@ -380,7 +378,7 @@ export default function Navbar() {
                               <Link
                                 href="/contact"
                                 onClick={() => setWhoWeAreDropdownOpen(false)}
-                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1E2E4A] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                                className="font-bold text-xs text-white bg-[#152238] dark:bg-white/10 dark:hover:bg-[#A33C29] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
                               >
                                 <span>{language === "ar" ? "تواصل معنا" : "Get in Touch"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
@@ -438,7 +436,7 @@ export default function Navbar() {
                 {user ? (
                   <button
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    className="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-slate-100 dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 hover:border-slate-300 transition-all text-xs font-semibold text-[#152238] dark:text-white shadow-xs"
+                    className="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-slate-300 dark:hover:border-white/25 transition-all text-xs font-semibold text-[#152238] dark:text-white shadow-xs"
                     title="Client Account"
                   >
                     <div className="relative w-7 h-7 rounded-full overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-xs">
@@ -454,7 +452,7 @@ export default function Navbar() {
                 ) : (
                   <button
                     onClick={() => openAuthModal("login")}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-[#15233A] hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-[#152238] dark:text-white border border-slate-200 dark:border-slate-700 shadow-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/15 text-xs font-bold text-[#152238] dark:text-white border border-slate-200/90 dark:border-white/15 shadow-xs transition-colors"
                     title="Sign In"
                   >
                     <User className="w-3.5 h-3.5 text-[#A33C29]" />
@@ -464,7 +462,7 @@ export default function Navbar() {
 
                 {/* User Dropdown Menu */}
                 {user && userDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white dark:bg-[#0E182A] border border-slate-200 dark:border-slate-700 shadow-2xl p-3 z-50 text-[#152238] dark:text-white space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 shadow-2xl p-3 z-50 text-[#152238] dark:text-white space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
                     <div className="p-2 border-b border-slate-100 dark:border-slate-800">
                       <div className="font-bold text-xs truncate">{user.name}</div>
                       <div className="text-[10px] text-slate-400 truncate">{user.email}</div>
@@ -509,14 +507,14 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#152238] dark:text-white bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/20 border border-slate-200/90 dark:border-white/10 shadow-xs shrink-0"
               >
                 {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-[#152238]" />}
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 rounded-lg text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10 shrink-0"
+                className="p-1.5 rounded-lg text-[#152238] dark:text-white bg-white dark:bg-white/10 border border-slate-200/90 dark:border-white/10 shadow-xs shrink-0"
                 aria-label="Toggle Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -529,7 +527,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white/98 dark:bg-[#131B2E]/98 backdrop-blur-xl border-slate-200 dark:border-white/10 text-[#152238] dark:text-white">
+        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white dark:bg-slate-900/95 backdrop-blur-2xl border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
           <div className="flex flex-col space-y-1.5">
             <Link
               href="/"
@@ -561,9 +559,9 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
+          <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex flex-col gap-2">
             {user ? (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-xs">
                 <div className="flex items-center gap-2">
                   <User className="w-3.5 h-3.5 text-[#A33C29]" />
                   <span className="font-bold">{user.name.split(" ")[0]}</span>
@@ -584,7 +582,7 @@ export default function Navbar() {
                   setMobileMenuOpen(false);
                   openAuthModal("login");
                 }}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white font-bold text-xs"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white dark:bg-white/10 border border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white font-bold text-xs shadow-xs"
               >
                 <User className="w-3.5 h-3.5 text-[#A33C29]" />
                 <span>Client Sign In</span>
@@ -594,10 +592,10 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#A33C29] text-white font-bold text-xs shadow-sm"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white font-bold text-xs shadow-sm"
             >
               <span>Request Consultation</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             </Link>
           </div>
         </div>
