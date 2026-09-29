@@ -118,7 +118,7 @@ function ContactContent() {
         
         {/* Page Hero */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xl text-white border border-white/30 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-transparent backdrop-blur-md text-[#152238] dark:text-white border border-slate-200/90 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
             <span>DIRECT ENGAGEMENT</span>
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
@@ -130,7 +130,7 @@ function ContactContent() {
 
           {/* Mode Switcher Tabs */}
           <div className="pt-4 flex items-center justify-center">
-            <div className="inline-flex p-1 rounded-2xl bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-sm">
+            <div className="inline-flex p-1 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm">
               <button
                 type="button"
                 onClick={() => setActiveMode("inquiry")}
@@ -169,7 +169,7 @@ function ContactContent() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
             {/* Left: Consultation Form (7 cols) */}
-            <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm border border-white/60 dark:border-white/10">
+            <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm border border-slate-200/90 dark:border-white/15">
               {submitted ? (
               <div className="py-6 space-y-6 text-left">
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300">
@@ -389,7 +389,7 @@ function ContactContent() {
           <ScrollReveal variant="fade-up" delay={0.2} duration={0.65} className="lg:col-span-5 space-y-6">
             
             {/* Direct Contact Card */}
-            <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-7 shadow-sm border border-white/60 dark:border-white/10 space-y-4">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-4">
               <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">
                 {c.directContactTitle}
               </h3>
@@ -454,7 +454,7 @@ function ContactContent() {
             </div>
 
             {/* Office Locations */}
-            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-4">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-4">
               <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">
                 {c.headOfficeTitle}
               </h3>

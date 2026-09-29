@@ -41,7 +41,7 @@ const articles = [
 
 export default function LatestInsightsSection() {
   return (
-    <section id="latest-blogs" className="py-20 sm:py-24 bg-white dark:bg-[#0E1524] text-[#152238] dark:text-white transition-colors duration-300">
+    <section id="latest-blogs" className="py-20 sm:py-24 bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header split */}
@@ -72,7 +72,7 @@ export default function LatestInsightsSection() {
           {articles.map((art) => (
             <StaggerItem
               key={art.id}
-              className="bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+              className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between group"
             >
               <div>
                 {/* Image container */}

@@ -40,7 +40,7 @@ export default function AboutPage() {
         
         {/* Page Hero */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xl text-white border border-white/30 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-transparent text-[#A33C29] dark:text-white border border-slate-200/90 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
             {about.badge}
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
@@ -52,7 +52,7 @@ export default function AboutPage() {
         </ScrollReveal>
 
         {/* The Puzzle Philosophy Section */}
-        <ScrollReveal variant="zoom-in" duration={0.7} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-10 lg:p-12 shadow-sm border border-white/60 dark:border-white/10">
+        <ScrollReveal variant="zoom-in" duration={0.7} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white dark:bg-transparent backdrop-blur-md rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm border border-slate-200/90 dark:border-white/15">
           
           <div className="lg:col-span-6 space-y-4">
             <h2 className="text-2xl sm:text-3xl font-bold text-[#152238] dark:text-white tracking-tight font-display">
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </ScrollReveal>
 
           {/* Qadeer Ahmad Bhatti Profile Card */}
-          <ScrollReveal variant="fade-up" delay={0.15} className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-10 lg:p-12 border border-white/60 dark:border-white/10 shadow-sm max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <ScrollReveal variant="fade-up" delay={0.15} className="bg-white dark:bg-transparent backdrop-blur-md rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-200/90 dark:border-white/15 shadow-sm max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             
             {/* Portrait Photo (4 cols) */}
             <div className="md:col-span-4 flex flex-col items-center text-center">
@@ -145,7 +145,7 @@ export default function AboutPage() {
                   {currentSkills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-50/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-xs font-semibold text-[#152238] dark:text-slate-200"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-slate-700 text-xs font-semibold text-[#152238] dark:text-slate-200"
                     >
                       <Check className="w-3.5 h-3.5 text-[#A33C29] shrink-0" />
                       <span>{skill}</span>
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
         {/* Mission & Vision Cards */}
         <StaggerContainer delayChildren={0.2} staggerChildren={0.15} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-20">
-          <StaggerItem className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-sm border border-white/60 dark:border-white/10 space-y-3">
+          <StaggerItem className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-3">
             <div className="w-10 h-10 rounded-xl bg-[#152238] text-white flex items-center justify-center">
               <Target className="w-5 h-5" />
             </div>
@@ -181,7 +181,7 @@ export default function AboutPage() {
             </p>
           </StaggerItem>
 
-          <StaggerItem className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-sm border border-white/60 dark:border-white/10 space-y-3">
+          <StaggerItem className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-3">
             <div className="w-10 h-10 rounded-xl bg-[#A33C29] text-white flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -193,7 +193,7 @@ export default function AboutPage() {
         </StaggerContainer>
 
         {/* Office Location */}
-        <ScrollReveal variant="fade-up" className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-10 border border-white/60 dark:border-white/10 shadow-sm">
+        <ScrollReveal variant="fade-up" className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-slate-200/90 dark:border-white/15 shadow-sm">
           <div className="text-center max-w-xl mx-auto mb-6 space-y-1">
             <h3 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white font-display">{about.headOfficeTitle}</h3>
             <p className="text-xs text-slate-500 font-normal">{about.headOfficeSubtitle}</p>

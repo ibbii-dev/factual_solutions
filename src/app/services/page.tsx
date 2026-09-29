@@ -65,7 +65,7 @@ function ServicesContent() {
         
         {/* Page Header */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xl text-white border border-white/30 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-transparent text-[#A33C29] dark:text-white border border-slate-200/90 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
             {sp.badge}
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
@@ -87,7 +87,7 @@ function ServicesContent() {
         </ScrollReveal>
 
         {/* Search Bar & Counter */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-4 sm:p-5 shadow-sm border border-white/60 dark:border-white/10 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200/90 dark:border-white/15 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs font-bold text-[#152238] dark:text-slate-200">
             {language === "ar" 
               ? `عرض ${filteredServices.length} ممارسة استشارية متخصصة` 
@@ -102,7 +102,7 @@ function ServicesContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={sp.searchPlaceholder}
-              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-white/60 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all`}
+              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all`}
             />
             {searchQuery && (
               <button
@@ -123,7 +123,7 @@ function ServicesContent() {
                 <StaggerItem
                   key={service.id}
                   variant="fade-up"
-                  className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-7 shadow-sm border border-white/60 dark:border-white/10 flex flex-col justify-between hover:border-[#A33C29]/40 hover:shadow-xl transition-all duration-300 group"
+                  className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-sm border border-slate-200/90 dark:border-white/15 flex flex-col justify-between hover:border-[#A33C29]/40 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="space-y-4">
                     
@@ -195,7 +195,7 @@ function ServicesContent() {
             })}
           </StaggerContainer>
         ) : (
-          <ScrollReveal variant="fade" className="text-center py-16 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl border border-white/60 dark:border-white/10 p-8 shadow-sm">
+          <ScrollReveal variant="fade" className="text-center py-16 bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 p-8 shadow-sm">
             <HelpCircle className="w-10 h-10 text-slate-400 mx-auto mb-3" />
             <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">{sp.noResultsTitle}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto mt-1 font-normal">

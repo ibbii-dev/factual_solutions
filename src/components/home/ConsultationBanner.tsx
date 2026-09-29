@@ -14,7 +14,7 @@ export default function ConsultationBanner() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <ScrollReveal variant="fade-up" duration={0.6}>
-          <div className="relative rounded-3xl bg-[#0E1B33] dark:bg-[#0E1524] text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-white/10 shadow-2xl">
+          <div className="relative rounded-3xl bg-white dark:bg-transparent text-[#152238] dark:text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-slate-200/90 dark:border-white/15 shadow-xl backdrop-blur-md">
             
             {/* Subtle radial light highlight in background */}
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#8EA9D3]/15 rounded-full blur-3xl pointer-events-none" />
@@ -23,22 +23,22 @@ export default function ConsultationBanner() {
             <div className="relative z-10 max-w-3xl space-y-4 sm:space-y-5">
               
               {/* Eyebrow Pill */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 text-brand-steel-light text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-white/10 text-[#A33C29] dark:text-white text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider">
                 <span>ADVISORY ENGAGEMENT</span>
               </div>
 
               {/* Headline */}
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display leading-tight">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display leading-tight">
                 Ready to Discuss Your Business Goals?
               </h2>
 
               {/* Subheadline */}
-              <p className="text-xs sm:text-base text-slate-300 font-normal leading-relaxed max-w-2xl">
+              <p className="text-xs sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed max-w-2xl">
                 Connect directly with our consulting team to explore market research, business plan validation, financial modeling, or sales workflows.
               </p>
 
               {/* 3 Checkmarks */}
-              <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2.5 sm:gap-6 pt-2 text-xs text-slate-300 font-medium">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2.5 sm:gap-6 pt-2 text-xs text-slate-600 dark:text-slate-300 font-medium">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#A33C29] shrink-0" />
                   <span>Confidential Discussion</span>

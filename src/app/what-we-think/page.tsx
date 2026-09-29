@@ -51,7 +51,7 @@ export default function WhatWeThinkPage() {
         
         {/* Page Hero */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xl text-white border border-white/30 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-transparent text-[#A33C29] dark:text-white border border-slate-200/90 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{isAr ? "رؤيتنا الاستراتيجية والفكرية" : "Perspectives & Thought Leadership"}</span>
           </div>
@@ -69,7 +69,7 @@ export default function WhatWeThinkPage() {
 
         {/* Editorial Notice Banner */}
         <ScrollReveal variant="fade-up" delay={0.1} className="max-w-4xl mx-auto mb-16 sm:mb-20">
-          <div className="rounded-3xl p-6 sm:p-10 border border-white/60 dark:border-white/10 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl shadow-sm relative overflow-hidden">
+          <div className="rounded-3xl p-6 sm:p-10 border border-slate-200/90 dark:border-white/15 bg-white dark:bg-transparent backdrop-blur-md shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 w-72 h-72 bg-[#8EA9D3]/10 dark:bg-[#8EA9D3]/5 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -124,7 +124,7 @@ export default function WhatWeThinkPage() {
               return (
                 <StaggerItem
                   key={idx}
-                  className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm flex flex-col justify-between hover:shadow-lg transition-all"
+                  className="bg-white dark:bg-transparent backdrop-blur-md p-6 rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all"
                 >
                   <div className="space-y-3">
                     <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#A33C29] flex items-center justify-center font-bold">

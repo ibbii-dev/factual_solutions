@@ -16,7 +16,7 @@ export default function HeroSection() {
         
         {/* Category Eyebrow Pill */}
         <ScrollReveal variant="fade-up" duration={0.5}>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-xl border border-white/20 text-white text-[11px] font-bold tracking-widest uppercase shadow-md">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/20 text-[#152238] dark:text-white text-[11px] font-bold tracking-widest uppercase shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#E25C43] shrink-0 animate-pulse" />
             <span>{isAr ? "استشارات وحلول الأعمال التنفيذية" : "EXECUTIVE ADVISORY • BUSINESS EXCELLENCE"}</span>
           </div>
@@ -61,9 +61,9 @@ export default function HeroSection() {
 
             <Link
               href="/services"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white/15 backdrop-blur-xl text-white text-xs sm:text-sm font-semibold border border-white/30 hover:bg-white/25 transition-all shadow-md hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white dark:bg-transparent backdrop-blur-md text-[#152238] dark:text-white text-xs sm:text-sm font-semibold border border-slate-200/90 dark:border-white/30 hover:bg-slate-50 dark:hover:bg-white/10 transition-all shadow-sm hover:-translate-y-0.5"
             >
-              <Layers className="w-4 h-4 text-slate-200" />
+              <Layers className="w-4 h-4 text-slate-500 dark:text-slate-200" />
               <span>{isAr ? "استكشف الممارسات" : "Explore Practices"}</span>
             </Link>
           </div>
@@ -71,14 +71,14 @@ export default function HeroSection() {
 
         {/* Floating Minimal Glass Metric Strip */}
         <ScrollReveal variant="fade-up" delay={0.4} duration={0.6} className="pt-8 sm:pt-12">
-          <div className="p-4 sm:p-5 rounded-2xl bg-white/65 dark:bg-[#131B2E]/65 backdrop-blur-xl border border-white/70 dark:border-white/10 shadow-sm grid grid-cols-2 md:grid-cols-4 gap-4 text-center max-w-4xl mx-auto">
+          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-md grid grid-cols-2 md:grid-cols-4 gap-4 text-center max-w-4xl mx-auto">
             <div>
               <div className="text-xl sm:text-2xl font-extrabold text-[#152238] dark:text-white font-display">91.4%</div>
               <div className="text-[11px] text-slate-600 dark:text-slate-300 font-semibold mt-0.5">
                 {isAr ? "دقة تنفيذ المخرجات" : "Delivery Execution"}
               </div>
             </div>
-            <div className="border-s border-slate-200/60 dark:border-white/10">
+            <div className="border-s border-slate-200/80 dark:border-white/10">
               <div className="text-xl sm:text-2xl font-extrabold text-[#A33C29] dark:text-[#E25C43] font-display">
                 {isAr ? "الربع الأعلى" : "Top Quartile"}
               </div>
@@ -86,13 +86,13 @@ export default function HeroSection() {
                 {isAr ? "المعيار الاستشاري" : "Industry Benchmark"}
               </div>
             </div>
-            <div className="border-s border-slate-200/60 dark:border-white/10">
+            <div className="border-s border-slate-200/80 dark:border-white/10">
               <div className="text-xl sm:text-2xl font-extrabold text-[#152238] dark:text-white font-display">18+</div>
               <div className="text-[11px] text-slate-600 dark:text-slate-300 font-semibold mt-0.5">
                 {isAr ? "ممارسة متخصصة" : "Advisory Practices"}
               </div>
             </div>
-            <div className="border-s border-slate-200/60 dark:border-white/10">
+            <div className="border-s border-slate-200/80 dark:border-white/10">
               <div className="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 font-display">100% NDA</div>
               <div className="text-[11px] text-slate-600 dark:text-slate-300 font-semibold mt-0.5">
                 {isAr ? "سرية وحوكمة صارمة" : "Strict Governance"}

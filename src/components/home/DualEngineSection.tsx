@@ -75,7 +75,7 @@ export default function DualEngineSection() {
             return (
               <StaggerItem
                 key={practice.num}
-                className="p-7 sm:p-8 rounded-3xl bg-white/70 dark:bg-[#131B2E]/70 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">

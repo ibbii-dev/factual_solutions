@@ -182,7 +182,7 @@ export default function ServiceDetailPage() {
         </nav>
 
         {/* Hero Section of the Service */}
-        <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-10 lg:p-12 shadow-sm border border-white/60 dark:border-white/10 mb-10 sm:mb-12">
+        <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-10 lg:p-12 shadow-sm border border-slate-200/90 dark:border-white/15 mb-10 sm:mb-12">
           <div className="max-w-4xl space-y-4">
             
             {/* Practice Indicator & Deliverable Tag */}
@@ -246,7 +246,7 @@ export default function ServiceDetailPage() {
           <div className="lg:col-span-8 space-y-8">
             
             {/* 1. In-Depth Strategic Overview */}
-            <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-sm border border-white/60 dark:border-white/10 space-y-4">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-4">
               <h2 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                 <Compass className="w-5 h-5 text-[#A33C29]" />
                 <span>{labels.overviewTitle}</span>
@@ -261,7 +261,7 @@ export default function ServiceDetailPage() {
                 {service.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 rounded-md bg-slate-100/80 dark:bg-slate-800/80 text-[11px] font-semibold text-slate-700 dark:text-slate-300"
+                    className="px-3 py-1 rounded-md bg-slate-100 dark:bg-white/10 text-[11px] font-semibold text-slate-700 dark:text-slate-300"
                   >
                     #{tag}
                   </span>
@@ -270,7 +270,7 @@ export default function ServiceDetailPage() {
             </div>
 
             {/* 2. Core Strategic Deliverables Framework */}
-            <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-sm border border-white/60 dark:border-white/10 space-y-6">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-6">
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                   <Layers className="w-5 h-5 text-slate-600" />
@@ -287,7 +287,7 @@ export default function ServiceDetailPage() {
                 {service.deliverables.map((del, dIdx) => (
                   <div
                     key={dIdx}
-                    className="p-4 rounded-xl bg-slate-50 dark:bg-[#15233A] border border-slate-100 dark:border-slate-800 flex items-start gap-3"
+                    className="p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-slate-800 flex items-start gap-3"
                   >
                     <div className="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
                       <CheckCircle2 className="w-4 h-4" />
@@ -307,7 +307,7 @@ export default function ServiceDetailPage() {
 
             {/* 3. Structured 3-Phase Execution Roadmap */}
             {service.executionPhases && service.executionPhases.length > 0 && (
-              <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-sm border border-white/60 dark:border-white/10 space-y-6">
+              <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-6">
                 <div>
                   <h2 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                     <Target className="w-5 h-5 text-[#A33C29]" />
@@ -324,7 +324,7 @@ export default function ServiceDetailPage() {
                   {service.executionPhases.map((phase, pIdx) => (
                     <div
                       key={pIdx}
-                      className="p-4 sm:p-5 rounded-xl bg-slate-50/80 dark:bg-[#15233A]/80 border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+                      className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center gap-4"
                     >
                       <div className="w-9 h-9 rounded-lg bg-[#A33C29] text-white font-extrabold flex items-center justify-center text-xs shrink-0 font-display">
                         {phase.phase}
@@ -344,7 +344,7 @@ export default function ServiceDetailPage() {
             )}
 
             {/* 4. Ideal Organization Profile */}
-            <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-sm border border-white/60 dark:border-white/10 space-y-3">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-3">
               <h2 className="text-base sm:text-lg font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                 <Target className="w-4 h-4 text-slate-500" />
                 <span>{labels.idealForTitle}</span>
@@ -352,7 +352,7 @@ export default function ServiceDetailPage() {
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 {labels.idealForSubtitle}
               </p>
-              <div className="p-4 rounded-xl bg-slate-50/80 dark:bg-[#15233A]/80 border border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 font-medium">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 font-medium">
                 {service.idealFor}
               </div>
             </div>
@@ -362,7 +362,7 @@ export default function ServiceDetailPage() {
           {/* Right Sidebar: Direct Consultation Form (4 cols) */}
           <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
             
-            <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-2xl p-6 sm:p-7 shadow-sm border border-white/60 dark:border-white/10 space-y-4">
+            <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-sm border border-slate-200/90 dark:border-white/15 space-y-4">
               <div>
                 <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">
                   {labels.sidebarTitle}

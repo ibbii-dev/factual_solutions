@@ -128,7 +128,7 @@ export default function PartnerBookingWidget({
           </p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-[#182238] border border-emerald-500/20 text-left max-w-md mx-auto space-y-2 text-xs">
+        <div className="p-4 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-emerald-500/20 text-left max-w-md mx-auto space-y-2 text-xs">
           <div className="flex justify-between items-center text-slate-500 dark:text-slate-400">
             <span>Consultation:</span>
             <span className="font-bold text-[#152238] dark:text-white">{bookingConfirmation.meetingType}</span>
@@ -163,7 +163,7 @@ export default function PartnerBookingWidget({
   }
 
   return (
-    <div className={`bg-white dark:bg-[#182238] rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-xl overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
+    <div className={`bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-xl overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">

@@ -109,7 +109,7 @@ export default function IndustrySectorsSection() {
             return (
               <StaggerItem
                 key={sector.id}
-                className="p-6 rounded-2xl bg-white/70 dark:bg-[#131B2E]/70 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">

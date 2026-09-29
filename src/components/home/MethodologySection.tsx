@@ -52,7 +52,7 @@ export default function MethodologySection() {
   const { t } = useLanguage();
 
   return (
-    <section id="methodology" className="py-20 sm:py-24 bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
+    <section id="methodology" className="py-20 sm:py-24 bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -73,7 +73,7 @@ export default function MethodologySection() {
           {frameworkSteps.map((step, idx) => (
             <StaggerItem
               key={idx}
-              className="bg-white dark:bg-[#182238] p-5 sm:p-6 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-xs hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+              className="bg-white dark:bg-transparent backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
             >
               <div className="space-y-3.5">
                 {/* Top Badge & Icon */}
@@ -82,7 +82,7 @@ export default function MethodologySection() {
                     className={`text-[9.5px] sm:text-[10px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
                       step.isRustPhase
                         ? "bg-[#A33C29]/15 text-[#A33C29]"
-                        : "bg-slate-100 dark:bg-[#0E1524] text-slate-700 dark:text-slate-200"
+                        : "bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200"
                     }`}
                   >
                     {step.phase}

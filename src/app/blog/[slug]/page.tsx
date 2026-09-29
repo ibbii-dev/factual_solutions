@@ -255,7 +255,7 @@ export default async function BlogPostPage({
       )}
 
       {/* 3. Main Article Body */}
-      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10 space-y-6 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-3xl border border-white/60 dark:border-white/10 shadow-sm my-8">
+      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10 space-y-6 bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-sm my-8">
         <div className="space-y-6">
           {renderFormattedContent(post.content)}
         </div>
@@ -282,7 +282,7 @@ export default async function BlogPostPage({
         )}
 
         {/* Author Executive Card */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white/80 dark:bg-[#182238]/80 border border-white/60 dark:border-white/10 shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
             <Image
               src={post.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
@@ -351,7 +351,7 @@ export default async function BlogPostPage({
             {relatedPosts.map((related) => (
               <article
                 key={related.id}
-                className="bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between"
+                className="bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between"
               >
                 <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
                   <Image
