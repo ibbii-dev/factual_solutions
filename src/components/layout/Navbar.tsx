@@ -95,7 +95,7 @@ export default function Navbar() {
     },
     { 
       name: language === "ar" ? "رؤيتنا" : "What we think", 
-      href: "/#insights",
+      href: "/what-we-think",
       dropdownType: null 
     },
     { 
@@ -215,7 +215,7 @@ export default function Navbar() {
                   </span>
                 </div>
                 <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase -mt-0.5 truncate">
-                  Engineering &amp; Advisory
+                  {language === "ar" ? "شركاؤكم في التميز المؤسسي" : "Your Business Excellence Partners"}
                 </span>
               </div>
             </Link>
@@ -225,7 +225,7 @@ export default function Navbar() {
               {navLinks.map((link) => {
                 const isActive = link.href === "/" 
                   ? pathname === "/" 
-                  : (pathname === link.href || (link.href !== "/#insights" && pathname.startsWith(link.href)));
+                  : (pathname === link.href || pathname.startsWith(link.href));
 
                 if (link.dropdownType === "services") {
                   return (
