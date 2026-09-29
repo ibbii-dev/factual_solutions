@@ -169,7 +169,7 @@ export default async function BlogPostPage({
   };
 
   return (
-    <article className="min-h-screen bg-slate-50 dark:bg-[#070D18] text-slate-900 dark:text-slate-100 transition-colors pt-24 sm:pt-32 pb-20">
+    <article className="min-h-screen bg-transparent text-slate-900 dark:text-slate-100 transition-colors pt-24 sm:pt-32 pb-20">
       
       {/* 1. Article Hero & Header */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -255,7 +255,7 @@ export default async function BlogPostPage({
       )}
 
       {/* 3. Main Article Body */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10 space-y-6 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-3xl border border-white/60 dark:border-white/10 shadow-sm my-8">
         <div className="space-y-6">
           {renderFormattedContent(post.content)}
         </div>
@@ -272,7 +272,7 @@ export default async function BlogPostPage({
                 <Link
                   key={tag}
                   href={`/blog?tag=${encodeURIComponent(tag)}`}
-                  className="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-brand-rust/10 hover:text-brand-rust dark:hover:text-brand-rust-light text-xs font-medium text-slate-600 dark:text-slate-400 transition-colors"
+                  className="px-3 py-1 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 hover:bg-brand-rust/10 hover:text-brand-rust dark:hover:text-brand-rust-light text-xs font-medium text-slate-600 dark:text-slate-400 transition-colors"
                 >
                   #{tag}
                 </Link>
@@ -282,7 +282,7 @@ export default async function BlogPostPage({
         )}
 
         {/* Author Executive Card */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#182238] border border-slate-200 dark:border-white/10 shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white/80 dark:bg-[#182238]/80 border border-white/60 dark:border-white/10 shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
             <Image
               src={post.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}

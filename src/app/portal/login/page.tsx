@@ -17,7 +17,7 @@ export default function PortalLoginPage() {
   }, [user, router, openAuthModal]);
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] flex items-center justify-center">
+    <div className="min-h-screen bg-transparent flex items-center justify-center">
       <div className="text-center space-y-3">
         <div className="w-8 h-8 border-3 border-[#A33C29] border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-xs text-slate-500">Redirecting to Client Portal authentication...</p>

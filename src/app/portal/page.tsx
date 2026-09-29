@@ -96,8 +96,8 @@ export default function ClientPortalPage() {
   // If not authenticated, show welcoming portal sign in screen
   if (!isLoading && !user) {
     return (
-      <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white dark:bg-[#182238] rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-xl p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
+      <div className="min-h-screen bg-transparent text-[#152238] dark:text-white pt-28 sm:pt-36 pb-20 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-3xl border border-white/60 dark:border-white/10 shadow-xl p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center mx-auto">
             <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
@@ -109,7 +109,7 @@ export default function ClientPortalPage() {
             <h1 className="text-xl sm:text-2xl font-bold font-display text-[#152238] dark:text-white">
               Enterprise Client Portal
             </h1>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Please sign in with Google or your corporate email to check responses to your inquiries, monitor review milestones, and receive advisory updates.
             </p>
           </div>
@@ -125,7 +125,7 @@ export default function ClientPortalPage() {
 
             <button
               onClick={() => openAuthModal("login")}
-              className="w-full py-2.5 sm:py-3 px-5 rounded-full bg-white dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 sm:py-3 px-5 rounded-full bg-white/80 dark:bg-[#15233A] border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -148,11 +148,11 @@ export default function ClientPortalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
+    <div className="min-h-screen bg-transparent text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Portal Header & Client Identity */}
-        <div className="bg-white dark:bg-[#182238] rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
+        <div className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl rounded-3xl p-5 sm:p-8 border border-white/60 dark:border-white/10 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
           <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-base sm:text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
               {user?.avatar ? (

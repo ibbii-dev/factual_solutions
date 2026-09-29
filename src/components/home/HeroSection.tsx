@@ -16,24 +16,24 @@ export default function HeroSection() {
         
         {/* Category Eyebrow Pill */}
         <ScrollReveal variant="fade-up" duration={0.5}>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/80 dark:border-white/15 text-[#152238] dark:text-white text-[11px] font-bold tracking-widest uppercase shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-[#A33C29] shrink-0 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-xl border border-white/20 text-white text-[11px] font-bold tracking-widest uppercase shadow-md">
+            <span className="w-2 h-2 rounded-full bg-[#E25C43] shrink-0 animate-pulse" />
             <span>{isAr ? "استشارات وحلول الأعمال التنفيذية" : "EXECUTIVE ADVISORY • BUSINESS EXCELLENCE"}</span>
           </div>
         </ScrollReveal>
 
         {/* Main Headline */}
         <ScrollReveal variant="fade-up" delay={0.1} duration={0.6}>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#152238] dark:text-white leading-[1.08] font-display">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
             {isAr ? (
               <>
                 تمكين المؤسسات <br />
-                <span className="text-[#A33C29] dark:text-[#E25C43]">لتنمية أعمالها بنجاح.</span>
+                <span className="text-[#E25C43]">لتنمية أعمالها بنجاح.</span>
               </>
             ) : (
               <>
                 Consulting People to <br />
-                <span className="text-[#A33C29] dark:text-[#E25C43]">Grow Their Business.</span>
+                <span className="text-[#E25C43]">Grow Their Business.</span>
               </>
             )}
           </h1>
@@ -41,7 +41,7 @@ export default function HeroSection() {
 
         {/* Sub-headline */}
         <ScrollReveal variant="fade-up" delay={0.2} duration={0.6}>
-          <p className="text-base sm:text-lg md:text-xl text-slate-700 dark:text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
             {isAr
               ? "تخطيط عملي للأعمال، نمذجة مالية واستشارات استراتيجية لمساعدة الشركات على توسيع نطاق عملياتها واستقرار نموها التجاري."
               : "Practical business planning, financial modeling, and management consulting to help companies scale operations and steady commercial growth."}
@@ -53,7 +53,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all duration-200 shadow-md hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all duration-200 shadow-lg hover:shadow-2xl hover:-translate-y-0.5"
             >
               <span>{isAr ? "طلب استشارة تنفيذية" : "Request a Consultation"}</span>
               <ArrowRight className="w-4 h-4 rtl:rotate-180" />
@@ -61,9 +61,9 @@ export default function HeroSection() {
 
             <Link
               href="/services"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl text-[#152238] dark:text-white text-xs sm:text-sm font-semibold border border-white/90 dark:border-white/15 hover:bg-white dark:hover:bg-white/20 transition-all shadow-xs hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white/15 backdrop-blur-xl text-white text-xs sm:text-sm font-semibold border border-white/30 hover:bg-white/25 transition-all shadow-md hover:-translate-y-0.5"
             >
-              <Layers className="w-4 h-4 text-slate-500 dark:text-slate-300" />
+              <Layers className="w-4 h-4 text-slate-200" />
               <span>{isAr ? "استكشف الممارسات" : "Explore Practices"}</span>
             </Link>
           </div>

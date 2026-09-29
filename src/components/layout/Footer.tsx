@@ -36,7 +36,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#0B1322] text-slate-300 relative overflow-hidden transition-colors duration-300">
+    <footer className="bg-[#0B1322]/85 backdrop-blur-xl border-t border-white/10 text-slate-300 relative overflow-hidden transition-colors duration-300">
       
       {/* Top Advisory Briefing Bar */}
       <div className="border-b border-white/10 py-10 sm:py-12">

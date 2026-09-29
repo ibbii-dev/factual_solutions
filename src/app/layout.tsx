@@ -82,7 +82,7 @@ export default function RootLayout({
         />
         <script src="https://accounts.google.com/gsi/client" async defer />
       </head>
-      <body className="font-sans antialiased bg-white dark:bg-[#131B2E] text-[#0F172A] dark:text-slate-100 selection:bg-brand-steel/30 selection:text-brand-navy min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
+      <body className="font-sans antialiased bg-[#070D18] text-[#0F172A] dark:text-slate-100 selection:bg-brand-steel/30 selection:text-brand-navy min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
         <ThemeProvider>
           <LanguageProvider>
             <UserAuthProvider>

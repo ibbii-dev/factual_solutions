@@ -46,21 +46,21 @@ export default function WhatWeThinkPage() {
   ];
 
   return (
-    <div className="pt-24 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-24 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#A33C29]/10 text-[#A33C29] text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xl text-white border border-white/30 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{isAr ? "رؤيتنا الاستراتيجية والفكرية" : "Perspectives & Thought Leadership"}</span>
           </div>
           
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#152238] dark:text-white leading-tight font-display">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
             {isAr ? "رؤيتنا" : "What We Think"}
           </h1>
           
-          <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base md:text-lg text-slate-100 leading-relaxed font-normal drop-shadow-sm">
             {isAr
               ? "وجهات نظر استشارية معمقة، أطر عمل منهجية، وتحليلات استراتيجية يقودها نخبة من الخبراء والمستشارين."
               : "Proprietary advisory viewpoints, executive frameworks, and institutional strategic analyses curated by our senior consulting leadership."}
@@ -69,7 +69,7 @@ export default function WhatWeThinkPage() {
 
         {/* Editorial Notice Banner */}
         <ScrollReveal variant="fade-up" delay={0.1} className="max-w-4xl mx-auto mb-16 sm:mb-20">
-          <div className="rounded-3xl p-6 sm:p-10 border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#182238] shadow-sm relative overflow-hidden">
+          <div className="rounded-3xl p-6 sm:p-10 border border-white/60 dark:border-white/10 bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 w-72 h-72 bg-[#8EA9D3]/10 dark:bg-[#8EA9D3]/5 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -97,7 +97,7 @@ export default function WhatWeThinkPage() {
               <div className="shrink-0 pt-2 md:pt-0 w-full md:w-auto">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-3 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all shadow-xs"
+                  className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all shadow-md"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>{isAr ? "طلب إحاطة تنفيذية" : "Request Executive Briefing"}</span>
@@ -110,10 +110,10 @@ export default function WhatWeThinkPage() {
         {/* Thematic Pillars Preview */}
         <div className="max-w-5xl mx-auto mb-16 sm:mb-20">
           <div className="text-center mb-8 sm:mb-10 space-y-2">
-            <span className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+            <span className="text-[10px] sm:text-xs font-bold text-slate-200 uppercase tracking-widest drop-shadow-sm">
               {isAr ? "محاور الرؤية الاستشارية" : "CORE PERSPECTIVE THEMES"}
             </span>
-            <h2 className="text-xl sm:text-3xl font-bold text-[#152238] dark:text-white font-display">
+            <h2 className="text-xl sm:text-3xl font-bold text-white font-display drop-shadow-sm">
               {isAr ? "ما نركز عليه في دراساتنا وتوجهاتنا" : "Key Areas of Institutional Research"}
             </h2>
           </div>
@@ -124,7 +124,7 @@ export default function WhatWeThinkPage() {
               return (
                 <StaggerItem
                   key={idx}
-                  className="bg-white dark:bg-[#182238] p-6 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col justify-between"
+                  className="bg-white/75 dark:bg-[#131B2E]/75 backdrop-blur-xl p-6 rounded-2xl border border-white/60 dark:border-white/10 shadow-sm flex flex-col justify-between hover:shadow-lg transition-all"
                 >
                   <div className="space-y-3">
                     <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#A33C29] flex items-center justify-center font-bold">
