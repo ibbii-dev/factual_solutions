@@ -228,10 +228,10 @@ export default function ClientPortalPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold font-display text-[#152238] dark:text-white">
+              <h2 className="text-lg font-bold font-display text-white drop-shadow-sm">
                 My Enquiries &amp; Advisory Tracking
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-200 drop-shadow-xs">
                 Live statuses, preliminary AI diagnostics, and official updates from our senior consulting partners.
               </p>
             </div>

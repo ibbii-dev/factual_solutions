@@ -55,13 +55,13 @@ export default function DualEngineSection() {
         
         {/* Section Header */}
         <ScrollReveal variant="fade-up" className="max-w-3xl space-y-3 mb-12 sm:mb-16">
-          <span className="text-[11px] font-bold tracking-widest uppercase text-[#A33C29]">
+          <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
             {isAr ? "حلولنا الاستشارية الرئيسية" : "CORE ADVISORY CAPABILITIES"}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
             {isAr ? "ممارسات استشارية تركز على النتائج" : "Institutional Advisory Practices"}
           </h2>
-          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 font-normal leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-100 font-normal leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
             {isAr
               ? "حلول استشارية متخصصة ومصممة لدعم القرارات الاستثمارية، وتحسين الكفاءة التشغيلية للمنشآت."
               : "Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth."}

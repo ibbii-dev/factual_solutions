@@ -190,8 +190,8 @@ export default function Navbar() {
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white/80 dark:bg-[#0E1526]/85 backdrop-blur-xl shadow-md border-b border-white/40 dark:border-white/10 py-2 sm:py-2.5"
-            : "bg-white/35 dark:bg-black/35 backdrop-blur-lg border-b border-white/20 dark:border-white/10 py-2.5 sm:py-3.5"
+            ? "bg-white dark:bg-[#0E1526]/85 backdrop-blur-xl shadow-md border-b border-slate-200/90 dark:border-white/10 py-2 sm:py-2.5"
+            : "bg-white dark:bg-black/35 backdrop-blur-lg border-b border-slate-200/90 dark:border-white/10 py-2.5 sm:py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -418,7 +418,7 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors text-[#152238] dark:text-white bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 border border-slate-200 dark:border-white/10"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors text-[#152238] dark:text-white bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/20 border border-slate-200/90 dark:border-white/10 shadow-xs"
                 title={`Switch to ${isDark ? "Light Navy Mode" : "Dark Mode"}`}
               >
                 {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-[#152238]" />}

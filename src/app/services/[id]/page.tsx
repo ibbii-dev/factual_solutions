@@ -287,7 +287,7 @@ export default function ServiceDetailPage() {
                 {service.deliverables.map((del, dIdx) => (
                   <div
                     key={dIdx}
-                    className="p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-slate-800 flex items-start gap-3"
+                    className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-slate-800 shadow-2xs flex items-start gap-3"
                   >
                     <div className="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
                       <CheckCircle2 className="w-4 h-4" />
@@ -324,7 +324,7 @@ export default function ServiceDetailPage() {
                   {service.executionPhases.map((phase, pIdx) => (
                     <div
                       key={pIdx}
-                      className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+                      className="p-4 sm:p-5 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-slate-800 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center gap-4"
                     >
                       <div className="w-9 h-9 rounded-lg bg-[#A33C29] text-white font-extrabold flex items-center justify-center text-xs shrink-0 font-display">
                         {phase.phase}
@@ -352,7 +352,7 @@ export default function ServiceDetailPage() {
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 {labels.idealForSubtitle}
               </p>
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 font-medium">
+              <div className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-slate-800 shadow-2xs text-xs text-slate-700 dark:text-slate-300 font-medium">
                 {service.idealFor}
               </div>
             </div>

@@ -76,10 +76,10 @@ export default function IndustrySectorsSection() {
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 sm:mb-16">
           <div className="lg:col-span-7 space-y-2">
-            <span className="text-[11px] font-bold tracking-widest uppercase text-[#A33C29]">
+            <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
               {isAr ? "القطاعات الاقتصادية" : "INDUSTRY SPECIALIZATIONS"}
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
               {isAr ? (
                 <>
                   خبرات قطاعية متخصصة <br />
@@ -94,7 +94,7 @@ export default function IndustrySectorsSection() {
             </h2>
           </div>
           <div className="lg:col-span-5">
-            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
               {isAr
                 ? "أطر عمل مصممة خصيصاً لكل قطاع، مع تقييم المخاطر وتحديد خطط العمل ذات الأثر التشغيلي العالي."
                 : "Tailored market frameworks, sector-specific risk registers, and operational playbooks configured for high-execution reliability."}

@@ -47,20 +47,20 @@ export default function LatestInsightsSection() {
         {/* Header split */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div className="space-y-2 max-w-2xl">
-            <span className="text-[11px] font-bold tracking-widest uppercase text-[#A33C29]">
+            <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
               PUBLICATIONS &bull; RESEARCH
             </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
               Latest Strategic Blog
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-100 leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
               Practical frameworks, corporate valuation models, and market intelligence published by our senior advisory board.
             </p>
           </div>
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#A33C29] hover:text-[#8E3221] transition-colors shrink-0"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white hover:text-[#E25C43] transition-colors shrink-0 drop-shadow-sm"
           >
             <span>Explore All 18 Blogs</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />

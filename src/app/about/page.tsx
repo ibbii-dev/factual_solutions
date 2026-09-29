@@ -94,10 +94,10 @@ export default function AboutPage() {
               <Award className="w-3.5 h-3.5" />
               <span>{about.leadershipBadge}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#152238] dark:text-white font-display">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
               {about.principalTitle}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-normal">
+            <p className="text-xs sm:text-sm text-slate-100 font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
               {about.principalSubtitle}
             </p>
           </ScrollReveal>

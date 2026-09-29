@@ -397,7 +397,7 @@ function ContactContent() {
               <div className="space-y-3">
                 <a
                   href={`mailto:${contactDetails.email}`}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-slate-300 transition-colors group"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 transition-colors shadow-2xs group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#A33C29]/15 text-[#A33C29] flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
@@ -414,7 +414,7 @@ function ContactContent() {
 
                 <a
                   href={`tel:${contactDetails.phone.replace(/\s+/g, '')}`}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-slate-300 transition-colors group"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 transition-colors shadow-2xs group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#152238]/10 text-[#152238] dark:text-slate-300 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4" />
@@ -463,7 +463,7 @@ function ContactContent() {
                 {officeLocations.map((loc) => (
                   <div
                     key={loc.city}
-                    className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-1"
+                    className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-1"
                   >
                     <div className="flex items-center justify-between">
                       <div className="font-bold text-xs text-[#152238] dark:text-white flex items-center gap-1.5">

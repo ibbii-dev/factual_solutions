@@ -57,13 +57,13 @@ export default function MethodologySection() {
         
         {/* Header */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-2 mb-12 sm:mb-16">
-          <span className="text-[11px] font-bold tracking-widest uppercase text-[#A33C29]">
+          <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
             ENGAGEMENT PROCESS
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
             A Structured 4–Step Advisory Framework
           </h2>
-          <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-slate-100 font-normal leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
             We follow a practical disciplined consulting process from infrastructure review through hands-on execution and performance training.
           </p>
         </ScrollReveal>
