@@ -139,43 +139,43 @@ export default function Navbar() {
 
   const featuredServicesList = [
     {
-      title: "Strategic Management",
-      desc: "Executive alignment, OKRs & roadmap",
+      title: language === "ar" ? "الإدارة الاستراتيجية" : "Strategic Management",
+      desc: language === "ar" ? "التوافق التنفيذي، مؤشرات الأداء وخارطة الطريق" : "Executive alignment, OKRs & roadmap",
       href: "/services/strategic-consulting",
       icon: Compass,
       color: "#A33C29"
     },
     {
-      title: "Financial Modeling",
-      desc: "5-Year cash flows, ROI & budgets",
+      title: language === "ar" ? "النمذجة المالية ودراسات الجدوى" : "Financial Modeling & Feasibility",
+      desc: language === "ar" ? "تدفقات نقدية، العائد على الاستثمار والميزانيات" : "5-Year cash flows, ROI & budgets",
       href: "/services/investment-planning",
       icon: TrendingUp,
       color: "#8EA9D3"
     },
     {
-      title: "Projects & Lean Management",
-      desc: "PMO delivery, Lean Six Sigma & audits",
+      title: language === "ar" ? "إدارة المشاريع ومنهجية لين" : "Projects & Lean Management",
+      desc: language === "ar" ? "مكاتب إدارة المشاريع، لين 6 سيجما والتدقيق" : "PMO delivery, Lean Six Sigma & audits",
       href: "/services/projects-management",
       icon: Layers,
       color: "#152238"
     },
     {
-      title: "Process & ERP Transformation",
-      desc: "SOPs, handover optimization & workflows",
+      title: language === "ar" ? "تحول العمليات وأنظمة ERP" : "Process & ERP Transformation",
+      desc: language === "ar" ? "إجراءات العمل المعيارية، التسليم والأتمتة" : "SOPs, handover optimization & workflows",
       href: "/services/process-transformation",
       icon: Cpu,
       color: "#A33C29"
     },
     {
-      title: "Studies & Feasibility Research",
-      desc: "Market entry analysis & demand validation",
+      title: language === "ar" ? "الدراسات وأبحاث السوق" : "Studies & Feasibility Research",
+      desc: language === "ar" ? "تحليل دخول السوق والتحقق من الجدوى" : "Market entry analysis & demand validation",
       href: "/services/studies-research",
       icon: FileText,
       color: "#8EA9D3"
     },
     {
-      title: "Specialized Business Solutions",
-      desc: "Commercial scaling, turnarounds & growth",
+      title: language === "ar" ? "حلول الأعمال المتخصصة" : "Specialized Business Solutions",
+      desc: language === "ar" ? "توسيع النطاق التجاري، والتعافي المؤسسي" : "Commercial scaling, turnarounds & growth",
       href: "/services/business-growth",
       icon: Briefcase,
       color: "#152238"
@@ -247,17 +247,18 @@ export default function Navbar() {
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-[#A33C29]" : "text-slate-400"}`} />
                       </Link>
 
-                      {/* SERVICES MEGA DROPDOWN (What we do) */}
+                      {/* SERVICES DROPDOWN (What we do - Single Unified List, Solid Background) */}
                       <AnimatePresence>
                         {servicesDropdownOpen && (
                           <motion.div
                             initial={{ opacity: 0, y: 10, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                            transition={{ duration: 0.22, ease: "easeOut" }}
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[640px] rounded-3xl shadow-2xl p-5 border bg-white/98 dark:bg-[#0C1424]/98 backdrop-blur-2xl border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-50 overflow-hidden"
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[390px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-[#131B2E] border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-[100] overflow-hidden"
+                            style={{ backgroundColor: isDark ? "#131B2E" : "#FFFFFF" }}
                           >
-                            <div className="relative z-10 grid grid-cols-2 gap-2.5">
+                            <div className="flex flex-col space-y-1">
                               {featuredServicesList.map((srv) => {
                                 const IconComp = srv.icon;
                                 return (
@@ -265,12 +266,12 @@ export default function Navbar() {
                                     key={srv.href}
                                     href={srv.href}
                                     onClick={() => setServicesDropdownOpen(false)}
-                                    className="group/item p-3 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238]/80 flex items-start gap-3"
+                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238] flex items-center gap-3"
                                   >
                                     <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
                                       <IconComp className="w-4 h-4" />
                                     </div>
-                                    <div className="min-w-0">
+                                    <div className="min-w-0 flex-1">
                                       <h4 className="font-bold text-xs text-[#152238] dark:text-white group-hover/item:text-[#A33C29] transition-colors truncate">
                                         {srv.title}
                                       </h4>
@@ -284,22 +285,22 @@ export default function Navbar() {
                             </div>
 
                             {/* Bottom Callout Bar */}
-                            <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800/90 flex items-center justify-between text-xs">
+                            <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs px-1">
                               <Link
                                 href="/services"
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className="flex items-center gap-1.5 font-bold text-[#A33C29] hover:underline text-xs"
                               >
-                                <span>Explore All 18 Practices</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
+                                <span>{language === "ar" ? "استكشف جميع الممارسات الـ 18" : "Explore All 18 Practices"}</span>
+                                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                               </Link>
                               <Link
                                 href="/services#quiz"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1A2A47] hover:bg-[#A33C29] px-3.5 py-1.5 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1E2E4A] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
                               >
-                                <span>Take 60-Sec Advisor Quiz</span>
-                                <ArrowRight className="w-3 h-3" />
+                                <span>{language === "ar" ? "اختبار التوجيه" : "Advisor Quiz"}</span>
+                                <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                               </Link>
                             </div>
                           </motion.div>
@@ -329,17 +330,18 @@ export default function Navbar() {
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${whoWeAreDropdownOpen ? "rotate-180 text-[#A33C29]" : "text-slate-400"}`} />
                       </Link>
 
-                      {/* WHO WE ARE DROPDOWN */}
+                      {/* WHO WE ARE DROPDOWN (Solid Background, Single List) */}
                       <AnimatePresence>
                         {whoWeAreDropdownOpen && (
                           <motion.div
                             initial={{ opacity: 0, y: 10, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                            transition={{ duration: 0.22, ease: "easeOut" }}
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[540px] rounded-3xl shadow-2xl p-5 border bg-white/98 dark:bg-[#0C1424]/98 backdrop-blur-2xl border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-50 overflow-hidden"
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[380px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-[#131B2E] border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-[100] overflow-hidden"
+                            style={{ backgroundColor: isDark ? "#131B2E" : "#FFFFFF" }}
                           >
-                            <div className="relative z-10 grid grid-cols-2 gap-2.5">
+                            <div className="flex flex-col space-y-1">
                               {whoWeAreList.map((item) => {
                                 const IconComp = item.icon;
                                 return (
@@ -347,12 +349,12 @@ export default function Navbar() {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setWhoWeAreDropdownOpen(false)}
-                                    className="group/item p-3 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238]/80 flex items-start gap-3"
+                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238] flex items-center gap-3"
                                   >
                                     <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
                                       <IconComp className="w-4 h-4" />
                                     </div>
-                                    <div className="min-w-0">
+                                    <div className="min-w-0 flex-1">
                                       <h4 className="font-bold text-xs text-[#152238] dark:text-white group-hover/item:text-[#A33C29] transition-colors truncate">
                                         {item.title}
                                       </h4>
@@ -366,22 +368,22 @@ export default function Navbar() {
                             </div>
 
                             {/* Bottom Callout Bar */}
-                            <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800/90 flex items-center justify-between text-xs">
+                            <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs px-1">
                               <Link
                                 href="/about"
                                 onClick={() => setWhoWeAreDropdownOpen(false)}
                                 className="flex items-center gap-1.5 font-bold text-[#A33C29] hover:underline text-xs"
                               >
-                                <span>Explore Firm Profile</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
+                                <span>{language === "ar" ? "الملف التعريفي" : "Explore Firm Profile"}</span>
+                                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                               </Link>
                               <Link
                                 href="/contact"
                                 onClick={() => setWhoWeAreDropdownOpen(false)}
-                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1A2A47] hover:bg-[#A33C29] px-3.5 py-1.5 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1E2E4A] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
                               >
-                                <span>Get in Touch</span>
-                                <ArrowRight className="w-3 h-3" />
+                                <span>{language === "ar" ? "تواصل معنا" : "Get in Touch"}</span>
+                                <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                               </Link>
                             </div>
                           </motion.div>
