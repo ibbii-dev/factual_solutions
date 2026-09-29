@@ -117,8 +117,8 @@ export default function Navbar() {
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 dark:bg-[#0E1626]/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-slate-800 py-2 sm:py-2.5"
-            : "bg-white/90 dark:bg-[#0E1626]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/60 py-2 sm:py-3.5"
+            ? "bg-white/95 dark:bg-[#131B2E]/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-white/10 py-2 sm:py-2.5"
+            : "bg-white/90 dark:bg-[#131B2E]/90 backdrop-blur-md border-b border-slate-100 dark:border-white/10 py-2 sm:py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -194,7 +194,7 @@ export default function Navbar() {
                               <Link
                                 href="/services?category=business"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="group/card p-4 rounded-2xl transition-all duration-200 border bg-[#FAFBFD] dark:bg-[#111C2E]/90 border-slate-200/80 dark:border-slate-800 hover:border-[#8EA9D3] hover:shadow-md flex flex-col justify-between"
+                                className="group/card p-4 rounded-2xl transition-all duration-200 border bg-[#FAFBFD] dark:bg-[#182238]/90 border-slate-200/80 dark:border-slate-700/60 hover:border-[#8EA9D3] hover:shadow-md flex flex-col justify-between"
                               >
                                 <div className="space-y-3">
                                   <div className="flex items-center justify-between">
@@ -242,7 +242,7 @@ export default function Navbar() {
                               <Link
                                 href="/services?category=consultancy"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="group/card p-4 rounded-2xl transition-all duration-200 border bg-[#FAFBFD] dark:bg-[#111C2E]/90 border-slate-200/80 dark:border-slate-800 hover:border-[#A33C29] hover:shadow-md flex flex-col justify-between"
+                                className="group/card p-4 rounded-2xl transition-all duration-200 border bg-[#FAFBFD] dark:bg-[#182238]/90 border-slate-200/80 dark:border-slate-700/60 hover:border-[#A33C29] hover:shadow-md flex flex-col justify-between"
                               >
                                 <div className="space-y-3">
                                   <div className="flex items-center justify-between">
@@ -456,7 +456,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white/98 dark:bg-[#0E1626]/98 backdrop-blur-xl border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white">
+        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white/98 dark:bg-[#131B2E]/98 backdrop-blur-xl border-slate-200 dark:border-white/10 text-[#152238] dark:text-white">
           <div className="flex flex-col space-y-1.5">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;

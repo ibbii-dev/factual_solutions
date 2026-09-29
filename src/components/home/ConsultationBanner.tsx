@@ -10,11 +10,11 @@ export default function ConsultationBanner() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-14 sm:py-20 bg-[#FAFBFD] dark:bg-[#0B1320] transition-colors duration-300">
+    <section className="py-14 sm:py-20 bg-[#FAFBFD] dark:bg-[#131B2E] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <ScrollReveal variant="fade-up" duration={0.6}>
-          <div className="relative rounded-3xl bg-[#0E1B33] dark:bg-[#080E1A] text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-white/10 shadow-2xl">
+          <div className="relative rounded-3xl bg-[#0E1B33] dark:bg-[#0E1524] text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-white/10 shadow-2xl">
             
             {/* Subtle radial light highlight in background */}
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#8EA9D3]/15 rounded-full blur-3xl pointer-events-none" />

@@ -77,8 +77,8 @@ export default function ServiceDetailPage() {
 
   if (!service) {
     return (
-      <div className="pt-36 pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white flex items-center justify-center">
-        <div className="text-center p-8 bg-white dark:bg-[#111C2E] rounded-2xl border border-slate-200/90 dark:border-slate-800 max-w-md mx-auto shadow-xs">
+      <div className="pt-36 pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white flex items-center justify-center">
+        <div className="text-center p-8 bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 max-w-md mx-auto shadow-xs">
           <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
           <h2 className="text-xl font-bold font-display">
             {language === "ar" ? "الخدمة غير موجودة" : "Service Not Found"}
@@ -163,7 +163,7 @@ export default function ServiceDetailPage() {
   };
 
   return (
-    <div className="pt-28 sm:pt-36 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-36 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumb Navigation */}
@@ -182,7 +182,7 @@ export default function ServiceDetailPage() {
         </nav>
 
         {/* Hero Section of the Service */}
-        <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xs border border-slate-200/90 dark:border-slate-800 mb-10 sm:mb-12">
+        <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xs border border-slate-200/90 dark:border-white/10 mb-10 sm:mb-12">
           <div className="max-w-4xl space-y-4">
             
             {/* Category Badge & Deliverable Tag */}
@@ -252,7 +252,7 @@ export default function ServiceDetailPage() {
           <div className="lg:col-span-8 space-y-8">
             
             {/* 1. In-Depth Strategic Overview */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-4">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-4">
               <h2 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                 <Compass className="w-5 h-5 text-[#A33C29]" />
                 <span>{labels.overviewTitle}</span>
@@ -276,7 +276,7 @@ export default function ServiceDetailPage() {
             </div>
 
             {/* 2. Core Strategic Deliverables Framework */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-6">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-6">
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                   <Layers className="w-5 h-5 text-slate-600" />
@@ -313,7 +313,7 @@ export default function ServiceDetailPage() {
 
             {/* 3. Structured 3-Phase Execution Roadmap */}
             {service.executionPhases && service.executionPhases.length > 0 && (
-              <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-6">
+              <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-6">
                 <div>
                   <h2 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                     <Target className="w-5 h-5 text-[#A33C29]" />
@@ -350,7 +350,7 @@ export default function ServiceDetailPage() {
             )}
 
             {/* 4. Ideal Organization Profile */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-3">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-3">
               <h2 className="text-base sm:text-lg font-bold text-[#152238] dark:text-white font-display flex items-center gap-2">
                 <Target className="w-4 h-4 text-slate-500" />
                 <span>{labels.idealForTitle}</span>
@@ -368,7 +368,7 @@ export default function ServiceDetailPage() {
           {/* Right Sidebar: Direct Consultation Form (4 cols) */}
           <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
             
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-4">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-4">
               <div>
                 <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">
                   {labels.sidebarTitle}
@@ -468,7 +468,7 @@ export default function ServiceDetailPage() {
             </div>
 
             {/* Related Capabilities */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-5 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-3">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-5 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-3">
               <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#152238] dark:text-slate-300 font-display">
                 {labels.relatedTitle}
               </h4>

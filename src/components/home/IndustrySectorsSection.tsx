@@ -66,7 +66,7 @@ const sectors = [
 
 export default function IndustrySectorsSection() {
   return (
-    <section className="py-20 sm:py-24 bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <section className="py-20 sm:py-24 bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header split */}
@@ -92,12 +92,12 @@ export default function IndustrySectorsSection() {
           {sectors.map((sector) => (
             <StaggerItem
               key={sector.id}
-              className="bg-white dark:bg-[#111C2E] p-6 sm:p-7 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-[#8EA9D3]/60 transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white dark:bg-[#182238] p-6 sm:p-7 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-[#8EA9D3]/60 transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="space-y-4">
                 {/* Icon box + category badge */}
                 <div className="flex items-center justify-between gap-2">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-[#101728] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
                     {sector.icon}
                   </div>
                   <span className="text-[9.5px] sm:text-[10px] font-bold tracking-wider text-slate-500 uppercase shrink-0 whitespace-nowrap">

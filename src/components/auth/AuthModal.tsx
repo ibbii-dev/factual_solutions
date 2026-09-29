@@ -200,7 +200,7 @@ export default function AuthModal() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-md bg-white dark:bg-[#0E1626] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden z-10"
+          className="relative w-full max-w-md bg-white dark:bg-[#131B2E] rounded-3xl border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden z-10"
         >
           <div className="relative p-6 sm:p-7 pb-4 bg-gradient-to-b from-[#152238]/5 dark:from-[#152238]/40 to-transparent border-b border-slate-100 dark:border-slate-800/80">
             <button
@@ -263,7 +263,7 @@ export default function AuthModal() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleGoogleDirectSubmit} className="p-4 rounded-2xl bg-slate-50 dark:bg-[#121E33] border border-slate-200 dark:border-slate-700/80 space-y-3 animate-in fade-in">
+              <form onSubmit={handleGoogleDirectSubmit} className="p-4 rounded-2xl bg-slate-50 dark:bg-[#0E1524] border border-slate-200 dark:border-slate-700/80 space-y-3 animate-in fade-in">
                 <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-700/50">
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -295,7 +295,7 @@ export default function AuthModal() {
                     value={googleEmail}
                     onChange={(e) => setGoogleEmail(e.target.value)}
                     placeholder="e.g. yourname@gmail.com"
-                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#0E1626] border border-slate-300 dark:border-slate-700 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#0E1524] border border-slate-300 dark:border-slate-700 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                   />
                 </div>
 
@@ -308,7 +308,7 @@ export default function AuthModal() {
                     value={googleName}
                     onChange={(e) => setGoogleName(e.target.value)}
                     placeholder="e.g. Ahsan Malik"
-                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#0E1626] border border-slate-300 dark:border-slate-700 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#0E1524] border border-slate-300 dark:border-slate-700 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                   />
                 </div>
 
@@ -335,7 +335,7 @@ export default function AuthModal() {
               </button>
 
               {showConfigHelper && (
-                <div className="mt-2 p-3 rounded-xl bg-slate-50 dark:bg-[#131F35] border border-slate-200 dark:border-slate-700 text-[10.5px] text-slate-600 dark:text-slate-300 space-y-2 animate-in fade-in">
+                <div className="mt-2 p-3 rounded-xl bg-slate-50 dark:bg-[#0E1524] border border-slate-200 dark:border-slate-700 text-[10.5px] text-slate-600 dark:text-slate-300 space-y-2 animate-in fade-in">
                   <p className="font-semibold text-slate-800 dark:text-white">
                     To connect live Google Identity popup:
                   </p>
@@ -343,13 +343,13 @@ export default function AuthModal() {
                     <li>Go to <span className="font-mono text-[10px] text-blue-500">Google Cloud Console &gt; APIs &amp; Services &gt; Credentials</span>.</li>
                     <li>Create an <strong>OAuth 2.0 Client ID (Web application)</strong>.</li>
                     <li>Under <strong>Authorized JavaScript origins</strong>, add:
-                      <div className="font-mono bg-white dark:bg-[#0A111E] p-1.5 rounded mt-1 border border-slate-200 dark:border-slate-800 text-[9.5px]">
+                      <div className="font-mono bg-white dark:bg-[#101728] p-1.5 rounded mt-1 border border-slate-200 dark:border-slate-800 text-[9.5px]">
                         http://localhost:3000<br />
                         https://factual-solutions.vercel.app
                       </div>
                     </li>
                     <li>Copy your <strong>Client ID</strong> and paste into <code className="font-mono text-emerald-500">.env.local</code>:
-                      <div className="font-mono bg-white dark:bg-[#0A111E] p-1.5 rounded mt-1 border border-slate-200 dark:border-slate-800 text-[9.5px] text-emerald-400">
+                      <div className="font-mono bg-white dark:bg-[#101728] p-1.5 rounded mt-1 border border-slate-200 dark:border-slate-800 text-[9.5px] text-emerald-400">
                         NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
                       </div>
                     </li>
@@ -359,11 +359,11 @@ export default function AuthModal() {
             </div>
 
             <div className="relative flex items-center justify-center">
-              <div className="border-t border-slate-200 dark:border-slate-800 w-full" />
-              <span className="bg-white dark:bg-[#0E1626] px-3 text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+              <div className="border-t border-slate-200 dark:border-white/10 w-full" />
+              <span className="bg-white dark:bg-[#131B2E] px-3 text-[11px] font-medium text-slate-400 uppercase tracking-wider">
                 Or with corporate email
               </span>
-              <div className="border-t border-slate-200 dark:border-slate-800 w-full" />
+              <div className="border-t border-slate-200 dark:border-white/10 w-full" />
             </div>
 
             <form onSubmit={handleEmailSubmit} className="space-y-3.5">
@@ -380,7 +380,7 @@ export default function AuthModal() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sarah Jenkins"
-                      className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#0E1524] border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                     />
                   </div>
                 </div>
@@ -398,7 +398,7 @@ export default function AuthModal() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@company.com"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#0E1524] border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                   />
                 </div>
               </div>
@@ -414,7 +414,7 @@ export default function AuthModal() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#0E1524] border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
                   />
                 </div>
               </div>

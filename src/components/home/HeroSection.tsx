@@ -31,7 +31,7 @@ export default function HeroSection() {
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300"
+      className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300"
     >
       {/* Dynamic Cursor-responsive spotlight */}
       <div 
@@ -121,7 +121,7 @@ export default function HeroSection() {
 
           {/* Right Column: Factual Enterprise Engine Dashboard Card */}
           <ScrollReveal variant="zoom-in" delay={0.2} duration={0.7} className="lg:col-span-5 flex justify-center w-full">
-            <div className="w-full max-w-md bg-white/95 dark:bg-[#111C2E]/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 dark:border-slate-700/70 p-4 sm:p-6 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.12)] space-y-4 hover:shadow-[0_25px_60px_-10px_rgba(163,60,41,0.15)] transition-all duration-300">
+            <div className="w-full max-w-md bg-white/95 dark:bg-[#182238]/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 dark:border-white/10 p-4 sm:p-6 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.12)] space-y-4 hover:shadow-[0_25px_60px_-10px_rgba(163,60,41,0.15)] transition-all duration-300">
               
               {/* Header: Logo + Title + Status */}
               <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -150,7 +150,7 @@ export default function HeroSection() {
               </div>
 
               {/* Executive Operational KPIs */}
-              <div className="bg-[#F8FAFD] dark:bg-[#0A1220] rounded-xl p-3 sm:p-4 border border-slate-100 dark:border-slate-800/80 space-y-2">
+              <div className="bg-[#F8FAFD] dark:bg-[#0E1524] rounded-xl p-3 sm:p-4 border border-slate-100 dark:border-white/5 space-y-2">
                 <div className="grid grid-cols-3 gap-1 sm:gap-2 text-center">
                   <div className="space-y-0.5 px-0.5">
                     <span className="text-[8px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-medium block truncate">Execution</span>

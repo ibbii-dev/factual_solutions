@@ -145,8 +145,8 @@ export default function CustomLanguageSelector() {
 
       {/* Modern Luxury Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-[#0E182A] border border-[#8EA9D3]/30 dark:border-slate-700/80 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-slate-100 dark:divide-slate-800/60">
-          <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+        <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-[#131B2E] border border-[#8EA9D3]/30 dark:border-white/10 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-slate-100 dark:divide-white/10">
+          <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 flex items-center gap-1.5">
             <Globe className="w-3 h-3 text-brand-rust" />
             <span>Select Language / اختر اللغة</span>
           </div>
@@ -162,7 +162,7 @@ export default function CustomLanguageSelector() {
                   className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${
                     isSelected
                       ? "bg-[#152238] text-white dark:bg-brand-rust dark:text-white"
-                      : "text-[#152238] dark:text-slate-200 hover:bg-[#F2F7FD] dark:hover:bg-[#1A2942]"
+                      : "text-[#152238] dark:text-slate-200 hover:bg-[#F2F7FD] dark:hover:bg-[#182238]"
                   }`}
                 >
                   <div className="flex items-center gap-2.5">

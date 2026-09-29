@@ -413,7 +413,7 @@ export default function AiAdvisoryChatbot() {
                       className={`max-w-[88%] sm:max-w-[82%] rounded-2xl p-3.5 ${
                         msg.role === "user"
                           ? "bg-gradient-to-br from-brand-rust to-[#933423] text-white shadow-lg shadow-brand-rust/20 rounded-tr-sm"
-                          : "bg-[#111C2E]/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm"
+                          : "bg-[#182238]/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm"
                       }`}
                     >
                       <div className="whitespace-pre-wrap font-sans text-xs sm:text-[12.5px] leading-relaxed">
@@ -462,7 +462,7 @@ export default function AiAdvisoryChatbot() {
                     <div className="w-7 h-7 rounded-xl bg-brand-rust/20 border border-brand-rust/35 flex items-center justify-center shrink-0">
                       <Bot className="w-3.5 h-3.5 text-brand-rust animate-pulse" />
                     </div>
-                    <div className="bg-[#111C2E]/90 text-slate-300 border border-slate-700/60 rounded-2xl rounded-tl-sm p-3 flex items-center gap-2.5">
+                    <div className="bg-[#182238]/90 text-slate-300 border border-slate-700/60 rounded-2xl rounded-tl-sm p-3 flex items-center gap-2.5">
                       <div className="flex gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.3s]"></span>
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.15s]"></span>
@@ -587,7 +587,7 @@ export default function AiAdvisoryChatbot() {
                   pairedHistory.map((item) => (
                     <div
                       key={item.id}
-                      className="p-3.5 rounded-2xl bg-[#111C2E]/90 border border-slate-700/70 hover:border-brand-steel/50 transition-all space-y-2.5 shadow-sm group"
+                      className="p-3.5 rounded-2xl bg-[#182238]/90 border border-slate-700/70 hover:border-brand-steel/50 transition-all space-y-2.5 shadow-sm group"
                     >
                       <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800/80 pb-2">
                         <span className="flex items-center gap-1 text-slate-300 font-medium">

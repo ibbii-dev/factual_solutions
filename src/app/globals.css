@@ -21,10 +21,10 @@
 }
 
 html.dark {
-  /* Mode 2: Soft Executive Slate Navy (Reduced dark theme) */
-  --bg-primary: #0E1626;
-  --bg-secondary: #121B2D;
-  --bg-card: #162238;
+  /* Mode 2: Executive Midnight Slate Navy - Refined Prestige Dark Theme */
+  --bg-primary: #131B2E;
+  --bg-secondary: #0E1524;
+  --bg-card: #182238;
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
   --border-color: rgba(255, 255, 255, 0.08);
@@ -106,6 +106,6 @@ select option, select optgroup {
 }
 
 html.dark select option, html.dark select optgroup {
-  background-color: #111C2E !important;
+  background-color: #131B2E !important;
   color: #FFFFFF !important;
 }

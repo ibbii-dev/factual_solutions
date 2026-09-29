@@ -282,7 +282,7 @@ export default async function BlogPostPage({
         )}
 
         {/* Author Executive Card */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#182238] border border-slate-200 dark:border-white/10 shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
             <Image
               src={post.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
@@ -351,7 +351,7 @@ export default async function BlogPostPage({
             {relatedPosts.map((related) => (
               <article
                 key={related.id}
-                className="bg-white dark:bg-[#0E1626] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between"
+                className="bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between"
               >
                 <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
                   <Image

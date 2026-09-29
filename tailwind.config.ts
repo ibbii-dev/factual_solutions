@@ -12,7 +12,7 @@ const config: Config = {
       colors: {
         brand: {
           navy: "#152238",
-          "navy-dark": "#0B1320",
+          "navy-dark": "#131B2E",
           "navy-light": "#1E3150",
           rust: "#A33C29",
           "rust-dark": "#842F1F",
@@ -22,7 +22,7 @@ const config: Config = {
           "steel-dark": "#6B88B5",
           slate: "#F1F5F9",
           card: "#FFFFFF",
-          "card-dark": "#111B2E",
+          "card-dark": "#182238",
         },
       },
       fontFamily: {

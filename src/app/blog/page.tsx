@@ -72,7 +72,7 @@ function BlogContent() {
     : filteredPosts;
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors pt-28 sm:pt-36 pb-20">
+    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors pt-28 sm:pt-36 pb-20">
       
       {/* 1. Header Hero Section */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10 sm:pb-16">
@@ -101,7 +101,7 @@ function BlogContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles by title, financial model, strategy, keyword..."
-              className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white dark:bg-[#111C2E] border border-slate-200/90 dark:border-slate-800 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] shadow-xs transition-all"
+              className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] shadow-xs transition-all"
             />
             {searchQuery && (
               <button
@@ -122,7 +122,7 @@ function BlogContent() {
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === cat
                     ? "bg-[#152238] text-white shadow-xs font-bold"
-                    : "bg-white dark:bg-[#111C2E] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800"
+                    : "bg-white dark:bg-[#182238] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0E1524] border border-slate-200/80 dark:border-white/10"
                 }`}
               >
                 {cat}
@@ -142,7 +142,7 @@ function BlogContent() {
 
       {/* 3. Empty State */}
       {!isLoading && filteredPosts.length === 0 && (
-        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-white dark:bg-[#111C2E] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-8 shadow-xs">
+        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 p-8 shadow-xs">
           <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
             <BookOpen className="w-5 h-5" />
           </div>
@@ -165,7 +165,7 @@ function BlogContent() {
           
           {/* Featured Post Spotlight */}
           {featuredPost && (
-            <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-[#111C2E] border border-slate-200/90 dark:border-slate-800 shadow-xs group transition-all duration-300 hover:shadow-md">
+            <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 shadow-xs group transition-all duration-300 hover:shadow-md">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 {/* Cover Image */}
                 <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[400px] overflow-hidden bg-slate-900">
@@ -261,7 +261,7 @@ function BlogContent() {
               {gridPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-white dark:bg-[#111C2E] rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+                  className="bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col justify-between group"
                 >
                   <div>
                     {/* Cover image */}

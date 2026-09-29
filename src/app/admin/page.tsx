@@ -822,7 +822,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-brand-rust/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-brand-steel/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-md w-full bg-[#0E1626]/95 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xl backdrop-blur-xl relative z-10">
+        <div className="max-w-md w-full bg-[#131B2E]/95 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xl backdrop-blur-xl relative z-10">
           
           <div className="text-center space-y-3">
             <div className="relative w-14 h-14 mx-auto p-2 rounded-2xl bg-gradient-to-br from-brand-rust/20 to-[#10192A] border border-brand-rust/30 flex items-center justify-center">
@@ -1062,7 +1062,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
           <div className="space-y-6">
             {/* KPI Metric Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
                   <span>Total Leads</span>
                   <Layers className="w-4 h-4 text-brand-steel" />
@@ -1073,7 +1073,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">All-time inquiries recorded</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-amber-400 font-semibold uppercase tracking-wider">
                   <span>New & Unreplied</span>
                   <AlertCircle className="w-4 h-4 text-amber-400" />
@@ -1084,7 +1084,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Requires Partner contact</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
                   <span>Contacted / Active</span>
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -1095,7 +1095,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Replies dispatched</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
                   <span>Completed</span>
                   <ShieldCheck className="w-4 h-4 text-brand-rust" />
@@ -1108,7 +1108,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Filter & Action Bar */}
-            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0E1626] border border-slate-800 p-3 sm:p-4 rounded-2xl">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#131B2E] border border-slate-800 p-3 sm:p-4 rounded-2xl">
               <div className="flex-1 flex items-center gap-3">
                 <div className="relative flex-1 max-w-md">
                   <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1175,7 +1175,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Inquiries Table */}
-            <div className="bg-[#0E1626] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-[#0A101D] text-slate-400 font-semibold border-b border-slate-800 uppercase tracking-wider text-[10.5px]">
@@ -1328,7 +1328,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         {/* ============================================================== */}
         {activeTab === "subscribers" && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#0E1626] border border-slate-800 p-4 rounded-2xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#131B2E] border border-slate-800 p-4 rounded-2xl">
               <div className="relative flex-1 max-w-md">
                 <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
@@ -1358,7 +1358,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </div>
             </div>
 
-            <div className="bg-[#0E1626] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-[#0A101D] text-slate-400 font-semibold border-b border-slate-800 uppercase tracking-wider text-[10.5px]">
@@ -1406,7 +1406,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         {/* ============================================================== */}
         {activeTab === "chatlogs" && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between bg-[#0E1626] border border-slate-800 p-4 rounded-2xl">
+            <div className="flex items-center justify-between bg-[#131B2E] border border-slate-800 p-4 rounded-2xl">
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <Bot className="w-4 h-4 text-brand-rust" />
@@ -1425,7 +1425,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </button>
             </div>
 
-            <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-xl">
+            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-xl">
               {chatLogs.length === 0 ? (
                 <div className="py-12 text-center text-slate-500 text-xs">
                   No chat logs recorded yet. All inquiries initiated with the AI Advisor will stream here automatically.
@@ -1471,7 +1471,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Cluster Health Card */}
-              <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Database className="w-4 h-4 text-emerald-400" />
@@ -1527,7 +1527,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </div>
 
               {/* Service Interest Breakdown */}
-              <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-brand-rust" />
                   <span>Inquiry Demand by Consulting Practice</span>
@@ -1570,7 +1570,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             {/* ============================================================== */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Mail Gateway Status Card */}
-              <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Mail className="w-4 h-4 text-brand-rust" />
@@ -1622,7 +1622,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </div>
 
               {/* Diagnostic Test Email Dispatcher */}
-              <div className="bg-[#0E1626] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <Send className="w-4 h-4 text-emerald-400" />
                   <span>Mailing System Verification &amp; Test Dispatch</span>
@@ -1682,7 +1682,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
           <div className="space-y-6">
             {/* KPI Metric Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
                   <span>Total Articles</span>
                   <BookOpen className="w-4 h-4 text-brand-steel" />
@@ -1693,7 +1693,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Live & draft publications</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
                   <span>Published Online</span>
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -1704,7 +1704,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Visible on public /blog</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-amber-400 font-semibold uppercase tracking-wider">
                   <span>Drafts in Progress</span>
                   <Clock className="w-4 h-4 text-amber-400" />
@@ -1715,7 +1715,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Unpublished internal drafts</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0E1626] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-brand-rust-light font-semibold uppercase tracking-wider">
                   <span>Spotlight Featured</span>
                   <Star className="w-4 h-4 text-brand-rust" />
@@ -1728,7 +1728,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Filter, Search & Primary Action Bar */}
-            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0E1626] border border-slate-800 p-3 sm:p-4 rounded-2xl">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#131B2E] border border-slate-800 p-3 sm:p-4 rounded-2xl">
               <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <div className="relative flex-1 max-w-md">
                   <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1788,7 +1788,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Articles Table / List */}
-            <div className="bg-[#0E1626] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               {isLoadingBlog ? (
                 <div className="py-20 text-center text-xs text-slate-400 space-y-2">
                   <div className="w-6 h-6 border-2 border-brand-rust border-t-transparent rounded-full animate-spin mx-auto" />

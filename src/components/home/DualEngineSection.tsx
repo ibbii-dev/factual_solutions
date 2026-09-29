@@ -91,7 +91,7 @@ export default function DualEngineSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="py-20 sm:py-24 bg-white dark:bg-[#0E1626] text-[#152238] dark:text-white transition-colors duration-300">
+    <section id="services" className="py-20 sm:py-24 bg-white dark:bg-[#0E1524] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -112,7 +112,7 @@ export default function DualEngineSection() {
           {consultingServices.map((service) => (
             <StaggerItem
               key={service.num}
-              className="bg-white dark:bg-[#111C2E] p-6 sm:p-7 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+              className="bg-white dark:bg-[#182238] p-6 sm:p-7 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-slate-500/50 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div className="space-y-4">
                 {/* Top Number Badge and Tag */}

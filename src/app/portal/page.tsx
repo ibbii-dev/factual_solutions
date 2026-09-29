@@ -96,8 +96,8 @@ export default function ClientPortalPage() {
   // If not authenticated, show welcoming portal sign in screen
   if (!isLoading && !user) {
     return (
-      <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white dark:bg-[#111C2E] rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
+      <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white dark:bg-[#182238] rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-xl p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center mx-auto">
             <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
@@ -148,11 +148,11 @@ export default function ClientPortalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
+    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Portal Header & Client Identity */}
-        <div className="bg-white dark:bg-[#111C2E] rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
+        <div className="bg-white dark:bg-[#182238] rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
           <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-base sm:text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
               {user?.avatar ? (
@@ -201,13 +201,13 @@ export default function ClientPortalPage() {
 
         {/* Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white dark:bg-[#111C2E] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1">
+          <div className="bg-white dark:bg-[#182238] p-5 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs space-y-1">
             <span className="text-[10px] uppercase font-bold text-slate-400">Total Inquiries</span>
             <div className="text-2xl font-extrabold text-[#152238] dark:text-white">{inquiries.length}</div>
             <p className="text-[11px] text-slate-500">Registered under this corporate account</p>
           </div>
 
-          <div className="bg-white dark:bg-[#111C2E] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1">
+          <div className="bg-white dark:bg-[#182238] p-5 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs space-y-1">
             <span className="text-[10px] uppercase font-bold text-slate-400">Active Consultations</span>
             <div className="text-2xl font-extrabold text-[#A33C29]">
               {inquiries.filter((i) => i.status !== "Closed").length}
@@ -215,7 +215,7 @@ export default function ClientPortalPage() {
             <p className="text-[11px] text-slate-500">Under evaluation or ongoing review</p>
           </div>
 
-          <div className="bg-white dark:bg-[#111C2E] p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-1">
+          <div className="bg-white dark:bg-[#182238] p-5 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs space-y-1">
             <span className="text-[10px] uppercase font-bold text-slate-400">Consultant Responses</span>
             <div className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">
               {inquiries.reduce((acc, i) => acc + (i.replies?.length || 0), 0)}
@@ -247,12 +247,12 @@ export default function ClientPortalPage() {
           </div>
 
           {loadingInquiries ? (
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-12 text-center space-y-3">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 p-12 text-center space-y-3">
               <div className="w-8 h-8 border-3 border-[#A33C29] border-t-transparent rounded-full animate-spin mx-auto" />
               <p className="text-xs text-slate-500">Retrieving your consultation records...</p>
             </div>
           ) : inquiries.length === 0 ? (
-            <div className="bg-white dark:bg-[#111C2E] rounded-3xl border border-slate-200/90 dark:border-slate-800 p-10 text-center space-y-4 shadow-xs">
+            <div className="bg-white dark:bg-[#182238] rounded-3xl border border-slate-200/90 dark:border-white/10 p-10 text-center space-y-4 shadow-xs">
               <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
                 <FileText className="w-6 h-6" />
               </div>
@@ -286,7 +286,7 @@ export default function ClientPortalPage() {
                 return (
                   <div
                     key={inq.id}
-                    className="bg-white dark:bg-[#111C2E] rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs overflow-hidden transition-all duration-200"
+                    className="bg-white dark:bg-[#182238] rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs overflow-hidden transition-all duration-200"
                   >
                     {/* Collapsible Header */}
                     <div
@@ -350,7 +350,7 @@ export default function ClientPortalPage() {
                             {/* Stage 1 */}
                             <div className={`p-4 rounded-xl border transition-all ${
                               inq.status === 'New' || inq.status === 'Contacted' || inq.status === 'In Progress' || inq.status === 'Closed'
-                                ? 'bg-white dark:bg-[#111C2E] border-slate-200 dark:border-slate-700 shadow-xs'
+                                ? 'bg-white dark:bg-[#182238] border-slate-200 dark:border-slate-700 shadow-xs'
                                 : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
                             }`}>
                               <div className="flex items-center justify-between mb-2">
@@ -370,7 +370,7 @@ export default function ClientPortalPage() {
                             {/* Stage 2 */}
                             <div className={`p-4 rounded-xl border transition-all ${
                               inq.status === 'In Progress' || inq.status === 'Closed'
-                                ? 'bg-white dark:bg-[#111C2E] border-slate-200 dark:border-slate-700 shadow-xs'
+                                ? 'bg-white dark:bg-[#182238] border-slate-200 dark:border-slate-700 shadow-xs'
                                 : inq.status === 'Contacted'
                                 ? 'bg-amber-500/5 border-amber-500/30'
                                 : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
@@ -402,7 +402,7 @@ export default function ClientPortalPage() {
                             {/* Stage 3 */}
                             <div className={`p-4 rounded-xl border transition-all ${
                               inq.status === 'Closed'
-                                ? 'bg-white dark:bg-[#111C2E] border-emerald-500/40 shadow-xs'
+                                ? 'bg-white dark:bg-[#182238] border-emerald-500/40 shadow-xs'
                                 : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
                             }`}>
                               <div className="flex items-center justify-between mb-2">

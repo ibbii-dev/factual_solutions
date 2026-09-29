@@ -35,7 +35,7 @@ export default function AboutPage() {
   const currentSkills = language === "ar" ? arabicSkills : principalConsultant.skills;
 
   return (
-    <div className="pt-28 sm:pt-36 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-36 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
@@ -52,7 +52,7 @@ export default function AboutPage() {
         </ScrollReveal>
 
         {/* The Puzzle Philosophy Section */}
-        <ScrollReveal variant="zoom-in" duration={0.7} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xs border border-slate-200/90 dark:border-slate-800">
+        <ScrollReveal variant="zoom-in" duration={0.7} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xs border border-slate-200/90 dark:border-white/10">
           
           <div className="lg:col-span-6 space-y-4">
             <h2 className="text-2xl sm:text-3xl font-bold text-[#152238] dark:text-white tracking-tight font-display">
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </ScrollReveal>
 
           {/* Qadeer Ahmad Bhatti Profile Card */}
-          <ScrollReveal variant="fade-up" delay={0.15} className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-10 lg:p-12 border border-slate-200/90 dark:border-slate-800 shadow-xs max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <ScrollReveal variant="fade-up" delay={0.15} className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-10 lg:p-12 border border-slate-200/90 dark:border-white/10 shadow-xs max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             
             {/* Portrait Photo (4 cols) */}
             <div className="md:col-span-4 flex flex-col items-center text-center">
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
         {/* Mission & Vision Cards */}
         <StaggerContainer delayChildren={0.2} staggerChildren={0.15} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-20">
-          <StaggerItem className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-3">
+          <StaggerItem className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-3">
             <div className="w-10 h-10 rounded-xl bg-[#152238] text-white flex items-center justify-center">
               <Target className="w-5 h-5" />
             </div>
@@ -181,7 +181,7 @@ export default function AboutPage() {
             </p>
           </StaggerItem>
 
-          <StaggerItem className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-3">
+          <StaggerItem className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-3">
             <div className="w-10 h-10 rounded-xl bg-[#A33C29] text-white flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -193,7 +193,7 @@ export default function AboutPage() {
         </StaggerContainer>
 
         {/* Office Location */}
-        <ScrollReveal variant="fade-up" className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-10 border border-slate-200/90 dark:border-slate-800 shadow-xs">
+        <ScrollReveal variant="fade-up" className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-10 border border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="text-center max-w-xl mx-auto mb-6 space-y-1">
             <h3 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white font-display">{about.headOfficeTitle}</h3>
             <p className="text-xs text-slate-500 font-normal">{about.headOfficeSubtitle}</p>

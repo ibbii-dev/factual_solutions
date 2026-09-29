@@ -128,7 +128,7 @@ export default function PartnerBookingWidget({
           </p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-[#111C2E] border border-emerald-500/20 text-left max-w-md mx-auto space-y-2 text-xs">
+        <div className="p-4 rounded-2xl bg-white dark:bg-[#182238] border border-emerald-500/20 text-left max-w-md mx-auto space-y-2 text-xs">
           <div className="flex justify-between items-center text-slate-500 dark:text-slate-400">
             <span>Consultation:</span>
             <span className="font-bold text-[#152238] dark:text-white">{bookingConfirmation.meetingType}</span>
@@ -163,7 +163,7 @@ export default function PartnerBookingWidget({
   }
 
   return (
-    <div className={`bg-white dark:bg-[#111C2E] rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
+    <div className={`bg-white dark:bg-[#182238] rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-xl overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">
@@ -276,7 +276,7 @@ export default function PartnerBookingWidget({
                 className={`py-2 px-1 rounded-xl text-xs font-semibold border transition-all text-center ${
                   selectedTime === slot
                     ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
-                    : "bg-white dark:bg-[#15233A] border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500"
+                    : "bg-white dark:bg-[#0E1524] border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500"
                 }`}
               >
                 {slot}

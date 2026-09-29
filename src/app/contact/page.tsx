@@ -116,7 +116,7 @@ function ContactContent() {
   const consultancyServicesList = allServices.filter((s) => s.category === "consultancy");
 
   return (
-    <div className="pt-28 sm:pt-36 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-28 sm:pt-36 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
@@ -133,7 +133,7 @@ function ContactContent() {
 
           {/* Mode Switcher Tabs */}
           <div className="pt-4 flex items-center justify-center">
-            <div className="inline-flex p-1 rounded-2xl bg-white dark:bg-[#111C2E] border border-slate-200/90 dark:border-slate-800 shadow-xs">
+            <div className="inline-flex p-1 rounded-2xl bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 shadow-xs">
               <button
                 type="button"
                 onClick={() => setActiveMode("inquiry")}
@@ -172,7 +172,7 @@ function ContactContent() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
             {/* Left: Consultation Form (7 cols) */}
-            <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs border border-slate-200/90 dark:border-slate-800">
+            <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xs border border-slate-200/90 dark:border-white/10">
               {submitted ? (
               <div className="py-6 space-y-6 text-left">
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300">
@@ -425,7 +425,7 @@ function ContactContent() {
           <ScrollReveal variant="fade-up" delay={0.2} duration={0.65} className="lg:col-span-5 space-y-6">
             
             {/* Direct Contact Card */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-4">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-4">
               <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">
                 {c.directContactTitle}
               </h3>
@@ -490,7 +490,7 @@ function ContactContent() {
             </div>
 
             {/* Office Locations */}
-            <div className="bg-white dark:bg-[#111C2E] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-slate-800 space-y-4">
+            <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-7 shadow-xs border border-slate-200/90 dark:border-white/10 space-y-4">
               <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">
                 {c.headOfficeTitle}
               </h3>
@@ -530,7 +530,7 @@ function ContactContent() {
 
 export default function ContactPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B1320] pt-32 text-center text-slate-400">Loading Contact...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] pt-32 text-center text-slate-400">Loading Contact...</div>}>
       <ContactContent />
     </Suspense>
   );
