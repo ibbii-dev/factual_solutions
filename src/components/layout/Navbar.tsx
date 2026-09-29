@@ -27,19 +27,23 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useUserAuth } from "@/context/UserAuthContext";
+import { useLanguage } from "@/context/LanguageContext";
 import CustomLanguageSelector from "@/components/CustomLanguageSelector";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { user, openAuthModal, logout } = useUserAuth();
+  const { language } = useLanguage();
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [whoWeAreDropdownOpen, setWhoWeAreDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const whoWeAreTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -72,11 +76,65 @@ export default function Navbar() {
     }, 150);
   };
 
+  const handleWhoWeAreMouseEnter = () => {
+    if (whoWeAreTimeoutRef.current) clearTimeout(whoWeAreTimeoutRef.current);
+    setWhoWeAreDropdownOpen(true);
+  };
+
+  const handleWhoWeAreMouseLeave = () => {
+    whoWeAreTimeoutRef.current = setTimeout(() => {
+      setWhoWeAreDropdownOpen(false);
+    }, 150);
+  };
+
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Services", href: "/services", hasDropdown: true },
-    { name: "About FS", href: "/about" },
-    { name: "Blog", href: "/blog" },
+    { 
+      name: language === "ar" ? "ما نقوم به" : "What we do", 
+      href: "/services", 
+      dropdownType: "services" as const
+    },
+    { 
+      name: language === "ar" ? "رؤيتنا" : "What we think", 
+      href: "/#insights",
+      dropdownType: null 
+    },
+    { 
+      name: language === "ar" ? "من نحن" : "Who we are", 
+      href: "/about", 
+      dropdownType: "about" as const
+    },
+    { 
+      name: language === "ar" ? "المدونة" : "Blog", 
+      href: "/blog",
+      dropdownType: null 
+    },
+  ];
+
+  const whoWeAreList = [
+    {
+      title: language === "ar" ? "نبذة عن الشركة" : "About the Firm",
+      desc: language === "ar" ? "رؤيتنا وقيمنا الاستشارية المؤسسية" : "Executive advisory profile, vision & principles",
+      href: "/about",
+      icon: ShieldCheck
+    },
+    {
+      title: language === "ar" ? "المستشار الرئيسي" : "Principal Consultant",
+      desc: language === "ar" ? "بقيادة قدير أحمد بهاتي (PMP, Lean Master Black Belt)" : "Led by Qadeer Ahmad Bhatti (PMP, Lean MBB)",
+      href: "/about#leadership",
+      icon: User
+    },
+    {
+      title: language === "ar" ? "الممارسة الإقليمية والدولية" : "Global Practice (KSA & UAE)",
+      desc: language === "ar" ? "مراكز استشارية في الرياض ودبي وعمليات دولية" : "Advisory hubs in Riyadh, Dubai & cross-border",
+      href: "/about#global",
+      icon: Compass
+    },
+    {
+      title: language === "ar" ? "معايير الحوكمة والسرية" : "Institutional Governance",
+      desc: language === "ar" ? "حوكمة صارمة وسرية محمية باتفاقية عدم إفصاح" : "Verified standards & client confidentiality",
+      href: "/about#values",
+      icon: CheckCircle2
+    }
   ];
 
   const featuredServicesList = [
@@ -167,9 +225,9 @@ export default function Navbar() {
               {navLinks.map((link) => {
                 const isActive = link.href === "/" 
                   ? pathname === "/" 
-                  : (pathname === link.href || pathname.startsWith(link.href));
+                  : (pathname === link.href || (link.href !== "/#insights" && pathname.startsWith(link.href)));
 
-                if (link.hasDropdown) {
+                if (link.dropdownType === "services") {
                   return (
                     <div
                       key={link.name}
@@ -189,7 +247,7 @@ export default function Navbar() {
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-[#A33C29]" : "text-slate-400"}`} />
                       </Link>
 
-                      {/* SERVICES MEGA DROPDOWN (Direct Practice Capabilities, No Categories) */}
+                      {/* SERVICES MEGA DROPDOWN (What we do) */}
                       <AnimatePresence>
                         {servicesDropdownOpen && (
                           <motion.div
@@ -241,6 +299,88 @@ export default function Navbar() {
                                 className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1A2A47] hover:bg-[#A33C29] px-3.5 py-1.5 rounded-full transition-colors flex items-center gap-1 shadow-xs"
                               >
                                 <span>Take 60-Sec Advisor Quiz</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </Link>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                if (link.dropdownType === "about") {
+                  return (
+                    <div
+                      key={link.name}
+                      className="relative"
+                      onMouseEnter={handleWhoWeAreMouseEnter}
+                      onMouseLeave={handleWhoWeAreMouseLeave}
+                    >
+                      <Link
+                        href={link.href}
+                        className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                          isActive
+                            ? "bg-[#EBF1FA] dark:bg-white/15 text-[#152238] dark:text-white shadow-xs font-bold"
+                            : "text-slate-700 dark:text-slate-200 hover:text-[#A33C29] dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/10"
+                        }`}
+                      >
+                        <span>{link.name}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${whoWeAreDropdownOpen ? "rotate-180 text-[#A33C29]" : "text-slate-400"}`} />
+                      </Link>
+
+                      {/* WHO WE ARE DROPDOWN */}
+                      <AnimatePresence>
+                        {whoWeAreDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                            transition={{ duration: 0.22, ease: "easeOut" }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[540px] rounded-3xl shadow-2xl p-5 border bg-white/98 dark:bg-[#0C1424]/98 backdrop-blur-2xl border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-50 overflow-hidden"
+                          >
+                            <div className="relative z-10 grid grid-cols-2 gap-2.5">
+                              {whoWeAreList.map((item) => {
+                                const IconComp = item.icon;
+                                return (
+                                  <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={() => setWhoWeAreDropdownOpen(false)}
+                                    className="group/item p-3 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238]/80 flex items-start gap-3"
+                                  >
+                                    <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
+                                      <IconComp className="w-4 h-4" />
+                                    </div>
+                                    <div className="min-w-0">
+                                      <h4 className="font-bold text-xs text-[#152238] dark:text-white group-hover/item:text-[#A33C29] transition-colors truncate">
+                                        {item.title}
+                                      </h4>
+                                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">
+                                        {item.desc}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+
+                            {/* Bottom Callout Bar */}
+                            <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800/90 flex items-center justify-between text-xs">
+                              <Link
+                                href="/about"
+                                onClick={() => setWhoWeAreDropdownOpen(false)}
+                                className="flex items-center gap-1.5 font-bold text-[#A33C29] hover:underline text-xs"
+                              >
+                                <span>Explore Firm Profile</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                              <Link
+                                href="/contact"
+                                onClick={() => setWhoWeAreDropdownOpen(false)}
+                                className="font-bold text-xs text-white bg-[#152238] dark:bg-[#1A2A47] hover:bg-[#A33C29] px-3.5 py-1.5 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                              >
+                                <span>Get in Touch</span>
                                 <ArrowRight className="w-3 h-3" />
                               </Link>
                             </div>
@@ -389,6 +529,17 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white/98 dark:bg-[#131B2E]/98 backdrop-blur-xl border-slate-200 dark:border-white/10 text-[#152238] dark:text-white">
           <div className="flex flex-col space-y-1.5">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                pathname === "/"
+                  ? "bg-[#EBF1FA] dark:bg-white/15 text-[#152238] dark:text-white font-bold"
+                  : "text-slate-700 dark:text-slate-200 hover:text-[#A33C29]"
+              }`}
+            >
+              {language === "ar" ? "الرئيسية" : "Home"}
+            </Link>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
