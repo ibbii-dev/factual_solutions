@@ -76,7 +76,7 @@ export default async function BlogPostPage({
       if (currentParagraph.length > 0) {
         const text = currentParagraph.join(" ");
         elements.push(
-          <p key={key} className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+          <p key={key} className="text-base sm:text-lg text-slate-100 leading-relaxed font-normal">
             {renderInlineMarkdown(text)}
           </p>
         );
@@ -97,7 +97,7 @@ export default async function BlogPostPage({
         elements.push(
           <h2
             key={`h2-${index}`}
-            className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white font-display mt-8 mb-4 tracking-tight pt-4 border-t border-slate-200/60 dark:border-slate-800/80"
+            className="text-2xl sm:text-3xl font-bold text-white font-display mt-8 mb-4 tracking-tight pt-4 border-t border-white/20"
           >
             {trimmed.replace("## ", "")}
           </h2>
@@ -107,7 +107,7 @@ export default async function BlogPostPage({
         elements.push(
           <h3
             key={`h3-${index}`}
-            className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display mt-6 mb-3 tracking-tight text-brand-rust dark:text-brand-rust-light"
+            className="text-xl sm:text-2xl font-bold text-[#E25C43] font-display mt-6 mb-3 tracking-tight"
           >
             {trimmed.replace("### ", "")}
           </h3>
@@ -117,7 +117,7 @@ export default async function BlogPostPage({
         elements.push(
           <div
             key={`quote-${index}`}
-            className="my-6 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-brand-rust/10 via-brand-rust/5 to-transparent border-l-4 border-brand-rust text-slate-800 dark:text-slate-200 italic font-serif text-lg sm:text-xl shadow-sm"
+            className="my-6 p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border-l-4 border-brand-rust text-slate-100 italic font-serif text-lg sm:text-xl shadow-sm"
           >
             <div className="flex items-start gap-3">
               <Sparkles className="w-5 h-5 text-brand-rust shrink-0 mt-0.5" />
@@ -128,7 +128,7 @@ export default async function BlogPostPage({
       } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
         flushParagraph(`p-before-${index}`);
         elements.push(
-          <li key={`li-${index}`} className="flex items-start gap-3 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed my-2">
+          <li key={`li-${index}`} className="flex items-start gap-3 text-base sm:text-lg text-slate-100 leading-relaxed my-2">
             <span className="w-2 h-2 rounded-full bg-brand-rust shrink-0 mt-2.5" />
             <span>{renderInlineMarkdown(trimmed.replace(/^[-*]\s*/, ""))}</span>
           </li>
@@ -137,8 +137,8 @@ export default async function BlogPostPage({
         flushParagraph(`p-before-${index}`);
         const number = trimmed.match(/^\d+/)?.[0] || "1";
         elements.push(
-          <li key={`num-${index}`} className="flex items-start gap-3 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed my-2.5">
-            <span className="w-6 h-6 rounded-full bg-brand-rust/20 text-brand-rust dark:text-brand-rust-light text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+          <li key={`num-${index}`} className="flex items-start gap-3 text-base sm:text-lg text-slate-100 leading-relaxed my-2.5">
+            <span className="w-6 h-6 rounded-full bg-brand-rust/20 text-[#E25C43] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
               {number}
             </span>
             <span>{renderInlineMarkdown(trimmed.replace(/^\d+\.\s*/, ""))}</span>
@@ -159,7 +159,7 @@ export default async function BlogPostPage({
     return parts.map((part, i) => {
       if (part.startsWith("**") && part.endsWith("**")) {
         return (
-          <strong key={i} className="font-bold text-slate-900 dark:text-white">
+          <strong key={i} className="font-bold text-white">
             {part.slice(2, -2)}
           </strong>
         );
@@ -169,52 +169,52 @@ export default async function BlogPostPage({
   };
 
   return (
-    <article className="min-h-screen bg-transparent text-slate-900 dark:text-slate-100 transition-colors pt-24 sm:pt-32 pb-20">
+    <article className="min-h-screen bg-transparent text-white transition-colors pt-24 sm:pt-32 pb-20">
       
       {/* 1. Article Hero & Header */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
         {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-          <Link href="/" className="hover:text-brand-rust transition-colors">Home</Link>
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-300">
+          <Link href="/" className="hover:text-brand-rust transition-colors text-slate-300">Home</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/blog" className="hover:text-brand-rust transition-colors">Blog</Link>
+          <Link href="/blog" className="hover:text-brand-rust transition-colors text-slate-300">Blog</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-slate-700 dark:text-slate-300 truncate max-w-[180px] sm:max-w-xs">
+          <span className="text-slate-200 truncate max-w-[180px] sm:max-w-xs">
             Strategic Article
           </span>
         </div>
 
         {/* Category & Meta */}
         <div className="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
-          <span className="px-3 py-1 rounded-full bg-brand-rust/10 text-brand-rust dark:text-brand-rust-light font-bold text-[11px] sm:text-xs uppercase tracking-wider border border-brand-rust/20">
+          <span className="px-3 py-1 rounded-full bg-brand-rust/20 text-[#E25C43] font-bold text-[11px] sm:text-xs uppercase tracking-wider border border-brand-rust/30">
             Strategic Intelligence
           </span>
-          <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1.5 text-xs text-slate-300">
             <Clock className="w-4 h-4" />
             {post.readTime}
           </span>
           <span className="text-slate-400">•</span>
-          <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1.5 text-xs text-slate-300">
             <Calendar className="w-4 h-4" />
             {post.publishedAt}
           </span>
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white font-display leading-tight sm:leading-[1.15]">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-display leading-tight sm:leading-[1.15] drop-shadow-sm">
           {post.title}
         </h1>
 
         {/* Excerpt Lead */}
         {post.excerpt && (
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed border-l-2 border-brand-steel/40 pl-4 py-1 italic">
+          <p className="text-lg sm:text-xl text-slate-100 font-normal leading-relaxed border-l-2 border-brand-rust/60 pl-4 py-1 italic">
             {post.excerpt}
           </p>
         )}
 
         {/* Author Bio Bar & Share Actions */}
-        <div className="pt-4 pb-6 border-y border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="pt-4 pb-6 border-y border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-full overflow-hidden bg-brand-rust/20 relative shrink-0 border border-brand-rust/30">
               <Image
@@ -225,10 +225,10 @@ export default async function BlogPostPage({
               />
             </div>
             <div>
-              <div className="text-sm font-bold text-slate-900 dark:text-white">
+              <div className="text-sm font-bold text-white">
                 {post.author.name}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
+              <div className="text-xs text-slate-300">
                 {post.author.role}
               </div>
             </div>
@@ -255,15 +255,15 @@ export default async function BlogPostPage({
       )}
 
       {/* 3. Main Article Body */}
-      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10 space-y-6 bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-sm my-8">
+      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10 space-y-6 bg-black/40 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl my-8 text-white">
         <div className="space-y-6">
           {renderFormattedContent(post.content)}
         </div>
 
         {/* Tags */}
         {post.tags && post.tags.length > 0 && (
-          <div className="pt-8 mt-10 border-t border-slate-200 dark:border-slate-800 space-y-3">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+          <div className="pt-8 mt-10 border-t border-white/20 space-y-3">
+            <div className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
               <Tag className="w-3.5 h-3.5" />
               <span>Related Strategic Disciplines</span>
             </div>
@@ -272,7 +272,7 @@ export default async function BlogPostPage({
                 <Link
                   key={tag}
                   href={`/blog?tag=${encodeURIComponent(tag)}`}
-                  className="px-3 py-1 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 hover:bg-brand-rust/10 hover:text-brand-rust dark:hover:text-brand-rust-light text-xs font-medium text-slate-600 dark:text-slate-400 transition-colors"
+                  className="px-3 py-1 rounded-xl bg-white/10 hover:bg-brand-rust/20 hover:text-[#E25C43] text-xs font-medium text-slate-200 border border-white/15 transition-colors"
                 >
                   #{tag}
                 </Link>
@@ -282,7 +282,7 @@ export default async function BlogPostPage({
         )}
 
         {/* Author Executive Card */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-black/35 backdrop-blur-xl border border-white/20 shadow-xl flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left text-white">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
             <Image
               src={post.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
@@ -292,13 +292,13 @@ export default async function BlogPostPage({
             />
           </div>
           <div className="space-y-2">
-            <div className="text-base font-bold text-slate-900 dark:text-white">
+            <div className="text-base font-bold text-white">
               {post.author.name}
             </div>
-            <div className="text-xs font-semibold text-brand-rust dark:text-brand-rust-light">
+            <div className="text-xs font-semibold text-[#E25C43]">
               {post.author.role}
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-200 leading-relaxed">
               Senior partner and practice lead at Factual Solutions. Specializes in multi-variable business modeling, feasibility validation, and corporate restructuring for high-growth enterprises.
             </p>
           </div>
@@ -308,7 +308,7 @@ export default async function BlogPostPage({
 
       {/* 4. Consultation CTA Banner */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-        <div className="rounded-3xl p-8 sm:p-10 bg-gradient-to-r from-brand-rust via-[#A83D29] to-[#882F1F] text-white shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="rounded-3xl p-8 sm:p-10 bg-gradient-to-r from-brand-rust via-[#A83D29] to-[#882F1F] text-white shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/20">
           <div className="space-y-2 max-w-xl text-center sm:text-left">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
               <Building2 className="w-3.5 h-3.5" />
@@ -317,7 +317,7 @@ export default async function BlogPostPage({
             <h3 className="text-xl sm:text-2xl font-bold font-display">
               Apply These Strategies to Your Enterprise
             </h3>
-            <p className="text-xs sm:text-sm text-white/85 leading-relaxed">
+            <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
               Schedule a confidential 45-minute working session with our practice partners to review your strategic challenges and financial projections.
             </p>
           </div>
@@ -333,14 +333,14 @@ export default async function BlogPostPage({
 
       {/* 5. Related Articles Grid */}
       {relatedPosts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-16 border-t border-slate-200 dark:border-slate-800 space-y-8">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-16 border-t border-white/15 space-y-8">
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-display">
+            <h3 className="text-2xl font-bold text-white font-display">
               Further Executive Blog Posts
             </h3>
             <Link
               href="/blog"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-rust dark:text-brand-rust-light hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#E25C43] hover:underline"
             >
               <span>View All Blogs</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -351,7 +351,7 @@ export default async function BlogPostPage({
             {relatedPosts.map((related) => (
               <article
                 key={related.id}
-                className="bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group flex flex-col justify-between"
+                className="bg-black/35 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all group flex flex-col justify-between text-white"
               >
                 <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
                   <Image
@@ -369,22 +369,22 @@ export default async function BlogPostPage({
 
                 <div className="p-5 flex flex-col flex-grow justify-between space-y-3">
                   <div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400 mb-1.5 flex items-center gap-1.5">
+                    <div className="text-[11px] text-slate-300 mb-1.5 flex items-center gap-1.5">
                       <Clock className="w-3 h-3" />
                       {related.readTime}
                     </div>
                     <Link href={`/blog/${related.slug}`}>
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-rust transition-colors line-clamp-2 leading-snug">
+                      <h4 className="text-sm font-bold text-white group-hover:text-[#E25C43] transition-colors line-clamp-2 leading-snug">
                         {related.title}
                       </h4>
                     </Link>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between mt-auto">
-                    <span className="text-[11px] text-slate-500">{related.publishedAt}</span>
+                  <div className="pt-3 border-t border-white/10 flex items-center justify-between mt-auto">
+                    <span className="text-[11px] text-slate-300">{related.publishedAt}</span>
                     <Link
                       href={`/blog/${related.slug}`}
-                      className="text-xs font-bold text-brand-rust dark:text-brand-rust-light flex items-center gap-1 hover:underline"
+                      className="text-xs font-bold text-[#E25C43] flex items-center gap-1 hover:underline"
                     >
                       <span>Read</span>
                       <ArrowRight className="w-3 h-3" />

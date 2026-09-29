@@ -78,18 +78,18 @@ function BlogContent() {
         {/* Search Bar */}
         <div className="mt-8 max-w-2xl mx-auto">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles by title, financial model, strategy, keyword..."
-              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] shadow-sm transition-all"
+              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-black/30 backdrop-blur-xl border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-white/50 shadow-md transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-[#A33C29]"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-300 hover:text-white"
               >
                 Clear
               </button>
@@ -102,23 +102,23 @@ function BlogContent() {
       {isLoading && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <div className="w-8 h-8 border-3 border-[#A33C29] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-slate-500">Loading strategic intelligence articles...</p>
+          <p className="text-xs text-slate-200">Loading strategic intelligence articles...</p>
         </div>
       )}
 
       {/* 3. Empty State */}
       {!isLoading && filteredPosts.length === 0 && (
-        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 p-8 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
+        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-black/35 backdrop-blur-xl rounded-2xl border border-white/20 p-8 shadow-xl text-white">
+          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mx-auto text-slate-300">
             <BookOpen className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-[#152238] dark:text-white">No articles found</h3>
-          <p className="text-xs text-slate-500">
+          <h3 className="text-base font-bold text-white">No articles found</h3>
+          <p className="text-xs text-slate-200">
             No published blog posts match your current search query.
           </p>
           <button
             onClick={() => setSearchQuery("")}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#152238] text-white text-xs font-bold hover:bg-[#A33C29] transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#A33C29] text-white text-xs font-bold hover:bg-[#8E3221] transition-colors"
           >
             Clear Search
           </button>
@@ -131,7 +131,7 @@ function BlogContent() {
           
           {/* Featured Post Spotlight */}
           {featuredPost && (
-            <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm group transition-all duration-300 hover:shadow-xl">
+            <div className="relative rounded-2xl overflow-hidden bg-black/40 backdrop-blur-xl border border-white/20 shadow-2xl group transition-all duration-300 hover:shadow-2xl hover:border-white/35 text-white">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 {/* Cover Image */}
                 <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[400px] overflow-hidden bg-slate-900">
@@ -143,7 +143,7 @@ function BlogContent() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute top-4 left-4 px-3 py-1 rounded-md bg-[#152238]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <Sparkles className="w-3 h-3 text-[#A33C29]" />
+                    <Sparkles className="w-3 h-3 text-[#E25C43]" />
                     <span>Featured Analysis</span>
                   </div>
                 </div>
@@ -151,24 +151,24 @@ function BlogContent() {
                 {/* Content Container */}
                 <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-5">
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2.5 text-xs text-slate-500">
-                      <span className="px-2 py-0.5 rounded bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-bold text-[10px]">
+                    <div className="flex items-center gap-2.5 text-xs text-slate-300">
+                      <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold text-[10px] border border-white/15">
                         Advisory Insight
                       </span>
                       <span>•</span>
-                      <span className="flex items-center gap-1 text-[11px]">
-                        <Clock className="w-3 h-3" />
+                      <span className="flex items-center gap-1 text-[11px] text-slate-200">
+                        <Clock className="w-3 h-3 text-[#E25C43]" />
                         {featuredPost.readTime}
                       </span>
                     </div>
 
                     <Link href={`/blog/${featuredPost.slug}`}>
-                      <h2 className="text-xl sm:text-2xl font-bold text-[#152238] dark:text-white group-hover:text-[#A33C29] transition-colors leading-snug font-display">
+                      <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#E25C43] transition-colors leading-snug font-display drop-shadow-sm">
                         {featuredPost.title}
                       </h2>
                     </Link>
 
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-slate-100 line-clamp-3 leading-relaxed font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                       {featuredPost.excerpt}
                     </p>
 
@@ -178,7 +178,7 @@ function BlogContent() {
                         {featuredPost.tags.slice(0, 4).map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] px-2 py-0.5 rounded bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-medium"
+                            className="text-[10px] px-2 py-0.5 rounded bg-white/10 border border-white/10 text-slate-200 font-medium"
                           >
                             #{tag}
                           </span>
@@ -188,9 +188,9 @@ function BlogContent() {
                   </div>
 
                   {/* Author & CTA */}
-                  <div className="pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <div className="pt-5 border-t border-white/15 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-200 relative shrink-0">
+                      <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-700 relative shrink-0 border border-white/20">
                         <Image
                           src={featuredPost.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
                           alt={featuredPost.author.name}
@@ -199,10 +199,10 @@ function BlogContent() {
                         />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-[#152238] dark:text-white">
+                        <div className="text-xs font-bold text-white">
                           {featuredPost.author.name}
                         </div>
-                        <div className="text-[10px] text-slate-500">
+                        <div className="text-[10px] text-slate-300">
                           {featuredPost.author.role}
                         </div>
                       </div>
@@ -210,7 +210,7 @@ function BlogContent() {
 
                     <Link
                       href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#A33C29] hover:text-[#8E3221]"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#E25C43] hover:text-white transition-colors"
                     >
                       <span>Read Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -227,11 +227,11 @@ function BlogContent() {
               {gridPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+                  className="bg-black/35 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-white"
                 >
                   <div>
                     {/* Cover image */}
-                    <div className="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                    <div className="relative h-48 w-full overflow-hidden bg-slate-900">
                       <Image
                         src={post.coverImage || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"}
                         alt={post.title}
@@ -239,7 +239,7 @@ function BlogContent() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#152238]/85 backdrop-blur-md text-white uppercase">
+                        <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#152238]/85 backdrop-blur-md text-white uppercase border border-white/10">
                           Advisory Insight
                         </span>
                       </div>
@@ -247,29 +247,29 @@ function BlogContent() {
 
                     {/* Content */}
                     <div className="p-5 sm:p-6 space-y-2.5">
-                      <div className="flex items-center gap-2 text-[11px] text-slate-500">
+                      <div className="flex items-center gap-2 text-[11px] text-slate-300">
                         <span>{post.publishedAt}</span>
                         <span>•</span>
                         <span>{post.readTime}</span>
                       </div>
 
                       <Link href={`/blog/${post.slug}`}>
-                        <h3 className="text-base font-bold text-[#152238] dark:text-white leading-snug font-display group-hover:text-[#A33C29] transition-colors line-clamp-2">
+                        <h3 className="text-base font-bold text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors line-clamp-2 drop-shadow-sm">
                           {post.title}
                         </h3>
                       </Link>
 
-                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 font-normal">
+                      <p className="text-xs text-slate-100 leading-relaxed line-clamp-3 font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                         {post.excerpt}
                       </p>
                     </div>
                   </div>
 
                   {/* Read Article */}
-                  <div className="p-5 sm:p-6 pt-0 mt-auto">
+                  <div className="p-5 sm:p-6 pt-0 mt-auto border-t border-white/10 pt-4">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#152238] dark:text-slate-200 group-hover:text-[#A33C29] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
                     >
                       <span>Read Full Article</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

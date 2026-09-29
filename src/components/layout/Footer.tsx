@@ -36,7 +36,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#0B1322]/85 backdrop-blur-xl border-t border-white/10 text-slate-300 relative overflow-hidden transition-colors duration-300">
+    <footer className="bg-transparent backdrop-blur-sm border-t border-white/10 text-slate-100 relative overflow-hidden transition-colors duration-300">
       
       {/* Top Advisory Briefing Bar */}
       <div className="border-b border-white/10 py-10 sm:py-12">
@@ -44,13 +44,13 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center justify-between">
             
             <div className="lg:col-span-7 space-y-1.5">
-              <span className="text-[10px] font-bold tracking-wider uppercase text-[#A33C29]">
+              <span className="text-[10px] font-bold tracking-wider uppercase text-[#E25C43]">
                 EXECUTIVE ADVISORY BRIEFING
               </span>
               <h3 className="text-lg sm:text-2xl font-bold text-white font-display">
                 Schedule an Enterprise Advisory Briefing
               </h3>
-              <p className="text-xs text-slate-400 max-w-xl">
+              <p className="text-xs text-slate-200 max-w-xl">
                 Connect with our strategic analysts to assess financial exposures, market opportunities, and organizational roadmaps.
               </p>
             </div>
@@ -69,11 +69,11 @@ export default function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your corporate email"
-                    className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/15 text-xs text-white placeholder:text-slate-400 focus:outline-none focus:border-white/40"
+                    className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-white/50"
                   />
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase text-center"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase text-center shadow-sm"
                   >
                     SEND BRIEFING REQUEST
                   </button>
@@ -105,7 +105,7 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-200 leading-relaxed max-w-sm">
               Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.
             </p>
 
@@ -115,7 +115,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -124,14 +124,14 @@ export default function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />
               </a>
               <a
                 href="mailto:contact@factualsolutions.com"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-4 h-4" />
@@ -146,27 +146,27 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/services/investment-planning" className="text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/investment-planning" className="text-slate-200 hover:text-white transition-colors">
                   Financial Modeling
                 </Link>
               </li>
               <li>
-                <Link href="/services/studies-research" className="text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/studies-research" className="text-slate-200 hover:text-white transition-colors">
                   Market Opportunity Assessment
                 </Link>
               </li>
               <li>
-                <Link href="/services/studies-research" className="text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/studies-research" className="text-slate-200 hover:text-white transition-colors">
                   Feasibility Studies
                 </Link>
               </li>
               <li>
-                <Link href="/services/business-growth" className="text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/business-growth" className="text-slate-200 hover:text-white transition-colors">
                   Corporate Restructuring
                 </Link>
               </li>
               <li>
-                <Link href="/services/process-transformation" className="text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/process-transformation" className="text-slate-200 hover:text-white transition-colors">
                   Operational Audit
                 </Link>
               </li>
@@ -178,7 +178,7 @@ export default function Footer() {
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
               REGIONS &amp; PRACTICE
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2 text-xs text-slate-200">
               <li>United Arab Emirates</li>
               <li>Kingdom of Saudi Arabia</li>
               <li>North America</li>
@@ -193,22 +193,22 @@ export default function Footer() {
               <h4 className="text-xs font-bold text-white uppercase tracking-wider">
                 GLOBAL HEADQUARTERS
               </h4>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-white/10 text-brand-steel-light">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-white/10 text-white border border-white/10">
                 1-Day Response
               </span>
             </div>
 
-            <div className="space-y-2 text-xs text-slate-400">
+            <div className="space-y-2 text-xs text-slate-200">
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#A33C29] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#E25C43] shrink-0 mt-0.5" />
                 <span>Executive District, Building 4, Level 6, Riyadh 12214</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-slate-400 shrink-0" />
+                <Phone className="w-4 h-4 text-slate-300 shrink-0" />
                 <a href="tel:+97140000000" className="hover:text-white transition-colors">+971 4 000 0000</a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-slate-400 shrink-0" />
+                <Mail className="w-4 h-4 text-slate-300 shrink-0" />
                 <a href="mailto:contact@factualsolutions.com" className="hover:text-white transition-colors">contact@factualsolutions.com</a>
               </div>
             </div>
@@ -217,18 +217,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal & Disclosures */}
-        <div className="pt-10 mt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
+        <div className="pt-10 mt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-300">
           <div>
             &copy; {new Date().getFullYear()} Factual Solutions. All rights reserved. Registered Enterprise Advisory Ltd.
           </div>
-          <div className="flex flex-wrap items-center gap-4 text-slate-400">
+          <div className="flex flex-wrap items-center gap-4 text-slate-200">
             <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
             <span>•</span>
             <Link href="/services" className="hover:text-white transition-colors">Terms of Engagement</Link>
             <span>•</span>
             <Link href="/contact" className="hover:text-white transition-colors">Regulatory Disclosures</Link>
             <span>•</span>
-            <Link href="/admin" className="text-slate-500 hover:text-slate-300 transition-colors text-[10px]">Staff Admin</Link>
+            <Link href="/admin" className="text-slate-300 hover:text-white transition-colors text-[10px]">Staff Admin</Link>
           </div>
         </div>
 

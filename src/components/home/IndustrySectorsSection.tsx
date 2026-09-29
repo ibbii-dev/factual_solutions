@@ -70,7 +70,7 @@ export default function IndustrySectorsSection() {
   const isAr = language === "ar";
 
   return (
-    <section className="py-20 sm:py-28 bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
+    <section className="py-20 sm:py-28 bg-transparent text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -109,31 +109,31 @@ export default function IndustrySectorsSection() {
             return (
               <StaggerItem
                 key={sector.id}
-                className="p-6 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-black/35 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-[#8EA9D3] flex items-center justify-center font-bold">
-                      <IconComp className="w-5 h-5" />
+                    <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 text-white flex items-center justify-center font-bold shadow-xs">
+                      <IconComp className="w-5 h-5 text-white" />
                     </div>
-                    <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#A33C29]">
+                    <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#E25C43] drop-shadow-sm">
                       {sector.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-[#152238] dark:text-white font-display group-hover:text-[#A33C29] transition-colors">
+                  <h3 className="text-base font-bold text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
                     {sector.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-100 font-medium leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                     {sector.description}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-3 border-t border-slate-200/50 dark:border-white/5">
+                <div className="pt-4 mt-3 border-t border-white/15">
                   <Link
                     href={sector.link}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#152238] dark:text-slate-200 group-hover:text-[#A33C29] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
                   >
                     <span>{isAr ? "استكشف خدمات القطاع" : "Explore Sector Services"}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
