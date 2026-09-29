@@ -10,10 +10,11 @@ import AnimatedBackground from "@/components/layout/AnimatedBackground";
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
+  const isVideoPage = pathname === "/video";
 
-  if (isAdmin) {
+  if (isAdmin || isVideoPage) {
     return (
-      <div className="min-h-screen w-full bg-[#070D18] text-slate-100 selection:bg-brand-steel/30 selection:text-brand-navy">
+      <div className="w-full h-screen overflow-hidden">
         {children}
       </div>
     );
