@@ -16,20 +16,9 @@ import {
 } from "lucide-react";
 import { IBlogPost } from "@/models";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
-
-const CATEGORIES = [
-  "All",
-  "Strategic Management",
-  "Financial Modeling",
-  "Feasibility Studies",
-  "Operational Excellence",
-  "Enterprise Growth"
-];
-
 function BlogContent() {
   const [posts, setPosts] = useState<IBlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -50,20 +39,15 @@ function BlogContent() {
   }, []);
 
   const filteredPosts = posts.filter((post) => {
-    const matchesCategory =
-      selectedCategory === "All" ||
-      post.category.toLowerCase() === selectedCategory.toLowerCase();
-    
     const query = searchQuery.toLowerCase().trim();
     const matchesSearch =
       !query ||
       post.title.toLowerCase().includes(query) ||
       post.excerpt.toLowerCase().includes(query) ||
-      post.category.toLowerCase().includes(query) ||
       post.author.name.toLowerCase().includes(query) ||
       post.tags.some((t) => t.toLowerCase().includes(query));
 
-    return matchesCategory && matchesSearch;
+    return matchesSearch;
   });
 
   const featuredPost = filteredPosts.find((p) => p.featured) || filteredPosts[0];
@@ -72,7 +56,7 @@ function BlogContent() {
     : filteredPosts;
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors pt-28 sm:pt-36 pb-20">
+    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors pt-24 sm:pt-32 pb-20">
       
       {/* 1. Header Hero Section */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10 sm:pb-16">
@@ -91,9 +75,8 @@ function BlogContent() {
           </p>
         </div>
 
-        {/* Search & Category Filter Bar */}
-        <div className="mt-10 max-w-4xl mx-auto space-y-4">
-          {/* Search Box */}
+        {/* Search Bar */}
+        <div className="mt-8 max-w-2xl mx-auto">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
@@ -101,7 +84,7 @@ function BlogContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles by title, financial model, strategy, keyword..."
-              className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] shadow-xs transition-all"
+              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-white dark:bg-[#182238] border border-slate-200/90 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] shadow-xs transition-all"
             />
             {searchQuery && (
               <button
@@ -111,23 +94,6 @@ function BlogContent() {
                 Clear
               </button>
             )}
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
-                  selectedCategory === cat
-                    ? "bg-[#152238] text-white shadow-xs font-bold"
-                    : "bg-white dark:bg-[#182238] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0E1524] border border-slate-200/80 dark:border-white/10"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
           </div>
         </div>
       </section>
@@ -148,13 +114,13 @@ function BlogContent() {
           </div>
           <h3 className="text-base font-bold text-[#152238] dark:text-white">No articles found</h3>
           <p className="text-xs text-slate-500">
-            No published blog posts match your current search or category filter.
+            No published blog posts match your current search query.
           </p>
           <button
-            onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }}
+            onClick={() => setSearchQuery("")}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#152238] text-white text-xs font-bold hover:bg-[#A33C29] transition-colors"
           >
-            Reset Filters
+            Clear Search
           </button>
         </div>
       )}
@@ -187,7 +153,7 @@ function BlogContent() {
                   <div className="space-y-3">
                     <div className="flex items-center gap-2.5 text-xs text-slate-500">
                       <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[10px]">
-                        {featuredPost.category}
+                        Advisory Insight
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1 text-[11px]">
@@ -274,7 +240,7 @@ function BlogContent() {
                       />
                       <div className="absolute top-3 left-3">
                         <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#152238]/85 backdrop-blur-md text-white uppercase">
-                          {post.category}
+                          Advisory Insight
                         </span>
                       </div>
                     </div>

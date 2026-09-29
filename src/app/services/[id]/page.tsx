@@ -163,7 +163,7 @@ export default function ServiceDetailPage() {
   };
 
   return (
-    <div className="pt-28 sm:pt-36 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-24 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumb Navigation */}
@@ -185,16 +185,10 @@ export default function ServiceDetailPage() {
         <div className="bg-white dark:bg-[#182238] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xs border border-slate-200/90 dark:border-white/10 mb-10 sm:mb-12">
           <div className="max-w-4xl space-y-4">
             
-            {/* Category Badge & Deliverable Tag */}
+            {/* Practice Indicator & Deliverable Tag */}
             <div className="flex flex-wrap items-center gap-2.5">
-              <span
-                className={`px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider ${
-                  isBusiness
-                    ? "bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-slate-200"
-                    : "bg-[#A33C29]/10 text-[#A33C29]"
-                }`}
-              >
-                {isBusiness ? labels.categoryBusiness : labels.categoryConsultancy}
+              <span className="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-slate-200 text-[11px] font-bold uppercase tracking-wider">
+                {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
               </span>
 
               <span className="px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[11px]">

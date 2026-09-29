@@ -112,11 +112,8 @@ function ContactContent() {
     setIsDropdownOpen(false);
   };
 
-  const businessServicesList = allServices.filter((s) => s.category === "business");
-  const consultancyServicesList = allServices.filter((s) => s.category === "consultancy");
-
   return (
-    <div className="pt-28 sm:pt-36 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-24 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
@@ -336,54 +333,21 @@ function ContactContent() {
                   </div>
 
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-1.5 rounded-xl bg-white dark:bg-[#0E182A] border border-slate-200 dark:border-slate-700 shadow-xl p-3 z-50 max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
-                      
-                      <div className="pb-2">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 px-2 flex items-center gap-1.5">
-                          <Briefcase className="w-3 h-3" />
-                          <span>Business Solutions</span>
+                    <div className="absolute top-full left-0 right-0 mt-1.5 rounded-xl bg-white dark:bg-[#0E182A] border border-slate-200 dark:border-slate-700 shadow-xl p-2 z-50 max-h-72 overflow-y-auto space-y-0.5">
+                      {allServices.map((srv) => (
+                        <div
+                          key={srv.id}
+                          onClick={() => selectService(srv.title)}
+                          className={`px-3 py-2 rounded-lg text-xs flex items-center justify-between cursor-pointer transition-colors ${
+                            formData.serviceOfInterest === srv.title
+                              ? "bg-[#152238] dark:bg-[#1E2D4A] text-white font-bold"
+                              : "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
+                          }`}
+                        >
+                          <span>{srv.title}</span>
+                          {formData.serviceOfInterest === srv.title && <Check className="w-3.5 h-3.5" />}
                         </div>
-                        <div className="space-y-0.5">
-                          {businessServicesList.map((srv) => (
-                            <div
-                              key={srv.id}
-                              onClick={() => selectService(srv.title)}
-                              className={`px-3 py-1.5 rounded-lg text-xs flex items-center justify-between cursor-pointer transition-colors ${
-                                formData.serviceOfInterest === srv.title
-                                  ? "bg-[#152238] text-white font-bold"
-                                  : "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
-                              }`}
-                            >
-                              <span>{srv.title}</span>
-                              {formData.serviceOfInterest === srv.title && <Check className="w-3.5 h-3.5" />}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pt-2">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-[#A33C29] mb-1 px-2 flex items-center gap-1.5">
-                          <Compass className="w-3 h-3" />
-                          <span>Consultancy Services</span>
-                        </div>
-                        <div className="space-y-0.5">
-                          {consultancyServicesList.map((srv) => (
-                            <div
-                              key={srv.id}
-                              onClick={() => selectService(srv.title)}
-                              className={`px-3 py-1.5 rounded-lg text-xs flex items-center justify-between cursor-pointer transition-colors ${
-                                formData.serviceOfInterest === srv.title
-                                  ? "bg-[#A33C29] text-white font-bold"
-                                  : "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
-                              }`}
-                            >
-                              <span>{srv.title}</span>
-                              {formData.serviceOfInterest === srv.title && <Check className="w-3.5 h-3.5" />}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
+                      ))}
                     </div>
                   )}
                 </div>

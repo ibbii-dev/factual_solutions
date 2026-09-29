@@ -31,7 +31,7 @@ export default function HeroSection() {
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300"
+      className="relative pt-24 sm:pt-32 md:pt-36 pb-16 sm:pb-20 overflow-hidden bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300"
     >
       {/* Dynamic Cursor-responsive spotlight */}
       <div 

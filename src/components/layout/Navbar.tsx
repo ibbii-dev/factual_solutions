@@ -21,7 +21,9 @@ import {
   Plus,
   ShieldCheck,
   TrendingUp,
-  CheckCircle2
+  CheckCircle2,
+  Layers,
+  Cpu
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useUserAuth } from "@/context/UserAuthContext";
@@ -73,46 +75,59 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services", hasDropdown: true },
-    { name: "Methodology", href: "/#methodology" },
     { name: "About FS", href: "/about" },
-    { name: "Portals", href: user ? "/portal" : "/services" },
     { name: "Blog", href: "/blog" },
+  ];
+
+  const featuredServicesList = [
+    {
+      title: "Strategic Management",
+      desc: "Executive alignment, OKRs & roadmap",
+      href: "/services/strategic-consulting",
+      icon: Compass,
+      color: "#A33C29"
+    },
+    {
+      title: "Financial Modeling",
+      desc: "5-Year cash flows, ROI & budgets",
+      href: "/services/investment-planning",
+      icon: TrendingUp,
+      color: "#8EA9D3"
+    },
+    {
+      title: "Projects & Lean Management",
+      desc: "PMO delivery, Lean Six Sigma & audits",
+      href: "/services/projects-management",
+      icon: Layers,
+      color: "#152238"
+    },
+    {
+      title: "Process & ERP Transformation",
+      desc: "SOPs, handover optimization & workflows",
+      href: "/services/process-transformation",
+      icon: Cpu,
+      color: "#A33C29"
+    },
+    {
+      title: "Studies & Feasibility Research",
+      desc: "Market entry analysis & demand validation",
+      href: "/services/studies-research",
+      icon: FileText,
+      color: "#8EA9D3"
+    },
+    {
+      title: "Specialized Business Solutions",
+      desc: "Commercial scaling, turnarounds & growth",
+      href: "/services/business-growth",
+      icon: Briefcase,
+      color: "#152238"
+    }
   ];
 
   const isDark = theme === "dark";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      {/* Top Advisory Ribbon */}
-      <div className="bg-[#152238] dark:bg-[#090F1A] text-slate-300 py-1.5 px-3 sm:px-4 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/10 select-none overflow-hidden">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-          
-          {/* Left: Indicator & Core Practice Areas */}
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-hidden min-w-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#A33C29] animate-pulse shrink-0" />
-            <span className="tracking-wider uppercase font-semibold text-slate-200 truncate">
-              <span className="sm:hidden text-[9px] tracking-wide">FS ADVISORY &bull; FINANCIAL &bull; MANAGEMENT</span>
-              <span className="hidden sm:inline">CORPORATE SOLUTIONS <span className="text-slate-500 mx-1">•</span> MANAGEMENT CONSULTING <span className="text-slate-500 mx-1">•</span> FINANCIAL ADVISORY</span>
-            </span>
-          </div>
-
-          {/* Right: Global Practice & Active User Session */}
-          <div className="flex items-center gap-2 sm:gap-4 text-slate-400 text-[10px] sm:text-[11px] shrink-0">
-            {user && (
-              <>
-                <Link href="/portal" className="text-emerald-400 font-semibold hover:underline flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                  <span className="truncate max-w-[85px] sm:max-w-none">Portal: {user.name.split(" ")[0]}</span>
-                </Link>
-                <span className="text-slate-600 hidden sm:inline">|</span>
-              </>
-            )}
-            <span className="text-slate-300 font-medium hidden sm:inline">Global Practice: KSA &amp; UAE</span>
-          </div>
-
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <div
         className={`transition-all duration-300 ${
@@ -152,7 +167,7 @@ export default function Navbar() {
               {navLinks.map((link) => {
                 const isActive = link.href === "/" 
                   ? pathname === "/" 
-                  : (pathname === link.href || (link.href !== "/#methodology" && pathname.startsWith(link.href)));
+                  : (pathname === link.href || pathname.startsWith(link.href));
 
                 if (link.hasDropdown) {
                   return (
@@ -174,7 +189,7 @@ export default function Navbar() {
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-[#A33C29]" : "text-slate-400"}`} />
                       </Link>
 
-                      {/* REDESIGNED SERVICES MEGA DROPDOWN */}
+                      {/* SERVICES MEGA DROPDOWN (Direct Practice Capabilities, No Categories) */}
                       <AnimatePresence>
                         {servicesDropdownOpen && (
                           <motion.div
@@ -182,117 +197,44 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
                             transition={{ duration: 0.22, ease: "easeOut" }}
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[620px] rounded-3xl shadow-2xl p-5 border bg-white/98 dark:bg-[#0C1424]/98 backdrop-blur-2xl border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-50 overflow-hidden"
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[640px] rounded-3xl shadow-2xl p-5 border bg-white/98 dark:bg-[#0C1424]/98 backdrop-blur-2xl border-slate-200 dark:border-slate-800 text-[#152238] dark:text-white z-50 overflow-hidden"
                           >
-                            {/* Subtle internal gradient accent */}
-                            <div className="absolute top-0 right-1/4 w-40 h-40 bg-[#8EA9D3]/10 rounded-full blur-2xl pointer-events-none" />
-                            <div className="absolute bottom-0 left-10 w-40 h-40 bg-[#A33C29]/10 rounded-full blur-2xl pointer-events-none" />
-
-                            <div className="relative z-10 grid grid-cols-2 gap-4">
-                              
-                              {/* 1. Business Solutions Card */}
-                              <Link
-                                href="/services?category=business"
-                                onClick={() => setServicesDropdownOpen(false)}
-                                className="group/card p-4 rounded-2xl transition-all duration-200 border bg-[#FAFBFD] dark:bg-[#182238]/90 border-slate-200/80 dark:border-slate-700/60 hover:border-[#8EA9D3] hover:shadow-md flex flex-col justify-between"
-                              >
-                                <div className="space-y-3">
-                                  <div className="flex items-center justify-between">
-                                    <div className="w-9 h-9 rounded-xl bg-[#152238] text-white flex items-center justify-center group-hover/card:scale-105 transition-transform shadow-xs">
-                                      <Briefcase className="w-4 h-4" />
+                            <div className="relative z-10 grid grid-cols-2 gap-2.5">
+                              {featuredServicesList.map((srv) => {
+                                const IconComp = srv.icon;
+                                return (
+                                  <Link
+                                    key={srv.href}
+                                    href={srv.href}
+                                    onClick={() => setServicesDropdownOpen(false)}
+                                    className="group/item p-3 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-[#FAFBFD] dark:hover:bg-[#182238]/80 flex items-start gap-3"
+                                  >
+                                    <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
+                                      <IconComp className="w-4 h-4" />
                                     </div>
-                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#8EA9D3]/20 text-[#152238] dark:text-brand-steel-light uppercase">
-                                      6 Practices
-                                    </span>
-                                  </div>
-
-                                  <div>
-                                    <h4 className="font-bold text-sm text-[#152238] dark:text-white group-hover/card:text-[#A33C29] transition-colors font-display">
-                                      Business Solutions
-                                    </h4>
-                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                      Market analysis, capital budgeting, financial modeling &amp; corporate revenue targets.
-                                    </p>
-                                  </div>
-
-                                  {/* Sub-capability bullet shortcuts */}
-                                  <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800/80 space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300 font-medium">
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#8EA9D3]" />
-                                      <span className="truncate">5-Year Financial Cash Flow Models</span>
+                                    <div className="min-w-0">
+                                      <h4 className="font-bold text-xs text-[#152238] dark:text-white group-hover/item:text-[#A33C29] transition-colors truncate">
+                                        {srv.title}
+                                      </h4>
+                                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">
+                                        {srv.desc}
+                                      </p>
                                     </div>
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#8EA9D3]" />
-                                      <span className="truncate">Studies &amp; Feasibility Research</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#8EA9D3]" />
-                                      <span className="truncate">Corporate Restructuring &amp; Turnaround</span>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/80 text-[11px] font-bold text-[#152238] dark:text-brand-steel-light flex items-center justify-between group-hover/card:text-[#A33C29]">
-                                  <span>Explore Solutions</span>
-                                  <ArrowRight className="w-3.5 h-3.5 group-hover/card:translate-x-1 transition-transform" />
-                                </div>
-                              </Link>
-
-                              {/* 2. Consultancy Advisory Card */}
-                              <Link
-                                href="/services?category=consultancy"
-                                onClick={() => setServicesDropdownOpen(false)}
-                                className="group/card p-4 rounded-2xl transition-all duration-200 border bg-[#FAFBFD] dark:bg-[#182238]/90 border-slate-200/80 dark:border-slate-700/60 hover:border-[#A33C29] hover:shadow-md flex flex-col justify-between"
-                              >
-                                <div className="space-y-3">
-                                  <div className="flex items-center justify-between">
-                                    <div className="w-9 h-9 rounded-xl bg-[#A33C29] text-white flex items-center justify-center group-hover/card:scale-105 transition-transform shadow-xs">
-                                      <Compass className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#A33C29]/15 text-[#A33C29] dark:text-brand-rust-light uppercase">
-                                      Management
-                                    </span>
-                                  </div>
-
-                                  <div>
-                                    <h4 className="font-bold text-sm text-[#152238] dark:text-white group-hover/card:text-[#A33C29] transition-colors font-display">
-                                      Consultancy Advisory
-                                    </h4>
-                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                                      Strategic management, Lean Six Sigma, ERP transformation &amp; operational governance.
-                                    </p>
-                                  </div>
-
-                                  {/* Sub-capability bullet shortcuts */}
-                                  <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800/80 space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300 font-medium">
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#A33C29]" />
-                                      <span className="truncate">Strategic Planning &amp; OKR Audits</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#A33C29]" />
-                                      <span className="truncate">Lean Six Sigma &amp; PMO Delivery</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#A33C29]" />
-                                      <span className="truncate">ERP Transformation &amp; Workflows</span>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/80 text-[11px] font-bold text-[#A33C29] flex items-center justify-between">
-                                  <span>Explore Services</span>
-                                  <ArrowRight className="w-3.5 h-3.5 group-hover/card:translate-x-1 transition-transform" />
-                                </div>
-                              </Link>
-
+                                  </Link>
+                                );
+                              })}
                             </div>
 
                             {/* Bottom Callout Bar */}
                             <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800/90 flex items-center justify-between text-xs">
-                              <span className="flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300 text-[11px]">
-                                <Sparkles className="w-3.5 h-3.5 text-[#A33C29]" /> Looking for immediate tailored diagnosis?
-                              </span>
+                              <Link
+                                href="/services"
+                                onClick={() => setServicesDropdownOpen(false)}
+                                className="flex items-center gap-1.5 font-bold text-[#A33C29] hover:underline text-xs"
+                              >
+                                <span>Explore All 18 Practices</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
                               <Link
                                 href="/services#quiz"
                                 onClick={() => setServicesDropdownOpen(false)}
@@ -355,7 +297,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                     className="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-slate-100 dark:bg-[#15233A] border border-slate-200 dark:border-slate-700 hover:border-slate-300 transition-all text-xs font-semibold text-[#152238] dark:text-white shadow-xs"
-                    title="Client Portal Account"
+                    title="Client Account"
                   >
                     <div className="relative w-7 h-7 rounded-full overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-xs">
                       {user.avatar ? (
@@ -371,7 +313,7 @@ export default function Navbar() {
                   <button
                     onClick={() => openAuthModal("login")}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-[#15233A] hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-[#152238] dark:text-white border border-slate-200 dark:border-slate-700 shadow-xs transition-colors"
-                    title="Sign In to Client Portal"
+                    title="Sign In"
                   >
                     <User className="w-3.5 h-3.5 text-[#A33C29]" />
                     <span>Sign In</span>
@@ -388,26 +330,15 @@ export default function Navbar() {
 
                     <div className="space-y-1">
                       <Link
-                        href="/portal"
-                        onClick={() => setUserDropdownOpen(false)}
-                        className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#FAFBFD] dark:hover:bg-slate-800 transition-colors"
-                      >
-                        <div className="flex items-center gap-2">
-                          <FileText className="w-4 h-4 text-[#A33C29]" />
-                          <span>My Enquiries &amp; Status</span>
-                        </div>
-                        <ArrowRight className="w-3 h-3 text-slate-400" />
-                      </Link>
-
-                      <Link
                         href="/contact"
                         onClick={() => setUserDropdownOpen(false)}
                         className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#FAFBFD] dark:hover:bg-slate-800 transition-colors"
                       >
                         <div className="flex items-center gap-2">
-                          <Plus className="w-4 h-4 text-[#8EA9D3]" />
-                          <span>New Consultation</span>
+                          <Plus className="w-4 h-4 text-[#A33C29]" />
+                          <span>Request Consultation</span>
                         </div>
+                        <ArrowRight className="w-3 h-3 text-slate-400" />
                       </Link>
                     </div>
 
@@ -479,14 +410,21 @@ export default function Navbar() {
 
           <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
             {user ? (
-              <Link
-                href="/portal"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#152238] text-white font-bold text-xs shadow-xs"
-              >
-                <User className="w-3.5 h-3.5" />
-                <span>My Client Portal ({user.name.split(" ")[0]})</span>
-              </Link>
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs">
+                <div className="flex items-center gap-2">
+                  <User className="w-3.5 h-3.5 text-[#A33C29]" />
+                  <span className="font-bold">{user.name.split(" ")[0]}</span>
+                </div>
+                <button
+                  onClick={() => {
+                    logout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="font-bold text-rose-600 hover:underline"
+                >
+                  Sign Out
+                </button>
+              </div>
             ) : (
               <button
                 onClick={() => {

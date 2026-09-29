@@ -303,7 +303,7 @@ export default function ExecutiveBlueprintModal({
                     <div>Confidential Corporate Intelligence Document</div>
                   </div>
                   <div className="border border-emerald-600 text-emerald-700 px-3 py-1.5 rounded-lg font-bold text-center uppercase tracking-wider text-[9px]">
-                    VERIFIED METHODOLOGY<br />STAMP OF ACCREDITATION
+                    VERIFIED ADVISORY<br />STAMP OF ACCREDITATION
                   </div>
                 </div>
               </div>

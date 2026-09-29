@@ -181,7 +181,7 @@ export default function ServiceMatcherQuiz() {
 
             <div>
               <div className="inline-block px-2.5 py-0.5 rounded-full bg-brand-navy/10 text-brand-navy font-bold text-[11px] uppercase mb-2">
-                {recommendedService.category === "business" ? (language === "ar" ? "حلول أعمال" : "Business Solutions") : (language === "ar" ? "استشارات إدارية" : "Consultancy Advisory")}
+                {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
               </div>
               <h4 className="text-xl font-extrabold text-slate-900 font-display">
                 {recommendedService.title}

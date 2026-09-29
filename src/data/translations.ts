@@ -365,18 +365,18 @@ export const translations: Record<Language, TranslationDictionary> = {
       headOfficeTitle: "Head Office Location"
     },
     servicesPage: {
-      badge: "Dual-Category Capabilities",
+      badge: "Enterprise Advisory Practices",
       headline: "Comprehensive Business Solutions & Advisory",
-      subheadline: "Choose between our hands-on Business Solutions for commercial launch and sales expansion, or our senior Consultancy Advisory for management strategy and operational excellence.",
-      allTab: "All",
-      businessTab: "Business",
-      consultingTab: "Consulting",
+      subheadline: "Explore our integrated suite of strategic management consulting, financial engineering, feasibility research, and operational excellence practices.",
+      allTab: "All Practices",
+      businessTab: "Commercial Solutions",
+      consultingTab: "Management Consulting",
       searchPlaceholder: "Search services...",
       deliverableLabel: "Practical Deliverable",
       viewDetails: "View Full Details →",
       noResultsTitle: "No Matching Capabilities Found",
-      noResultsDesc: "Try adjusting your keyword search or switch to 'All' categories.",
-      resetFilters: "Reset Filters"
+      noResultsDesc: "Try adjusting your keyword search to discover relevant practices.",
+      resetFilters: "Clear Search"
     },
     footer: {
       desc: "Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.",
@@ -575,18 +575,18 @@ export const translations: Record<Language, TranslationDictionary> = {
       headOfficeTitle: "مقر المكتب الرئيسي"
     },
     servicesPage: {
-      badge: "قدرات وقطاعات استشارية مزدوجة",
+      badge: "الممارسات الاستشارية للمؤسسات",
       headline: "حلول الأعمال المتكاملة والاستشارات الإدارية",
-      subheadline: "اختر بين حلول الأعمال التطبيقية لإطلاق المشاريع وتوسيع المبيعات، أو الاستشارات الإدارية العليا للاستراتيجية والتميز التشغيلي.",
-      allTab: "الكل",
+      subheadline: "استكشف باقتنا المتكاملة من الاستشارات الإدارية الاستراتيجية، النماذج المالية، أبحاث الجدوى، والتميز التشغيلي.",
+      allTab: "كافة الممارسات",
       businessTab: "حلول الأعمال",
-      consultingTab: "الاستشارات",
+      consultingTab: "الاستشارات الإدارية",
       searchPlaceholder: "ابحث في الخدمات...",
       deliverableLabel: "مخرجات العمل الرئيسية",
       viewDetails: "عرض التفاصيل الكاملة ←",
       noResultsTitle: "لم يتم العثور على خدمات مطابقة",
-      noResultsDesc: "يرجى تجربة كلمات بحث أخرى أو التبديل إلى تصنيف 'الكل'.",
-      resetFilters: "إعادة ضبط التصفية"
+      noResultsDesc: "يرجى تجربة كلمات بحث أخرى للوصول إلى الممارسات المطلوبة.",
+      resetFilters: "مسح البحث"
     },
     footer: {
       desc: "استشارات عملية في تخطيط الأعمال، دراسات الجدوى، التخطيط المالي، والاستشارات الإدارية لتحقيق نمو مؤسسي مستدام.",

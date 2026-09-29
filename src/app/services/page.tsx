@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { 
   Briefcase, 
@@ -23,7 +22,7 @@ import {
   Target,
   FileText
 } from "lucide-react";
-import { getServices, getBusinessServices, getConsultancyServices } from "@/data/servicesData";
+import { getServices } from "@/data/servicesData";
 import ServiceMatcherQuiz from "@/components/services/ServiceMatcherQuiz";
 import ExecutiveBlueprintModal from "@/components/services/ExecutiveBlueprintModal";
 import { useLanguage } from "@/context/LanguageContext";
@@ -44,39 +43,28 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 function ServicesContent() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category");
   const { t, language, isRTL } = useLanguage();
   const sp = t.servicesPage;
 
   const currentAllServices = getServices(language);
-  const currentBusinessServices = getBusinessServices(language);
-  const currentConsultancyServices = getConsultancyServices(language);
-
-  const [activeCategory, setActiveCategory] = useState<"all" | "business" | "consultancy">(
-    initialCategory === "business" || initialCategory === "consultancy"
-      ? initialCategory
-      : "all"
-  );
   const [searchQuery, setSearchQuery] = useState("");
   const [isBlueprintModalOpen, setIsBlueprintModalOpen] = useState(false);
 
   const filteredServices = currentAllServices.filter((service) => {
-    const matchesCategory =
-      activeCategory === "all" || service.category === activeCategory;
     const matchesSearch =
       service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       service.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      service.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
+      service.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      service.metrics.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesSearch;
   });
 
   return (
-    <div className="pt-28 sm:pt-36 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
+    <div className="pt-24 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white relative overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Page Header */}
-        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-16">
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#A33C29]/10 text-[#A33C29] text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest">
             {sp.badge}
           </div>
@@ -98,64 +86,39 @@ function ServicesContent() {
           </div>
         </ScrollReveal>
 
-        {/* Filter and Search Bar */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white dark:bg-[#182238] rounded-2xl p-3.5 sm:p-5 shadow-xs border border-slate-200/90 dark:border-white/10 mb-10 sm:mb-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
-          
-          {/* Category Toggle Tabs */}
-          <div className="grid grid-cols-3 sm:flex p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl sm:rounded-full w-full md:w-auto gap-1 border border-slate-200/80 dark:border-slate-700">
-            <button
-              onClick={() => setActiveCategory("all")}
-              className={`px-3 sm:px-5 py-2 rounded-lg sm:rounded-full text-[11px] sm:text-xs font-bold transition-all text-center truncate ${
-                activeCategory === "all"
-                  ? "bg-[#152238] text-white shadow-xs"
-                  : "text-slate-600 dark:text-slate-300 hover:text-[#A33C29]"
-              }`}
-            >
-              {sp.allTab} ({currentAllServices.length})
-            </button>
-            <button
-              onClick={() => setActiveCategory("business")}
-              className={`px-3 sm:px-5 py-2 rounded-lg sm:rounded-full text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 sm:gap-1.5 truncate ${
-                activeCategory === "business"
-                  ? "bg-[#152238] text-white shadow-xs"
-                  : "text-slate-600 dark:text-slate-300 hover:text-[#A33C29]"
-              }`}
-            >
-              <Briefcase className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
-              <span className="truncate">{sp.businessTab} ({currentBusinessServices.length})</span>
-            </button>
-            <button
-              onClick={() => setActiveCategory("consultancy")}
-              className={`px-3 sm:px-5 py-2 rounded-lg sm:rounded-full text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 sm:gap-1.5 truncate ${
-                activeCategory === "consultancy"
-                  ? "bg-[#A33C29] text-white shadow-xs"
-                  : "text-slate-600 dark:text-slate-300 hover:text-[#A33C29]"
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
-              <span className="truncate">{sp.consultingTab} ({currentConsultancyServices.length})</span>
-            </button>
+        {/* Search Bar & Counter */}
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white dark:bg-[#182238] rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200/90 dark:border-white/10 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+            {language === "ar" 
+              ? `عرض ${filteredServices.length} ممارسة استشارية متخصصة` 
+              : `Showing ${filteredServices.length} Specialized Practice Capabilities`}
           </div>
 
           {/* Search Input */}
-          <div className="relative w-full md:w-80">
+          <div className="relative w-full sm:w-96">
             <Search className={`w-4 h-4 text-slate-400 absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={sp.searchPlaceholder}
-              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl sm:rounded-full bg-[#FAFBFD] dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all`}
+              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-[#FAFBFD] dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#152238] dark:focus:border-brand-steel transition-all`}
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-[#A33C29]`}
+              >
+                Clear
+              </button>
+            )}
           </div>
-
         </ScrollReveal>
 
         {/* Services Cards Grid */}
         {filteredServices.length > 0 ? (
           <StaggerContainer delayChildren={0.1} staggerChildren={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mb-20">
-            {filteredServices.map((service) => {
-              const isBusiness = service.category === "business";
+            {filteredServices.map((service, index) => {
               return (
                 <StaggerItem
                   key={service.id}
@@ -164,26 +127,14 @@ function ServicesContent() {
                 >
                   <div className="space-y-4">
                     
-                    {/* Card Top: Icon & Badge */}
+                    {/* Card Top: Icon & Indicator */}
                     <div className="flex items-center justify-between">
-                      <div
-                        className={`w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 ${
-                          isBusiness
-                            ? "bg-[#152238] text-white"
-                            : "bg-[#A33C29] text-white"
-                        }`}
-                      >
+                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#152238] dark:bg-[#1E2D4A] text-white group-hover:scale-105 transition-transform duration-300 shadow-xs">
                         {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
                       </div>
 
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider ${
-                          isBusiness
-                            ? "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
-                            : "bg-[#A33C29]/10 text-[#A33C29]"
-                        }`}
-                      >
-                        {isBusiness ? (language === "ar" ? "حلول أعمال" : "Business") : (language === "ar" ? "استشارات" : "Consultancy")}
+                      <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                        Practice {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>
 
@@ -213,7 +164,7 @@ function ServicesContent() {
                     <div className="space-y-1.5 pt-1">
                       {service.deliverables.slice(0, 2).map((del, dIdx) => (
                         <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 font-normal">
-                          <CheckCircle2 className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${isBusiness ? "text-[#152238] dark:text-brand-steel" : "text-[#A33C29]"}`} />
+                          <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#A33C29]" />
                           <span className="line-clamp-1">{del}</span>
                         </div>
                       ))}
@@ -232,11 +183,7 @@ function ServicesContent() {
 
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
-                      className={`p-2 rounded-xl text-white transition-all duration-200 shadow-xs ${
-                        isBusiness
-                          ? "bg-[#152238] hover:bg-[#1E3150]"
-                          : "bg-[#A33C29] hover:bg-[#8E3221]"
-                      }`}
+                      className="p-2 rounded-xl text-white transition-all duration-200 shadow-xs bg-[#152238] hover:bg-[#A33C29]"
                       title={language === "ar" ? "طلب استشارة لهذه الخدمة" : "Book this Service"}
                     >
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -255,7 +202,7 @@ function ServicesContent() {
               {sp.noResultsDesc}
             </p>
             <button
-              onClick={() => { setSearchQuery(""); setActiveCategory("all"); }}
+              onClick={() => setSearchQuery("")}
               className="mt-4 px-5 py-2 rounded-full bg-[#152238] text-white text-xs font-bold shadow-xs hover:bg-[#A33C29] transition-colors"
             >
               {sp.resetFilters}
