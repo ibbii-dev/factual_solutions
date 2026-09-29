@@ -10,9 +10,9 @@ const consultingServices = [
   {
     num: "01",
     isRustNum: false,
-    tag: "Strategic Focus",
-    title: "Strategic Management Consulting",
-    description: "Aligning organizational vision, leadership, routine operational workflows, and execution resources to execute corporate growth strategies.",
+    tag: "Strategy",
+    title: "Strategic Management",
+    description: "Aligning organizational vision, leadership, and operational workflows to execute corporate growth.",
     bullets: [
       "Executive alignment & OKRs",
       "Operational bottleneck audits",
@@ -23,12 +23,12 @@ const consultingServices = [
   {
     num: "02",
     isRustNum: true,
-    tag: "Feasibility & ROI",
+    tag: "Feasibility",
     title: "Financial Modeling & Budgeting",
-    description: "We construct stress-tested financial projections, unit economic models, and CapEx/OpEx budgets for banks, partners, and executive decisions.",
+    description: "Stress-tested financial projections, unit economics, and budgets for banks and executive decisions.",
     bullets: [
       "5-Year Pro-Forma Cash Flows",
-      "Unit Economics & Break-Even Tools",
+      "Unit Economics & Break-Even",
       "Bank-Ready Presentation Sheets"
     ],
     link: "/services/investment-planning"
@@ -38,11 +38,11 @@ const consultingServices = [
     isRustNum: false,
     tag: "Operations",
     title: "Projects & Lean Management",
-    description: "Certified PMP professional lead execution plans using lean six-sigma project execution, cross-department coordination, and audit tracking.",
+    description: "Certified PMP execution plans using Lean Six Sigma to eliminate waste and hit project milestones.",
     bullets: [
-      "Certified PMO Framework Delivery",
-      "Lean Waste Audit Sessions",
-      "Rolling Risk Audits & Milestone Controls"
+      "PMO Framework Delivery",
+      "Lean Waste Elimination Audits",
+      "Milestone & Risk Controls"
     ],
     link: "/services/projects-management"
   },
@@ -51,11 +51,11 @@ const consultingServices = [
     isRustNum: false,
     tag: "Systems",
     title: "Process & ERP Transformation",
-    description: "Streamline departments handover, automate operational smog, and manage ERP software rollouts to institutionalize operational workflows.",
+    description: "Streamline department handovers, standardize SOPs, and manage enterprise software rollouts.",
     bullets: [
-      "Departmental Handover Optimization",
+      "Department Handover Optimization",
       "Standardized SOP Frameworks",
-      "ERP Readiness & System Migration"
+      "ERP Readiness & Migration"
     ],
     link: "/services/process-transformation"
   },
@@ -64,11 +64,11 @@ const consultingServices = [
     isRustNum: false,
     tag: "Market Entry",
     title: "Studies & Feasibility Research",
-    description: "Empirical market research, customer demand surveys, competitor benchmarking, and cross-border commercial feasibility studies.",
+    description: "Empirical market research, demand analysis, competitor benchmarking, and commercial viability.",
     bullets: [
-      "Customer Demand & Willingness-To-Pay",
-      "Global Competitor Matrix Benchmarking",
-      "Multi-Market Growth Opportunities"
+      "Market Demand Validation",
+      "Competitor Matrix Benchmarking",
+      "Regional Expansion Studies"
     ],
     link: "/services/studies-research"
   },
@@ -77,11 +77,11 @@ const consultingServices = [
     isRustNum: true,
     tag: "Growth",
     title: "Specialized Business Solutions",
-    description: "Identifying cross-corporate bottlenecks, restructuring customer acquisition funnels, and enterprise commercial turnarounds.",
+    description: "Targeted interventions for corporate restructuring, revenue turnarounds, and commercial scaling.",
     bullets: [
-      "Go-to-Market Strategy Re-calibration",
-      "Sales Pipeline & Deal Velocity Retooling",
-      "Transaction Readiness & Growth Re-Financing"
+      "Go-to-Market Re-calibration",
+      "Sales Pipeline Acceleration",
+      "Transaction & Growth Readiness"
     ],
     link: "/services/business-growth"
   }
@@ -91,7 +91,7 @@ export default function DualEngineSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="py-20 sm:py-24 bg-white dark:bg-[#0E1524] text-[#152238] dark:text-white transition-colors duration-300">
+    <section id="services" className="py-20 sm:py-24 bg-[#F8FAFC] dark:bg-[#0E1524] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -172,7 +172,7 @@ export default function DualEngineSection() {
             href="/services"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#152238] hover:bg-[#1E3150] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
-            <span>Explore Our Comprehensive Engagement Deliverables</span>
+            <span>Explore All Advisory Practices</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
         </div>

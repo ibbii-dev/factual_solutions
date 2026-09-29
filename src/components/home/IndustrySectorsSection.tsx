@@ -16,57 +16,57 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/Scr
 const sectors = [
   {
     id: "retail",
-    icon: <ShoppingBag className="w-5 h-5 text-[#152238] dark:text-brand-steel-light" />,
+    icon: <ShoppingBag className="w-5 h-5 text-[#152238] dark:text-[#8EA9D3]" />,
     badge: "RETAIL & E-COMMERCE",
     title: "Retail & Consumer Commerce",
-    description: "Omnichannel retail strategy, customer basket economics, inventory turn plans, and direct-to-consumer expansion frameworks.",
+    description: "Omnichannel scaling, inventory turn planning & unit economics.",
     link: "/services?sector=retail"
   },
   {
     id: "manufacturing",
-    icon: <Factory className="w-5 h-5 text-[#152238] dark:text-brand-steel-light" />,
+    icon: <Factory className="w-5 h-5 text-[#152238] dark:text-[#8EA9D3]" />,
     badge: "MANUFACTURING",
     title: "Manufacturing & Industrial",
-    description: "Lean factory structures, throughput bottleneck resolution, plant layout optimization, and CapEx equipment viability studies.",
+    description: "Lean factory structures, throughput optimization & CapEx equipment viability.",
     link: "/services?sector=manufacturing"
   },
   {
     id: "logistics",
-    icon: <Truck className="w-5 h-5 text-[#152238] dark:text-brand-steel-light" />,
-    badge: "TRADE",
-    title: "Wholesale & Logistics Trade",
-    description: "Route optimization, bulk procurement formulas, supplier concession negotiations, and regional distribution hub frameworks.",
+    icon: <Truck className="w-5 h-5 text-[#152238] dark:text-[#8EA9D3]" />,
+    badge: "LOGISTICS & TRADE",
+    title: "Logistics & Distribution",
+    description: "Route optimization, procurement formulas & distribution hub frameworks.",
     link: "/services?sector=logistics"
   },
   {
     id: "commercial",
-    icon: <Building2 className="w-5 h-5 text-[#152238] dark:text-brand-steel-light" />,
-    badge: "SERVICES",
-    title: "Commercial Services Corporate",
-    description: "B2B organizational design, SLA restructuring, billing efficiency, and proprietary service monetization frameworks.",
+    icon: <Building2 className="w-5 h-5 text-[#152238] dark:text-[#8EA9D3]" />,
+    badge: "CORPORATE SERVICES",
+    title: "Commercial Services",
+    description: "B2B organizational design, SLA restructuring & margin expansion.",
     link: "/services?sector=commercial"
   },
   {
     id: "real-estate",
-    icon: <Home className="w-5 h-5 text-[#152238] dark:text-brand-steel-light" />,
+    icon: <Home className="w-5 h-5 text-[#152238] dark:text-[#8EA9D3]" />,
     badge: "REAL ESTATE",
-    title: "Real Estate & Contracting Property",
-    description: "Project financial feasibility, EPC contractor cash-flow models, yield curve estimation studies, and joint venture mechanics.",
+    title: "Real Estate & Contracting",
+    description: "Financial feasibility, contractor cash-flow models & yield curve analysis.",
     link: "/services?sector=realestate"
   },
   {
     id: "tech",
-    icon: <Cpu className="w-5 h-5 text-[#152238] dark:text-brand-steel-light" />,
-    badge: "TECHNOLOGY",
-    title: "Technology & Software Services",
-    description: "SaaS unit economics, CAC/LTV calibration, cross-migration models, and enterprise software go-to-market execution.",
+    icon: <Cpu className="w-5 h-5 text-[#152238] dark:text-[#8EA9D3]" />,
+    badge: "TECHNOLOGY & SAAS",
+    title: "Technology & Software",
+    description: "SaaS unit economics, CAC/LTV calibration & go-to-market roadmaps.",
     link: "/services?sector=technology"
   }
 ];
 
 export default function IndustrySectorsSection() {
   return (
-    <section className="py-20 sm:py-24 bg-[#FAFBFD] dark:bg-[#131B2E] text-[#152238] dark:text-white transition-colors duration-300">
+    <section className="py-20 sm:py-24 bg-[#F8FAFC] dark:bg-[#0C1424] text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header split */}

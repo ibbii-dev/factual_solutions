@@ -8,7 +8,7 @@ import ConsultationBanner from "@/components/home/ConsultationBanner";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFBFD] dark:bg-[#131B2E]">
+    <div className="flex flex-col min-h-screen bg-[#F8FAFC] dark:bg-[#0C1424]">
       {/* 1. Hero with Left Copy & Right Factual Enterprise Engine Dashboard */}
       <HeroSection />
 
