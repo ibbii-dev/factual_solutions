@@ -2,177 +2,122 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Compass, TrendingUp, Layers, Cpu } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
-const consultingServices = [
-  {
-    num: "01",
-    isRustNum: false,
-    tag: "Strategy",
-    title: "Strategic Management",
-    description: "Aligning organizational vision, leadership, and operational workflows to execute corporate growth.",
-    bullets: [
-      "Executive alignment & OKRs",
-      "Operational bottleneck audits",
-      "Structured corporate governance"
-    ],
-    link: "/services/strategic-consulting"
-  },
-  {
-    num: "02",
-    isRustNum: true,
-    tag: "Feasibility",
-    title: "Financial Modeling & Budgeting",
-    description: "Stress-tested financial projections, unit economics, and budgets for banks and executive decisions.",
-    bullets: [
-      "5-Year Pro-Forma Cash Flows",
-      "Unit Economics & Break-Even",
-      "Bank-Ready Presentation Sheets"
-    ],
-    link: "/services/investment-planning"
-  },
-  {
-    num: "03",
-    isRustNum: false,
-    tag: "Operations",
-    title: "Projects & Lean Management",
-    description: "Certified PMP execution plans using Lean Six Sigma to eliminate waste and hit project milestones.",
-    bullets: [
-      "PMO Framework Delivery",
-      "Lean Waste Elimination Audits",
-      "Milestone & Risk Controls"
-    ],
-    link: "/services/projects-management"
-  },
-  {
-    num: "04",
-    isRustNum: false,
-    tag: "Systems",
-    title: "Process & ERP Transformation",
-    description: "Streamline department handovers, standardize SOPs, and manage enterprise software rollouts.",
-    bullets: [
-      "Department Handover Optimization",
-      "Standardized SOP Frameworks",
-      "ERP Readiness & Migration"
-    ],
-    link: "/services/process-transformation"
-  },
-  {
-    num: "05",
-    isRustNum: false,
-    tag: "Market Entry",
-    title: "Studies & Feasibility Research",
-    description: "Empirical market research, demand analysis, competitor benchmarking, and commercial viability.",
-    bullets: [
-      "Market Demand Validation",
-      "Competitor Matrix Benchmarking",
-      "Regional Expansion Studies"
-    ],
-    link: "/services/studies-research"
-  },
-  {
-    num: "06",
-    isRustNum: true,
-    tag: "Growth",
-    title: "Specialized Business Solutions",
-    description: "Targeted interventions for corporate restructuring, revenue turnarounds, and commercial scaling.",
-    bullets: [
-      "Go-to-Market Re-calibration",
-      "Sales Pipeline Acceleration",
-      "Transaction & Growth Readiness"
-    ],
-    link: "/services/business-growth"
-  }
-];
-
 export default function DualEngineSection() {
-  const { t } = useLanguage();
+  const { language, isRTL } = useLanguage();
+  const isAr = language === "ar";
+
+  const corePractices = [
+    {
+      num: "01",
+      icon: Compass,
+      title: isAr ? "الإدارة الاستراتيجية وتوافق القيادة" : "Strategic Management & OKRs",
+      desc: isAr 
+        ? "مواءمة رؤية المنشأة، وهيكلة مؤشرات الأداء، وتدقيق الاختناقات التشغيلية لتحقيق نمو مستدام."
+        : "Aligning executive leadership, OKR roadmaps, and resolving operational bottlenecks to drive measurable corporate scale.",
+      link: "/services/strategic-consulting"
+    },
+    {
+      num: "02",
+      icon: TrendingUp,
+      title: isAr ? "النمذجة المالية ودراسات الجدوى" : "Financial Modeling & Feasibility",
+      desc: isAr
+        ? "بناء تدفقات نقدية لـ 5 سنوات، ونماذج العائد على الاستثمار، وملفات بنكية معتمدة للتمويل والتوسع."
+        : "Bank-ready financial projections, CapEx/OpEx modeling, and empirical feasibility analyses for capital allocation.",
+      link: "/services/investment-planning"
+    },
+    {
+      num: "03",
+      icon: Layers,
+      title: isAr ? "إدارة المشاريع ومنهجية لين 6 سيجما" : "Projects & Lean Six Sigma",
+      desc: isAr
+        ? "قيادة تنفيذية معتمدة (PMP) للقضاء على الهدر التشغيلي، وضبط الميزانيات، ومتابعة الإنجاز المرحلي."
+        : "Certified PMO delivery and Lean Master Black Belt methodologies to eliminate waste and guarantee milestones.",
+      link: "/services/projects-management"
+    },
+    {
+      num: "04",
+      icon: Cpu,
+      title: isAr ? "تحول العمليات وهندسة الأنظمة ERP" : "Process & ERP Transformation",
+      desc: isAr
+        ? "إعادة هندسة الإجراءات المعيارية (SOPs)، وتسهيل تسليم المهام بين الأقسام، وجاهزية أنظمة ERP."
+        : "Standardized workflow SOPs, departmental handover optimization, and enterprise ERP implementation readiness.",
+      link: "/services/process-transformation"
+    }
+  ];
 
   return (
-    <section id="services" className="py-20 sm:py-24 bg-[#F8FAFC] dark:bg-[#0E1524] text-[#152238] dark:text-white transition-colors duration-300">
+    <section id="services" className="py-20 sm:py-28 bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <ScrollReveal variant="fade-up" className="max-w-3xl space-y-2 mb-12 sm:mb-16">
+        {/* Section Header */}
+        <ScrollReveal variant="fade-up" className="max-w-3xl space-y-3 mb-12 sm:mb-16">
           <span className="text-[11px] font-bold tracking-widest uppercase text-[#A33C29]">
-            OUR ADVISORY SOLUTIONS
+            {isAr ? "حلولنا الاستشارية الرئيسية" : "CORE ADVISORY CAPABILITIES"}
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
-            Comprehensive Consulting Services
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#152238] dark:text-white font-display">
+            {isAr ? "ممارسات استشارية تركز على النتائج" : "Institutional Advisory Practices"}
           </h2>
-          <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
-            Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth.
+          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 font-normal leading-relaxed">
+            {isAr
+              ? "حلول استشارية متخصصة ومصممة لدعم القرارات الاستثمارية، وتحسين الكفاءة التشغيلية للمنشآت."
+              : "Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth."}
           </p>
         </ScrollReveal>
 
-        {/* 6 Cards Grid */}
-        <StaggerContainer delayChildren={0.1} staggerChildren={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {consultingServices.map((service) => (
-            <StaggerItem
-              key={service.num}
-              className="bg-white dark:bg-[#182238] p-6 sm:p-7 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-slate-500/50 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
-            >
-              <div className="space-y-4">
-                {/* Top Number Badge and Tag */}
-                <div className="flex items-center justify-between gap-2">
-                  <span
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${
-                      service.isRustNum
-                        ? "bg-[#A33C29] text-white"
-                        : "bg-[#152238] text-white"
-                    }`}
+        {/* 4 Cards Grid - Frosted Glass */}
+        <StaggerContainer delayChildren={0.1} staggerChildren={0.08} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {corePractices.map((practice) => {
+            const IconComp = practice.icon;
+            return (
+              <StaggerItem
+                key={practice.num}
+                className="p-7 sm:p-8 rounded-3xl bg-white/70 dark:bg-[#131B2E]/70 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center font-bold">
+                      <IconComp className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 font-display">
+                      {practice.num}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display group-hover:text-[#A33C29] transition-colors">
+                      {practice.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                      {practice.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-5 mt-4 border-t border-slate-200/50 dark:border-white/5 flex items-center justify-between text-xs font-bold">
+                  <Link
+                    href={practice.link}
+                    className="inline-flex items-center gap-1.5 text-[#152238] dark:text-white group-hover:text-[#A33C29] transition-colors"
                   >
-                    {service.num}
-                  </span>
-                  <span className="text-[9.5px] sm:text-[10px] font-semibold px-2 sm:px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0 whitespace-nowrap">
-                    {service.tag}
-                  </span>
+                    <span>{isAr ? "استكشف تفاصيل الممارسة" : "Explore Capability Details"}</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
+                  </Link>
                 </div>
-
-                {/* Title and Description */}
-                <div className="space-y-2">
-                  <h3 className="text-base sm:text-lg font-bold text-[#152238] dark:text-white font-display group-hover:text-[#A33C29] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Bullets List */}
-                <ul className="space-y-2 pt-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
-                  {service.bullets.map((bullet, bIdx) => (
-                    <li key={bIdx} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#A33C29] shrink-0" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Bottom Learn More Link */}
-              <div className="pt-5 mt-4 border-t border-slate-100 dark:border-slate-800">
-                <Link
-                  href={service.link}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#152238] dark:text-slate-200 group-hover:text-[#A33C29] transition-colors"
-                >
-                  <span>Learn more</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
-                </Link>
-              </div>
-            </StaggerItem>
-          ))}
+              </StaggerItem>
+            );
+          })}
         </StaggerContainer>
 
-        {/* Center Button Below Grid */}
+        {/* Center CTA Button */}
         <div className="mt-12 sm:mt-16 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#152238] hover:bg-[#1E3150] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#152238] hover:bg-[#1E3150] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
-            <span>Explore All Advisory Practices</span>
+            <span>{isAr ? "عرض جميع الممارسات الـ 18" : "Explore All 18 Advisory Practices"}</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
         </div>

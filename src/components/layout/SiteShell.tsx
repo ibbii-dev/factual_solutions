@@ -11,6 +11,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
   const isVideoPage = pathname === "/video";
+  const isHome = pathname === "/";
 
   if (isAdmin || isVideoPage) {
     return (
@@ -22,7 +23,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <AnimatedBackground />
+      {!isHome && <AnimatedBackground />}
       <Navbar />
       <main className="flex-grow relative z-0">{children}</main>
       <Footer />

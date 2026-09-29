@@ -1,30 +1,41 @@
+"use client";
+
 import React from "react";
 import HeroSection from "@/components/home/HeroSection";
-import ClientTestimonials from "@/components/home/ClientTestimonials";
-import IndustrySectorsSection from "@/components/home/IndustrySectorsSection";
 import DualEngineSection from "@/components/home/DualEngineSection";
-import LatestInsightsSection from "@/components/home/LatestInsightsSection";
+import IndustrySectorsSection from "@/components/home/IndustrySectorsSection";
 import ConsultationBanner from "@/components/home/ConsultationBanner";
+
+const BG_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_230229_7c9bc431-46cf-489a-948d-e8144d8eb5d4.mp4";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8FAFC] dark:bg-[#0C1424]">
-      {/* 1. Hero with Left Copy & Right Factual Enterprise Engine Dashboard */}
+    <div className="relative min-h-screen text-[#152238] dark:text-white overflow-hidden bg-transparent">
+      {/* Fully Visible Fixed Looping Background Video - MotionSites Style */}
+      <div className="fixed inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+          src={BG_VIDEO}
+        />
+        {/* Subtle adaptive scrim: video is fully visible in both light & dark */}
+        <div className="absolute inset-0 bg-white/20 dark:bg-[#070D18]/45 transition-colors duration-300" />
+      </div>
+
+      {/* 1. Immersive Motion Hero */}
       <HeroSection />
 
-      {/* 2. Client Trust & Consulting Value Pillars */}
-      <ClientTestimonials />
-
-      {/* 3. Industry Specializations: Advising Businesses Across Key Industry Sectors */}
-      <IndustrySectorsSection />
-
-      {/* 4. Comprehensive Consulting Services (01 to 06 Cards) */}
+      {/* 2. Core Advisory Practices (Frosted Glass) */}
       <DualEngineSection />
 
-      {/* 5. Thought Leadership & Latest Strategic Blog */}
-      <LatestInsightsSection />
+      {/* 3. Key Industry Sectors (Clean Glass Grid) */}
+      <IndustrySectorsSection />
 
-      {/* 7. Pre-Footer High-Conversion Consultation CTA */}
+      {/* 4. Pre-Footer Executive Consultation Callout */}
       <ConsultationBanner />
     </div>
   );
