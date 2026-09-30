@@ -10,12 +10,12 @@ const BG_VIDEO =
 
 export default function VideoPage() {
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black">
+    <div className="relative w-full h-screen overflow-hidden bg-[#070D18]">
       <video
-        className="w-full h-full object-cover absolute inset-0 scale-[1.03]"
+        className="w-full h-full object-cover absolute inset-0"
         style={{
-          filter: "blur(0.45px) contrast(1.08) saturate(1.1) brightness(1.02)",
-          transform: "scale(1.03) translate3d(0, 0, 0)",
+          transform: "translate3d(0, 0, 0)",
+          willChange: "transform",
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden"
         }}
@@ -25,6 +25,7 @@ export default function VideoPage() {
         playsInline
         src={BG_VIDEO}
       />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#070D18]/50 via-black/25 to-[#070D18]/60 pointer-events-none" />
     </div>
   );
 }

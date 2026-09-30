@@ -73,7 +73,7 @@ export default function MethodologySection() {
           {frameworkSteps.map((step, idx) => (
             <StaggerItem
               key={idx}
-              className="bg-white dark:bg-transparent backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+              className="bg-black/45 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between text-white"
             >
               <div className="space-y-3.5">
                 {/* Top Badge & Icon */}
@@ -81,34 +81,34 @@ export default function MethodologySection() {
                   <span
                     className={`text-[9.5px] sm:text-[10px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
                       step.isRustPhase
-                        ? "bg-[#A33C29]/15 text-[#A33C29]"
-                        : "bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200"
+                        ? "bg-[#E25C43]/20 text-[#E25C43] border border-[#E25C43]/30"
+                        : "bg-white/10 text-white border border-white/15"
                     }`}
                   >
                     {step.phase}
                   </span>
-                  <div className="shrink-0">
+                  <div className="shrink-0 text-white">
                     {step.icon}
                   </div>
                 </div>
 
                 {/* Title and Desc */}
                 <div className="space-y-1.5">
-                  <h3 className="text-sm sm:text-base font-bold text-[#152238] dark:text-white font-display">
+                  <h3 className="text-sm sm:text-base font-bold text-white font-display drop-shadow-sm">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-100 leading-relaxed font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                     {step.description}
                   </p>
                 </div>
               </div>
 
               {/* Expected Outcome Box */}
-              <div className="mt-6 pt-3.5 border-t border-slate-100 dark:border-slate-800 space-y-0.5">
-                <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">
+              <div className="mt-6 pt-3.5 border-t border-white/15 space-y-0.5">
+                <span className="text-[9px] uppercase tracking-wider text-[#E25C43] font-bold block">
                   EXPECTED OUTCOME:
                 </span>
-                <span className="text-xs font-bold text-[#152238] dark:text-slate-200 block">
+                <span className="text-xs font-bold text-white block drop-shadow-sm">
                   {step.outcome}
                 </span>
               </div>
@@ -120,7 +120,7 @@ export default function MethodologySection() {
         <div className="mt-10 sm:mt-12 text-center">
           <Link
             href="/about"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-[#A33C29] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#E25C43] transition-colors"
           >
             <span>Learn More About our Methodology &amp; Governance Standards</span>
             <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

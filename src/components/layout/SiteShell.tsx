@@ -25,22 +25,24 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Global Fixed Background Video across every page with pure transparency - denoised HD resolution */}
-      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden bg-black">
+      {/* Global Fixed Background Video across every page with pure smooth HD and zero grain */}
+      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden bg-[#070D18]">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover scale-[1.03]"
+          className="w-full h-full object-cover scale-[1.01]"
           style={{
-            filter: "blur(0.45px) contrast(1.08) saturate(1.1) brightness(1.02)",
-            transform: "scale(1.03) translate3d(0, 0, 0)",
+            transform: "translate3d(0, 0, 0)",
+            willChange: "transform",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden"
           }}
           src={BG_VIDEO}
         />
+        {/* Anti-grain noise smoothing dark scrim that absorbs video film grain and keeps text 100% readable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070D18]/50 via-black/25 to-[#070D18]/60 pointer-events-none" />
       </div>
 
       <Navbar />

@@ -69,7 +69,7 @@ export default function WhatWeThinkPage() {
 
         {/* Editorial Notice Banner */}
         <ScrollReveal variant="fade-up" delay={0.1} className="max-w-4xl mx-auto mb-16 sm:mb-20">
-          <div className="rounded-3xl p-6 sm:p-10 border border-white/20 bg-black/35 backdrop-blur-xl shadow-2xl relative overflow-hidden text-white">
+          <div className="rounded-3xl p-6 sm:p-10 border border-white/20 bg-black/45 backdrop-blur-md shadow-2xl relative overflow-hidden text-white">
             <div className="absolute top-0 right-0 w-72 h-72 bg-[#8EA9D3]/10 dark:bg-[#8EA9D3]/5 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -97,7 +97,7 @@ export default function WhatWeThinkPage() {
               <div className="shrink-0 pt-2 md:pt-0 w-full md:w-auto">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all shadow-md"
+                  className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs sm:text-sm font-bold transition-all shadow-lg"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>{isAr ? "طلب إحاطة تنفيذية" : "Request Executive Briefing"}</span>
@@ -124,7 +124,7 @@ export default function WhatWeThinkPage() {
               return (
                 <StaggerItem
                   key={idx}
-                  className="bg-black/35 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-xl flex flex-col justify-between hover:border-white/35 hover:shadow-2xl transition-all text-white"
+                  className="bg-black/45 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl flex flex-col justify-between hover:border-white/35 hover:shadow-2xl transition-all text-white"
                 >
                   <div className="space-y-3">
                     <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 text-[#E25C43] flex items-center justify-center font-bold">

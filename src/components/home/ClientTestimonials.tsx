@@ -36,16 +36,16 @@ export default function ClientTestimonials() {
           {pillars.map((pillar, idx) => (
             <StaggerItem
               key={idx}
-              className="flex items-start gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-md transition-all duration-200"
+              className="flex items-start gap-4 p-5 sm:p-6 rounded-2xl bg-black/45 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-200 text-white"
             >
-              <div className={`w-11 h-11 rounded-xl ${pillar.iconBg} flex items-center justify-center shrink-0 shadow-xs`}>
+              <div className={`w-11 h-11 rounded-xl ${pillar.iconBg} flex items-center justify-center shrink-0 shadow-xs border border-white/15`}>
                 {pillar.icon}
               </div>
               <div className="space-y-1.5">
-                <h3 className="text-sm sm:text-base font-bold text-[#152238] dark:text-white font-display">
+                <h3 className="text-sm sm:text-base font-bold text-white font-display drop-shadow-sm">
                   {pillar.title}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                <p className="text-xs text-slate-100 leading-relaxed font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                   {pillar.description}
                 </p>
               </div>

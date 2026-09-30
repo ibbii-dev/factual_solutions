@@ -75,32 +75,32 @@ export default function DualEngineSection() {
             return (
               <StaggerItem
                 key={practice.num}
-                className="p-7 sm:p-8 rounded-3xl bg-white dark:bg-transparent backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="p-7 sm:p-8 rounded-3xl bg-black/45 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-white"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center font-bold">
-                      <IconComp className="w-6 h-6" />
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 text-white flex items-center justify-center font-bold">
+                      <IconComp className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 font-display">
+                    <span className="text-xs font-bold text-[#E25C43] font-display">
                       {practice.num}
                     </span>
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-lg sm:text-xl font-bold text-[#152238] dark:text-white font-display group-hover:text-[#A33C29] transition-colors">
+                    <h3 className="text-lg sm:text-xl font-bold text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
                       {practice.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                       {practice.desc}
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-5 mt-4 border-t border-slate-200/50 dark:border-white/5 flex items-center justify-between text-xs font-bold">
+                <div className="pt-5 mt-4 border-t border-white/15 flex items-center justify-between text-xs font-bold">
                   <Link
                     href={practice.link}
-                    className="inline-flex items-center gap-1.5 text-[#152238] dark:text-white group-hover:text-[#A33C29] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-white group-hover:text-[#E25C43] transition-colors"
                   >
                     <span>{isAr ? "استكشف تفاصيل الممارسة" : "Explore Capability Details"}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
@@ -115,7 +115,7 @@ export default function DualEngineSection() {
         <div className="mt-12 sm:mt-16 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#152238] dark:bg-white text-white dark:text-[#152238] hover:bg-[#1E3150] dark:hover:bg-slate-100 text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs sm:text-sm font-bold shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
           >
             <span>{isAr ? "عرض جميع الممارسات الـ 18" : "Explore All 18 Advisory Practices"}</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />

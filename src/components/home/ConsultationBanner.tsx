@@ -14,11 +14,11 @@ export default function ConsultationBanner() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <ScrollReveal variant="fade-up" duration={0.6}>
-          <div className="relative rounded-3xl bg-black/40 backdrop-blur-xl text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-white/20 shadow-2xl">
+          <div className="relative rounded-3xl bg-black/45 backdrop-blur-md text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-white/20 shadow-2xl">
             
             {/* Subtle radial light highlight in background */}
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#8EA9D3]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#A33C29]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#E25C43]/15 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-3xl space-y-4 sm:space-y-5">
               
@@ -57,7 +57,7 @@ export default function ConsultationBanner() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs sm:text-sm font-bold transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-center"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs sm:text-sm font-bold transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-center"
                 >
                   <span>Request a Consultation</span>
                   <ArrowRight className="w-4 h-4 rtl:rotate-180" />

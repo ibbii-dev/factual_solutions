@@ -65,22 +65,22 @@ export default function ExecutiveBlueprintModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="w-full max-w-3xl bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
+        className="w-full max-w-3xl bg-[#0A1120]/95 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Bar */}
-        <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900/80">
+        <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-white/5">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#A33C29]/15 text-[#A33C29] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-[#E25C43]/20 text-[#E25C43] flex items-center justify-center font-bold">
               <FileText className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-[10px] uppercase font-bold text-[#A33C29] tracking-wider">
+              <div className="text-[10px] uppercase font-bold text-[#E25C43] tracking-wider">
                 EXECUTIVE RESOURCE
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-[#152238] dark:text-white font-display">
+              <h3 className="text-sm sm:text-base font-bold text-white font-display">
                 Factual Solutions Feasibility Study Blueprint
               </h3>
             </div>
@@ -90,7 +90,7 @@ export default function ExecutiveBlueprintModal({
             {step === "preview" && (
               <button
                 onClick={handlePrintOrDownload}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-sm"
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>Print / Save PDF</span>
@@ -98,7 +98,7 @@ export default function ExecutiveBlueprintModal({
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"
+              className="p-1.5 rounded-lg text-slate-300 hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -110,21 +110,21 @@ export default function ExecutiveBlueprintModal({
           {step === "form" ? (
             <div className="max-w-xl mx-auto space-y-6 py-2">
               <div className="text-center space-y-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-wider">
                   <Sparkles className="w-3 h-3" />
                   <span>Immediate 1-Page Advisory Blueprint</span>
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold font-display text-[#152238] dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold font-display text-white">
                   Download Sample Feasibility Study Framework
                 </h2>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed font-medium">
                   Enter your executive work details to immediately unlock and print our proprietary 1-Page Feasibility Assessment blueprint used for Saudi &amp; GCC enterprise clients.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="text-[11px] font-semibold text-slate-200">
                     Full Name *
                   </label>
                   <input
@@ -133,12 +133,12 @@ export default function ExecutiveBlueprintModal({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Tariq Al-Ghamdi"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="text-[11px] font-semibold text-slate-200">
                     Corporate Work Email *
                   </label>
                   <input
@@ -147,13 +147,13 @@ export default function ExecutiveBlueprintModal({
                     value={workEmail}
                     onChange={(e) => setWorkEmail(e.target.value)}
                     placeholder="tariq@enterprise.com.sa"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                    <label className="text-[11px] font-semibold text-slate-200">
                       Company / Organization
                     </label>
                     <input
@@ -161,24 +161,24 @@ export default function ExecutiveBlueprintModal({
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="e.g. Al-Mashriq Holding"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                    <label className="text-[11px] font-semibold text-slate-200">
                       Primary Industry Sector
                     </label>
                     <select
                       value={industry}
                       onChange={(e) => setIndustry(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white focus:outline-none focus:border-[#A33C29]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white focus:outline-none focus:border-[#E25C43]"
                     >
-                      <option value="Manufacturing & Logistics" className="dark:bg-slate-900">Manufacturing &amp; Logistics</option>
-                      <option value="Retail & Multi-Branch" className="dark:bg-slate-900">Retail &amp; Multi-Branch Networks</option>
-                      <option value="Real Estate & Construction" className="dark:bg-slate-900">Real Estate &amp; Construction</option>
-                      <option value="Financial & Investment Funds" className="dark:bg-slate-900">Financial &amp; Investment Funds</option>
-                      <option value="Healthcare & Life Sciences" className="dark:bg-slate-900">Healthcare &amp; Life Sciences</option>
+                      <option value="Manufacturing & Logistics" className="bg-[#0A1120] text-white">Manufacturing &amp; Logistics</option>
+                      <option value="Retail & Multi-Branch" className="bg-[#0A1120] text-white">Retail &amp; Multi-Branch Networks</option>
+                      <option value="Real Estate & Construction" className="bg-[#0A1120] text-white">Real Estate &amp; Construction</option>
+                      <option value="Financial & Investment Funds" className="bg-[#0A1120] text-white">Financial &amp; Investment Funds</option>
+                      <option value="Healthcare & Life Sciences" className="bg-[#0A1120] text-white">Healthcare &amp; Life Sciences</option>
                     </select>
                   </div>
                 </div>
@@ -186,14 +186,14 @@ export default function ExecutiveBlueprintModal({
                 <button
                   type="submit"
                   disabled={isSubmitting || !fullName || !workEmail}
-                  className="w-full py-3.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
+                  className="w-full py-3.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
                 >
                   <span>{isSubmitting ? "Generating Custom Blueprint..." : "Unlock & Generate Blueprint PDF"}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
-                <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 text-center">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#A33C29]" />
+                <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 text-center">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#E25C43]" />
                   <span>Strict confidentiality. Your information is never shared with third parties.</span>
                 </div>
               </form>

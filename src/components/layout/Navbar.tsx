@@ -150,8 +150,8 @@ export default function Navbar() {
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white dark:bg-slate-900/80 backdrop-blur-xl shadow-md border-b border-slate-200/90 dark:border-white/10 py-2 sm:py-2.5"
-            : "bg-white dark:bg-black/35 backdrop-blur-lg border-b border-slate-200/90 dark:border-white/10 py-2.5 sm:py-3.5"
+            ? "bg-black/65 backdrop-blur-md shadow-xl border-b border-white/20 py-2 sm:py-2.5"
+            : "bg-black/45 backdrop-blur-md border-b border-white/15 py-2.5 sm:py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -170,11 +170,11 @@ export default function Navbar() {
               </div>
               <div className="flex flex-col leading-tight min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-[#152238] dark:text-white truncate">
+                  <span className="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-white truncate drop-shadow-sm">
                     Factual Solutions
                   </span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase -mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
+                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-300 uppercase -mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
                   {language === "ar" ? "شركاؤكم في التميز المؤسسي" : "Your Business Excellence Partners"}
                 </span>
               </div>
@@ -199,15 +199,15 @@ export default function Navbar() {
                         href={link.href}
                         className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 ${
                           isActive
-                            ? "bg-[#EBF1FA] dark:bg-white/15 text-[#152238] dark:text-white shadow-xs font-bold"
-                            : "text-slate-700 dark:text-slate-200 hover:text-[#A33C29] dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/10"
+                            ? "bg-white/20 text-white shadow-sm font-bold border border-white/25"
+                            : "text-slate-200 hover:text-white hover:bg-white/10"
                         }`}
                       >
                         <span>{link.name}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-[#A33C29]" : "text-slate-400"}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-[#E25C43]" : "text-slate-300"}`} />
                       </Link>
 
-                      {/* SERVICES DROPDOWN (What we do - Single Unified List, Solid Background) */}
+                      {/* SERVICES DROPDOWN (What we do - Single Unified List, Dark Glass) */}
                       <AnimatePresence>
                         {servicesDropdownOpen && (
                           <motion.div
@@ -215,7 +215,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[390px] rounded-2xl shadow-2xl p-3 border bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white z-[100] overflow-hidden"
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[390px] rounded-2xl shadow-2xl p-3 border bg-[#0A1120]/95 backdrop-blur-2xl border-white/20 text-white z-[100] overflow-hidden"
                           >
                             <div className="flex flex-col space-y-1">
                               {featuredServicesList.map((srv) => {
@@ -225,16 +225,16 @@ export default function Navbar() {
                                     key={srv.href}
                                     href={srv.href}
                                     onClick={() => setServicesDropdownOpen(false)}
-                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-white/10 hover:bg-[#FAFBFD] dark:hover:bg-white/10 flex items-center gap-3"
+                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-white/20 hover:bg-white/10 flex items-center gap-3"
                                   >
-                                    <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#152238] dark:text-white group-hover/item:bg-[#A33C29] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-white/10 text-white group-hover/item:bg-[#E25C43] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
                                       <IconComp className="w-4 h-4" />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                      <h4 className="font-bold text-xs text-[#152238] dark:text-white group-hover/item:text-[#A33C29] transition-colors truncate">
+                                      <h4 className="font-bold text-xs text-white group-hover/item:text-[#E25C43] transition-colors truncate">
                                         {srv.title}
                                       </h4>
-                                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">
+                                      <p className="text-[11px] text-slate-300 mt-0.5 line-clamp-1">
                                         {srv.desc}
                                       </p>
                                     </div>
@@ -244,11 +244,11 @@ export default function Navbar() {
                             </div>
 
                             {/* Bottom Callout Bar */}
-                            <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs px-1">
+                            <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs px-1">
                               <Link
                                 href="/services"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="flex items-center gap-1.5 font-bold text-[#A33C29] hover:underline text-xs"
+                                className="flex items-center gap-1.5 font-bold text-[#E25C43] hover:underline text-xs"
                               >
                                 <span>{language === "ar" ? "استكشف جميع الممارسات الـ 18" : "Explore All 18 Practices"}</span>
                                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -256,7 +256,7 @@ export default function Navbar() {
                               <Link
                                 href="/services#quiz"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="font-bold text-xs text-white bg-[#152238] dark:bg-white/10 dark:hover:bg-[#A33C29] hover:bg-[#A33C29] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs"
+                                className="font-bold text-xs text-white bg-white/15 hover:bg-[#E25C43] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-sm border border-white/20"
                               >
                                 <span>{language === "ar" ? "اختبار التوجيه" : "Advisor Quiz"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
@@ -276,8 +276,8 @@ export default function Navbar() {
                     href={link.href}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
                       isActive
-                        ? "bg-[#EBF1FA] dark:bg-white/15 text-[#152238] dark:text-white shadow-xs font-bold"
-                        : "text-slate-700 dark:text-slate-200 hover:text-[#A33C29] dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/10"
+                        ? "bg-white/20 text-white shadow-sm font-bold border border-white/25"
+                        : "text-slate-200 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     {link.name}
@@ -295,79 +295,79 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors text-[#152238] dark:text-white bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/20 border border-slate-200/90 dark:border-white/10 shadow-xs"
-                title={`Switch to ${isDark ? "Light Navy Mode" : "Dark Mode"}`}
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors text-white bg-white/10 hover:bg-white/20 border border-white/20 shadow-xs"
+                title={`Switch to ${isDark ? "Light Mode" : "Dark Mode"}`}
               >
-                {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-[#152238]" />}
+                {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-slate-200" />}
               </button>
 
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all duration-200 shadow-sm hover:shadow hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all duration-200 shadow-md hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Request Consultation</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
               </Link>
 
-              {/* USER CLIENT PORTAL BUTTON (Replaced Admin Icon) */}
+              {/* USER CLIENT PORTAL BUTTON */}
               <div className="relative" ref={userMenuRef}>
                 {user ? (
                   <button
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    className="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-slate-300 dark:hover:border-white/25 transition-all text-xs font-semibold text-[#152238] dark:text-white shadow-xs"
+                    className="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-white/10 border border-white/20 hover:border-white/35 transition-all text-xs font-semibold text-white shadow-xs"
                     title="Client Account"
                   >
-                    <div className="relative w-7 h-7 rounded-full overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-xs">
+                    <div className="relative w-7 h-7 rounded-full overflow-hidden bg-[#E25C43] text-white flex items-center justify-center font-bold text-xs">
                       {user.avatar ? (
                         <Image src={user.avatar} alt={user.name} fill className="object-cover" />
                       ) : (
                         <span>{user.name.charAt(0)}</span>
                       )}
                     </div>
-                    <span className="max-w-[80px] truncate">{user.name.split(" ")[0]}</span>
-                    <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${userDropdownOpen ? 'rotate-180' : ''}`} />
+                    <span className="max-w-[80px] truncate text-white">{user.name.split(" ")[0]}</span>
+                    <ChevronDown className={`w-3 h-3 text-slate-300 transition-transform ${userDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
                 ) : (
                   <button
                     onClick={() => openAuthModal("login")}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/15 text-xs font-bold text-[#152238] dark:text-white border border-slate-200/90 dark:border-white/15 shadow-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-bold text-white border border-white/20 shadow-xs transition-colors"
                     title="Sign In"
                   >
-                    <User className="w-3.5 h-3.5 text-[#A33C29]" />
+                    <User className="w-3.5 h-3.5 text-[#E25C43]" />
                     <span>Sign In</span>
                   </button>
                 )}
 
                 {/* User Dropdown Menu */}
                 {user && userDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl border border-slate-200/90 dark:border-white/15 shadow-2xl p-3 z-50 text-[#152238] dark:text-white space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
-                    <div className="p-2 border-b border-slate-100 dark:border-slate-800">
-                      <div className="font-bold text-xs truncate">{user.name}</div>
-                      <div className="text-[10px] text-slate-400 truncate">{user.email}</div>
+                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-[#0A1120]/95 backdrop-blur-2xl border border-white/20 shadow-2xl p-3 z-50 text-white space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
+                    <div className="p-2 border-b border-white/10">
+                      <div className="font-bold text-xs truncate text-white">{user.name}</div>
+                      <div className="text-[10px] text-slate-300 truncate">{user.email}</div>
                     </div>
 
                     <div className="space-y-1">
                       <Link
                         href="/contact"
                         onClick={() => setUserDropdownOpen(false)}
-                        className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-[#FAFBFD] dark:hover:bg-slate-800 transition-colors"
+                        className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-white/10 transition-colors"
                       >
                         <div className="flex items-center gap-2">
-                          <Plus className="w-4 h-4 text-[#A33C29]" />
+                          <Plus className="w-4 h-4 text-[#E25C43]" />
                           <span>Request Consultation</span>
                         </div>
-                        <ArrowRight className="w-3 h-3 text-slate-400" />
+                        <ArrowRight className="w-3 h-3 text-slate-300" />
                       </Link>
                     </div>
 
-                    <div className="pt-1 border-t border-slate-100 dark:border-slate-800">
+                    <div className="pt-1 border-t border-white/10">
                       <button
                         onClick={() => {
                           logout();
                           setUserDropdownOpen(false);
                         }}
-                        className="w-full flex items-center gap-2 p-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+                        className="w-full flex items-center gap-2 p-2 rounded-xl text-xs font-semibold text-rose-400 hover:bg-rose-950/30 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
                         <span>Sign Out</span>
@@ -386,14 +386,14 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#152238] dark:text-white bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/20 border border-slate-200/90 dark:border-white/10 shadow-xs shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white bg-white/10 hover:bg-white/20 border border-white/20 shadow-xs shrink-0"
               >
-                {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-[#152238]" />}
+                {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-slate-200" />}
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 rounded-lg text-[#152238] dark:text-white bg-white dark:bg-white/10 border border-slate-200/90 dark:border-white/10 shadow-xs shrink-0"
+                className="p-1.5 rounded-lg text-white bg-white/10 border border-white/20 shadow-xs shrink-0"
                 aria-label="Toggle Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -406,15 +406,15 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white dark:bg-slate-900/95 backdrop-blur-2xl border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
+        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-[#0A1120]/95 backdrop-blur-2xl border-white/20 text-white max-h-[calc(100vh-70px)] overflow-y-auto">
           <div className="flex flex-col space-y-1.5">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
               className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                 pathname === "/"
-                  ? "bg-[#EBF1FA] dark:bg-white/15 text-[#152238] dark:text-white font-bold"
-                  : "text-slate-700 dark:text-slate-200 hover:text-[#A33C29]"
+                  ? "bg-white/20 text-white font-bold border border-white/25"
+                  : "text-slate-200 hover:text-white hover:bg-white/10"
               }`}
             >
               {language === "ar" ? "الرئيسية" : "Home"}
@@ -428,8 +428,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
-                      ? "bg-[#EBF1FA] dark:bg-white/15 text-[#152238] dark:text-white font-bold"
-                      : "text-slate-700 dark:text-slate-200 hover:text-[#A33C29]"
+                      ? "bg-white/20 text-white font-bold border border-white/25"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                   }`}
                 >
                   {link.name}
@@ -438,19 +438,19 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex flex-col gap-2">
+          <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
             {user ? (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-xs">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white">
                 <div className="flex items-center gap-2">
-                  <User className="w-3.5 h-3.5 text-[#A33C29]" />
-                  <span className="font-bold">{user.name.split(" ")[0]}</span>
+                  <User className="w-3.5 h-3.5 text-[#E25C43]" />
+                  <span className="font-bold text-white">{user.name.split(" ")[0]}</span>
                 </div>
                 <button
                   onClick={() => {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="font-bold text-rose-600 hover:underline"
+                  className="font-bold text-rose-400 hover:underline"
                 >
                   Sign Out
                 </button>
@@ -461,9 +461,9 @@ export default function Navbar() {
                   setMobileMenuOpen(false);
                   openAuthModal("login");
                 }}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white dark:bg-white/10 border border-slate-200/90 dark:border-white/15 text-[#152238] dark:text-white font-bold text-xs shadow-xs"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-xs shadow-xs hover:bg-white/20"
               >
-                <User className="w-3.5 h-3.5 text-[#A33C29]" />
+                <User className="w-3.5 h-3.5 text-[#E25C43]" />
                 <span>Client Sign In</span>
               </button>
             )}
@@ -471,7 +471,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white font-bold text-xs shadow-sm"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white font-bold text-xs shadow-md"
             >
               <span>Request Consultation</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

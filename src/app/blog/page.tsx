@@ -61,8 +61,8 @@ function BlogContent() {
       {/* 1. Header Hero Section */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10 sm:pb-16">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-transparent text-[#A33C29] dark:text-white border border-slate-200/90 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[#E25C43]" />
             <span>Strategic Intelligence &amp; Blog</span>
           </div>
 
@@ -70,7 +70,7 @@ function BlogContent() {
             Executive Blog &amp; Advisory Perspectives
           </h1>
 
-          <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
+          <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-medium">
             Data-backed methodologies, corporate finance research, and practical operational frameworks curated by our senior consulting partners.
           </p>
         </div>
@@ -84,7 +84,7 @@ function BlogContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles by title, financial model, strategy, keyword..."
-              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-black/30 backdrop-blur-xl border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-white/50 shadow-md transition-all"
+              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-black/45 backdrop-blur-md border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] shadow-lg transition-all"
             />
             {searchQuery && (
               <button
@@ -101,14 +101,14 @@ function BlogContent() {
       {/* 2. Loading State */}
       {isLoading && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="w-8 h-8 border-3 border-[#A33C29] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-8 h-8 border-3 border-[#E25C43] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs text-slate-200">Loading strategic intelligence articles...</p>
         </div>
       )}
 
       {/* 3. Empty State */}
       {!isLoading && filteredPosts.length === 0 && (
-        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-black/35 backdrop-blur-xl rounded-2xl border border-white/20 p-8 shadow-xl text-white">
+        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 p-8 shadow-xl text-white">
           <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mx-auto text-slate-300">
             <BookOpen className="w-5 h-5" />
           </div>
@@ -118,7 +118,7 @@ function BlogContent() {
           </p>
           <button
             onClick={() => setSearchQuery("")}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#A33C29] text-white text-xs font-bold hover:bg-[#8E3221] transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#E25C43] text-white text-xs font-bold hover:bg-[#c94a33] transition-colors"
           >
             Clear Search
           </button>
@@ -131,7 +131,7 @@ function BlogContent() {
           
           {/* Featured Post Spotlight */}
           {featuredPost && (
-            <div className="relative rounded-2xl overflow-hidden bg-black/40 backdrop-blur-xl border border-white/20 shadow-2xl group transition-all duration-300 hover:shadow-2xl hover:border-white/35 text-white">
+            <div className="relative rounded-2xl overflow-hidden bg-black/45 backdrop-blur-md border border-white/20 shadow-2xl group transition-all duration-300 hover:shadow-2xl hover:border-white/35 text-white">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 {/* Cover Image */}
                 <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[400px] overflow-hidden bg-slate-900">
@@ -227,7 +227,7 @@ function BlogContent() {
               {gridPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-black/35 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-white"
+                  className="bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-white"
                 >
                   <div>
                     {/* Cover image */}
@@ -239,7 +239,7 @@ function BlogContent() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#152238]/85 backdrop-blur-md text-white uppercase border border-white/10">
+                        <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#070D18]/90 backdrop-blur-md text-white uppercase border border-white/10">
                           Advisory Insight
                         </span>
                       </div>
@@ -259,7 +259,7 @@ function BlogContent() {
                         </h3>
                       </Link>
 
-                      <p className="text-xs text-slate-100 leading-relaxed line-clamp-3 font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+                      <p className="text-xs text-slate-100 leading-relaxed line-clamp-3 font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
                         {post.excerpt}
                       </p>
                     </div>

@@ -65,7 +65,7 @@ function ServicesContent() {
         
         {/* Page Header */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-transparent text-[#A33C29] dark:text-white border border-slate-200/90 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
             {sp.badge}
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
@@ -78,7 +78,7 @@ function ServicesContent() {
           <div className="pt-2">
             <button
               onClick={() => setIsBlueprintModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-md hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-lg hover:scale-[1.02]"
             >
               <FileText className="w-4 h-4" />
               <span>Download 1-Page Feasibility Blueprint (PDF)</span>
@@ -87,7 +87,7 @@ function ServicesContent() {
         </ScrollReveal>
 
         {/* Search Bar & Counter */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="bg-black/35 backdrop-blur-xl rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-black/45 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
           <div className="text-xs font-bold text-white">
             {language === "ar" 
               ? `عرض ${filteredServices.length} ممارسة استشارية متخصصة` 
@@ -123,7 +123,7 @@ function ServicesContent() {
                 <StaggerItem
                   key={service.id}
                   variant="fade-up"
-                  className="bg-black/35 backdrop-blur-xl rounded-2xl p-6 sm:p-7 shadow-xl border border-white/20 flex flex-col justify-between hover:border-white/35 hover:shadow-2xl transition-all duration-300 group text-white"
+                  className="bg-black/45 backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-xl border border-white/20 flex flex-col justify-between hover:border-white/35 hover:shadow-2xl transition-all duration-300 group text-white"
                 >
                   <div className="space-y-4">
                     
@@ -195,15 +195,15 @@ function ServicesContent() {
             })}
           </StaggerContainer>
         ) : (
-          <ScrollReveal variant="fade" className="text-center py-16 bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 p-8 shadow-sm">
-            <HelpCircle className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-[#152238] dark:text-white font-display">{sp.noResultsTitle}</h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto mt-1 font-normal">
+          <ScrollReveal variant="fade" className="text-center py-16 bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 p-8 shadow-xl text-white">
+            <HelpCircle className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-white font-display">{sp.noResultsTitle}</h3>
+            <p className="text-xs text-slate-200 max-w-sm mx-auto mt-1 font-medium">
               {sp.noResultsDesc}
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 px-5 py-2 rounded-full bg-[#152238] dark:bg-white text-white dark:text-[#152238] text-xs font-bold shadow-xs hover:bg-[#A33C29] dark:hover:bg-slate-100 transition-colors"
+              className="mt-4 px-5 py-2 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold shadow-md transition-colors"
             >
               {sp.resetFilters}
             </button>

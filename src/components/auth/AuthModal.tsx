@@ -200,12 +200,12 @@ export default function AuthModal() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-md bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-2xl overflow-hidden z-10"
+          className="relative w-full max-w-md bg-[#0A1120]/95 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden z-10 text-white"
         >
-          <div className="relative p-6 sm:p-7 pb-4 bg-gradient-to-b from-[#152238]/5 dark:from-white/5 to-transparent border-b border-slate-100 dark:border-white/10">
+          <div className="relative p-6 sm:p-7 pb-4 bg-white/5 border-b border-white/10">
             <button
               onClick={closeAuthModal}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 hover:text-[#152238] dark:hover:text-white flex items-center justify-center transition-colors"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
@@ -220,22 +220,22 @@ export default function AuthModal() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#A33C29]">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#E25C43]">
                 Enterprise Client Portal
               </span>
             </div>
 
-            <h3 className="text-xl font-bold text-[#152238] dark:text-white font-display">
+            <h3 className="text-xl font-bold text-white font-display">
               {authModalMode === "login" ? "Sign in to Your Account" : "Create Client Account"}
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-300 mt-0.5">
               Access your submitted inquiries, tracking milestones &amp; consultant responses.
             </p>
           </div>
 
           <div className="p-6 sm:p-7 pt-5 space-y-4">
             {errorMsg && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium flex items-center gap-2">
+              <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-medium flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMsg}</span>
               </div>
@@ -251,7 +251,7 @@ export default function AuthModal() {
                   onClick={handleGoogleClick}
                   disabled={isSubmitting}
                   type="button"
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-white dark:bg-white/10 hover:bg-slate-50 dark:hover:bg-white/15 border border-slate-300 dark:border-white/15 text-xs sm:text-sm font-semibold text-slate-700 dark:text-white shadow-xs transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -263,8 +263,8 @@ export default function AuthModal() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleGoogleDirectSubmit} className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 space-y-3 animate-in fade-in">
-                <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-700/50">
+              <form onSubmit={handleGoogleDirectSubmit} className="p-4 rounded-2xl bg-white/10 border border-white/20 space-y-3 animate-in fade-in">
+                <div className="flex items-center justify-between pb-1 border-b border-white/10">
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4" viewBox="0 0 24 24">
                       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -272,21 +272,21 @@ export default function AuthModal() {
                       <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
                       <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
                     </svg>
-                    <span className="text-xs font-bold text-slate-800 dark:text-slate-100">
+                    <span className="text-xs font-bold text-white">
                       Sign in with Google Account
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setIsGoogleDirectOpen(false)}
-                    className="text-[11px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    className="text-[11px] text-slate-300 hover:text-white"
                   >
                     Back
                   </button>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-slate-600 dark:text-slate-300">
+                  <label className="text-[11px] font-medium text-slate-200">
                     Google Account Email
                   </label>
                   <input
@@ -295,12 +295,12 @@ export default function AuthModal() {
                     value={googleEmail}
                     onChange={(e) => setGoogleEmail(e.target.value)}
                     placeholder="e.g. yourname@gmail.com"
-                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-slate-600 dark:text-slate-300">
+                  <label className="text-[11px] font-medium text-slate-200">
                     Full Name (Optional)
                   </label>
                   <input
@@ -308,14 +308,14 @@ export default function AuthModal() {
                     value={googleName}
                     onChange={(e) => setGoogleName(e.target.value)}
                     placeholder="e.g. Ahsan Malik"
-                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-xs text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 shadow"
+                  className="w-full py-2.5 rounded-xl bg-[#E25C43] hover:bg-[#c94a33] text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 shadow"
                 >
                   <span>{isSubmitting ? "Authenticating Google Session..." : "Authorize & Sign In"}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -327,29 +327,29 @@ export default function AuthModal() {
               <button
                 type="button"
                 onClick={() => setShowConfigHelper(!showConfigHelper)}
-                className="text-[11px] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1 mx-auto transition-colors"
+                className="text-[11px] text-slate-300 hover:text-white flex items-center gap-1 mx-auto transition-colors"
               >
-                <HelpCircle className="w-3 h-3 text-[#A33C29]" />
+                <HelpCircle className="w-3 h-3 text-[#E25C43]" />
                 <span>Google OAuth Cloud Console Settings</span>
                 {showConfigHelper ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
               </button>
 
               {showConfigHelper && (
-                <div className="mt-2 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10.5px] text-slate-600 dark:text-slate-300 space-y-2 animate-in fade-in">
-                  <p className="font-semibold text-slate-800 dark:text-white">
+                <div className="mt-2 p-3 rounded-xl bg-white/10 border border-white/20 text-[10.5px] text-slate-200 space-y-2 animate-in fade-in">
+                  <p className="font-semibold text-white">
                     To connect live Google Identity popup:
                   </p>
                   <ol className="list-decimal pl-4 space-y-1">
-                    <li>Go to <span className="font-mono text-[10px] text-blue-500">Google Cloud Console &gt; APIs &amp; Services &gt; Credentials</span>.</li>
+                    <li>Go to <span className="font-mono text-[10px] text-blue-400">Google Cloud Console &gt; APIs &amp; Services &gt; Credentials</span>.</li>
                     <li>Create an <strong>OAuth 2.0 Client ID (Web application)</strong>.</li>
                     <li>Under <strong>Authorized JavaScript origins</strong>, add:
-                      <div className="font-mono bg-white dark:bg-white/5 p-1.5 rounded mt-1 border border-slate-200 dark:border-white/10 text-[9.5px]">
+                      <div className="font-mono bg-white/10 p-1.5 rounded mt-1 border border-white/20 text-[9.5px]">
                         http://localhost:3000<br />
                         https://factual-solutions.vercel.app
                       </div>
                     </li>
-                    <li>Copy your <strong>Client ID</strong> and paste into <code className="font-mono text-emerald-500">.env.local</code>:
-                      <div className="font-mono bg-white dark:bg-white/5 p-1.5 rounded mt-1 border border-slate-200 dark:border-white/10 text-[9.5px] text-emerald-400">
+                    <li>Copy your <strong>Client ID</strong> and paste into <code className="font-mono text-emerald-400">.env.local</code>:
+                      <div className="font-mono bg-white/10 p-1.5 rounded mt-1 border border-white/20 text-[9.5px] text-emerald-300">
                         NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
                       </div>
                     </li>
@@ -359,62 +359,62 @@ export default function AuthModal() {
             </div>
 
             <div className="relative flex items-center justify-center">
-              <div className="border-t border-slate-200 dark:border-white/10 w-full" />
-              <span className="bg-white dark:bg-slate-900 px-3 text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+              <div className="border-t border-white/10 w-full" />
+              <span className="bg-[#0A1120] px-3 text-[11px] font-medium text-slate-300 uppercase tracking-wider">
                 Or with corporate email
               </span>
-              <div className="border-t border-slate-200 dark:border-white/10 w-full" />
+              <div className="border-t border-white/10 w-full" />
             </div>
 
             <form onSubmit={handleEmailSubmit} className="space-y-3.5">
               {authModalMode === "signup" && (
                 <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="text-[11px] font-semibold text-slate-200">
                     Full Name
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <User className="w-4 h-4 text-slate-300 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sarah Jenkins"
-                      className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                     />
                   </div>
                 </div>
               )}
 
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                <label className="text-[11px] font-semibold text-slate-200">
                   Work / Corporate Email
                 </label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Mail className="w-4 h-4 text-slate-300 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@company.com"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                <label className="text-[11px] font-semibold text-slate-200">
                   Password (Optional for quick client access)
                 </label>
                 <div className="relative">
-                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Lock className="w-4 h-4 text-slate-300 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                 </div>
               </div>
@@ -422,20 +422,20 @@ export default function AuthModal() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 mt-2 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                className="w-full py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 mt-2 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
                 <span>{isSubmitting ? "Authenticating..." : (authModalMode === "login" ? "Sign In to Client Portal" : "Create Account & Continue")}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </form>
 
-            <div className="pt-2 text-center text-xs text-slate-500">
+            <div className="pt-2 text-center text-xs text-slate-300">
               {authModalMode === "login" ? (
                 <span>
                   New enterprise client?{" "}
                   <button
                     onClick={() => setAuthModalMode("signup")}
-                    className="font-bold text-[#A33C29] hover:underline"
+                    className="font-bold text-[#E25C43] hover:underline"
                   >
                     Create an account
                   </button>
@@ -445,7 +445,7 @@ export default function AuthModal() {
                   Already have an account?{" "}
                   <button
                     onClick={() => setAuthModalMode("login")}
-                    className="font-bold text-[#A33C29] hover:underline"
+                    className="font-bold text-[#E25C43] hover:underline"
                   >
                     Sign in
                   </button>
@@ -454,7 +454,7 @@ export default function AuthModal() {
             </div>
 
             <div className="flex items-center justify-center gap-1.5 pt-1 text-[10px] text-slate-400">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               <span>Enterprise encrypted session &bull; Mutual NDA protected</span>
             </div>
           </div>

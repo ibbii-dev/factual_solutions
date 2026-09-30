@@ -72,11 +72,11 @@ export default function LatestInsightsSection() {
           {articles.map((art) => (
             <StaggerItem
               key={art.id}
-              className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+              className="bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-white"
             >
               <div>
                 {/* Image container */}
-                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-900">
                   <Image
                     src={art.image}
                     alt={art.title}
@@ -85,7 +85,7 @@ export default function LatestInsightsSection() {
                   />
                   {/* Category badge */}
                   <div className="absolute top-3 left-3">
-                    <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#152238]/85 backdrop-blur-md text-white uppercase">
+                    <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#070D18]/90 backdrop-blur-md text-white uppercase border border-white/15">
                       {art.category}
                     </span>
                   </div>
@@ -93,17 +93,17 @@ export default function LatestInsightsSection() {
 
                 {/* Content */}
                 <div className="p-5 sm:p-6 space-y-2.5">
-                  <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-2 text-[11px] text-slate-300 font-medium">
                     <span>{art.date}</span>
                     <span>•</span>
                     <span>{art.readTime}</span>
                   </div>
 
-                  <h3 className="text-sm sm:text-base font-bold text-[#152238] dark:text-white leading-snug font-display group-hover:text-[#A33C29] transition-colors">
+                  <h3 className="text-sm sm:text-base font-bold text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
                     {art.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 font-normal">
+                  <p className="text-xs text-slate-100 leading-relaxed line-clamp-3 font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                     {art.excerpt}
                   </p>
                 </div>
@@ -113,7 +113,7 @@ export default function LatestInsightsSection() {
               <div className="p-5 sm:p-6 pt-0 mt-auto">
                 <Link
                   href={`/blog/${art.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#152238] dark:text-slate-200 group-hover:text-[#A33C29] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
                 >
                   <span>Read Full Article</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

@@ -73,7 +73,7 @@ export default function Footer() {
                   />
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase text-center shadow-sm"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase text-center shadow-md"
                   >
                     SEND BRIEFING REQUEST
                   </button>
