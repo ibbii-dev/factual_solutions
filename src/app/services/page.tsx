@@ -87,8 +87,8 @@ function ServicesContent() {
         </ScrollReveal>
 
         {/* Search Bar & Counter */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200/90 dark:border-white/15 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs font-bold text-[#152238] dark:text-slate-200">
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-black/35 backdrop-blur-xl rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
+          <div className="text-xs font-bold text-white">
             {language === "ar" 
               ? `عرض ${filteredServices.length} ممارسة استشارية متخصصة` 
               : `Showing ${filteredServices.length} Specialized Practice Capabilities`}
@@ -96,18 +96,18 @@ function ServicesContent() {
 
           {/* Search Input */}
           <div className="relative w-full sm:w-96">
-            <Search className={`w-4 h-4 text-slate-400 absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`} />
+            <Search className={`w-4 h-4 text-slate-300 absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={sp.searchPlaceholder}
-              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29] transition-all`}
+              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] transition-all`}
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-[#A33C29]`}
+                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-xs font-bold text-slate-300 hover:text-white`}
               >
                 Clear
               </button>
@@ -123,39 +123,39 @@ function ServicesContent() {
                 <StaggerItem
                   key={service.id}
                   variant="fade-up"
-                  className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-sm border border-slate-200/90 dark:border-white/15 flex flex-col justify-between hover:border-[#A33C29]/40 hover:shadow-xl transition-all duration-300 group"
+                  className="bg-black/35 backdrop-blur-xl rounded-2xl p-6 sm:p-7 shadow-xl border border-white/20 flex flex-col justify-between hover:border-white/35 hover:shadow-2xl transition-all duration-300 group text-white"
                 >
                   <div className="space-y-4">
                     
                     {/* Card Top: Icon & Indicator */}
                     <div className="flex items-center justify-between">
-                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#152238] dark:bg-white/10 dark:border dark:border-white/10 text-white group-hover:scale-105 transition-transform duration-300 shadow-xs">
+                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/10 border border-white/15 text-white group-hover:scale-105 transition-transform duration-300 shadow-sm">
                         {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
                       </div>
 
-                      <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                      <span className="text-xs font-bold text-[#E25C43] uppercase tracking-wider">
                         Practice {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>
 
                     {/* Title & Short Description */}
                     <div className="space-y-1.5">
-                      <Link href={`/services/${service.id}`} className="hover:text-[#A33C29] transition-colors">
-                        <h3 className="text-base sm:text-lg font-bold text-[#152238] dark:text-white leading-snug font-display">
+                      <Link href={`/services/${service.id}`} className="hover:text-[#E25C43] transition-colors">
+                        <h3 className="text-base sm:text-lg font-bold text-white leading-snug font-display drop-shadow-sm group-hover:text-[#E25C43] transition-colors">
                           {service.title}
                         </h3>
                       </Link>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                      <p className="text-xs text-slate-100 leading-relaxed font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                         {service.shortDescription}
                       </p>
                     </div>
 
                     {/* Benchmark KPI */}
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
-                      <div className="text-[10px] uppercase font-bold text-slate-400">
+                    <div className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
+                      <div className="text-[10px] uppercase font-bold text-slate-300">
                         {sp.deliverableLabel}
                       </div>
-                      <div className="text-xs font-bold text-[#152238] dark:text-brand-steel-light mt-0.5">
+                      <div className="text-xs font-bold text-white mt-0.5">
                         {service.metrics}
                       </div>
                     </div>
@@ -163,8 +163,8 @@ function ServicesContent() {
                     {/* Deliverables Preview */}
                     <div className="space-y-1.5 pt-1">
                       {service.deliverables.slice(0, 2).map((del, dIdx) => (
-                        <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 font-normal">
-                          <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#A33C29]" />
+                        <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-100 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#E25C43]" />
                           <span className="line-clamp-1">{del}</span>
                         </div>
                       ))}
@@ -172,10 +172,10 @@ function ServicesContent() {
                   </div>
 
                   {/* Card Bottom CTA */}
-                  <div className="pt-5 mt-5 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
+                  <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between">
                     <Link
                       href={`/services/${service.id}`}
-                      className="text-xs font-bold text-[#152238] dark:text-slate-200 hover:text-[#A33C29] transition-colors flex items-center gap-1"
+                      className="text-xs font-bold text-white hover:text-[#E25C43] transition-colors flex items-center gap-1"
                     >
                       <span>{sp.viewDetails}</span>
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -183,7 +183,7 @@ function ServicesContent() {
 
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
-                      className="p-2 rounded-xl text-white transition-all duration-200 shadow-xs bg-[#152238] dark:bg-white/10 dark:hover:bg-[#A33C29] hover:bg-[#A33C29]"
+                      className="p-2 rounded-xl text-white transition-all duration-200 shadow-sm bg-white/15 hover:bg-[#E25C43] border border-white/20"
                       title={language === "ar" ? "طلب استشارة لهذه الخدمة" : "Book this Service"}
                     >
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

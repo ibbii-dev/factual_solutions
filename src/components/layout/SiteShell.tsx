@@ -25,14 +25,20 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Global Fixed Background Video across every page with pure transparency - no grey scrim */}
-      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden">
+      {/* Global Fixed Background Video across every page with pure transparency - denoised HD resolution */}
+      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden bg-black">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-[1.03]"
+          style={{
+            filter: "blur(0.45px) contrast(1.08) saturate(1.1) brightness(1.02)",
+            transform: "scale(1.03) translate3d(0, 0, 0)",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden"
+          }}
           src={BG_VIDEO}
         />
       </div>

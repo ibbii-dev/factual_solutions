@@ -10,9 +10,15 @@ const BG_VIDEO =
 
 export default function VideoPage() {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden bg-black">
       <video
-        className="w-full h-full object-cover absolute inset-0"
+        className="w-full h-full object-cover absolute inset-0 scale-[1.03]"
+        style={{
+          filter: "blur(0.45px) contrast(1.08) saturate(1.1) brightness(1.02)",
+          transform: "scale(1.03) translate3d(0, 0, 0)",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden"
+        }}
         autoPlay
         muted
         loop
