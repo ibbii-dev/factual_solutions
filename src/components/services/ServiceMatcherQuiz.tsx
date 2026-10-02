@@ -17,25 +17,25 @@ export default function ServiceMatcherQuiz() {
   const [recommendedService, setRecommendedService] = useState<ServiceItem | null>(null);
 
   const labels = language === "ar" ? {
-    badge: "┘à╪│╪¬╪┤╪º╪▒ ╪º┘ä╪«╪»┘à╪º╪¬ ╪º┘ä╪¬┘ü╪º╪╣┘ä┘è",
-    title: "╪ú┘ä╪│╪¬ ┘à╪¬╪ú┘â╪»╪º┘ï ┘à┘å ╪º┘ä╪«╪»┘à╪⌐ ╪º┘ä╪ú┘å╪│╪¿ ┘ä┘à╪▒╪¡┘ä╪⌐ ┘à╪┤╪▒┘ê╪╣┘â ╪º┘ä╪¡╪º┘ä┘è╪⌐╪ƒ",
-    step1Title: "╪º┘ä╪«╪╖┘ê╪⌐ 1 ┘à┘å 2: ┘à╪º ┘ç┘ê ┘ç╪»┘ü┘â ╪º┘ä┘à╪ñ╪│╪│┘è ╪º┘ä╪ú╪¿╪▒╪▓ ╪¡╪º┘ä┘è╪º┘ï╪ƒ",
-    step2Title: "╪º┘ä╪«╪╖┘ê╪⌐ 2 ┘à┘å 2: ┘à╪º ┘ç┘ê ╪º┘ä╪Ñ╪╖╪º╪▒ ╪º┘ä╪▓┘à┘å┘è ╪º┘ä┘à╪│╪¬┘ç╪»┘ü ┘ä┘ä╪¬┘å┘ü┘è╪░╪ƒ",
-    recTag: "╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪⌐ ╪º┘ä┘à┘ê╪╡┘ë ╪¿┘ç╪º",
-    retake: "╪Ñ╪╣╪º╪»╪⌐ ╪º┘ä╪¬┘é┘è┘è┘à",
-    roiLabel: "╪º┘ä┘à╪«╪▒╪¼╪º╪¬ ╪º┘ä┘à╪¬┘ê┘é╪╣╪⌐:",
-    bookBtn: "╪¡╪¼╪▓ ╪¼┘ä╪│╪⌐ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘ä┘ç╪░┘ç ╪º┘ä╪«╪»┘à╪⌐",
+    badge: "مستشار الخدمات التفاعلي",
+    title: "ألست متأكداً من الخدمة الأنسب لمرحلة مشروعك الحالية؟",
+    step1Title: "الخطوة 1 من 2: ما هو هدفك المؤسسي الأبرز حالياً؟",
+    step2Title: "الخطوة 2 من 2: ما هو الإطار الزمني المستهدف للتنفيذ؟",
+    recTag: "الاستشارة الموصى بها",
+    retake: "إعادة التقييم",
+    roiLabel: "المخرجات المتوقعة:",
+    bookBtn: "حجز جلسة استشارية لهذه الخدمة",
     challenges: [
-      { id: "modernize", label: "╪ú┘ü┘â╪º╪▒ ╪¬╪¼╪º╪▒┘è╪⌐ ┘ê╪»╪▒╪º╪│╪º╪¬ ╪¼╪»┘ê┘ë ╪º┘é╪¬╪╡╪º╪»┘è╪⌐" },
-      { id: "expansion", label: "╪º┘ä╪¬┘ê╪│╪╣ ╪º┘ä╪Ñ┘é┘ä┘è┘à┘è ┘ê╪¬╪¡┘ä┘è┘ä ╪º┘ä╪│┘ê┘é ┘ê╪º┘ä┘à┘å╪º┘ü╪│┘è┘å" },
-      { id: "governance", label: "╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪º╪¬ ╪º┘ä╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è╪⌐ ┘ê╪Ñ╪╣╪º╪»╪⌐ ╪º┘ä┘ç┘è┘â┘ä╪⌐" },
-      { id: "financial", label: "╪º┘ä┘å┘à╪░╪¼╪⌐ ╪º┘ä┘à╪º┘ä┘è╪⌐ ┘ê╪º┘ä╪¬╪«╪╖┘è╪╖ ╪º┘ä╪º╪│╪¬╪½┘à╪º╪▒┘è" },
-      { id: "ops", label: "╪¬╪╖┘ê┘è╪▒ ╪º┘ä╪╣┘à┘ä┘è╪º╪¬ ┘ê╪¬╪¡╪│┘è┘å ┘à╪│╪º╪▒╪º╪¬ ╪º┘ä┘à╪¿┘è╪╣╪º╪¬" }
+      { id: "modernize", label: "أفكار تجارية ودراسات جدوى اقتصادية" },
+      { id: "expansion", label: "التوسع الإقليمي وتحليل السوق والمنافسين" },
+      { id: "governance", label: "الاستشارات الاستراتيجية وإعادة الهيكلة" },
+      { id: "financial", label: "النمذجة المالية والتخطيط الاستثماري" },
+      { id: "ops", label: "تطوير العمليات وتحسين مسارات المبيعات" }
     ],
     timeframes: [
-      { id: "immediate", label: "┘ü┘ê╪▒┘è (╪«┘ä╪º┘ä 30 ┘è┘ê┘à╪º┘ï)" },
-      { id: "quarter", label: "╪º┘ä╪▒╪¿╪╣ ╪º┘ä┘é╪º╪»┘à (1-3 ╪ú╪┤┘ç╪▒)" },
-      { id: "strategic", label: "╪¬╪«╪╖┘è╪╖ ╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è (3-6 ╪ú╪┤┘ç╪▒)" }
+      { id: "immediate", label: "فوري (خلال 30 يوماً)" },
+      { id: "quarter", label: "الربع القادم (1-3 أشهر)" },
+      { id: "strategic", label: "تخطيط استراتيجي (3-6 أشهر)" }
     ]
   } : {
     badge: "Interactive Service Advisor",
@@ -181,7 +181,7 @@ export default function ServiceMatcherQuiz() {
 
             <div>
               <div className="inline-block px-2.5 py-0.5 rounded-full bg-white/15 text-white font-bold text-[11px] uppercase mb-2 border border-white/20">
-                {language === "ar" ? "┘à┘à╪º╪▒╪│╪⌐ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘à╪¬╪«╪╡╪╡╪⌐" : "Advisory Practice"}
+                {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
               </div>
               <h4 className="text-xl font-extrabold text-white font-display drop-shadow-sm">
                 {recommendedService.title}

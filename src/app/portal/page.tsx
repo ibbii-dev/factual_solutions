@@ -139,7 +139,7 @@ export default function ClientPortalPage() {
 
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
             <Link href="/contact" className="text-xs text-[#A33C29] font-semibold hover:underline">
-              Submit a new advisory inquiry ΓåÆ
+              Submit a new advisory inquiry →
             </Link>
           </div>
         </div>
@@ -358,7 +358,7 @@ export default function ClientPortalPage() {
                                   Stage 1
                                 </span>
                                 <span className={`text-[10px] font-bold ${inq.status !== 'New' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500'}`}>
-                                  {inq.status !== 'New' ? 'Γ£ô Completed' : 'ΓùÅ In Review'}
+                                  {inq.status !== 'New' ? '✓ Completed' : '● In Review'}
                                 </span>
                               </div>
                               <h5 className="text-xs font-bold text-[#152238] dark:text-white">Partner Review</h5>
@@ -387,10 +387,10 @@ export default function ClientPortalPage() {
                                     : 'text-slate-400'
                                 }`}>
                                   {inq.status === 'In Progress' || inq.status === 'Closed'
-                                    ? 'Γ£ô Completed'
+                                    ? '✓ Completed'
                                     : inq.status === 'Contacted'
-                                    ? 'ΓùÅ Active Diagnostic'
-                                    : 'Γùï Scheduled'}
+                                    ? '● Active Diagnostic'
+                                    : '○ Scheduled'}
                                 </span>
                               </div>
                               <h5 className="text-xs font-bold text-[#152238] dark:text-white">Feasibility Diagnostic</h5>
@@ -410,7 +410,7 @@ export default function ClientPortalPage() {
                                   Stage 3
                                 </span>
                                 <span className={`text-[10px] font-bold ${inq.status === 'Closed' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
-                                  {inq.status === 'Closed' ? 'Γ£ô Ready' : 'Γùï Upcoming'}
+                                  {inq.status === 'Closed' ? '✓ Ready' : '○ Upcoming'}
                                 </span>
                               </div>
                               <h5 className="text-xs font-bold text-[#152238] dark:text-white">Formal Proposal</h5>

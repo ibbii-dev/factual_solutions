@@ -22,14 +22,14 @@ export default function AboutPage() {
   const about = t.aboutPage;
 
   const arabicSkills = [
-    "╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪º╪¬ ╪º┘ä╪Ñ╪»╪º╪▒┘è╪⌐ ┘ê╪º┘ä╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è╪⌐",
-    "╪¬╪«╪╖┘è╪╖ ┘ê╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è╪º╪¬ ╪º┘ä╪ú╪╣┘à╪º┘ä",
-    "╪º┘ä╪¬┘à┘è╪▓ ╪º┘ä╪¬╪┤╪║┘è┘ä┘è ╪º┘ä┘à╪ñ╪│╪│┘è",
-    "╪¬╪╖╪¿┘è┘é ┘à┘å┘ç╪¼┘è╪⌐ ╪º┘ä┘ä┘è┘å ╪│╪¬╪⌐ ╪│┘è╪¼┘à╪º",
-    "╪¬╪¡┘ê┘ä ╪º┘ä╪╣┘à┘ä┘è╪º╪¬ ┘ê╪ú┘å╪╕┘à╪⌐ ERP",
-    "╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä┘à╪┤╪º╪▒┘è╪╣ ╪º┘ä╪º╪¡╪¬╪▒╪º┘ü┘è╪⌐ (PMP)",
-    "╪¬╪¡┘ä┘è┘ä╪º╪¬ ╪º┘ä╪ú╪»╪º╪í ┘ê┘à╪ñ╪┤╪▒╪º╪¬ KPIs",
-    "╪º┘ä╪¬╪¡╪│┘è┘å ╪º┘ä┘à╪│╪¬┘à╪▒ ┘ä┘ä╪╣┘à┘ä┘è╪º╪¬"
+    "الاستشارات الإدارية والاستراتيجية",
+    "تخطيط واستراتيجيات الأعمال",
+    "التميز التشغيلي المؤسسي",
+    "تطبيق منهجية اللين ستة سيجما",
+    "تحول العمليات وأنظمة ERP",
+    "إدارة المشاريع الاحترافية (PMP)",
+    "تحليلات الأداء ومؤشرات KPIs",
+    "التحسين المستمر للعمليات"
   ];
 
   const currentSkills = language === "ar" ? arabicSkills : principalConsultant.skills;
@@ -205,17 +205,17 @@ export default function AboutPage() {
                 <div className="flex items-center justify-center gap-2">
                   <MapPin className="w-4 h-4 text-[#E25C43] shrink-0" />
                   <span className="text-base font-bold text-white">
-                    {language === "ar" ? "┘ä╪º┘ç┘ê╪▒╪î ╪¿╪º┘â╪│╪¬╪º┘å" : `${loc.city}, ${loc.country}`}
+                    {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
                   </span>
                   <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-white/15 text-white border border-white/15">
-                    {language === "ar" ? "╪º┘ä┘à┘é╪▒ ╪º┘ä╪▒╪ª┘è╪│┘è" : loc.tag}
+                    {language === "ar" ? "المقر الرئيسي" : loc.tag}
                   </span>
                 </div>
                 <p className="text-xs text-slate-100 font-medium">
-                  {language === "ar" ? "┘ä╪º┘ç┘ê╪▒╪î ╪º┘ä╪¿┘å╪¼╪º╪¿╪î ╪¿╪º┘â╪│╪¬╪º┘å" : loc.address}
+                  {language === "ar" ? "لاهور، البنجاب، باكستان" : loc.address}
                 </p>
                 <div className="text-xs font-bold text-white pt-1">
-                  {language === "ar" ? "╪º┘ä┘à╪¿╪º╪┤╪▒:" : "Direct:"} {loc.phone}
+                  {language === "ar" ? "المباشر:" : "Direct:"} {loc.phone}
                 </div>
               </div>
             ))}

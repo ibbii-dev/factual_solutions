@@ -61,7 +61,7 @@ export default function MethodologySection() {
             ENGAGEMENT PROCESS
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
-            A Structured 4ΓÇôStep Advisory Framework
+            A Structured 4–Step Advisory Framework
           </h2>
           <p className="text-xs sm:text-sm md:text-base text-slate-100 font-normal leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
             We follow a practical disciplined consulting process from infrastructure review through hands-on execution and performance training.

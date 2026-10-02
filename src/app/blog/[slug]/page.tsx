@@ -194,7 +194,7 @@ export default async function BlogPostPage({
             <Clock className="w-4 h-4" />
             {post.readTime}
           </span>
-          <span className="text-slate-400">ΓÇó</span>
+          <span className="text-slate-400">•</span>
           <span className="flex items-center gap-1.5 text-xs text-slate-300">
             <Calendar className="w-4 h-4" />
             {post.publishedAt}

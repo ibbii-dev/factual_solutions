@@ -90,7 +90,7 @@ function ServicesContent() {
         <ScrollReveal variant="fade-up" delay={0.1} className="bg-black/45 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
           <div className="text-xs font-bold text-white">
             {language === "ar" 
-              ? `╪╣╪▒╪╢ ${filteredServices.length} ┘à┘à╪º╪▒╪│╪⌐ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘à╪¬╪«╪╡╪╡╪⌐` 
+              ? `عرض ${filteredServices.length} ممارسة استشارية متخصصة` 
               : `Showing ${filteredServices.length} Specialized Practice Capabilities`}
           </div>
 
@@ -184,7 +184,7 @@ function ServicesContent() {
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
                       className="p-2 rounded-xl text-white transition-all duration-200 shadow-sm bg-white/15 hover:bg-[#E25C43] border border-white/20"
-                      title={language === "ar" ? "╪╖┘ä╪¿ ╪º╪│╪¬╪┤╪º╪▒╪⌐ ┘ä┘ç╪░┘ç ╪º┘ä╪«╪»┘à╪⌐" : "Book this Service"}
+                      title={language === "ar" ? "طلب استشارة لهذه الخدمة" : "Book this Service"}
                     >
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                     </Link>

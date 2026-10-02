@@ -155,7 +155,7 @@ function BlogContent() {
                       <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold text-[10px] border border-white/15">
                         Advisory Insight
                       </span>
-                      <span>ΓÇó</span>
+                      <span>•</span>
                       <span className="flex items-center gap-1 text-[11px] text-slate-200">
                         <Clock className="w-3 h-3 text-[#E25C43]" />
                         {featuredPost.readTime}
@@ -249,7 +249,7 @@ function BlogContent() {
                     <div className="p-5 sm:p-6 space-y-2.5">
                       <div className="flex items-center gap-2 text-[11px] text-slate-300">
                         <span>{post.publishedAt}</span>
-                        <span>ΓÇó</span>
+                        <span>•</span>
                         <span>{post.readTime}</span>
                       </div>
 
