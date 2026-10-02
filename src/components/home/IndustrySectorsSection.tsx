@@ -121,7 +121,7 @@ export default function IndustrySectorsSection() {
                 <span className="absolute top-0 inset-x-0 h-[3px] bg-brand-tri scale-x-0 origin-left rtl:origin-right group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
                 <div className="space-y-4">
                   <div className="flex items-start justify-between gap-3">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${tones[idx % 3]}`}>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-6 group-hover:scale-110 ${tones[idx % 3]}`}>
                       <IconComp className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 text-end pt-1">

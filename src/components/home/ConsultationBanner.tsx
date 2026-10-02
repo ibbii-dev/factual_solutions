@@ -17,8 +17,7 @@ export default function ConsultationBanner() {
         <ScrollReveal variant="fade-up" duration={0.6}>
           <div className="relative rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 dark:from-night-800 dark:via-night-850 dark:to-night-950 text-white p-7 sm:p-12 lg:p-16 overflow-hidden border border-navy-700 dark:border-white/10 shadow-lift">
 
-            {/* Decorative: grid + logo mark */}
-            <div className="absolute inset-0 opacity-[0.07] pointer-events-none" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "44px 44px" }} aria-hidden="true" />
+            {/* Decorative: logo mark */}
             <div className="absolute -bottom-24 -right-24 w-[380px] h-[380px] rounded-full bg-steel/20 blur-3xl pointer-events-none" aria-hidden="true" />
             <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[360px] h-[360px] opacity-90 hidden lg:block pointer-events-none" aria-hidden="true">
               <Image src="/images/logo-symbol.png" alt="" fill className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)]" />
@@ -58,7 +57,7 @@ export default function ConsultationBanner() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-rust hover:bg-rust-light text-white text-sm font-bold transition-all duration-200 shadow-cta hover:-translate-y-0.5 text-center"
+                  className="btn-sheen inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-rust hover:bg-rust-light text-white text-sm font-bold transition-all duration-200 shadow-cta hover:-translate-y-0.5 text-center"
                 >
                   <span>Request a Consultation</span>
                   <ArrowRight className="w-4 h-4 rtl:rotate-180" />

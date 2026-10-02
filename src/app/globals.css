@@ -143,19 +143,6 @@ html.dark ::selection { color: #FFFFFF; }
   background: linear-gradient(90deg, #1F3A7D 0 33.33%, #82A9E2 33.33% 66.66%, #A2351E 66.66% 100%);
 }
 
-/* Subtle blueprint grid used behind heroes */
-.brand-grid {
-  background-image:
-    linear-gradient(rgba(31, 58, 125, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31, 58, 125, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-html.dark .brand-grid {
-  background-image:
-    linear-gradient(rgba(130, 169, 226, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(130, 169, 226, 0.06) 1px, transparent 1px);
-}
-
 .eyebrow {
   font-size: 11px;
   font-weight: 700;
@@ -170,4 +157,24 @@ html.dark .brand-grid {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ---------- Motion utilities ---------- */
+/* Light sweep across primary buttons on hover */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-sheen:hover::after {
+  transform: translateX(120%);
 }

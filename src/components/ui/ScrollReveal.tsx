@@ -25,8 +25,8 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     switch (variant) {
       case "fade-up":
         return {
-          hidden: { opacity: 0, y: 35 },
-          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+          visible: { opacity: 1, y: 0, filter: "blur(0px)", transitionEnd: { filter: "none" } },
         };
       case "fade-down":
         return {
@@ -45,8 +45,8 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
         };
       case "zoom-in":
         return {
-          hidden: { opacity: 0, scale: 0.92 },
-          visible: { opacity: 1, scale: 1 },
+          hidden: { opacity: 0, scale: 0.96, filter: "blur(6px)" },
+          visible: { opacity: 1, scale: 1, filter: "blur(0px)", transitionEnd: { filter: "none" } },
         };
       case "fade":
       default:
@@ -67,7 +67,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       transition={{
         duration,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: [0.16, 1, 0.3, 1],
       }}
       variants={variants}
       className={className}
@@ -144,11 +144,13 @@ export const StaggerItem: React.FC<{
       case "fade-up":
       default:
         return {
-          hidden: { opacity: 0, y: 25 },
+          hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
           visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] },
+            filter: "blur(0px)",
+            transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+            transitionEnd: { filter: "none" },
           },
         };
     }

@@ -308,7 +308,7 @@ export default function Navbar() {
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all duration-200 shadow-cta hover:-translate-y-px active:translate-y-0"
+                className="btn-sheen inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all duration-200 shadow-cta hover:-translate-y-px active:translate-y-0"
               >
                 <span>Request Consultation</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
