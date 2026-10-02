@@ -223,11 +223,11 @@ export default function Footer() {
           </div>
           <div className="flex flex-wrap items-center gap-4 text-slate-200">
             <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <span>•</span>
+            <span>ΓÇó</span>
             <Link href="/services" className="hover:text-white transition-colors">Terms of Engagement</Link>
-            <span>•</span>
+            <span>ΓÇó</span>
             <Link href="/contact" className="hover:text-white transition-colors">Regulatory Disclosures</Link>
-            <span>•</span>
+            <span>ΓÇó</span>
             <Link href="/admin" className="text-slate-300 hover:text-white transition-colors text-[10px]">Staff Admin</Link>
           </div>
         </div>

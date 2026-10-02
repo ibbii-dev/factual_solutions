@@ -11,14 +11,14 @@ interface LanguageOption {
 }
 
 const languages: LanguageOption[] = [
-  { code: "en", label: "English", native: "English", flag: "🇺🇸" },
-  { code: "ar", label: "Arabic", native: "العربية", flag: "🇸🇦" },
-  { code: "ur", label: "Urdu", native: "اردو", flag: "🇵🇰" },
-  { code: "tr", label: "Turkish", native: "Türkçe", flag: "🇹🇷" },
-  { code: "es", label: "Spanish", native: "Español", flag: "🇪🇸" },
-  { code: "fr", label: "French", native: "Français", flag: "🇫🇷" },
-  { code: "de", label: "German", native: "Deutsch", flag: "🇩🇪" },
-  { code: "zh-CN", label: "Chinese", native: "简体中文", flag: "🇨🇳" }
+  { code: "en", label: "English", native: "English", flag: "≡ƒç║≡ƒç╕" },
+  { code: "ar", label: "Arabic", native: "╪º┘ä╪╣╪▒╪¿┘è╪⌐", flag: "≡ƒç╕≡ƒçª" },
+  { code: "ur", label: "Urdu", native: "╪º╪▒╪»┘ê", flag: "≡ƒç╡≡ƒç░" },
+  { code: "tr", label: "Turkish", native: "T├╝rk├ºe", flag: "≡ƒç╣≡ƒç╖" },
+  { code: "es", label: "Spanish", native: "Espa├▒ol", flag: "≡ƒç¬≡ƒç╕" },
+  { code: "fr", label: "French", native: "Fran├ºais", flag: "≡ƒç½≡ƒç╖" },
+  { code: "de", label: "German", native: "Deutsch", flag: "≡ƒç⌐≡ƒç¬" },
+  { code: "zh-CN", label: "Chinese", native: "τ«ÇΣ╜ôΣ╕¡µûç", flag: "≡ƒç¿≡ƒç│" }
 ];
 
 export default function CustomLanguageSelector() {
@@ -148,7 +148,7 @@ export default function CustomLanguageSelector() {
         <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-[#0A1120]/95 backdrop-blur-2xl border border-white/20 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-white/10 text-white">
           <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
             <Globe className="w-3 h-3 text-[#E25C43]" />
-            <span>Select Language / اختر اللغة</span>
+            <span>Select Language / ╪º╪«╪¬╪▒ ╪º┘ä┘ä╪║╪⌐</span>
           </div>
 
           <div className="py-1 space-y-0.5 max-h-64 overflow-y-auto">

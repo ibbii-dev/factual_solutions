@@ -95,7 +95,7 @@ export default function LatestInsightsSection() {
                 <div className="p-5 sm:p-6 space-y-2.5">
                   <div className="flex items-center gap-2 text-[11px] text-slate-300 font-medium">
                     <span>{art.date}</span>
-                    <span>•</span>
+                    <span>ΓÇó</span>
                     <span>{art.readTime}</span>
                   </div>
 

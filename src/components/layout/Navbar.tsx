@@ -76,22 +76,22 @@ export default function Navbar() {
 
   const navLinks = [
     { 
-      name: language === "ar" ? "ما نقوم به" : "What we do", 
+      name: language === "ar" ? "┘à╪º ┘å┘é┘ê┘à ╪¿┘ç" : "What we do", 
       href: "/services", 
       dropdownType: "services" as const
     },
     { 
-      name: language === "ar" ? "رؤيتنا" : "What we think", 
+      name: language === "ar" ? "╪▒╪ñ┘è╪¬┘å╪º" : "What we think", 
       href: "/what-we-think",
       dropdownType: null 
     },
     { 
-      name: language === "ar" ? "من نحن" : "Who we are", 
+      name: language === "ar" ? "┘à┘å ┘å╪¡┘å" : "Who we are", 
       href: "/about", 
       dropdownType: null 
     },
     { 
-      name: language === "ar" ? "المدونة" : "Blog", 
+      name: language === "ar" ? "╪º┘ä┘à╪»┘ê┘å╪⌐" : "Blog", 
       href: "/blog",
       dropdownType: null 
     },
@@ -99,43 +99,43 @@ export default function Navbar() {
 
   const featuredServicesList = [
     {
-      title: language === "ar" ? "الإدارة الاستراتيجية" : "Strategic Management",
-      desc: language === "ar" ? "التوافق التنفيذي، مؤشرات الأداء وخارطة الطريق" : "Executive alignment, OKRs & roadmap",
+      title: language === "ar" ? "╪º┘ä╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è╪⌐" : "Strategic Management",
+      desc: language === "ar" ? "╪º┘ä╪¬┘ê╪º┘ü┘é ╪º┘ä╪¬┘å┘ü┘è╪░┘è╪î ┘à╪ñ╪┤╪▒╪º╪¬ ╪º┘ä╪ú╪»╪º╪í ┘ê╪«╪º╪▒╪╖╪⌐ ╪º┘ä╪╖╪▒┘è┘é" : "Executive alignment, OKRs & roadmap",
       href: "/services/strategic-consulting",
       icon: Compass,
       color: "#A33C29"
     },
     {
-      title: language === "ar" ? "النمذجة المالية ودراسات الجدوى" : "Financial Modeling & Feasibility",
-      desc: language === "ar" ? "تدفقات نقدية، العائد على الاستثمار والميزانيات" : "5-Year cash flows, ROI & budgets",
+      title: language === "ar" ? "╪º┘ä┘å┘à╪░╪¼╪⌐ ╪º┘ä┘à╪º┘ä┘è╪⌐ ┘ê╪»╪▒╪º╪│╪º╪¬ ╪º┘ä╪¼╪»┘ê┘ë" : "Financial Modeling & Feasibility",
+      desc: language === "ar" ? "╪¬╪»┘ü┘é╪º╪¬ ┘å┘é╪»┘è╪⌐╪î ╪º┘ä╪╣╪º╪ª╪» ╪╣┘ä┘ë ╪º┘ä╪º╪│╪¬╪½┘à╪º╪▒ ┘ê╪º┘ä┘à┘è╪▓╪º┘å┘è╪º╪¬" : "5-Year cash flows, ROI & budgets",
       href: "/services/investment-planning",
       icon: TrendingUp,
       color: "#8EA9D3"
     },
     {
-      title: language === "ar" ? "إدارة المشاريع ومنهجية لين" : "Projects & Lean Management",
-      desc: language === "ar" ? "مكاتب إدارة المشاريع، لين 6 سيجما والتدقيق" : "PMO delivery, Lean Six Sigma & audits",
+      title: language === "ar" ? "╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä┘à╪┤╪º╪▒┘è╪╣ ┘ê┘à┘å┘ç╪¼┘è╪⌐ ┘ä┘è┘å" : "Projects & Lean Management",
+      desc: language === "ar" ? "┘à┘â╪º╪¬╪¿ ╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä┘à╪┤╪º╪▒┘è╪╣╪î ┘ä┘è┘å 6 ╪│┘è╪¼┘à╪º ┘ê╪º┘ä╪¬╪»┘é┘è┘é" : "PMO delivery, Lean Six Sigma & audits",
       href: "/services/projects-management",
       icon: Layers,
       color: "#152238"
     },
     {
-      title: language === "ar" ? "تحول العمليات وأنظمة ERP" : "Process & ERP Transformation",
-      desc: language === "ar" ? "إجراءات العمل المعيارية، التسليم والأتمتة" : "SOPs, handover optimization & workflows",
+      title: language === "ar" ? "╪¬╪¡┘ê┘ä ╪º┘ä╪╣┘à┘ä┘è╪º╪¬ ┘ê╪ú┘å╪╕┘à╪⌐ ERP" : "Process & ERP Transformation",
+      desc: language === "ar" ? "╪Ñ╪¼╪▒╪º╪í╪º╪¬ ╪º┘ä╪╣┘à┘ä ╪º┘ä┘à╪╣┘è╪º╪▒┘è╪⌐╪î ╪º┘ä╪¬╪│┘ä┘è┘à ┘ê╪º┘ä╪ú╪¬┘à╪¬╪⌐" : "SOPs, handover optimization & workflows",
       href: "/services/process-transformation",
       icon: Cpu,
       color: "#A33C29"
     },
     {
-      title: language === "ar" ? "الدراسات وأبحاث السوق" : "Studies & Feasibility Research",
-      desc: language === "ar" ? "تحليل دخول السوق والتحقق من الجدوى" : "Market entry analysis & demand validation",
+      title: language === "ar" ? "╪º┘ä╪»╪▒╪º╪│╪º╪¬ ┘ê╪ú╪¿╪¡╪º╪½ ╪º┘ä╪│┘ê┘é" : "Studies & Feasibility Research",
+      desc: language === "ar" ? "╪¬╪¡┘ä┘è┘ä ╪»╪«┘ê┘ä ╪º┘ä╪│┘ê┘é ┘ê╪º┘ä╪¬╪¡┘é┘é ┘à┘å ╪º┘ä╪¼╪»┘ê┘ë" : "Market entry analysis & demand validation",
       href: "/services/studies-research",
       icon: FileText,
       color: "#8EA9D3"
     },
     {
-      title: language === "ar" ? "حلول الأعمال المتخصصة" : "Specialized Business Solutions",
-      desc: language === "ar" ? "توسيع النطاق التجاري، والتعافي المؤسسي" : "Commercial scaling, turnarounds & growth",
+      title: language === "ar" ? "╪¡┘ä┘ê┘ä ╪º┘ä╪ú╪╣┘à╪º┘ä ╪º┘ä┘à╪¬╪«╪╡╪╡╪⌐" : "Specialized Business Solutions",
+      desc: language === "ar" ? "╪¬┘ê╪│┘è╪╣ ╪º┘ä┘å╪╖╪º┘é ╪º┘ä╪¬╪¼╪º╪▒┘è╪î ┘ê╪º┘ä╪¬╪╣╪º┘ü┘è ╪º┘ä┘à╪ñ╪│╪│┘è" : "Commercial scaling, turnarounds & growth",
       href: "/services/business-growth",
       icon: Briefcase,
       color: "#152238"
@@ -175,7 +175,7 @@ export default function Navbar() {
                   </span>
                 </div>
                 <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-300 uppercase -mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
-                  {language === "ar" ? "شركاؤكم في التميز المؤسسي" : "Your Business Excellence Partners"}
+                  {language === "ar" ? "╪┤╪▒┘â╪º╪ñ┘â┘à ┘ü┘è ╪º┘ä╪¬┘à┘è╪▓ ╪º┘ä┘à╪ñ╪│╪│┘è" : "Your Business Excellence Partners"}
                 </span>
               </div>
             </Link>
@@ -250,7 +250,7 @@ export default function Navbar() {
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className="flex items-center gap-1.5 font-bold text-[#E25C43] hover:underline text-xs"
                               >
-                                <span>{language === "ar" ? "استكشف جميع الممارسات الـ 18" : "Explore All 18 Practices"}</span>
+                                <span>{language === "ar" ? "╪º╪│╪¬┘â╪┤┘ü ╪¼┘à┘è╪╣ ╪º┘ä┘à┘à╪º╪▒╪│╪º╪¬ ╪º┘ä┘Ç 18" : "Explore All 18 Practices"}</span>
                                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                               </Link>
                               <Link
@@ -258,7 +258,7 @@ export default function Navbar() {
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className="font-bold text-xs text-white bg-white/15 hover:bg-[#E25C43] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-sm border border-white/20"
                               >
-                                <span>{language === "ar" ? "اختبار التوجيه" : "Advisor Quiz"}</span>
+                                <span>{language === "ar" ? "╪º╪«╪¬╪¿╪º╪▒ ╪º┘ä╪¬┘ê╪¼┘è┘ç" : "Advisor Quiz"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                               </Link>
                             </div>
@@ -417,7 +417,7 @@ export default function Navbar() {
                   : "text-slate-200 hover:text-white hover:bg-white/10"
               }`}
             >
-              {language === "ar" ? "الرئيسية" : "Home"}
+              {language === "ar" ? "╪º┘ä╪▒╪ª┘è╪│┘è╪⌐" : "Home"}
             </Link>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;

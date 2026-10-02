@@ -81,11 +81,11 @@ export default function ServiceDetailPage() {
         <div className="text-center p-8 bg-white dark:bg-slate-900/95 dark:backdrop-blur-2xl rounded-2xl border border-slate-200/90 dark:border-white/15 max-w-md mx-auto shadow-xs">
           <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
           <h2 className="text-xl font-bold font-display">
-            {language === "ar" ? "الخدمة غير موجودة" : "Service Not Found"}
+            {language === "ar" ? "╪º┘ä╪«╪»┘à╪⌐ ╪║┘è╪▒ ┘à┘ê╪¼┘ê╪»╪⌐" : "Service Not Found"}
           </h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
             {language === "ar" 
-              ? "الخدمة المطلوبة غير متوفرة أو تم تغيير مسارها." 
+              ? "╪º┘ä╪«╪»┘à╪⌐ ╪º┘ä┘à╪╖┘ä┘ê╪¿╪⌐ ╪║┘è╪▒ ┘à╪¬┘ê┘ü╪▒╪⌐ ╪ú┘ê ╪¬┘à ╪¬╪║┘è┘è╪▒ ┘à╪│╪º╪▒┘ç╪º." 
               : "The requested service could not be found."}
           </p>
           <Link
@@ -93,7 +93,7 @@ export default function ServiceDetailPage() {
             className="inline-flex items-center gap-2 mt-5 px-6 py-2.5 rounded-full bg-[#A33C29] text-white text-xs font-bold hover:bg-[#8E3221] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
-            <span>{language === "ar" ? "العودة إلى دليل الخدمات" : "Back to Services Directory"}</span>
+            <span>{language === "ar" ? "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪»┘ä┘è┘ä ╪º┘ä╪«╪»┘à╪º╪¬" : "Back to Services Directory"}</span>
           </Link>
         </div>
       </div>
@@ -103,34 +103,34 @@ export default function ServiceDetailPage() {
   const isBusiness = service.category === "business";
 
   const labels = language === "ar" ? {
-    breadcrumbHome: "الرئيسية",
-    breadcrumbServices: "الخدمات",
-    categoryBusiness: "حلول الأعمال",
-    categoryConsultancy: "الاستشارات الإدارية",
-    overviewTitle: "نظرة عامة على الخدمة والأثر المؤسسي",
-    deliverablesTitle: "مخرجات العمل الاستشارية والتنفيذية",
-    phasesTitle: "منهجية التنفيذ ومراحل العمل",
-    idealForTitle: "الملف المؤسسي المستهدف",
-    idealForSubtitle: "صممت هذه الخدمة للشركات والقيادات التي تواجه التحديات التالية:",
-    statsTimeline: "الإطار الزمني",
-    statsDeliverables: "المخرجات",
-    statsLead: "الإشراف",
-    statsLeadVal: "مستشار معتمد (PMP / MBB)",
-    statsBenchmark: "معيار الإنجاز",
-    sidebarTitle: "طلب جلسة استشارية مباشرة",
-    sidebarDesc: "ناقش متطلبات مشروعك مباشرة مع خبرائنا واحصل على تقييم أولي مجاني.",
-    inputName: "الاسم الكريم *",
-    inputEmail: "البريد الإلكتروني للعمل *",
-    inputPhone: "رقم الهاتف",
-    inputCompany: "اسم الشركة / المنشأة",
-    inputMessage: "ملاحظات إضافية (اختياري)",
-    submitBtn: "إرسال طلب الاستشارة",
-    submittingBtn: "جارٍ الإرسال...",
-    successTitle: "تم استلام طلبك بنجاح",
-    successDesc: "شكراً لك. سيتواصل معك مستشارنا المختص خلال 24 ساعة.",
-    confidential: "جلسة استشارية سرية ومحمية باتفاقية عدم إفصاح",
-    relatedTitle: "خدمات استشارية ذات صلة",
-    viewService: "عرض تفاصيل الخدمة",
+    breadcrumbHome: "╪º┘ä╪▒╪ª┘è╪│┘è╪⌐",
+    breadcrumbServices: "╪º┘ä╪«╪»┘à╪º╪¬",
+    categoryBusiness: "╪¡┘ä┘ê┘ä ╪º┘ä╪ú╪╣┘à╪º┘ä",
+    categoryConsultancy: "╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪º╪¬ ╪º┘ä╪Ñ╪»╪º╪▒┘è╪⌐",
+    overviewTitle: "┘å╪╕╪▒╪⌐ ╪╣╪º┘à╪⌐ ╪╣┘ä┘ë ╪º┘ä╪«╪»┘à╪⌐ ┘ê╪º┘ä╪ú╪½╪▒ ╪º┘ä┘à╪ñ╪│╪│┘è",
+    deliverablesTitle: "┘à╪«╪▒╪¼╪º╪¬ ╪º┘ä╪╣┘à┘ä ╪º┘ä╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘ê╪º┘ä╪¬┘å┘ü┘è╪░┘è╪⌐",
+    phasesTitle: "┘à┘å┘ç╪¼┘è╪⌐ ╪º┘ä╪¬┘å┘ü┘è╪░ ┘ê┘à╪▒╪º╪¡┘ä ╪º┘ä╪╣┘à┘ä",
+    idealForTitle: "╪º┘ä┘à┘ä┘ü ╪º┘ä┘à╪ñ╪│╪│┘è ╪º┘ä┘à╪│╪¬┘ç╪»┘ü",
+    idealForSubtitle: "╪╡┘à┘à╪¬ ┘ç╪░┘ç ╪º┘ä╪«╪»┘à╪⌐ ┘ä┘ä╪┤╪▒┘â╪º╪¬ ┘ê╪º┘ä┘é┘è╪º╪»╪º╪¬ ╪º┘ä╪¬┘è ╪¬┘ê╪º╪¼┘ç ╪º┘ä╪¬╪¡╪»┘è╪º╪¬ ╪º┘ä╪¬╪º┘ä┘è╪⌐:",
+    statsTimeline: "╪º┘ä╪Ñ╪╖╪º╪▒ ╪º┘ä╪▓┘à┘å┘è",
+    statsDeliverables: "╪º┘ä┘à╪«╪▒╪¼╪º╪¬",
+    statsLead: "╪º┘ä╪Ñ╪┤╪▒╪º┘ü",
+    statsLeadVal: "┘à╪│╪¬╪┤╪º╪▒ ┘à╪╣╪¬┘à╪» (PMP / MBB)",
+    statsBenchmark: "┘à╪╣┘è╪º╪▒ ╪º┘ä╪Ñ┘å╪¼╪º╪▓",
+    sidebarTitle: "╪╖┘ä╪¿ ╪¼┘ä╪│╪⌐ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘à╪¿╪º╪┤╪▒╪⌐",
+    sidebarDesc: "┘å╪º┘é╪┤ ┘à╪¬╪╖┘ä╪¿╪º╪¬ ┘à╪┤╪▒┘ê╪╣┘â ┘à╪¿╪º╪┤╪▒╪⌐ ┘à╪╣ ╪«╪¿╪▒╪º╪ª┘å╪º ┘ê╪º╪¡╪╡┘ä ╪╣┘ä┘ë ╪¬┘é┘è┘è┘à ╪ú┘ê┘ä┘è ┘à╪¼╪º┘å┘è.",
+    inputName: "╪º┘ä╪º╪│┘à ╪º┘ä┘â╪▒┘è┘à *",
+    inputEmail: "╪º┘ä╪¿╪▒┘è╪» ╪º┘ä╪Ñ┘ä┘â╪¬╪▒┘ê┘å┘è ┘ä┘ä╪╣┘à┘ä *",
+    inputPhone: "╪▒┘é┘à ╪º┘ä┘ç╪º╪¬┘ü",
+    inputCompany: "╪º╪│┘à ╪º┘ä╪┤╪▒┘â╪⌐ / ╪º┘ä┘à┘å╪┤╪ú╪⌐",
+    inputMessage: "┘à┘ä╪º╪¡╪╕╪º╪¬ ╪Ñ╪╢╪º┘ü┘è╪⌐ (╪º╪«╪¬┘è╪º╪▒┘è)",
+    submitBtn: "╪Ñ╪▒╪│╪º┘ä ╪╖┘ä╪¿ ╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪⌐",
+    submittingBtn: "╪¼╪º╪▒┘ì ╪º┘ä╪Ñ╪▒╪│╪º┘ä...",
+    successTitle: "╪¬┘à ╪º╪│╪¬┘ä╪º┘à ╪╖┘ä╪¿┘â ╪¿┘å╪¼╪º╪¡",
+    successDesc: "╪┤┘â╪▒╪º┘ï ┘ä┘â. ╪│┘è╪¬┘ê╪º╪╡┘ä ┘à╪╣┘â ┘à╪│╪¬╪┤╪º╪▒┘å╪º ╪º┘ä┘à╪«╪¬╪╡ ╪«┘ä╪º┘ä 24 ╪│╪º╪╣╪⌐.",
+    confidential: "╪¼┘ä╪│╪⌐ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ╪│╪▒┘è╪⌐ ┘ê┘à╪¡┘à┘è╪⌐ ╪¿╪º╪¬┘ü╪º┘é┘è╪⌐ ╪╣╪»┘à ╪Ñ┘ü╪╡╪º╪¡",
+    relatedTitle: "╪«╪»┘à╪º╪¬ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ╪░╪º╪¬ ╪╡┘ä╪⌐",
+    viewService: "╪╣╪▒╪╢ ╪¬┘ü╪º╪╡┘è┘ä ╪º┘ä╪«╪»┘à╪⌐",
   } : {
     breadcrumbHome: "Home",
     breadcrumbServices: "Services",
@@ -188,7 +188,7 @@ export default function ServiceDetailPage() {
             {/* Practice Indicator & Deliverable Tag */}
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="px-3 py-1 rounded-md bg-white/10 border border-white/15 text-[#E25C43] text-[11px] font-bold uppercase tracking-wider">
-                {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
+                {language === "ar" ? "┘à┘à╪º╪▒╪│╪⌐ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘à╪¬╪«╪╡╪╡╪⌐" : "Advisory Practice"}
               </span>
 
               <span className="px-3 py-1 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold text-[11px]">
@@ -222,7 +222,7 @@ export default function ServiceDetailPage() {
                   <Layers className="w-3.5 h-3.5 text-slate-300" /> {labels.statsDeliverables}
                 </div>
                 <div className="text-xs sm:text-sm font-bold text-white mt-1">
-                  {service.deliverables.length} {language === "ar" ? "مخرجات رئيسية" : "Key Frameworks"}
+                  {service.deliverables.length} {language === "ar" ? "┘à╪«╪▒╪¼╪º╪¬ ╪▒╪ª┘è╪│┘è╪⌐" : "Key Frameworks"}
                 </div>
               </div>
 
@@ -278,7 +278,7 @@ export default function ServiceDetailPage() {
                 </h2>
                 <p className="text-xs text-slate-200 mt-1">
                   {language === "ar" 
-                    ? "مجموعة متكاملة من التقارير والنماذج وخرائط العمل المعتمدة التي يتم تسليمها خلال المشروع:" 
+                    ? "┘à╪¼┘à┘ê╪╣╪⌐ ┘à╪¬┘â╪º┘à┘ä╪⌐ ┘à┘å ╪º┘ä╪¬┘é╪º╪▒┘è╪▒ ┘ê╪º┘ä┘å┘à╪º╪░╪¼ ┘ê╪«╪▒╪º╪ª╪╖ ╪º┘ä╪╣┘à┘ä ╪º┘ä┘à╪╣╪¬┘à╪»╪⌐ ╪º┘ä╪¬┘è ┘è╪¬┘à ╪¬╪│┘ä┘è┘à┘ç╪º ╪«┘ä╪º┘ä ╪º┘ä┘à╪┤╪▒┘ê╪╣:" 
                     : "Tangible reports, financial models, and strategic blueprints provided during the engagement:"}
                 </p>
               </div>
@@ -297,7 +297,7 @@ export default function ServiceDetailPage() {
                         {del}
                       </div>
                       <div className="text-[10px] text-slate-300 mt-0.5">
-                        {language === "ar" ? "وثيقة تنفيذية معتمدة وموثقة" : "Verified operational artifact"}
+                        {language === "ar" ? "┘ê╪½┘è┘é╪⌐ ╪¬┘å┘ü┘è╪░┘è╪⌐ ┘à╪╣╪¬┘à╪»╪⌐ ┘ê┘à┘ê╪½┘é╪⌐" : "Verified operational artifact"}
                       </div>
                     </div>
                   </div>
@@ -315,7 +315,7 @@ export default function ServiceDetailPage() {
                   </h2>
                   <p className="text-xs text-slate-200 mt-1">
                     {language === "ar"
-                      ? "نتبع مساراً استشارياً منظماً يضمن تحقيق المستهدفات بدقة وانضباط:"
+                      ? "┘å╪¬╪¿╪╣ ┘à╪│╪º╪▒╪º┘ï ╪º╪│╪¬╪┤╪º╪▒┘è╪º┘ï ┘à┘å╪╕┘à╪º┘ï ┘è╪╢┘à┘å ╪¬╪¡┘é┘è┘é ╪º┘ä┘à╪│╪¬┘ç╪»┘ü╪º╪¬ ╪¿╪»┘é╪⌐ ┘ê╪º┘å╪╢╪¿╪º╪╖:"
                       : "A disciplined step-by-step approach ensuring clear milestone accountability:"}
                   </p>
                 </div>
@@ -393,7 +393,7 @@ export default function ServiceDetailPage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder={language === "ar" ? "الاسم" : "Your Name"}
+                      placeholder={language === "ar" ? "╪º┘ä╪º╪│┘à" : "Your Name"}
                       className="w-full px-3.5 py-2 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                     />
                   </div>
@@ -433,7 +433,7 @@ export default function ServiceDetailPage() {
                       type="text"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      placeholder={language === "ar" ? "اسم الشركة" : "Company / Firm"}
+                      placeholder={language === "ar" ? "╪º╪│┘à ╪º┘ä╪┤╪▒┘â╪⌐" : "Company / Firm"}
                       className="w-full px-3.5 py-2 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                     />
                   </div>

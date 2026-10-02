@@ -77,13 +77,13 @@ export default function IndustrySectorsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 sm:mb-16">
           <div className="lg:col-span-7 space-y-2">
             <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
-              {isAr ? "القطاعات الاقتصادية" : "INDUSTRY SPECIALIZATIONS"}
+              {isAr ? "╪º┘ä┘é╪╖╪º╪╣╪º╪¬ ╪º┘ä╪º┘é╪¬╪╡╪º╪»┘è╪⌐" : "INDUSTRY SPECIALIZATIONS"}
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
               {isAr ? (
                 <>
-                  خبرات قطاعية متخصصة <br />
-                  في الأسواق الرئيسية
+                  ╪«╪¿╪▒╪º╪¬ ┘é╪╖╪º╪╣┘è╪⌐ ┘à╪¬╪«╪╡╪╡╪⌐ <br />
+                  ┘ü┘è ╪º┘ä╪ú╪│┘ê╪º┘é ╪º┘ä╪▒╪ª┘è╪│┘è╪⌐
                 </>
               ) : (
                 <>
@@ -96,7 +96,7 @@ export default function IndustrySectorsSection() {
           <div className="lg:col-span-5">
             <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
               {isAr
-                ? "أطر عمل مصممة خصيصاً لكل قطاع، مع تقييم المخاطر وتحديد خطط العمل ذات الأثر التشغيلي العالي."
+                ? "╪ú╪╖╪▒ ╪╣┘à┘ä ┘à╪╡┘à┘à╪⌐ ╪«╪╡┘è╪╡╪º┘ï ┘ä┘â┘ä ┘é╪╖╪º╪╣╪î ┘à╪╣ ╪¬┘é┘è┘è┘à ╪º┘ä┘à╪«╪º╪╖╪▒ ┘ê╪¬╪¡╪»┘è╪» ╪«╪╖╪╖ ╪º┘ä╪╣┘à┘ä ╪░╪º╪¬ ╪º┘ä╪ú╪½╪▒ ╪º┘ä╪¬╪┤╪║┘è┘ä┘è ╪º┘ä╪╣╪º┘ä┘è."
                 : "Tailored market frameworks, sector-specific risk registers, and operational playbooks configured for high-execution reliability."}
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function IndustrySectorsSection() {
                     href={sector.link}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
                   >
-                    <span>{isAr ? "استكشف خدمات القطاع" : "Explore Sector Services"}</span>
+                    <span>{isAr ? "╪º╪│╪¬┘â╪┤┘ü ╪«╪»┘à╪º╪¬ ╪º┘ä┘é╪╖╪º╪╣" : "Explore Sector Services"}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
                   </Link>
                 </div>

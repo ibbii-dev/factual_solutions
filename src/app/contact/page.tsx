@@ -268,7 +268,7 @@ function ContactContent() {
                       required
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      placeholder={language === "ar" ? "الاسم الكريم" : "Your Name"}
+                      placeholder={language === "ar" ? "╪º┘ä╪º╪│┘à ╪º┘ä┘â╪▒┘è┘à" : "Your Name"}
                       className="w-full px-3.5 py-2.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] transition-all"
                     />
                   </div>
@@ -328,7 +328,7 @@ function ContactContent() {
                     className="w-full px-3.5 py-2.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white cursor-pointer flex items-center justify-between"
                   >
                     <span className={formData.serviceOfInterest ? "text-white font-medium" : "text-slate-300"}>
-                      {formData.serviceOfInterest || (language === "ar" ? "اختر الخدمة المطلوبة" : "Select Service Area")}
+                      {formData.serviceOfInterest || (language === "ar" ? "╪º╪«╪¬╪▒ ╪º┘ä╪«╪»┘à╪⌐ ╪º┘ä┘à╪╖┘ä┘ê╪¿╪⌐" : "Select Service Area")}
                     </span>
                     <ChevronDown className={`w-4 h-4 text-slate-300 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 text-[#E25C43]" : ""}`} />
                   </div>
@@ -363,7 +363,7 @@ function ContactContent() {
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder={language === "ar" ? "اشرح احتياجات مشروعك وأهداف العمل..." : "Briefly describe your requirements or strategic objectives..."}
+                    placeholder={language === "ar" ? "╪º╪┤╪▒╪¡ ╪º╪¡╪¬┘è╪º╪¼╪º╪¬ ┘à╪┤╪▒┘ê╪╣┘â ┘ê╪ú┘ç╪»╪º┘ü ╪º┘ä╪╣┘à┘ä..." : "Briefly describe your requirements or strategic objectives..."}
                     className="w-full px-3.5 py-2.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] transition-all resize-none"
                   />
                 </div>
@@ -374,7 +374,7 @@ function ContactContent() {
                   disabled={isSubmitting}
                   className="w-full py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all duration-200 shadow-lg flex items-center justify-center gap-2 group disabled:opacity-50"
                 >
-                  <span>{isSubmitting ? (language === "ar" ? "جارٍ الإرسال والتحليل الذكي..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
+                  <span>{isSubmitting ? (language === "ar" ? "╪¼╪º╪▒┘ì ╪º┘ä╪Ñ╪▒╪│╪º┘ä ┘ê╪º┘ä╪¬╪¡┘ä┘è┘ä ╪º┘ä╪░┘â┘è..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:group-hover:-translate-x-1 rtl:rotate-180" />
                 </button>
 
@@ -432,7 +432,7 @@ function ContactContent() {
 
                 {/* WhatsApp Quick Direct Connect */}
                 <a
-                  href={`https://wa.me/${contactDetails.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(language === "ar" ? "مرحباً فاكتشوال سوليوشنز، أود الاستفسار عن استشارات الأعمال." : "Hello Factual Solutions, I would like to inquire about your business consulting services.")}`}
+                  href={`https://wa.me/${contactDetails.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(language === "ar" ? "┘à╪▒╪¡╪¿╪º┘ï ┘ü╪º┘â╪¬╪┤┘ê╪º┘ä ╪│┘ê┘ä┘è┘ê╪┤┘å╪▓╪î ╪ú┘ê╪» ╪º┘ä╪º╪│╪¬┘ü╪│╪º╪▒ ╪╣┘å ╪º╪│╪¬╪┤╪º╪▒╪º╪¬ ╪º┘ä╪ú╪╣┘à╪º┘ä." : "Hello Factual Solutions, I would like to inquire about your business consulting services.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 hover:border-emerald-400 transition-colors group"
@@ -444,7 +444,7 @@ function ContactContent() {
                   </div>
                   <div>
                     <div className="text-[10px] text-emerald-300 uppercase font-semibold">
-                      {language === "ar" ? "واتساب المباشر" : "WhatsApp Quick Chat"}
+                      {language === "ar" ? "┘ê╪º╪¬╪│╪º╪¿ ╪º┘ä┘à╪¿╪º╪┤╪▒" : "WhatsApp Quick Chat"}
                     </div>
                     <div className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">
                       {contactDetails.phone}
@@ -469,10 +469,10 @@ function ContactContent() {
                     <div className="flex items-center justify-between">
                       <div className="font-bold text-xs text-white flex items-center gap-1.5">
                         <MapPin className="w-3.5 h-3.5 text-[#E25C43] shrink-0" />
-                        <span>{language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}</span>
+                        <span>{language === "ar" ? "┘ä╪º┘ç┘ê╪▒╪î ╪¿╪º┘â╪│╪¬╪º┘å" : `${loc.city}, ${loc.country}`}</span>
                       </div>
                       <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-[#E25C43]/20 text-[#E25C43] border border-[#E25C43]/30">
-                        {language === "ar" ? "المقر الرئيسي" : loc.tag}
+                        {language === "ar" ? "╪º┘ä┘à┘é╪▒ ╪º┘ä╪▒╪ª┘è╪│┘è" : loc.tag}
                       </span>
                     </div>
                     <div className="text-[11px] text-slate-200 pl-5 font-medium">

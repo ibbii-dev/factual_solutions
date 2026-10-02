@@ -14,36 +14,36 @@ export default function DualEngineSection() {
     {
       num: "01",
       icon: Compass,
-      title: isAr ? "الإدارة الاستراتيجية وتوافق القيادة" : "Strategic Management & OKRs",
+      title: isAr ? "╪º┘ä╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä╪º╪│╪¬╪▒╪º╪¬┘è╪¼┘è╪⌐ ┘ê╪¬┘ê╪º┘ü┘é ╪º┘ä┘é┘è╪º╪»╪⌐" : "Strategic Management & OKRs",
       desc: isAr 
-        ? "مواءمة رؤية المنشأة، وهيكلة مؤشرات الأداء، وتدقيق الاختناقات التشغيلية لتحقيق نمو مستدام."
+        ? "┘à┘ê╪º╪í┘à╪⌐ ╪▒╪ñ┘è╪⌐ ╪º┘ä┘à┘å╪┤╪ú╪⌐╪î ┘ê┘ç┘è┘â┘ä╪⌐ ┘à╪ñ╪┤╪▒╪º╪¬ ╪º┘ä╪ú╪»╪º╪í╪î ┘ê╪¬╪»┘é┘è┘é ╪º┘ä╪º╪«╪¬┘å╪º┘é╪º╪¬ ╪º┘ä╪¬╪┤╪║┘è┘ä┘è╪⌐ ┘ä╪¬╪¡┘é┘è┘é ┘å┘à┘ê ┘à╪│╪¬╪»╪º┘à."
         : "Aligning executive leadership, OKR roadmaps, and resolving operational bottlenecks to drive measurable corporate scale.",
       link: "/services/strategic-consulting"
     },
     {
       num: "02",
       icon: TrendingUp,
-      title: isAr ? "النمذجة المالية ودراسات الجدوى" : "Financial Modeling & Feasibility",
+      title: isAr ? "╪º┘ä┘å┘à╪░╪¼╪⌐ ╪º┘ä┘à╪º┘ä┘è╪⌐ ┘ê╪»╪▒╪º╪│╪º╪¬ ╪º┘ä╪¼╪»┘ê┘ë" : "Financial Modeling & Feasibility",
       desc: isAr
-        ? "بناء تدفقات نقدية لـ 5 سنوات، ونماذج العائد على الاستثمار، وملفات بنكية معتمدة للتمويل والتوسع."
+        ? "╪¿┘å╪º╪í ╪¬╪»┘ü┘é╪º╪¬ ┘å┘é╪»┘è╪⌐ ┘ä┘Ç 5 ╪│┘å┘ê╪º╪¬╪î ┘ê┘å┘à╪º╪░╪¼ ╪º┘ä╪╣╪º╪ª╪» ╪╣┘ä┘ë ╪º┘ä╪º╪│╪¬╪½┘à╪º╪▒╪î ┘ê┘à┘ä┘ü╪º╪¬ ╪¿┘å┘â┘è╪⌐ ┘à╪╣╪¬┘à╪»╪⌐ ┘ä┘ä╪¬┘à┘ê┘è┘ä ┘ê╪º┘ä╪¬┘ê╪│╪╣."
         : "Bank-ready financial projections, CapEx/OpEx modeling, and empirical feasibility analyses for capital allocation.",
       link: "/services/investment-planning"
     },
     {
       num: "03",
       icon: Layers,
-      title: isAr ? "إدارة المشاريع ومنهجية لين 6 سيجما" : "Projects & Lean Six Sigma",
+      title: isAr ? "╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä┘à╪┤╪º╪▒┘è╪╣ ┘ê┘à┘å┘ç╪¼┘è╪⌐ ┘ä┘è┘å 6 ╪│┘è╪¼┘à╪º" : "Projects & Lean Six Sigma",
       desc: isAr
-        ? "قيادة تنفيذية معتمدة (PMP) للقضاء على الهدر التشغيلي، وضبط الميزانيات، ومتابعة الإنجاز المرحلي."
+        ? "┘é┘è╪º╪»╪⌐ ╪¬┘å┘ü┘è╪░┘è╪⌐ ┘à╪╣╪¬┘à╪»╪⌐ (PMP) ┘ä┘ä┘é╪╢╪º╪í ╪╣┘ä┘ë ╪º┘ä┘ç╪»╪▒ ╪º┘ä╪¬╪┤╪║┘è┘ä┘è╪î ┘ê╪╢╪¿╪╖ ╪º┘ä┘à┘è╪▓╪º┘å┘è╪º╪¬╪î ┘ê┘à╪¬╪º╪¿╪╣╪⌐ ╪º┘ä╪Ñ┘å╪¼╪º╪▓ ╪º┘ä┘à╪▒╪¡┘ä┘è."
         : "Certified PMO delivery and Lean Master Black Belt methodologies to eliminate waste and guarantee milestones.",
       link: "/services/projects-management"
     },
     {
       num: "04",
       icon: Cpu,
-      title: isAr ? "تحول العمليات وهندسة الأنظمة ERP" : "Process & ERP Transformation",
+      title: isAr ? "╪¬╪¡┘ê┘ä ╪º┘ä╪╣┘à┘ä┘è╪º╪¬ ┘ê┘ç┘å╪»╪│╪⌐ ╪º┘ä╪ú┘å╪╕┘à╪⌐ ERP" : "Process & ERP Transformation",
       desc: isAr
-        ? "إعادة هندسة الإجراءات المعيارية (SOPs)، وتسهيل تسليم المهام بين الأقسام، وجاهزية أنظمة ERP."
+        ? "╪Ñ╪╣╪º╪»╪⌐ ┘ç┘å╪»╪│╪⌐ ╪º┘ä╪Ñ╪¼╪▒╪º╪í╪º╪¬ ╪º┘ä┘à╪╣┘è╪º╪▒┘è╪⌐ (SOPs)╪î ┘ê╪¬╪│┘ç┘è┘ä ╪¬╪│┘ä┘è┘à ╪º┘ä┘à┘ç╪º┘à ╪¿┘è┘å ╪º┘ä╪ú┘é╪│╪º┘à╪î ┘ê╪¼╪º┘ç╪▓┘è╪⌐ ╪ú┘å╪╕┘à╪⌐ ERP."
         : "Standardized workflow SOPs, departmental handover optimization, and enterprise ERP implementation readiness.",
       link: "/services/process-transformation"
     }
@@ -56,14 +56,14 @@ export default function DualEngineSection() {
         {/* Section Header */}
         <ScrollReveal variant="fade-up" className="max-w-3xl space-y-3 mb-12 sm:mb-16">
           <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
-            {isAr ? "حلولنا الاستشارية الرئيسية" : "CORE ADVISORY CAPABILITIES"}
+            {isAr ? "╪¡┘ä┘ê┘ä┘å╪º ╪º┘ä╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ╪º┘ä╪▒╪ª┘è╪│┘è╪⌐" : "CORE ADVISORY CAPABILITIES"}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
-            {isAr ? "ممارسات استشارية تركز على النتائج" : "Institutional Advisory Practices"}
+            {isAr ? "┘à┘à╪º╪▒╪│╪º╪¬ ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ╪¬╪▒┘â╪▓ ╪╣┘ä┘ë ╪º┘ä┘å╪¬╪º╪ª╪¼" : "Institutional Advisory Practices"}
           </h2>
           <p className="text-sm sm:text-base text-slate-100 font-normal leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
             {isAr
-              ? "حلول استشارية متخصصة ومصممة لدعم القرارات الاستثمارية، وتحسين الكفاءة التشغيلية للمنشآت."
+              ? "╪¡┘ä┘ê┘ä ╪º╪│╪¬╪┤╪º╪▒┘è╪⌐ ┘à╪¬╪«╪╡╪╡╪⌐ ┘ê┘à╪╡┘à┘à╪⌐ ┘ä╪»╪╣┘à ╪º┘ä┘é╪▒╪º╪▒╪º╪¬ ╪º┘ä╪º╪│╪¬╪½┘à╪º╪▒┘è╪⌐╪î ┘ê╪¬╪¡╪│┘è┘å ╪º┘ä┘â┘ü╪º╪í╪⌐ ╪º┘ä╪¬╪┤╪║┘è┘ä┘è╪⌐ ┘ä┘ä┘à┘å╪┤╪ó╪¬."
               : "Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth."}
           </p>
         </ScrollReveal>
@@ -102,7 +102,7 @@ export default function DualEngineSection() {
                     href={practice.link}
                     className="inline-flex items-center gap-1.5 text-white group-hover:text-[#E25C43] transition-colors"
                   >
-                    <span>{isAr ? "استكشف تفاصيل الممارسة" : "Explore Capability Details"}</span>
+                    <span>{isAr ? "╪º╪│╪¬┘â╪┤┘ü ╪¬┘ü╪º╪╡┘è┘ä ╪º┘ä┘à┘à╪º╪▒╪│╪⌐" : "Explore Capability Details"}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
                   </Link>
                 </div>
@@ -117,7 +117,7 @@ export default function DualEngineSection() {
             href="/services"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs sm:text-sm font-bold shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
           >
-            <span>{isAr ? "عرض جميع الممارسات الـ 18" : "Explore All 18 Advisory Practices"}</span>
+            <span>{isAr ? "╪╣╪▒╪╢ ╪¼┘à┘è╪╣ ╪º┘ä┘à┘à╪º╪▒╪│╪º╪¬ ╪º┘ä┘Ç 18" : "Explore All 18 Advisory Practices"}</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
         </div>
