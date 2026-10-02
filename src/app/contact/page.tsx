@@ -23,6 +23,7 @@ import { saveInquiry } from "@/data/inquiriesStore";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import PartnerBookingWidget from "@/components/calendar/PartnerBookingWidget";
+import CaptchaVerification from "@/components/ui/CaptchaVerification";
 
 interface AiAssessmentData {
   clientName: string;
@@ -54,6 +55,8 @@ function ContactContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [aiAssessment, setAiAssessment] = useState<AiAssessmentData | null>(null);
   const [activeMode, setActiveMode] = useState<"inquiry" | "calendar">("inquiry");
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState("");
 
   useEffect(() => {
     if (prefilledService) {
@@ -74,6 +77,17 @@ function ContactContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isCaptchaVerified) {
+      setCaptchaError(
+        language === "ar"
+          ? "يرجى استكمال التحقق الأمني من الهوية أدناه قبل إرسال الاستفسار."
+          : "Please complete the security verification challenge below before submitting your inquiry."
+      );
+      return;
+    }
+
+    setCaptchaError("");
     setIsSubmitting(true);
 
     const payload = {
@@ -231,6 +245,8 @@ function ContactContent() {
                     onClick={() => {
                       setSubmitted(false);
                       setAiAssessment(null);
+                      setIsCaptchaVerified(false);
+                      setCaptchaError("");
                       setFormData({
                         fullName: "",
                         workEmail: "",
@@ -368,11 +384,27 @@ function ContactContent() {
                   />
                 </div>
 
+                {/* Captcha Security Verification */}
+                <div className="pt-1">
+                  <CaptchaVerification
+                    language={language}
+                    onVerify={(valid) => {
+                      setIsCaptchaVerified(valid);
+                      if (valid) setCaptchaError("");
+                    }}
+                  />
+                  {captchaError && (
+                    <p className="text-[11px] text-rose-600 dark:text-rose-400 font-semibold pt-1">
+                      {captchaError}
+                    </p>
+                  )}
+                </div>
+
                 {/* Submit CTA */}
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all duration-200 shadow-lg flex items-center justify-center gap-2 group disabled:opacity-50"
+                  disabled={isSubmitting || !isCaptchaVerified}
+                  className="w-full py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all duration-200 shadow-lg flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span>{isSubmitting ? (language === "ar" ? "جارٍ الإرسال والتحليل الذكي..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:group-hover:-translate-x-1 rtl:rotate-180" />

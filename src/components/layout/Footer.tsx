@@ -173,21 +173,42 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Regions & Practice */}
+          {/* Column 3: Navigation & Company */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              REGIONS &amp; PRACTICE
+              NAVIGATION
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-              <li>United Arab Emirates</li>
-              <li>Kingdom of Saudi Arabia</li>
-              <li>North America</li>
-              <li>European Markets</li>
-              <li>Enterprise Advisory</li>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/about" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
+                  Our Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/what-we-think" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
+                  What We Think
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
+                  Executive Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-[#E25C43] hover:text-[#c94a33] font-bold transition-colors inline-flex items-center gap-1">
+                  <span>Contact Us</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#E25C43]/15 text-[#E25C43]">24h</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4: Global Headquarters */}
+          {/* Column 4: Global Headquarters & Inquiries */}
           <div className="lg:col-span-3 space-y-3">
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
@@ -212,6 +233,17 @@ export default function Footer() {
                 <a href="mailto:contact@factualsolutions.com" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">contact@factualsolutions.com</a>
               </div>
             </div>
+
+            {/* Direct Contact Us Button */}
+            <div className="pt-1">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-md group"
+              >
+                <span>Contact Us &amp; Submit Inquiry</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
+              </Link>
+            </div>
           </div>
 
         </div>
@@ -222,6 +254,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Factual Solutions. All rights reserved. Registered Enterprise Advisory Ltd.
           </div>
           <div className="flex flex-wrap items-center gap-4 text-slate-600 dark:text-slate-200">
+            <Link href="/contact" className="hover:text-[#E25C43] dark:hover:text-white font-semibold transition-colors">Contact Us</Link>
+            <span>•</span>
             <Link href="/about" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">Privacy Policy</Link>
             <span>•</span>
             <Link href="/services" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">Terms of Engagement</Link>
