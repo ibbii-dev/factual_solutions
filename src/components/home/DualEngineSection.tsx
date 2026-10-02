@@ -58,10 +58,10 @@ export default function DualEngineSection() {
           <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
             {isAr ? "حلولنا الاستشارية الرئيسية" : "CORE ADVISORY CAPABILITIES"}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display dark:drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
             {isAr ? "ممارسات استشارية تركز على النتائج" : "Institutional Advisory Practices"}
           </h2>
-          <p className="text-sm sm:text-base text-slate-100 font-normal leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-100 font-normal leading-relaxed dark:drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
             {isAr
               ? "حلول استشارية متخصصة ومصممة لدعم القرارات الاستثمارية، وتحسين الكفاءة التشغيلية للمنشآت."
               : "Structured business advisory, financial feasibility, and operational excellence designed to drive sustainable growth."}
@@ -75,12 +75,12 @@ export default function DualEngineSection() {
             return (
               <StaggerItem
                 key={practice.num}
-                className="p-7 sm:p-8 rounded-3xl bg-black/45 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-white"
+                className="p-7 sm:p-8 rounded-3xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-slate-900 dark:text-white"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 text-white flex items-center justify-center font-bold">
-                      <IconComp className="w-6 h-6 text-white" />
+                    <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white flex items-center justify-center font-bold shadow-xs">
+                      <IconComp className="w-6 h-6 text-slate-800 dark:text-white" />
                     </div>
                     <span className="text-xs font-bold text-[#E25C43] font-display">
                       {practice.num}
@@ -88,19 +88,19 @@ export default function DualEngineSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-lg sm:text-xl font-bold text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
                       {practice.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 font-medium leading-relaxed">
                       {practice.desc}
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-5 mt-4 border-t border-white/15 flex items-center justify-between text-xs font-bold">
+                <div className="pt-5 mt-4 border-t border-slate-100 dark:border-white/15 flex items-center justify-between text-xs font-bold">
                   <Link
                     href={practice.link}
-                    className="inline-flex items-center gap-1.5 text-white group-hover:text-[#E25C43] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
                   >
                     <span>{isAr ? "استكشف تفاصيل الممارسة" : "Explore Capability Details"}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

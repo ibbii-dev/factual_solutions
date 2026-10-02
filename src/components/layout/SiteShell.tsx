@@ -22,8 +22,8 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Solid background replacing the video */}
-      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none bg-[#070D18]" />
+      {/* Dynamic theme background */}
+      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none bg-[#F8FAFC] dark:bg-[#070D18] transition-colors duration-300" />
 
       <Navbar />
       <main className="flex-grow relative z-0 bg-transparent">{children}</main>

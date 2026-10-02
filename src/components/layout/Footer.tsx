@@ -36,10 +36,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-transparent backdrop-blur-sm border-t border-white/10 text-slate-100 relative overflow-hidden transition-colors duration-300">
+    <footer className="bg-slate-50/80 dark:bg-transparent backdrop-blur-sm border-t border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-100 relative overflow-hidden transition-colors duration-300">
       
       {/* Top Advisory Briefing Bar */}
-      <div className="border-b border-white/10 py-10 sm:py-12">
+      <div className="border-b border-slate-200/80 dark:border-white/10 py-10 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center justify-between">
             
@@ -47,17 +47,17 @@ export default function Footer() {
               <span className="text-[10px] font-bold tracking-wider uppercase text-[#E25C43]">
                 EXECUTIVE ADVISORY BRIEFING
               </span>
-              <h3 className="text-lg sm:text-2xl font-bold text-white font-display">
+              <h3 className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white font-display">
                 Schedule an Enterprise Advisory Briefing
               </h3>
-              <p className="text-xs text-slate-200 max-w-xl">
+              <p className="text-xs text-slate-600 dark:text-slate-200 max-w-xl">
                 Connect with our strategic analysts to assess financial exposures, market opportunities, and organizational roadmaps.
               </p>
             </div>
 
             <div className="lg:col-span-5">
               {subscribed ? (
-                <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 text-xs flex items-center gap-2">
+                <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
                   <span>Briefing request sent. Our advisory team will contact you.</span>
                 </div>
@@ -69,7 +69,7 @@ export default function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your corporate email"
-                    className="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-white/50"
+                    className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-white/10 border border-slate-200 dark:border-white/20 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
                   />
                   <button
                     type="submit"
@@ -100,12 +100,12 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-lg font-bold tracking-tight text-white font-display">
+              <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white font-display">
                 Factual Solutions
               </span>
             </Link>
 
-            <p className="text-xs text-slate-200 leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-sm">
               Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.
             </p>
 
@@ -115,7 +115,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+                className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-200 hover:text-[#E25C43] dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -124,14 +124,14 @@ export default function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+                className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-200 hover:text-[#E25C43] dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />
               </a>
               <a
                 href="mailto:contact@factualsolutions.com"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+                className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-200 hover:text-[#E25C43] dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-4 h-4" />
@@ -141,32 +141,32 @@ export default function Footer() {
 
           {/* Column 2: Knowledge Sectors */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
               KNOWLEDGE SECTORS
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/services/investment-planning" className="text-slate-200 hover:text-white transition-colors">
+                <Link href="/services/investment-planning" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
                   Financial Modeling
                 </Link>
               </li>
               <li>
-                <Link href="/services/studies-research" className="text-slate-200 hover:text-white transition-colors">
+                <Link href="/services/studies-research" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
                   Market Opportunity Assessment
                 </Link>
               </li>
               <li>
-                <Link href="/services/studies-research" className="text-slate-200 hover:text-white transition-colors">
+                <Link href="/services/studies-research" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
                   Feasibility Studies
                 </Link>
               </li>
               <li>
-                <Link href="/services/business-growth" className="text-slate-200 hover:text-white transition-colors">
+                <Link href="/services/business-growth" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
                   Corporate Restructuring
                 </Link>
               </li>
               <li>
-                <Link href="/services/process-transformation" className="text-slate-200 hover:text-white transition-colors">
+                <Link href="/services/process-transformation" className="text-slate-600 dark:text-slate-300 hover:text-[#E25C43] dark:hover:text-white transition-colors">
                   Operational Audit
                 </Link>
               </li>
@@ -175,10 +175,10 @@ export default function Footer() {
 
           {/* Column 3: Regions & Practice */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
               REGIONS &amp; PRACTICE
             </h4>
-            <ul className="space-y-2 text-xs text-slate-200">
+            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
               <li>United Arab Emirates</li>
               <li>Kingdom of Saudi Arabia</li>
               <li>North America</li>
@@ -190,26 +190,26 @@ export default function Footer() {
           {/* Column 4: Global Headquarters */}
           <div className="lg:col-span-3 space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+              <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                 GLOBAL HEADQUARTERS
               </h4>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-white/10 text-white border border-white/10">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-800 dark:text-white border border-slate-300/60 dark:border-white/10">
                 1-Day Response
               </span>
             </div>
 
-            <div className="space-y-2 text-xs text-slate-200">
+            <div className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#E25C43] shrink-0 mt-0.5" />
                 <span>Executive District, Building 4, Level 6, Riyadh 12214</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-slate-300 shrink-0" />
-                <a href="tel:+97140000000" className="hover:text-white transition-colors">+971 4 000 0000</a>
+                <Phone className="w-4 h-4 text-slate-400 shrink-0" />
+                <a href="tel:+97140000000" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">+971 4 000 0000</a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-slate-300 shrink-0" />
-                <a href="mailto:contact@factualsolutions.com" className="hover:text-white transition-colors">contact@factualsolutions.com</a>
+                <Mail className="w-4 h-4 text-slate-400 shrink-0" />
+                <a href="mailto:contact@factualsolutions.com" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">contact@factualsolutions.com</a>
               </div>
             </div>
           </div>
@@ -217,18 +217,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal & Disclosures */}
-        <div className="pt-10 mt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-300">
+        <div className="pt-10 mt-10 border-t border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 dark:text-slate-300">
           <div>
             &copy; {new Date().getFullYear()} Factual Solutions. All rights reserved. Registered Enterprise Advisory Ltd.
           </div>
-          <div className="flex flex-wrap items-center gap-4 text-slate-200">
-            <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
+          <div className="flex flex-wrap items-center gap-4 text-slate-600 dark:text-slate-200">
+            <Link href="/about" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">Privacy Policy</Link>
             <span>•</span>
-            <Link href="/services" className="hover:text-white transition-colors">Terms of Engagement</Link>
+            <Link href="/services" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">Terms of Engagement</Link>
             <span>•</span>
-            <Link href="/contact" className="hover:text-white transition-colors">Regulatory Disclosures</Link>
+            <Link href="/contact" className="hover:text-[#E25C43] dark:hover:text-white transition-colors">Regulatory Disclosures</Link>
             <span>•</span>
-            <Link href="/admin" className="text-slate-300 hover:text-white transition-colors text-[10px]">Staff Admin</Link>
+            <Link href="/admin" className="text-slate-400 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white transition-colors text-[10px]">Staff Admin</Link>
           </div>
         </div>
 

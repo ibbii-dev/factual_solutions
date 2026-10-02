@@ -50,17 +50,17 @@ export default function LatestInsightsSection() {
             <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
               PUBLICATIONS &bull; RESEARCH
             </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display dark:drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
               Latest Strategic Blog
             </h2>
-            <p className="text-xs sm:text-sm text-slate-100 leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 leading-relaxed dark:drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
               Practical frameworks, corporate valuation models, and market intelligence published by our senior advisory board.
             </p>
           </div>
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white hover:text-[#E25C43] transition-colors shrink-0 drop-shadow-sm"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-800 dark:text-white hover:text-[#E25C43] transition-colors shrink-0"
           >
             <span>Explore All 18 Blogs</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
@@ -72,7 +72,7 @@ export default function LatestInsightsSection() {
           {articles.map((art) => (
             <StaggerItem
               key={art.id}
-              className="bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-white"
+              className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-slate-900 dark:text-white"
             >
               <div>
                 {/* Image container */}
@@ -93,17 +93,17 @@ export default function LatestInsightsSection() {
 
                 {/* Content */}
                 <div className="p-5 sm:p-6 space-y-2.5">
-                  <div className="flex items-center gap-2 text-[11px] text-slate-300 font-medium">
+                  <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-300 font-medium">
                     <span>{art.date}</span>
                     <span>•</span>
                     <span>{art.readTime}</span>
                   </div>
 
-                  <h3 className="text-sm sm:text-base font-bold text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors drop-shadow-xs">
                     {art.title}
                   </h3>
 
-                  <p className="text-xs text-slate-100 leading-relaxed line-clamp-3 font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                  <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed line-clamp-3 font-medium">
                     {art.excerpt}
                   </p>
                 </div>
@@ -113,7 +113,7 @@ export default function LatestInsightsSection() {
               <div className="p-5 sm:p-6 pt-0 mt-auto">
                 <Link
                   href={`/blog/${art.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
                 >
                   <span>Read Full Article</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

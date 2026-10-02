@@ -79,7 +79,7 @@ export default function IndustrySectorsSection() {
             <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
               {isAr ? "القطاعات الاقتصادية" : "INDUSTRY SPECIALIZATIONS"}
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display dark:drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
               {isAr ? (
                 <>
                   خبرات قطاعية متخصصة <br />
@@ -94,7 +94,7 @@ export default function IndustrySectorsSection() {
             </h2>
           </div>
           <div className="lg:col-span-5">
-            <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 leading-relaxed font-normal dark:drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
               {isAr
                 ? "أطر عمل مصممة خصيصاً لكل قطاع، مع تقييم المخاطر وتحديد خطط العمل ذات الأثر التشغيلي العالي."
                 : "Tailored market frameworks, sector-specific risk registers, and operational playbooks configured for high-execution reliability."}
@@ -109,31 +109,31 @@ export default function IndustrySectorsSection() {
             return (
               <StaggerItem
                 key={sector.id}
-                className="p-6 rounded-2xl bg-black/45 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-slate-900 dark:text-white"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 text-white flex items-center justify-center font-bold shadow-xs">
-                      <IconComp className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white flex items-center justify-center font-bold shadow-xs">
+                      <IconComp className="w-5 h-5 text-slate-800 dark:text-white" />
                     </div>
-                    <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#E25C43] drop-shadow-sm">
+                    <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#E25C43]">
                       {sector.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-sm">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-xs">
                     {sector.title}
                   </h3>
 
-                  <p className="text-xs text-slate-100 font-medium leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                  <p className="text-xs text-slate-600 dark:text-slate-200 font-medium leading-relaxed">
                     {sector.description}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-3 border-t border-white/15">
+                <div className="pt-4 mt-3 border-t border-slate-100 dark:border-white/15">
                   <Link
                     href={sector.link}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
                   >
                     <span>{isAr ? "استكشف خدمات القطاع" : "Explore Sector Services"}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

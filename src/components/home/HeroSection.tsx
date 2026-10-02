@@ -16,7 +16,7 @@ export default function HeroSection() {
         
         {/* Category Eyebrow Pill */}
         <ScrollReveal variant="fade-up" duration={0.5}>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/45 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-widest uppercase shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 text-slate-800 dark:text-white text-[11px] font-bold tracking-widest uppercase shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#E25C43] shrink-0 animate-pulse" />
             <span>{isAr ? "استشارات وحلول الأعمال التنفيذية" : "EXECUTIVE ADVISORY • BUSINESS EXCELLENCE"}</span>
           </div>
@@ -24,7 +24,7 @@ export default function HeroSection() {
 
         {/* Main Headline */}
         <ScrollReveal variant="fade-up" delay={0.1} duration={0.6}>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08] font-display dark:drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
             {isAr ? (
               <>
                 تمكين المؤسسات <br />
@@ -41,7 +41,7 @@ export default function HeroSection() {
 
         {/* Sub-headline */}
         <ScrollReveal variant="fade-up" delay={0.2} duration={0.6}>
-          <p className="text-base sm:text-lg md:text-xl text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
+          <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed dark:drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
             {isAr
               ? "تخطيط عملي للأعمال، نمذجة مالية واستشارات استراتيجية لمساعدة الشركات على توسيع نطاق عملياتها واستقرار نموها التجاري."
               : "Practical business planning, financial modeling, and management consulting to help companies scale operations and steady commercial growth."}
@@ -61,9 +61,9 @@ export default function HeroSection() {
 
             <Link
               href="/services"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/25 backdrop-blur-md transition-all shadow-sm hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-slate-100/90 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white text-xs sm:text-sm font-semibold border border-slate-200/80 dark:border-white/25 backdrop-blur-md transition-all shadow-xs hover:-translate-y-0.5"
             >
-              <Layers className="w-4 h-4 text-slate-200" />
+              <Layers className="w-4 h-4 text-slate-600 dark:text-slate-200" />
               <span>{isAr ? "استكشف الممارسات" : "Explore Practices"}</span>
             </Link>
           </div>
@@ -71,30 +71,30 @@ export default function HeroSection() {
 
         {/* Floating Minimal Glass Metric Strip */}
         <ScrollReveal variant="fade-up" delay={0.4} duration={0.6} className="pt-8 sm:pt-12">
-          <div className="p-4 sm:p-5 rounded-2xl bg-black/45 backdrop-blur-md border border-white/20 shadow-xl grid grid-cols-2 md:grid-cols-4 gap-4 text-center max-w-4xl mx-auto text-white">
+          <div className="p-4 sm:p-5 rounded-2xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-xl grid grid-cols-2 md:grid-cols-4 gap-4 text-center max-w-4xl mx-auto text-slate-900 dark:text-white">
             <div>
-              <div className="text-xl sm:text-2xl font-extrabold text-white font-display">91.4%</div>
-              <div className="text-[11px] text-slate-100 font-medium mt-0.5 drop-shadow-sm">
+              <div className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white font-display">91.4%</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-200 font-medium mt-0.5">
                 {isAr ? "دقة تنفيذ المخرجات" : "Delivery Execution"}
               </div>
             </div>
-            <div className="border-s border-white/15">
+            <div className="border-s border-slate-200 dark:border-white/15">
               <div className="text-xl sm:text-2xl font-extrabold text-[#E25C43] font-display">
                 {isAr ? "الربع الأعلى" : "Top Quartile"}
               </div>
-              <div className="text-[11px] text-slate-100 font-medium mt-0.5 drop-shadow-sm">
+              <div className="text-[11px] text-slate-500 dark:text-slate-200 font-medium mt-0.5">
                 {isAr ? "المعيار الاستشاري" : "Industry Benchmark"}
               </div>
             </div>
-            <div className="border-s-0 md:border-s border-white/15">
-              <div className="text-xl sm:text-2xl font-extrabold text-white font-display">18+</div>
-              <div className="text-[11px] text-slate-100 font-medium mt-0.5 drop-shadow-sm">
+            <div className="border-s-0 md:border-s border-slate-200 dark:border-white/15">
+              <div className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white font-display">18+</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-200 font-medium mt-0.5">
                 {isAr ? "ممارسة متخصصة" : "Advisory Practices"}
               </div>
             </div>
-            <div className="border-s border-white/15">
-              <div className="text-xl sm:text-2xl font-extrabold text-emerald-400 font-display">100% NDA</div>
-              <div className="text-[11px] text-slate-100 font-medium mt-0.5 drop-shadow-sm">
+            <div className="border-s border-slate-200 dark:border-white/15">
+              <div className="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 font-display">100% NDA</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-200 font-medium mt-0.5">
                 {isAr ? "سرية وحوكمة صارمة" : "Strict Governance"}
               </div>
             </div>

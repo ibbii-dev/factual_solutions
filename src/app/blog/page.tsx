@@ -61,16 +61,16 @@ function BlogContent() {
       {/* 1. Header Hero Section */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10 sm:pb-16">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 dark:bg-black/45 backdrop-blur-md text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#E25C43]" />
             <span>Strategic Intelligence &amp; Blog</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white font-display leading-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display leading-tight dark:drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
             Executive Blog &amp; Advisory Perspectives
           </h1>
 
-          <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto leading-relaxed drop-shadow-sm font-medium">
+          <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-100 max-w-2xl mx-auto leading-relaxed font-normal">
             Data-backed methodologies, corporate finance research, and practical operational frameworks curated by our senior consulting partners.
           </p>
         </div>
@@ -78,18 +78,18 @@ function BlogContent() {
         {/* Search Bar */}
         <div className="mt-8 max-w-2xl mx-auto">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-300" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles by title, financial model, strategy, keyword..."
-              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-black/45 backdrop-blur-md border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] shadow-lg transition-all"
+              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] shadow-lg transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-300 hover:text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 dark:text-slate-300 hover:text-slate-700 dark:hover:text-white"
               >
                 Clear
               </button>
@@ -102,18 +102,18 @@ function BlogContent() {
       {isLoading && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <div className="w-8 h-8 border-3 border-[#E25C43] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-slate-200">Loading strategic intelligence articles...</p>
+          <p className="text-xs text-slate-500 dark:text-slate-200">Loading strategic intelligence articles...</p>
         </div>
       )}
 
       {/* 3. Empty State */}
       {!isLoading && filteredPosts.length === 0 && (
-        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 p-8 shadow-xl text-white">
-          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mx-auto text-slate-300">
+        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 p-8 shadow-xl text-slate-900 dark:text-white">
+          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-300">
             <BookOpen className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">No articles found</h3>
-          <p className="text-xs text-slate-200">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white">No articles found</h3>
+          <p className="text-xs text-slate-600 dark:text-slate-200">
             No published blog posts match your current search query.
           </p>
           <button
@@ -131,7 +131,7 @@ function BlogContent() {
           
           {/* Featured Post Spotlight */}
           {featuredPost && (
-            <div className="relative rounded-2xl overflow-hidden bg-black/45 backdrop-blur-md border border-white/20 shadow-2xl group transition-all duration-300 hover:shadow-2xl hover:border-white/35 text-white">
+            <div className="relative rounded-2xl overflow-hidden bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-2xl group transition-all duration-300 hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 text-slate-900 dark:text-white">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 {/* Cover Image */}
                 <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[400px] overflow-hidden bg-slate-900">
@@ -151,24 +151,24 @@ function BlogContent() {
                 {/* Content Container */}
                 <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-5">
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2.5 text-xs text-slate-300">
-                      <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold text-[10px] border border-white/15">
+                    <div className="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-300">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-white font-bold text-[10px] border border-slate-200 dark:border-white/15">
                         Advisory Insight
                       </span>
                       <span>•</span>
-                      <span className="flex items-center gap-1 text-[11px] text-slate-200">
+                      <span className="flex items-center gap-1 text-[11px] text-slate-600 dark:text-slate-200">
                         <Clock className="w-3 h-3 text-[#E25C43]" />
                         {featuredPost.readTime}
                       </span>
                     </div>
 
                     <Link href={`/blog/${featuredPost.slug}`}>
-                      <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#E25C43] transition-colors leading-snug font-display drop-shadow-sm">
+                      <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-[#E25C43] transition-colors leading-snug font-display drop-shadow-xs">
                         {featuredPost.title}
                       </h2>
                     </Link>
 
-                    <p className="text-xs sm:text-sm text-slate-100 line-clamp-3 leading-relaxed font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 line-clamp-3 leading-relaxed font-normal">
                       {featuredPost.excerpt}
                     </p>
 
@@ -178,7 +178,7 @@ function BlogContent() {
                         {featuredPost.tags.slice(0, 4).map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] px-2 py-0.5 rounded bg-white/10 border border-white/10 text-slate-200 font-medium"
+                            className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-medium"
                           >
                             #{tag}
                           </span>
@@ -188,9 +188,9 @@ function BlogContent() {
                   </div>
 
                   {/* Author & CTA */}
-                  <div className="pt-5 border-t border-white/15 flex items-center justify-between">
+                  <div className="pt-5 border-t border-slate-100 dark:border-white/15 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-700 relative shrink-0 border border-white/20">
+                      <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-700 relative shrink-0 border border-slate-200 dark:border-white/20">
                         <Image
                           src={featuredPost.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
                           alt={featuredPost.author.name}
@@ -199,10 +199,10 @@ function BlogContent() {
                         />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white">
+                        <div className="text-xs font-bold text-slate-900 dark:text-white">
                           {featuredPost.author.name}
                         </div>
-                        <div className="text-[10px] text-slate-300">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-300">
                           {featuredPost.author.role}
                         </div>
                       </div>
@@ -210,7 +210,7 @@ function BlogContent() {
 
                     <Link
                       href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#E25C43] hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#E25C43] hover:underline transition-colors"
                     >
                       <span>Read Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -227,7 +227,7 @@ function BlogContent() {
               {gridPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-white"
+                  className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-slate-900 dark:text-white"
                 >
                   <div>
                     {/* Cover image */}
@@ -247,29 +247,29 @@ function BlogContent() {
 
                     {/* Content */}
                     <div className="p-5 sm:p-6 space-y-2.5">
-                      <div className="flex items-center gap-2 text-[11px] text-slate-300">
+                      <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-300">
                         <span>{post.publishedAt}</span>
                         <span>•</span>
                         <span>{post.readTime}</span>
                       </div>
 
                       <Link href={`/blog/${post.slug}`}>
-                        <h3 className="text-base font-bold text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors line-clamp-2 drop-shadow-sm">
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors line-clamp-2 drop-shadow-xs">
                           {post.title}
                         </h3>
                       </Link>
 
-                      <p className="text-xs text-slate-100 leading-relaxed line-clamp-3 font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+                      <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed line-clamp-3 font-normal">
                         {post.excerpt}
                       </p>
                     </div>
                   </div>
 
                   {/* Read Article */}
-                  <div className="p-5 sm:p-6 pt-0 mt-auto border-t border-white/10 pt-4">
+                  <div className="p-5 sm:p-6 pt-0 mt-auto border-t border-slate-100 dark:border-white/10 pt-4">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-[#E25C43] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
                     >
                       <span>Read Full Article</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

@@ -65,13 +65,13 @@ function ServicesContent() {
         
         {/* Page Header */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 dark:bg-black/45 backdrop-blur-md text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
             {sp.badge}
           </div>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight font-display dark:drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
             {sp.headline}
           </h1>
-          <p className="text-xs sm:text-base lg:text-lg text-slate-100 leading-relaxed max-w-2xl mx-auto font-normal drop-shadow-sm">
+          <p className="text-xs sm:text-base lg:text-lg text-slate-600 dark:text-slate-100 leading-relaxed max-w-2xl mx-auto font-normal">
             {sp.subheadline}
           </p>
 
@@ -87,8 +87,8 @@ function ServicesContent() {
         </ScrollReveal>
 
         {/* Search Bar & Counter */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="bg-black/45 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
-          <div className="text-xs font-bold text-white">
+        <ScrollReveal variant="fade-up" delay={0.1} className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-xl border border-slate-200/80 dark:border-white/20 mb-10 sm:mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-900 dark:text-white">
+          <div className="text-xs font-bold text-slate-900 dark:text-white">
             {language === "ar" 
               ? `عرض ${filteredServices.length} ممارسة استشارية متخصصة` 
               : `Showing ${filteredServices.length} Specialized Practice Capabilities`}
@@ -96,18 +96,18 @@ function ServicesContent() {
 
           {/* Search Input */}
           <div className="relative w-full sm:w-96">
-            <Search className={`w-4 h-4 text-slate-300 absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`} />
+            <Search className={`w-4 h-4 text-slate-400 dark:text-slate-300 absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={sp.searchPlaceholder}
-              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] transition-all`}
+              className={`w-full ${isRTL ? 'pr-9 pl-4' : 'pl-9 pr-4'} py-2.5 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/20 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] transition-all`}
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-xs font-bold text-slate-300 hover:text-white`}
+                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 dark:text-slate-300 hover:text-slate-700 dark:hover:text-white`}
               >
                 Clear
               </button>
@@ -123,13 +123,13 @@ function ServicesContent() {
                 <StaggerItem
                   key={service.id}
                   variant="fade-up"
-                  className="bg-black/45 backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-xl border border-white/20 flex flex-col justify-between hover:border-white/35 hover:shadow-2xl transition-all duration-300 group text-white"
+                  className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-xl border border-slate-200/80 dark:border-white/20 flex flex-col justify-between hover:border-slate-300 dark:hover:border-white/35 hover:shadow-2xl transition-all duration-300 group text-slate-900 dark:text-white"
                 >
                   <div className="space-y-4">
                     
                     {/* Card Top: Icon & Indicator */}
                     <div className="flex items-center justify-between">
-                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/10 border border-white/15 text-white group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white group-hover:scale-105 transition-transform duration-300 shadow-xs">
                         {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
                       </div>
 
@@ -141,21 +141,21 @@ function ServicesContent() {
                     {/* Title & Short Description */}
                     <div className="space-y-1.5">
                       <Link href={`/services/${service.id}`} className="hover:text-[#E25C43] transition-colors">
-                        <h3 className="text-base sm:text-lg font-bold text-white leading-snug font-display drop-shadow-sm group-hover:text-[#E25C43] transition-colors">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug font-display drop-shadow-xs group-hover:text-[#E25C43] transition-colors">
                           {service.title}
                         </h3>
                       </Link>
-                      <p className="text-xs text-slate-100 leading-relaxed font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                      <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed font-normal">
                         {service.shortDescription}
                       </p>
                     </div>
 
                     {/* Benchmark KPI */}
-                    <div className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-                      <div className="text-[10px] uppercase font-bold text-slate-300">
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/10 backdrop-blur-md border border-slate-200 dark:border-white/15">
+                      <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-300">
                         {sp.deliverableLabel}
                       </div>
-                      <div className="text-xs font-bold text-white mt-0.5">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">
                         {service.metrics}
                       </div>
                     </div>
@@ -163,7 +163,7 @@ function ServicesContent() {
                     {/* Deliverables Preview */}
                     <div className="space-y-1.5 pt-1">
                       {service.deliverables.slice(0, 2).map((del, dIdx) => (
-                        <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-100 font-medium">
+                        <div key={dIdx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-100 font-medium">
                           <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#E25C43]" />
                           <span className="line-clamp-1">{del}</span>
                         </div>
@@ -172,10 +172,10 @@ function ServicesContent() {
                   </div>
 
                   {/* Card Bottom CTA */}
-                  <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between">
+                  <div className="pt-5 mt-5 border-t border-slate-100 dark:border-white/15 flex items-center justify-between">
                     <Link
                       href={`/services/${service.id}`}
-                      className="text-xs font-bold text-white hover:text-[#E25C43] transition-colors flex items-center gap-1"
+                      className="text-xs font-bold text-slate-800 dark:text-white hover:text-[#E25C43] transition-colors flex items-center gap-1"
                     >
                       <span>{sp.viewDetails}</span>
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -183,7 +183,7 @@ function ServicesContent() {
 
                     <Link
                       href={`/contact?service=${encodeURIComponent(service.title)}`}
-                      className="p-2 rounded-xl text-white transition-all duration-200 shadow-sm bg-white/15 hover:bg-[#E25C43] border border-white/20"
+                      className="p-2 rounded-xl text-slate-800 dark:text-white transition-all duration-200 shadow-xs bg-slate-100 hover:bg-[#E25C43] hover:text-white dark:bg-white/15 dark:hover:bg-[#E25C43] border border-slate-200 dark:border-white/20"
                       title={language === "ar" ? "طلب استشارة لهذه الخدمة" : "Book this Service"}
                     >
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -195,10 +195,10 @@ function ServicesContent() {
             })}
           </StaggerContainer>
         ) : (
-          <ScrollReveal variant="fade" className="text-center py-16 bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 p-8 shadow-xl text-white">
-            <HelpCircle className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-white font-display">{sp.noResultsTitle}</h3>
-            <p className="text-xs text-slate-200 max-w-sm mx-auto mt-1 font-medium">
+          <ScrollReveal variant="fade" className="text-center py-16 bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 p-8 shadow-xl text-slate-900 dark:text-white">
+            <HelpCircle className="w-10 h-10 text-slate-400 dark:text-slate-300 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">{sp.noResultsTitle}</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-200 max-w-sm mx-auto mt-1 font-medium">
               {sp.noResultsDesc}
             </p>
             <button

@@ -14,7 +14,7 @@ export default function ConsultationBanner() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <ScrollReveal variant="fade-up" duration={0.6}>
-          <div className="relative rounded-3xl bg-black/45 backdrop-blur-md text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-white/20 shadow-2xl">
+          <div className="relative rounded-3xl bg-slate-900/95 dark:bg-black/55 backdrop-blur-md text-white p-6 sm:p-12 lg:p-16 overflow-hidden border border-slate-800 dark:border-white/20 shadow-2xl">
             
             {/* Subtle radial light highlight in background */}
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#8EA9D3]/15 rounded-full blur-3xl pointer-events-none" />
