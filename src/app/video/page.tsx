@@ -10,7 +10,7 @@ const BG_VIDEO =
 
 export default function VideoPage() {
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[#070D18]">
+    <div className="relative w-full h-screen overflow-hidden bg-night-950">
       <video
         className="w-full h-full object-cover absolute inset-0"
         style={{
@@ -25,7 +25,7 @@ export default function VideoPage() {
         playsInline
         src={BG_VIDEO}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#070D18]/50 via-black/25 to-[#070D18]/60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-night-950/50 via-black/25 to-night-950/60 pointer-events-none" />
     </div>
   );
 }

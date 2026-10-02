@@ -120,18 +120,18 @@ export default function PartnerBookingWidget({
           <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-600 dark:text-emerald-400">
             CONSULTATION RESERVED
           </span>
-          <h3 className="text-xl font-bold text-[#152238] dark:text-white font-display">
+          <h3 className="text-xl font-bold text-ink dark:text-white font-display">
             Discovery Session Confirmed
           </h3>
           <p className="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
-            Calendar invitation and video conference link have been queued for <strong className="text-[#152238] dark:text-white">{bookingConfirmation.clientEmail}</strong>.
+            Calendar invitation and video conference link have been queued for <strong className="text-ink dark:text-white">{bookingConfirmation.clientEmail}</strong>.
           </p>
         </div>
 
         <div className="p-4 rounded-2xl bg-white dark:bg-transparent backdrop-blur-md border border-emerald-500/20 text-left max-w-md mx-auto space-y-2 text-xs">
           <div className="flex justify-between items-center text-slate-500 dark:text-slate-400">
             <span>Consultation:</span>
-            <span className="font-bold text-[#152238] dark:text-white">{bookingConfirmation.meetingType}</span>
+            <span className="font-bold text-ink dark:text-white">{bookingConfirmation.meetingType}</span>
           </div>
           <div className="flex justify-between items-center text-slate-500 dark:text-slate-400">
             <span>Date &amp; Time:</span>
@@ -145,7 +145,7 @@ export default function PartnerBookingWidget({
           </div>
           <div className="flex justify-between items-center text-slate-500 dark:text-slate-400">
             <span>Reference Code:</span>
-            <span className="font-mono font-bold text-[#A33C29]">{bookingConfirmation.id}</span>
+            <span className="font-mono font-bold text-accent">{bookingConfirmation.id}</span>
           </div>
         </div>
 
@@ -154,7 +154,7 @@ export default function PartnerBookingWidget({
             setIsBooked(false);
             setSelectedTime("");
           }}
-          className="text-xs text-[#A33C29] font-bold hover:underline inline-block pt-1"
+          className="text-xs text-accent font-bold hover:underline inline-block pt-1"
         >
           Book another slot or modify &rarr;
         </button>
@@ -163,16 +163,16 @@ export default function PartnerBookingWidget({
   }
 
   return (
-    <div className={`bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-xl overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
+    <div className={`bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-card overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#A33C29]/10 text-[#A33C29] text-[10px] font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-xl bg-rust/10 text-accent text-[10px] font-bold uppercase tracking-wider">
             <Sparkles className="w-3 h-3" />
             <span>DIRECT PARTNER CALENDAR</span>
           </div>
-          <h3 className="text-lg sm:text-xl font-bold font-display text-[#152238] dark:text-white">
+          <h3 className="text-lg sm:text-xl font-bold font-display text-ink dark:text-white">
             Schedule a Confidential Consultation
           </h3>
           <p className="text-xs text-slate-500">
@@ -182,11 +182,11 @@ export default function PartnerBookingWidget({
 
         {/* Timezone picker */}
         <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 px-3 py-1.5 rounded-xl text-xs text-slate-600 dark:text-slate-300 shrink-0">
-          <Globe className="w-3.5 h-3.5 text-[#A33C29]" />
+          <Globe className="w-3.5 h-3.5 text-accent" />
           <select
             value={selectedTimezone}
             onChange={(e) => setSelectedTimezone(e.target.value)}
-            className="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer text-[#152238] dark:text-white"
+            className="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer text-ink dark:text-white"
           >
             <option value="Asia/Riyadh" className="dark:bg-slate-900">Riyadh (AST GMT+3)</option>
             <option value="Asia/Dubai" className="dark:bg-slate-900">Dubai (GST GMT+4)</option>
@@ -201,7 +201,7 @@ export default function PartnerBookingWidget({
         {/* Step 1: Meeting Type */}
         <div className="space-y-2">
           <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
-            <Video className="w-3.5 h-3.5 text-[#A33C29]" />
+            <Video className="w-3.5 h-3.5 text-accent" />
             <span>1. Select Consulting Track</span>
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -216,7 +216,7 @@ export default function PartnerBookingWidget({
                 onClick={() => setSelectedMeetingType(track.id)}
                 className={`p-3 rounded-2xl border text-left transition-all ${
                   selectedMeetingType === track.id
-                    ? "bg-[#152238] dark:bg-white/15 text-white border-transparent shadow-md"
+                    ? "bg-ink dark:bg-white/15 text-white border-transparent shadow-md"
                     : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                 }`}
               >
@@ -232,7 +232,7 @@ export default function PartnerBookingWidget({
         {/* Step 2: Date Selector */}
         <div className="space-y-2">
           <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
-            <CalendarIcon className="w-3.5 h-3.5 text-[#A33C29]" />
+            <CalendarIcon className="w-3.5 h-3.5 text-accent" />
             <span>2. Choose Meeting Date</span>
           </label>
           <div className="grid grid-cols-5 gap-2">
@@ -246,7 +246,7 @@ export default function PartnerBookingWidget({
                 }}
                 className={`p-2.5 rounded-xl border text-center transition-all ${
                   selectedDateIndex === idx
-                    ? "bg-[#A33C29] text-white border-[#A33C29] shadow-sm scale-102"
+                    ? "bg-rust text-white border-rust shadow-sm scale-102"
                     : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                 }`}
               >
@@ -264,7 +264,7 @@ export default function PartnerBookingWidget({
         {/* Step 3: Time Slot Selector */}
         <div className="space-y-2">
           <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-[#A33C29]" />
+            <Clock className="w-3.5 h-3.5 text-accent" />
             <span>3. Available Time Slots</span>
           </label>
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -288,7 +288,7 @@ export default function PartnerBookingWidget({
         {/* Step 4: Executive Details */}
         <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-white/10">
           <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
-            <User className="w-3.5 h-3.5 text-[#A33C29]" />
+            <User className="w-3.5 h-3.5 text-accent" />
             <span>4. Attendee Details</span>
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -298,7 +298,7 @@ export default function PartnerBookingWidget({
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               placeholder="Your Full Name"
-              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
             />
             <input
               type="email"
@@ -306,14 +306,14 @@ export default function PartnerBookingWidget({
               value={clientEmail}
               onChange={(e) => setClientEmail(e.target.value)}
               placeholder="Corporate Work Email"
-              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
             />
             <input
               type="text"
               value={clientCompany}
               onChange={(e) => setClientCompany(e.target.value)}
               placeholder="Company / Enterprise"
-              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
             />
           </div>
         </div>
@@ -323,7 +323,7 @@ export default function PartnerBookingWidget({
           <button
             type="submit"
             disabled={isSubmitting || !selectedTime || !clientName || !clientEmail}
-            className="w-full py-3.5 px-6 rounded-full bg-[#A33C29] hover:bg-[#8E3221] disabled:opacity-50 text-white font-bold text-xs transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
+            className="w-full py-3.5 px-6 rounded-xl bg-rust hover:bg-rust-dark disabled:opacity-50 text-white font-bold text-xs transition-all shadow-cta flex items-center justify-center gap-2 group cursor-pointer"
           >
             <span>
               {isSubmitting

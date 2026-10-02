@@ -144,7 +144,7 @@ export default function AnimatedBackground() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none bg-white dark:bg-[#131B2E] transition-colors duration-300"
+      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none bg-white dark:bg-night-850 transition-colors duration-300"
     >
       {/* 1. Brand Midnight Navy Ambient Mesh Orb (Deep Upper Left) */}
       <motion.div
@@ -157,7 +157,7 @@ export default function AnimatedBackground() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-32 -left-32 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-br from-[#8EA9D3]/10 via-[#152238]/5 to-transparent blur-[90px] dark:from-[#1E2E4E]/30 dark:via-[#131B2E]/20 transform-gpu will-change-transform"
+        className="absolute -top-32 -left-32 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-gradient-to-br from-steel/10 via-ink/5 to-transparent blur-[90px] dark:from-night-700/30 dark:via-night-850/20 transform-gpu will-change-transform"
       />
 
       {/* 2. Brand Terracotta Rust Ambient Orb (Warm Strategic Glow - Center Right) */}
@@ -172,7 +172,7 @@ export default function AnimatedBackground() {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute top-1/4 -right-28 w-[400px] sm:w-[580px] h-[400px] sm:h-[580px] rounded-full bg-gradient-to-bl from-[#A33C29]/8 via-[#BF4A33]/4 to-transparent blur-[95px] dark:from-[#A33C29]/15 dark:via-[#BF4A33]/8 transform-gpu will-change-transform"
+        className="absolute top-1/4 -right-28 w-[400px] sm:w-[580px] h-[400px] sm:h-[580px] rounded-full bg-gradient-to-bl from-rust/8 via-rust/4 to-transparent blur-[95px] dark:from-rust/15 dark:via-rust/8 transform-gpu will-change-transform"
       />
 
       {/* 3. Brand Ice Steel Blue Ambient Orb (Lower Left & Center) */}
@@ -187,7 +187,7 @@ export default function AnimatedBackground() {
           ease: "easeInOut",
           delay: 4,
         }}
-        className="absolute -bottom-36 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full bg-gradient-to-tr from-[#8EA9D3]/10 via-[#4A72B2]/5 to-transparent blur-[90px] dark:from-[#8EA9D3]/12 dark:via-[#18233C]/20 transform-gpu will-change-transform"
+        className="absolute -bottom-36 left-1/4 w-[420px] sm:w-[600px] h-[420px] sm:h-[600px] rounded-full bg-gradient-to-tr from-steel/10 via-navy-500/5 to-transparent blur-[90px] dark:from-steel/12 dark:via-night-800/20 transform-gpu will-change-transform"
       />
 
       {/* 4. Dynamic Interactive Ambient Dust / Bokeh Canvas */}
@@ -197,7 +197,7 @@ export default function AnimatedBackground() {
       />
 
       {/* 5. Soft Vignette for Depth Focus in Dark Mode */}
-      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-transparent dark:to-[#131B2E]/50" />
+      <div className="absolute inset-0 bg-radial from-transparent via-transparent to-transparent dark:to-night-850/50" />
     </div>
   );
 }

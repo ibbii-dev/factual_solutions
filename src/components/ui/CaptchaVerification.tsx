@@ -83,7 +83,7 @@ export default function CaptchaVerification({
 
     // Draw each character with random rotation & scale
     const charSpacing = width / (text.length + 1);
-    const colors = ["#E25C43", "#0F172A", "#334155", "#8E3221", "#475569"];
+    const colors = ["#A2351E", "#0E1A38", "#1F3A7D", "#872A17", "#5E86C4"];
 
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
@@ -175,14 +175,14 @@ export default function CaptchaVerification({
       {/* Header with security icon & mode switch */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-700 dark:text-slate-200">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#E25C43]" />
+          <ShieldCheck className="w-3.5 h-3.5 text-accent" />
           <span>{isAr ? "التحقق الأمني من الهوية" : "Human Verification"}</span>
         </div>
 
         <button
           type="button"
           onClick={() => setMode(mode === "visual" ? "math" : "visual")}
-          className="text-[10px] text-slate-500 hover:text-[#E25C43] dark:text-slate-400 dark:hover:text-white transition-colors underline"
+          className="text-[10px] text-slate-500 hover:text-accent dark:text-slate-400 dark:hover:text-white transition-colors underline"
         >
           {mode === "visual"
             ? (isAr ? "التبديل إلى سؤال رياضي" : "Switch to math challenge")
@@ -204,7 +204,7 @@ export default function CaptchaVerification({
             />
           </div>
         ) : (
-          <div className="h-[44px] min-w-[160px] px-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/15 flex items-center justify-center font-mono font-bold text-sm text-slate-900 dark:text-white shadow-inner select-none">
+          <div className="h-[44px] min-w-[160px] px-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/15 flex items-center justify-center font-mono font-bold text-sm text-ink dark:text-white shadow-inner select-none">
             {mathQuestion.q}
           </div>
         )}
@@ -212,11 +212,11 @@ export default function CaptchaVerification({
         <button
           type="button"
           onClick={refreshCaptcha}
-          className="p-2.5 rounded-lg bg-white dark:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-slate-300 dark:hover:border-white/30 text-slate-600 dark:text-slate-200 hover:text-[#E25C43] transition-colors shadow-xs"
+          className="p-2.5 rounded-lg bg-white dark:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-slate-300 dark:hover:border-white/30 text-slate-600 dark:text-slate-200 hover:text-accent transition-colors shadow-xs"
           title={isAr ? "تحديث الرمز" : "Regenerate challenge"}
           aria-label="Refresh Captcha"
         >
-          <RotateCw className={`w-4 h-4 ${isRefreshing ? "animate-spin text-[#E25C43]" : ""}`} />
+          <RotateCw className={`w-4 h-4 ${isRefreshing ? "animate-spin text-accent" : ""}`} />
         </button>
 
         {isVerified && (
@@ -240,12 +240,12 @@ export default function CaptchaVerification({
               ? (isAr ? "أدخل الرمز الموضح في الصورة" : "Enter verification characters")
               : (isAr ? "أدخل ناتج العملية الحسابية" : "Enter the calculated answer")
           }
-          className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-white/10 border text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none transition-colors ${
+          className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-white/10 border text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none transition-colors ${
             isVerified
               ? "border-emerald-500 focus:border-emerald-500 bg-emerald-500/5"
               : hasError
               ? "border-rose-500 focus:border-rose-500 bg-rose-500/5"
-              : "border-slate-200 dark:border-white/20 focus:border-[#E25C43]"
+              : "border-slate-200 dark:border-white/10 focus:border-rust"
           }`}
         />
 

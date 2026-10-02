@@ -3,41 +3,53 @@
 @tailwind utilities;
 
 :root {
-  --font-display: var(--font-display), 'Plus Jakarta Sans', sans-serif;
-  --font-body: var(--font-body), 'Inter', sans-serif;
-  --font-arabic: var(--font-arabic), 'Tajawal', sans-serif;
+  /* Factual Solutions — palette taken from the logo
+     Navy #1F3A7D · Steel #82A9E2 · Rust #A2351E · Ink #0E1A38 */
+  --fs-accent: 162 53 30;      /* rust — text/links on light */
+  --fs-focus: 31 58 125;       /* navy focus ring */
+  --fs-surface: 255 255 255;   /* cards */
+  --fs-canvas: 246 248 252;    /* page background */
 
-  /* Mode 1: Soft Warm Executive Light Theme (Low-Glare, Non-Stark) */
-  --bg-primary: #F8FAFC;
-  --bg-secondary: #F1F5F9;
+  --bg-primary: #F6F8FC;
+  --bg-secondary: #EEF2FA;
   --bg-card: #FFFFFF;
-  --text-primary: #152238;
+  --text-primary: #0E1A38;
   --text-secondary: #475569;
-  --border-color: rgba(21, 34, 56, 0.07);
+  --border-color: rgba(14, 26, 56, 0.08);
 
-  --color-rust: #A33C29;
-  --color-rust-hover: #8F2F1F;
-  --color-steel: #8EA9D3;
+  --color-rust: #A2351E;
+  --color-rust-hover: #872A17;
+  --color-steel: #82A9E2;
+  --color-navy: #1F3A7D;
 }
 
 html.dark {
-  /* Mode 2: Executive Midnight Slate Navy - Refined Prestige Dark Theme */
-  --bg-primary: #131B2E;
-  --bg-secondary: #0E1524;
-  --bg-card: #182238;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --fs-accent: 218 106 79;     /* lifted rust for legible text on navy */
+  --fs-focus: 130 169 226;     /* steel focus ring */
+  --fs-surface: 15 29 63;
+  --fs-canvas: 8 18 41;
 
-  --color-rust: #BF4A33;
-  --color-rust-hover: #D9534F;
-  --color-steel: #8EA9D3;
+  --bg-primary: #081229;
+  --bg-secondary: #050B1C;
+  --bg-card: #0F1D3F;
+  --text-primary: #F4F6FB;
+  --text-secondary: #A9B6CF;
+  --border-color: rgba(180, 205, 240, 0.12);
+
+  --color-rust: #A2351E;
+  --color-rust-hover: #C2482C;
+  --color-steel: #82A9E2;
+  --color-navy: #1F3A7D;
+}
+
+html {
+  background-color: var(--bg-primary);
 }
 
 body {
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body), 'Inter', sans-serif;
   color: var(--text-primary);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-primary) !important;
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
   top: 0px !important;
@@ -92,20 +104,70 @@ body > .skiptranslate {
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 /* Custom Form Select Options */
 select option, select optgroup {
   background-color: #FFFFFF;
-  color: #152238;
+  color: #0E1A38;
   font-family: var(--font-body), sans-serif;
   padding: 8px 12px;
 }
 
 html.dark select option, html.dark select optgroup {
-  background-color: #131B2E !important;
+  background-color: #0F1D3F !important;
   color: #FFFFFF !important;
+}
+
+/* ---------- Brand system utilities ---------- */
+::selection {
+  background: rgba(130, 169, 226, 0.35);
+  color: #0E1A38;
+}
+html.dark ::selection { color: #FFFFFF; }
+
+:focus-visible {
+  outline: 2px solid rgb(var(--fs-focus));
+  outline-offset: 2px;
+}
+
+/* Three-color puzzle bar — the logo's faces as a hairline accent */
+.brand-rule {
+  height: 3px;
+  width: 56px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1F3A7D 0 33.33%, #82A9E2 33.33% 66.66%, #A2351E 66.66% 100%);
+}
+
+/* Subtle blueprint grid used behind heroes */
+.brand-grid {
+  background-image:
+    linear-gradient(rgba(31, 58, 125, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 58, 125, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+html.dark .brand-grid {
+  background-image:
+    linear-gradient(rgba(130, 169, 226, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(130, 169, 226, 0.06) 1px, transparent 1px);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--fs-accent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

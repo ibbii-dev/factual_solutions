@@ -35,15 +35,15 @@ export default function AboutPage() {
   const currentSkills = language === "ar" ? arabicSkills : principalConsultant.skills;
 
   return (
-    <div className="pt-24 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
+    <div className="pt-24 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-transparent text-ink dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/90 dark:bg-black/45 backdrop-blur-md text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
             {about.badge}
           </div>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight font-display dark:drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-ink dark:text-white tracking-tight leading-tight font-display">
             {about.headline}
           </h1>
           <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-100 leading-relaxed max-w-2xl mx-auto font-normal">
@@ -52,10 +52,10 @@ export default function AboutPage() {
         </ScrollReveal>
 
         {/* The Puzzle Philosophy Section */}
-        <ScrollReveal variant="zoom-in" duration={0.7} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl border border-slate-200/80 dark:border-white/20 text-slate-900 dark:text-white">
+        <ScrollReveal variant="zoom-in" duration={0.7} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-20 bg-white dark:bg-night-800/80 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-card border border-slate-200/80 dark:border-white/10 text-ink dark:text-white">
           
           <div className="lg:col-span-6 space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight font-display drop-shadow-xs">
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white tracking-tight font-display">
               {about.philosophyTitle}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 leading-relaxed font-normal">
@@ -66,16 +66,16 @@ export default function AboutPage() {
             </p>
 
             <div className="space-y-2 pt-2">
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-800 dark:text-white font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#E25C43] shrink-0" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-ink dark:text-white font-medium">
+                <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
                 <span>{about.point1}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-800 dark:text-white font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#E25C43] shrink-0" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-ink dark:text-white font-medium">
+                <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
                 <span>{about.point2}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-800 dark:text-white font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#E25C43] shrink-0" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-ink dark:text-white font-medium">
+                <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
                 <span>{about.point3}</span>
               </div>
             </div>
@@ -90,11 +90,11 @@ export default function AboutPage() {
         {/* Principal Consultant & Practice Leadership */}
         <div className="mb-16 sm:mb-20">
           <ScrollReveal variant="fade-up" className="text-center max-w-2xl mx-auto space-y-2 mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-[#E25C43] text-[11px] font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rust/[0.07] dark:bg-white/5 border border-rust/15 dark:border-white/10 text-accent text-[11px] font-bold uppercase tracking-wider">
               <Award className="w-3.5 h-3.5" />
               <span>{about.leadershipBadge}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-display dark:drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-ink dark:text-white font-display">
               {about.principalTitle}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 font-normal">
@@ -103,11 +103,11 @@ export default function AboutPage() {
           </ScrollReveal>
 
           {/* Qadeer Ahmad Bhatti Profile Card */}
-          <ScrollReveal variant="fade-up" delay={0.15} className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-200/80 dark:border-white/20 shadow-xl max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center text-slate-900 dark:text-white">
+          <ScrollReveal variant="fade-up" delay={0.15} className="bg-white dark:bg-night-800/80 rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-200/80 dark:border-white/10 shadow-card max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center text-ink dark:text-white">
             
             {/* Portrait Photo (4 cols) */}
             <div className="md:col-span-4 flex flex-col items-center text-center">
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden shadow-md border-2 border-slate-200 dark:border-white/20 bg-slate-900">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden shadow-md border-2 border-slate-200 dark:border-white/10 bg-slate-900">
                 <Image
                   src={principalConsultant.image}
                   alt={principalConsultant.name}
@@ -117,10 +117,10 @@ export default function AboutPage() {
                 />
               </div>
 
-              <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-4 font-display">
+              <h3 className="text-lg sm:text-xl font-bold text-ink dark:text-white mt-4 font-display">
                 {about.consultantName}
               </h3>
-              <p className="text-xs font-semibold text-[#E25C43] mt-0.5">
+              <p className="text-xs font-semibold text-accent mt-0.5">
                 {about.consultantRole}
               </p>
             </div>
@@ -145,9 +145,9 @@ export default function AboutPage() {
                   {currentSkills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-xs font-medium text-slate-700 dark:text-slate-100"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-navy-50 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-xs font-medium text-slate-700 dark:text-slate-100"
                     >
-                      <Check className="w-3.5 h-3.5 text-[#E25C43] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-accent shrink-0" />
                       <span>{skill}</span>
                     </span>
                   ))}
@@ -158,7 +158,7 @@ export default function AboutPage() {
               <div className="pt-2">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-md"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all shadow-cta"
                 >
                   <span>{about.scheduleButton}</span>
                   <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -171,21 +171,21 @@ export default function AboutPage() {
 
         {/* Mission & Vision Cards */}
         <StaggerContainer delayChildren={0.2} staggerChildren={0.15} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-20">
-          <StaggerItem className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200/80 dark:border-white/20 space-y-3 text-slate-900 dark:text-white">
-            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white flex items-center justify-center">
-              <Target className="w-5 h-5 text-slate-800 dark:text-white" />
+          <StaggerItem className="bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 space-y-3 text-ink dark:text-white">
+            <div className="w-10 h-10 rounded-xl bg-navy-50 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-ink dark:text-white flex items-center justify-center">
+              <Target className="w-5 h-5 text-ink dark:text-white" />
             </div>
-            <h3 className="text-xl font-bold font-display text-slate-900 dark:text-white">{about.missionTitle}</h3>
+            <h3 className="text-xl font-bold font-display text-ink dark:text-white">{about.missionTitle}</h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 leading-relaxed font-normal">
               {about.missionDesc}
             </p>
           </StaggerItem>
 
-          <StaggerItem className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200/80 dark:border-white/20 space-y-3 text-slate-900 dark:text-white">
-            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-[#E25C43]" />
+          <StaggerItem className="bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 space-y-3 text-ink dark:text-white">
+            <div className="w-10 h-10 rounded-xl bg-navy-50 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-ink dark:text-white flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-accent" />
             </div>
-            <h3 className="text-xl font-bold font-display text-slate-900 dark:text-white">{about.visionTitle}</h3>
+            <h3 className="text-xl font-bold font-display text-ink dark:text-white">{about.visionTitle}</h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 leading-relaxed font-normal">
               {about.visionDesc}
             </p>
@@ -193,28 +193,28 @@ export default function AboutPage() {
         </StaggerContainer>
 
         {/* Office Location */}
-        <ScrollReveal variant="fade-up" className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-slate-200/80 dark:border-white/20 shadow-xl text-slate-900 dark:text-white">
+        <ScrollReveal variant="fade-up" className="bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-10 border border-slate-200/80 dark:border-white/10 shadow-card text-ink dark:text-white">
           <div className="text-center max-w-xl mx-auto mb-6 space-y-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display">{about.headOfficeTitle}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-ink dark:text-white font-display">{about.headOfficeTitle}</h3>
             <p className="text-xs text-slate-500 dark:text-slate-200 font-normal">{about.headOfficeSubtitle}</p>
           </div>
 
           <div className="max-w-md mx-auto">
             {officeLocations.map((loc) => (
-              <div key={loc.city} className="bg-slate-50 dark:bg-white/10 p-5 rounded-xl border border-slate-200 dark:border-white/15 space-y-2 text-center shadow-sm text-slate-900 dark:text-white">
+              <div key={loc.city} className="bg-slate-50 dark:bg-white/10 p-5 rounded-xl border border-slate-200 dark:border-white/15 space-y-2 text-center shadow-sm text-ink dark:text-white">
                 <div className="flex items-center justify-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#E25C43] shrink-0" />
-                  <span className="text-base font-bold text-slate-900 dark:text-white">
+                  <MapPin className="w-4 h-4 text-accent shrink-0" />
+                  <span className="text-base font-bold text-ink dark:text-white">
                     {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-200/70 dark:bg-white/15 text-slate-800 dark:text-white border border-slate-300/50 dark:border-white/15">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-200/70 dark:bg-white/15 text-ink dark:text-white border border-slate-300/50 dark:border-white/15">
                     {language === "ar" ? "المقر الرئيسي" : loc.tag}
                   </span>
                 </div>
                 <p className="text-xs text-slate-600 dark:text-slate-200 font-medium">
                   {language === "ar" ? "لاهور، البنجاب، باكستان" : loc.address}
                 </p>
-                <div className="text-xs font-bold text-slate-900 dark:text-white pt-1">
+                <div className="text-xs font-bold text-ink dark:text-white pt-1">
                   {language === "ar" ? "المباشر:" : "Direct:"} {loc.phone}
                 </div>
               </div>

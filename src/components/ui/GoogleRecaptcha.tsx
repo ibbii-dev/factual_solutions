@@ -127,7 +127,7 @@ export default function GoogleRecaptcha({
   return (
     <div className={`space-y-2 ${className}`}>
       <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-700 dark:text-slate-200">
-        <ShieldCheck className="w-3.5 h-3.5 text-[#E25C43]" />
+        <ShieldCheck className="w-3.5 h-3.5 text-accent" />
         <span>{language === "ar" ? "التحقق الأمني (Google reCAPTCHA)" : "Google reCAPTCHA Verification"}</span>
       </div>
 

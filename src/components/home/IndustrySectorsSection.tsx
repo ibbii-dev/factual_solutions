@@ -69,17 +69,24 @@ export default function IndustrySectorsSection() {
   const { language, isRTL } = useLanguage();
   const isAr = language === "ar";
 
+  const tones = [
+    "bg-navy text-white",
+    "bg-steel text-ink",
+    "bg-rust text-white",
+  ];
+
   return (
-    <section className="py-20 sm:py-28 bg-transparent text-white transition-colors duration-300">
+    <section className="relative py-20 sm:py-28 bg-white dark:bg-night-900 border-y border-slate-200/70 dark:border-white/5 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 sm:mb-16">
-          <div className="lg:col-span-7 space-y-2">
-            <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
+          <div className="lg:col-span-7 space-y-4">
+            <div className="brand-rule" aria-hidden="true" />
+            <span className="eyebrow block">
               {isAr ? "القطاعات الاقتصادية" : "INDUSTRY SPECIALIZATIONS"}
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display dark:drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-ink dark:text-white font-display leading-[1.1]">
               {isAr ? (
                 <>
                   خبرات قطاعية متخصصة <br />
@@ -88,13 +95,13 @@ export default function IndustrySectorsSection() {
               ) : (
                 <>
                   Advising Businesses Across <br />
-                  Key Industry Sectors
+                  <span className="text-navy dark:text-steel">Key Industry Sectors</span>
                 </>
               )}
             </h2>
           </div>
           <div className="lg:col-span-5">
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 leading-relaxed font-normal dark:drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
               {isAr
                 ? "أطر عمل مصممة خصيصاً لكل قطاع، مع تقييم المخاطر وتحديد خطط العمل ذات الأثر التشغيلي العالي."
                 : "Tailored market frameworks, sector-specific risk registers, and operational playbooks configured for high-execution reliability."}
@@ -102,41 +109,42 @@ export default function IndustrySectorsSection() {
           </div>
         </div>
 
-        {/* 6 Cards Grid - Frosted Glass */}
-        <StaggerContainer delayChildren={0.1} staggerChildren={0.06} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sectors.map((sector) => {
+        {/* 6 Cards Grid */}
+        <StaggerContainer delayChildren={0.1} staggerChildren={0.06} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {sectors.map((sector, idx) => {
             const IconComp = sector.icon;
             return (
               <StaggerItem
                 key={sector.id}
-                className="p-6 rounded-2xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-slate-900 dark:text-white"
+                className="relative p-6 sm:p-7 rounded-2xl bg-slate-50/70 dark:bg-night-800/70 border border-slate-200/80 dark:border-white/10 hover:bg-white dark:hover:bg-night-800 hover:border-navy/25 dark:hover:border-steel/30 hover:shadow-lift hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-ink dark:text-white overflow-hidden"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white flex items-center justify-center font-bold shadow-xs">
-                      <IconComp className="w-5 h-5 text-slate-800 dark:text-white" />
+                <span className="absolute top-0 inset-x-0 h-[3px] bg-brand-tri scale-x-0 origin-left rtl:origin-right group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${tones[idx % 3]}`}>
+                      <IconComp className="w-5 h-5" />
                     </div>
-                    <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#E25C43]">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 text-end pt-1">
                       {sector.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white font-display group-hover:text-[#E25C43] transition-colors drop-shadow-xs">
+                  <h3 className="text-lg font-bold text-ink dark:text-white font-display group-hover:text-navy dark:group-hover:text-steel-light transition-colors">
                     {sector.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-200 font-medium leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                     {sector.description}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-3 border-t border-slate-100 dark:border-white/15">
+                <div className="pt-5 mt-5 border-t border-slate-200/80 dark:border-white/10">
                   <Link
                     href={sector.link}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-navy dark:text-steel-light group-hover:text-accent transition-colors after:absolute after:inset-0"
                   >
                     <span>{isAr ? "استكشف خدمات القطاع" : "Explore Sector Services"}</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
                   </Link>
                 </div>
               </StaggerItem>

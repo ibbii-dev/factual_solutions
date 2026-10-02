@@ -817,15 +817,15 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
   // ==========================================
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#070D18] text-slate-100 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="min-h-screen bg-night-950 text-slate-100 flex items-center justify-center p-4 relative overflow-hidden">
         {/* Ambient lighting */}
         <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-brand-rust/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-brand-steel/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-md w-full bg-[#131B2E]/95 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xl backdrop-blur-xl relative z-10">
+        <div className="max-w-md w-full bg-night-850/95 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xl backdrop-blur-xl relative z-10">
           
           <div className="text-center space-y-3">
-            <div className="relative w-14 h-14 mx-auto p-2 rounded-2xl bg-gradient-to-br from-brand-rust/20 to-[#10192A] border border-brand-rust/30 flex items-center justify-center">
+            <div className="relative w-14 h-14 mx-auto p-2 rounded-2xl bg-gradient-to-br from-brand-rust/20 to-night-850 border border-brand-rust/30 flex items-center justify-center">
               <Image
                 src="/images/logo-symbol.png"
                 alt="Factual Solutions"
@@ -861,7 +861,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 value={authEmail}
                 onChange={(e) => setAuthEmail(e.target.value)}
                 placeholder="admin@factual-solutions.com"
-                className="w-full px-4 py-3 rounded-xl bg-[#09101C] border border-slate-700 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-brand-steel transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-brand-steel transition-all"
               />
             </div>
 
@@ -875,13 +875,13 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 value={authPassword}
                 onChange={(e) => setAuthPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl bg-[#09101C] border border-slate-700 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-brand-steel transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-brand-steel transition-all"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all shadow-lg shadow-brand-rust/20 flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-rust to-rust hover:from-rust hover:to-brand-rust text-white text-xs font-bold transition-all shadow-lg shadow-brand-rust/20 flex items-center justify-center gap-2"
             >
               <Lock className="w-4 h-4" />
               <span>Sign In to Executive Portal</span>
@@ -920,7 +920,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
   // AUTHENTICATED EXECUTIVE DASHBOARD SCREEN
   // ==========================================
   return (
-    <div className="min-h-screen bg-[#070D18] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-night-950 text-slate-100 flex flex-col">
       {/* Top Portal Executive Header */}
       <header className="border-b border-slate-800/80 bg-[#0C1424]/90 backdrop-blur-md sticky top-0 z-30 px-4 sm:px-8 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -976,7 +976,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       </header>
 
       {/* Navigation Sub-Header Bar */}
-      <div className="bg-[#0A101D] border-b border-slate-800/80 px-4 sm:px-8 py-2.5 flex items-center justify-between overflow-x-auto no-scrollbar">
+      <div className="bg-night-900 border-b border-slate-800/80 px-4 sm:px-8 py-2.5 flex items-center justify-between overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab("inquiries")}
@@ -1062,7 +1062,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
           <div className="space-y-6">
             {/* KPI Metric Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
                   <span>Total Leads</span>
                   <Layers className="w-4 h-4 text-brand-steel" />
@@ -1073,7 +1073,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">All-time inquiries recorded</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-amber-400 font-semibold uppercase tracking-wider">
                   <span>New & Unreplied</span>
                   <AlertCircle className="w-4 h-4 text-amber-400" />
@@ -1084,7 +1084,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Requires Partner contact</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
                   <span>Contacted / Active</span>
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -1095,7 +1095,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Replies dispatched</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
                   <span>Completed</span>
                   <ShieldCheck className="w-4 h-4 text-brand-rust" />
@@ -1108,7 +1108,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Filter & Action Bar */}
-            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#131B2E] border border-slate-800 p-3 sm:p-4 rounded-2xl">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-night-850 border border-slate-800 p-3 sm:p-4 rounded-2xl">
               <div className="flex-1 flex items-center gap-3">
                 <div className="relative flex-1 max-w-md">
                   <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1117,7 +1117,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by client, email, company, service..."
-                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#09101C] border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-night-950 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                   />
                 </div>
 
@@ -1175,10 +1175,10 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Inquiries Table */}
-            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-night-850 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#0A101D] text-slate-400 font-semibold border-b border-slate-800 uppercase tracking-wider text-[10.5px]">
+                  <thead className="bg-night-900 text-slate-400 font-semibold border-b border-slate-800 uppercase tracking-wider text-[10.5px]">
                     <tr>
                       <th className="py-3.5 px-4">Ref Code</th>
                       <th className="py-3.5 px-4">Client & Company</th>
@@ -1328,7 +1328,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         {/* ============================================================== */}
         {activeTab === "subscribers" && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#131B2E] border border-slate-800 p-4 rounded-2xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-night-850 border border-slate-800 p-4 rounded-2xl">
               <div className="relative flex-1 max-w-md">
                 <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
@@ -1336,7 +1336,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   value={subSearchQuery}
                   onChange={(e) => setSubSearchQuery(e.target.value)}
                   placeholder="Filter subscriber emails..."
-                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#09101C] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                 />
               </div>
 
@@ -1358,10 +1358,10 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </div>
             </div>
 
-            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-night-850 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#0A101D] text-slate-400 font-semibold border-b border-slate-800 uppercase tracking-wider text-[10.5px]">
+                  <thead className="bg-night-900 text-slate-400 font-semibold border-b border-slate-800 uppercase tracking-wider text-[10.5px]">
                     <tr>
                       <th className="py-3.5 px-4">#</th>
                       <th className="py-3.5 px-4">Subscriber Email</th>
@@ -1406,7 +1406,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
         {/* ============================================================== */}
         {activeTab === "chatlogs" && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between bg-[#131B2E] border border-slate-800 p-4 rounded-2xl">
+            <div className="flex items-center justify-between bg-night-850 border border-slate-800 p-4 rounded-2xl">
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <Bot className="w-4 h-4 text-brand-rust" />
@@ -1425,7 +1425,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </button>
             </div>
 
-            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-xl">
+            <div className="bg-night-850 border border-slate-800 rounded-3xl p-4 sm:p-6 space-y-3.5 shadow-xl">
               {chatLogs.length === 0 ? (
                 <div className="py-12 text-center text-slate-500 text-xs">
                   No chat logs recorded yet. All inquiries initiated with the AI Advisor will stream here automatically.
@@ -1471,7 +1471,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Cluster Health Card */}
-              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-night-850 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Database className="w-4 h-4 text-emerald-400" />
@@ -1518,7 +1518,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   <button
                     onClick={handleSyncAtlas}
                     disabled={syncing}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-rust to-rust hover:from-rust hover:to-brand-rust text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
                     <span>{syncing ? "Seeding & Syncing Atlas Collections..." : "1-Click Atlas Re-Sync & Seed Default Practices"}</span>
@@ -1527,7 +1527,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </div>
 
               {/* Service Interest Breakdown */}
-              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-night-850 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-brand-rust" />
                   <span>Inquiry Demand by Consulting Practice</span>
@@ -1570,7 +1570,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             {/* ============================================================== */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Mail Gateway Status Card */}
-              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-night-850 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Mail className="w-4 h-4 text-brand-rust" />
@@ -1616,13 +1616,13 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#080D16] border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                <div className="p-3 rounded-xl bg-night-950 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
                   💡 When responding to client inquiries in the <strong>Inquiries tab</strong>, choosing <span className="text-white font-semibold">Email</span> will automatically format an executive branded advisory email and dispatch it directly to the client's work email address.
                 </div>
               </div>
 
               {/* Diagnostic Test Email Dispatcher */}
-              <div className="bg-[#131B2E] border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="bg-night-850 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <Send className="w-4 h-4 text-emerald-400" />
                   <span>Mailing System Verification &amp; Test Dispatch</span>
@@ -1643,7 +1643,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       value={testEmailTarget}
                       onChange={(e) => setTestEmailTarget(e.target.value)}
                       placeholder={mailSettings?.notificationEmail || "qadeer@factualsolutions.com"}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                     />
                   </div>
 
@@ -1682,7 +1682,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
           <div className="space-y-6">
             {/* KPI Metric Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
                   <span>Total Articles</span>
                   <BookOpen className="w-4 h-4 text-brand-steel" />
@@ -1693,7 +1693,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Live & draft publications</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
                   <span>Published Online</span>
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -1704,7 +1704,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Visible on public /blog</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-amber-400 font-semibold uppercase tracking-wider">
                   <span>Drafts in Progress</span>
                   <Clock className="w-4 h-4 text-amber-400" />
@@ -1715,7 +1715,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] text-slate-500">Unpublished internal drafts</div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#131B2E] border border-slate-800 space-y-2">
+              <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-brand-rust-light font-semibold uppercase tracking-wider">
                   <span>Spotlight Featured</span>
                   <Star className="w-4 h-4 text-brand-rust" />
@@ -1728,7 +1728,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Filter, Search & Primary Action Bar */}
-            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#131B2E] border border-slate-800 p-3 sm:p-4 rounded-2xl">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-night-850 border border-slate-800 p-3 sm:p-4 rounded-2xl">
               <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <div className="relative flex-1 max-w-md">
                   <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1737,7 +1737,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     value={blogSearchQuery}
                     onChange={(e) => setBlogSearchQuery(e.target.value)}
                     placeholder="Search articles by title, tags, author, category..."
-                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#09101C] border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-night-950 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                   />
                 </div>
 
@@ -1766,7 +1766,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <select
                   value={blogCategoryFilter}
                   onChange={(e) => setBlogCategoryFilter(e.target.value)}
-                  className="px-3 py-1.5 rounded-lg bg-[#09101C] border border-slate-700 text-xs text-slate-300 font-semibold focus:outline-none"
+                  className="px-3 py-1.5 rounded-lg bg-night-950 border border-slate-700 text-xs text-slate-300 font-semibold focus:outline-none"
                 >
                   <option value="All">All Categories</option>
                   <option value="Strategic Management">Strategic Management</option>
@@ -1780,7 +1780,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               {/* Write New Article CTA */}
               <button
                 onClick={handleOpenNewBlogModal}
-                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 shrink-0"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-rust hover:from-rust hover:to-brand-rust text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 shrink-0"
               >
                 <Plus className="w-4 h-4" />
                 <span>Write New Article</span>
@@ -1788,7 +1788,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             </div>
 
             {/* Articles Table / List */}
-            <div className="bg-[#131B2E] border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-night-850 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
               {isLoadingBlog ? (
                 <div className="py-20 text-center text-xs text-slate-400 space-y-2">
                   <div className="w-6 h-6 border-2 border-brand-rust border-t-transparent rounded-full animate-spin mx-auto" />
@@ -1813,7 +1813,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse">
                     <thead>
-                      <tr className="border-b border-slate-800 bg-[#09101C]/60 text-slate-400 font-bold uppercase tracking-wider text-[10.5px]">
+                      <tr className="border-b border-slate-800 bg-night-950/60 text-slate-400 font-bold uppercase tracking-wider text-[10.5px]">
                         <th className="py-3 px-4">Article & Cover</th>
                         <th className="py-3 px-4">Category & Discipline</th>
                         <th className="py-3 px-4">Status & Visibility</th>
@@ -1960,10 +1960,10 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       {/* ============================================================== */}
       {selectedInquiry && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#0B1322] border border-slate-700/80 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+          <div className="bg-night-900 border border-slate-700/80 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
             
             {/* Header */}
-            <div className="p-4 sm:p-5 bg-gradient-to-r from-[#0F1A2E] to-[#14243F] border-b border-slate-800 flex items-center justify-between shrink-0">
+            <div className="p-4 sm:p-5 bg-gradient-to-r from-night-850 to-[#14243F] border-b border-slate-800 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-brand-rust/20 border border-brand-rust/40 flex items-center justify-center text-brand-rust-light font-bold font-mono">
                   {selectedInquiry.id.slice(-3)}
@@ -2012,7 +2012,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                   Client Inquiry Scope
                 </div>
-                <div className="p-4 rounded-2xl bg-[#09101C] border border-slate-800 text-slate-200 whitespace-pre-wrap leading-relaxed">
+                <div className="p-4 rounded-2xl bg-night-950 border border-slate-800 text-slate-200 whitespace-pre-wrap leading-relaxed">
                   {selectedInquiry.message || "No custom message provided."}
                 </div>
               </div>
@@ -2062,13 +2062,13 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 </div>
 
                 {!selectedInquiry.replies || selectedInquiry.replies.length === 0 ? (
-                  <div className="p-4 rounded-2xl bg-[#080E18] border border-slate-800/80 text-center text-slate-500 text-xs">
+                  <div className="p-4 rounded-2xl bg-night-950 border border-slate-800/80 text-center text-slate-500 text-xs">
                     No replies sent yet. Use the response composer below to contact this client directly from the portal.
                   </div>
                 ) : (
                   <div className="space-y-2.5">
                     {selectedInquiry.replies.map((reply) => (
-                      <div key={reply.id} className="p-3.5 rounded-2xl bg-[#0E1726] border border-slate-800 space-y-1.5">
+                      <div key={reply.id} className="p-3.5 rounded-2xl bg-night-900 border border-slate-800 space-y-1.5">
                         <div className="flex flex-wrap items-center justify-between gap-1.5 text-[10.5px] text-slate-400 font-medium">
                           <span className="flex items-center gap-1.5">
                             <span className="font-bold text-white">{reply.author}</span>
@@ -2098,7 +2098,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               </div>
 
               {/* Interactive Reply Composer */}
-              <form onSubmit={handleSendReply} className="p-4 rounded-2xl bg-[#0E1726] border border-slate-700/80 space-y-3">
+              <form onSubmit={handleSendReply} className="p-4 rounded-2xl bg-night-900 border border-slate-700/80 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="font-bold text-xs text-white flex items-center gap-2">
                     <Send className="w-3.5 h-3.5 text-brand-rust" />
@@ -2118,7 +2118,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 </div>
 
                 {/* Recipient & Channel Overview */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-[#080D16] border border-slate-800 text-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-night-950 border border-slate-800 text-xs">
                   <div className="flex items-center gap-2 text-slate-300 truncate">
                     <Mail className="w-3.5 h-3.5 text-brand-rust shrink-0" />
                     <span className="truncate">
@@ -2142,7 +2142,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={replySubject}
                         onChange={(e) => setReplySubject(e.target.value)}
                         placeholder={`Factual Solutions Advisory: Response to Consultation #${selectedInquiry.id}`}
-                        className="w-full px-3 py-2 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                       />
                     </div>
                     <div>
@@ -2154,7 +2154,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={replyAuthor}
                         onChange={(e) => setReplyAuthor(e.target.value)}
                         placeholder="Managing Partner"
-                        className="w-full px-3 py-2 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                       />
                     </div>
                   </div>
@@ -2181,20 +2181,20 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     value={replyText}
                     onChange={(e) => setReplyText(e.target.value)}
                     placeholder="Draft your proposal, discovery session invitation, or message to the client..."
-                    className="w-full p-3.5 rounded-xl bg-[#080D16] border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
+                    className="w-full p-3.5 rounded-xl bg-night-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
                   />
                 </div>
 
                 {/* Live Branded Email Preview */}
                 {replyChannel === "Email" && showEmailPreview && (
-                  <div className="p-4 rounded-xl bg-[#080E18] border border-brand-steel/40 space-y-3">
+                  <div className="p-4 rounded-xl bg-night-950 border border-brand-steel/40 space-y-3">
                     <div className="text-[10.5px] font-bold uppercase tracking-wider text-brand-steel-light flex items-center gap-1.5">
                       <Eye className="w-3 h-3" />
                       <span>Client Email Preview (Branded Layout)</span>
                     </div>
 
                     <div className="bg-white text-slate-900 rounded-lg p-5 text-xs shadow-inner space-y-3 font-sans">
-                      <div className="bg-[#0E1726] text-white p-3 rounded-md border-b-2 border-brand-rust">
+                      <div className="bg-night-900 text-white p-3 rounded-md border-b-2 border-brand-rust">
                         <div className="text-[9px] uppercase tracking-wider text-brand-rust-light font-bold">Executive Advisory Response</div>
                         <div className="text-sm font-bold">Factual Solutions Advisory</div>
                       </div>
@@ -2264,7 +2264,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     <button
                       type="submit"
                       disabled={!replyText.trim() || isSendingReply}
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all disabled:opacity-40 flex items-center justify-center gap-1.5 shadow-md"
+                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-rust to-rust hover:from-rust hover:to-brand-rust text-white text-xs font-bold transition-all disabled:opacity-40 flex items-center justify-center gap-1.5 shadow-md"
                     >
                       <Send className={`w-3.5 h-3.5 ${isSendingReply ? "animate-spin" : ""}`} />
                       <span>
@@ -2302,7 +2302,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       {/* ============================================================== */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#0B1322] border border-slate-700 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+          <div className="bg-night-900 border border-slate-700 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <Plus className="w-4 h-4 text-brand-rust" />
@@ -2325,7 +2325,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   value={newInquiryData.fullName}
                   onChange={(e) => setNewInquiryData({ ...newInquiryData, fullName: e.target.value })}
                   placeholder="e.g. Tariq Al-Mansoor"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                 />
               </div>
 
@@ -2337,7 +2337,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   value={newInquiryData.workEmail}
                   onChange={(e) => setNewInquiryData({ ...newInquiryData, workEmail: e.target.value })}
                   placeholder="client@company.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                 />
               </div>
 
@@ -2349,7 +2349,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     value={newInquiryData.companyName}
                     onChange={(e) => setNewInquiryData({ ...newInquiryData, companyName: e.target.value })}
                     placeholder="e.g. Apex Industrial"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                   />
                 </div>
                 <div className="space-y-1">
@@ -2359,7 +2359,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     value={newInquiryData.phone}
                     onChange={(e) => setNewInquiryData({ ...newInquiryData, phone: e.target.value })}
                     placeholder="+92 324 1775662"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                   />
                 </div>
               </div>
@@ -2369,7 +2369,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 <select
                   value={newInquiryData.serviceOfInterest}
                   onChange={(e) => setNewInquiryData({ ...newInquiryData, serviceOfInterest: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                 >
                   <option value="Strategic Management Consulting">Strategic Management Consulting</option>
                   <option value="Operational Excellence & Process Engineering">Operational Excellence & Process Engineering</option>
@@ -2387,7 +2387,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   value={newInquiryData.message}
                   onChange={(e) => setNewInquiryData({ ...newInquiryData, message: e.target.value })}
                   placeholder="Client objective and requirements..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                 />
               </div>
 
@@ -2416,10 +2416,10 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       {/* ============================================================== */}
       {showBlogModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#0B1322] border border-slate-700/90 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+          <div className="bg-night-900 border border-slate-700/90 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
             
             {/* Modal Header */}
-            <div className="p-4 sm:p-5 bg-gradient-to-r from-[#0E1726] to-[#14233A] border-b border-slate-800 flex items-center justify-between shrink-0">
+            <div className="p-4 sm:p-5 bg-gradient-to-r from-night-900 to-[#14233A] border-b border-slate-800 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-brand-rust/20 border border-brand-rust/40 flex items-center justify-center text-brand-rust-light">
                   <BookOpen className="w-5 h-5" />
@@ -2502,7 +2502,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         });
                       }}
                       placeholder="e.g. Navigating Enterprise Restructuring in High Rate Regimes"
-                      className="w-full px-4 py-3 rounded-xl bg-[#080D16] border border-slate-700 text-sm font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
+                      className="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-sm font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
                     />
                   </div>
 
@@ -2512,7 +2512,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       URL Path Slug
                     </label>
                     <div className="flex items-center gap-2">
-                      <span className="text-slate-500 font-mono text-[11px] bg-[#080D16] px-3 py-2.5 rounded-xl border border-slate-800">
+                      <span className="text-slate-500 font-mono text-[11px] bg-night-950 px-3 py-2.5 rounded-xl border border-slate-800">
                         /blog/
                       </span>
                       <input
@@ -2521,7 +2521,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={blogFormData.slug}
                         onChange={(e) => setBlogFormData({ ...blogFormData, slug: e.target.value })}
                         placeholder="article-slug-url"
-                        className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 font-mono text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
+                        className="flex-1 px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 font-mono text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
                       />
                     </div>
                   </div>
@@ -2536,7 +2536,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       value={blogFormData.excerpt}
                       onChange={(e) => setBlogFormData({ ...blogFormData, excerpt: e.target.value })}
                       placeholder="A short executive briefing summarizing the core thesis and practical takeaways..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed"
                     />
                   </div>
 
@@ -2547,7 +2547,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       <select
                         value={blogFormData.category}
                         onChange={(e) => setBlogFormData({ ...blogFormData, category: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                       >
                         <option value="Strategic Management">Strategic Management</option>
                         <option value="Financial Modeling">Financial Modeling</option>
@@ -2564,7 +2564,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={blogFormData.readTime}
                         onChange={(e) => setBlogFormData({ ...blogFormData, readTime: e.target.value })}
                         placeholder="5 min read"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                       />
                     </div>
 
@@ -2573,7 +2573,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       <select
                         value={blogFormData.status}
                         onChange={(e) => setBlogFormData({ ...blogFormData, status: e.target.value as any })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white font-bold"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white font-bold"
                       >
                         <option value="published">Published (Live Online)</option>
                         <option value="draft">Draft (Internal Only)</option>
@@ -2590,14 +2590,14 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={blogFormData.authorName}
                         onChange={(e) => setBlogFormData({ ...blogFormData, authorName: e.target.value })}
                         placeholder="e.g. Ahsan Malik"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white mb-2"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white mb-2"
                       />
                       <input
                         type="text"
                         value={blogFormData.authorRole}
                         onChange={(e) => setBlogFormData({ ...blogFormData, authorRole: e.target.value })}
                         placeholder="e.g. Managing Director & Senior Partner"
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#080D16] border border-slate-800 text-slate-300 text-[11px]"
+                        className="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-800 text-slate-300 text-[11px]"
                       />
                     </div>
 
@@ -2608,7 +2608,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={blogFormData.authorAvatar}
                         onChange={(e) => setBlogFormData({ ...blogFormData, authorAvatar: e.target.value })}
                         placeholder="https://images.unsplash.com/..."
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                       />
                       <div className="text-[10.5px] text-slate-500 pt-1">
                         Professional headshot URL for the author profile box.
@@ -2652,7 +2652,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                       value={blogFormData.coverImage}
                       onChange={(e) => setBlogFormData({ ...blogFormData, coverImage: e.target.value })}
                       placeholder="https://images.unsplash.com/photo-..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                     />
                   </div>
 
@@ -2665,7 +2665,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         value={blogFormData.tags}
                         onChange={(e) => setBlogFormData({ ...blogFormData, tags: e.target.value })}
                         placeholder="Strategy, M&A, Feasibility, Cost Reduction"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#080D16] border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                       />
                     </div>
 
@@ -2675,7 +2675,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                           type="checkbox"
                           checked={blogFormData.featured}
                           onChange={(e) => setBlogFormData({ ...blogFormData, featured: e.target.checked })}
-                          className="w-4 h-4 rounded text-brand-rust focus:ring-brand-rust bg-[#080D16] border-slate-700"
+                          className="w-4 h-4 rounded text-brand-rust focus:ring-brand-rust bg-night-950 border-slate-700"
                         />
                         <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                           <Star className={`w-3.5 h-3.5 ${blogFormData.featured ? "text-amber-400 fill-current" : "text-slate-500"}`} />
@@ -2771,7 +2771,7 @@ Explain the primary drivers...
 
 - Bullet insight 1
 - Bullet insight 2`}
-                      className="w-full p-4 rounded-2xl bg-[#080D16] border border-slate-700 font-sans text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
+                      className="w-full p-4 rounded-2xl bg-night-950 border border-slate-700 font-sans text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
                     />
                   </div>
 
@@ -2891,7 +2891,7 @@ Explain the primary drivers...
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="p-4 bg-[#0E1726] border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+            <div className="p-4 bg-night-900 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <div className="text-xs text-red-400 font-medium">
                 {blogFeedback}
               </div>
@@ -2926,7 +2926,7 @@ Explain the primary drivers...
                     if (form) form.requestSubmit();
                   }}
                   disabled={isSavingBlog}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust text-white text-xs font-bold transition-all shadow-md shadow-brand-rust/20 flex items-center gap-2 disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-rust hover:from-rust hover:to-brand-rust text-white text-xs font-bold transition-all shadow-md shadow-brand-rust/20 flex items-center gap-2 disabled:opacity-50"
                 >
                   {isSavingBlog ? (
                     <>

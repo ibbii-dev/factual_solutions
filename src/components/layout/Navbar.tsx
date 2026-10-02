@@ -103,42 +103,42 @@ export default function Navbar() {
       desc: language === "ar" ? "التوافق التنفيذي، مؤشرات الأداء وخارطة الطريق" : "Executive alignment, OKRs & roadmap",
       href: "/services/strategic-consulting",
       icon: Compass,
-      color: "#A33C29"
+      color: "#A2351E"
     },
     {
       title: language === "ar" ? "النمذجة المالية ودراسات الجدوى" : "Financial Modeling & Feasibility",
       desc: language === "ar" ? "تدفقات نقدية، العائد على الاستثمار والميزانيات" : "5-Year cash flows, ROI & budgets",
       href: "/services/investment-planning",
       icon: TrendingUp,
-      color: "#8EA9D3"
+      color: "#82A9E2"
     },
     {
       title: language === "ar" ? "إدارة المشاريع ومنهجية لين" : "Projects & Lean Management",
       desc: language === "ar" ? "مكاتب إدارة المشاريع، لين 6 سيجما والتدقيق" : "PMO delivery, Lean Six Sigma & audits",
       href: "/services/projects-management",
       icon: Layers,
-      color: "#152238"
+      color: "#1F3A7D"
     },
     {
       title: language === "ar" ? "تحول العمليات وأنظمة ERP" : "Process & ERP Transformation",
       desc: language === "ar" ? "إجراءات العمل المعيارية، التسليم والأتمتة" : "SOPs, handover optimization & workflows",
       href: "/services/process-transformation",
       icon: Cpu,
-      color: "#A33C29"
+      color: "#A2351E"
     },
     {
       title: language === "ar" ? "الدراسات وأبحاث السوق" : "Studies & Feasibility Research",
       desc: language === "ar" ? "تحليل دخول السوق والتحقق من الجدوى" : "Market entry analysis & demand validation",
       href: "/services/studies-research",
       icon: FileText,
-      color: "#8EA9D3"
+      color: "#82A9E2"
     },
     {
       title: language === "ar" ? "حلول الأعمال المتخصصة" : "Specialized Business Solutions",
       desc: language === "ar" ? "توسيع النطاق التجاري، والتعافي المؤسسي" : "Commercial scaling, turnarounds & growth",
       href: "/services/business-growth",
       icon: Briefcase,
-      color: "#152238"
+      color: "#1F3A7D"
     }
   ];
 
@@ -146,12 +146,14 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+      {/* Logo tri-color hairline */}
+      <div className="h-[3px] w-full bg-brand-tri" aria-hidden="true" />
       {/* Main Navbar */}
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white/85 dark:bg-black/65 backdrop-blur-md shadow-lg border-b border-slate-200/80 dark:border-white/20 py-2 sm:py-2.5"
-            : "bg-white/70 dark:bg-black/45 backdrop-blur-md border-b border-slate-200/60 dark:border-white/15 py-2.5 sm:py-3.5"
+            ? "bg-white/90 dark:bg-night-900/90 backdrop-blur-xl shadow-[0_8px_30px_-12px_rgba(14,26,56,0.18)] border-b border-slate-200/80 dark:border-white/10 py-2 sm:py-2.5"
+            : "bg-white/60 dark:bg-night-900/50 backdrop-blur-md border-b border-transparent py-3 sm:py-4"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -159,7 +161,7 @@ export default function Navbar() {
             
             {/* Brand Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-105 shrink-0">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-105 shrink-0 dark:bg-white dark:rounded-lg dark:ring-4 dark:ring-white">
                 <Image
                   src="/images/logo-symbol.png"
                   alt="Factual Solutions Symbol"
@@ -169,12 +171,15 @@ export default function Navbar() {
                 />
               </div>
               <div className="flex flex-col leading-tight min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-slate-900 dark:text-white truncate drop-shadow-sm">
-                    Factual Solutions
+                <div className="flex items-baseline gap-1 font-display">
+                  <span className="text-sm sm:text-base lg:text-lg font-medium tracking-tight text-ink dark:text-slate-200 truncate">
+                    Factual
+                  </span>
+                  <span className="text-sm sm:text-base lg:text-lg font-extrabold tracking-tight text-navy dark:text-white truncate">
+                    Solutions
                   </span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-wider text-slate-500 dark:text-slate-300 uppercase -mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
+                <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.14em] text-slate-500 dark:text-steel-light/80 uppercase mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
                   {language === "ar" ? "شركاؤكم في التميز المؤسسي" : "Your Business Excellence Partners"}
                 </span>
               </div>
@@ -197,14 +202,14 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                        className={`relative px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-all duration-200 flex items-center gap-1.5 ${
                           isActive
-                            ? "bg-slate-100 text-slate-900 dark:bg-white/20 dark:text-white shadow-xs font-bold border border-slate-200 dark:border-white/25"
-                            : "text-slate-700 hover:text-slate-900 hover:bg-slate-100/80 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10"
+                            ? "text-navy dark:text-white bg-navy/[0.06] dark:bg-white/10 font-bold after:absolute after:left-3.5 after:right-3.5 after:-bottom-[5px] after:h-[2px] after:rounded-full after:bg-rust"
+                            : "text-slate-600 hover:text-navy hover:bg-navy/[0.04] dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                         }`}
                       >
                         <span>{link.name}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-[#E25C43]" : "text-slate-500 dark:text-slate-300"}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180 text-accent" : "text-slate-500 dark:text-slate-300"}`} />
                       </Link>
 
                       {/* SERVICES DROPDOWN */}
@@ -215,7 +220,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[390px] rounded-2xl shadow-2xl p-3 border bg-white/95 dark:bg-[#0A1120]/95 backdrop-blur-2xl border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100] overflow-hidden"
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-3 w-[420px] rounded-2xl shadow-lift p-3 border bg-white dark:bg-night-850 backdrop-blur-2xl border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100] overflow-hidden"
                           >
                             <div className="flex flex-col space-y-1">
                               {featuredServicesList.map((srv) => {
@@ -227,11 +232,11 @@ export default function Navbar() {
                                     onClick={() => setServicesDropdownOpen(false)}
                                     className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/10 flex items-center gap-3"
                                   >
-                                    <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-white group-hover/item:bg-[#E25C43] group-hover/item:text-white flex items-center justify-center shrink-0 transition-colors">
+                                    <div className="w-9 h-9 rounded-lg text-white flex items-center justify-center shrink-0 transition-transform group-hover/item:scale-105 shadow-sm" style={{ backgroundColor: srv.color }}>
                                       <IconComp className="w-4 h-4" />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                      <h4 className="font-bold text-xs text-slate-900 dark:text-white group-hover/item:text-[#E25C43] transition-colors truncate">
+                                      <h4 className="font-bold text-xs text-slate-900 dark:text-white group-hover/item:text-navy dark:group-hover/item:text-steel-light transition-colors truncate">
                                         {srv.title}
                                       </h4>
                                       <p className="text-[11px] text-slate-500 dark:text-slate-300 mt-0.5 line-clamp-1">
@@ -248,7 +253,7 @@ export default function Navbar() {
                               <Link
                                 href="/services"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="flex items-center gap-1.5 font-bold text-[#E25C43] hover:underline text-xs"
+                                className="flex items-center gap-1.5 font-bold text-accent hover:underline text-xs"
                               >
                                 <span>{language === "ar" ? "استكشف جميع الممارسات الـ 18" : "Explore All 18 Practices"}</span>
                                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -256,7 +261,7 @@ export default function Navbar() {
                               <Link
                                 href="/services#quiz"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="font-bold text-xs text-slate-800 dark:text-white bg-slate-100 hover:bg-[#E25C43] hover:text-white dark:bg-white/15 dark:hover:bg-[#E25C43] px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs border border-slate-200 dark:border-white/20"
+                                className="font-bold text-xs text-slate-800 dark:text-white bg-slate-100 hover:bg-rust hover:text-white dark:bg-white/15 dark:hover:bg-rust px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs border border-slate-200 dark:border-white/20"
                               >
                                 <span>{language === "ar" ? "اختبار التوجيه" : "Advisor Quiz"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
@@ -273,10 +278,10 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    className={`relative px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-all duration-200 ${
                       isActive
-                        ? "bg-slate-100 text-slate-900 dark:bg-white/20 dark:text-white shadow-xs font-bold border border-slate-200 dark:border-white/25"
-                        : "text-slate-700 hover:text-slate-900 hover:bg-slate-100/80 dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10"
+                        ? "text-navy dark:text-white bg-navy/[0.06] dark:bg-white/10 font-bold after:absolute after:left-3.5 after:right-3.5 after:-bottom-[5px] after:h-[2px] after:rounded-full after:bg-rust"
+                        : "text-slate-600 hover:text-navy hover:bg-navy/[0.04] dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                     }`}
                   >
                     {link.name}
@@ -294,16 +299,16 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors text-slate-700 dark:text-white bg-slate-100/90 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/20 shadow-xs"
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors text-slate-700 dark:text-white bg-white hover:bg-navy-50 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15"
                 title={`Switch to ${isDark ? "Light Mode" : "Dark Mode"}`}
               >
-                {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-slate-700" />}
+                {isDark ? <Sun className="w-3.5 h-3.5 text-steel-light" /> : <Moon className="w-3.5 h-3.5 text-navy" />}
               </button>
 
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all duration-200 shadow-md hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all duration-200 shadow-cta hover:-translate-y-px active:translate-y-0"
               >
                 <span>Request Consultation</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -317,7 +322,7 @@ export default function Navbar() {
                     className="flex items-center gap-2 p-1 pr-2.5 rounded-full bg-slate-100/90 dark:bg-white/10 border border-slate-200/80 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/35 transition-all text-xs font-semibold text-slate-800 dark:text-white shadow-xs"
                     title="Client Account"
                   >
-                    <div className="relative w-7 h-7 rounded-full overflow-hidden bg-[#E25C43] text-white flex items-center justify-center font-bold text-xs">
+                    <div className="relative w-7 h-7 rounded-full overflow-hidden bg-rust text-white flex items-center justify-center font-bold text-xs">
                       {user.avatar ? (
                         <Image src={user.avatar} alt={user.name} fill className="object-cover" />
                       ) : (
@@ -330,17 +335,17 @@ export default function Navbar() {
                 ) : (
                   <button
                     onClick={() => openAuthModal("login")}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-xs font-bold text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/20 shadow-xs transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-white/5 hover:bg-navy-50 dark:hover:bg-white/10 text-xs font-bold text-ink dark:text-white border border-slate-200 dark:border-white/15 transition-colors"
                     title="Sign In"
                   >
-                    <User className="w-3.5 h-3.5 text-[#E25C43]" />
+                    <User className="w-3.5 h-3.5 text-navy dark:text-steel" />
                     <span>Sign In</span>
                   </button>
                 )}
 
                 {/* User Dropdown Menu */}
                 {user && userDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-[#0A1120]/95 backdrop-blur-2xl border border-slate-200 dark:border-white/20 shadow-2xl p-3 z-50 text-slate-800 dark:text-white space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute right-0 top-full mt-2 w-60 rounded-2xl bg-white/95 dark:bg-night-900/95 backdrop-blur-2xl border border-slate-200 dark:border-white/20 shadow-2xl p-3 z-50 text-slate-800 dark:text-white space-y-2 animate-in fade-in slide-in-from-top-2 duration-150">
                     <div className="p-2 border-b border-slate-100 dark:border-white/10">
                       <div className="font-bold text-xs truncate text-slate-900 dark:text-white">{user.name}</div>
                       <div className="text-[10px] text-slate-500 dark:text-slate-300 truncate">{user.email}</div>
@@ -353,7 +358,7 @@ export default function Navbar() {
                         className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors"
                       >
                         <div className="flex items-center gap-2">
-                          <Plus className="w-4 h-4 text-[#E25C43]" />
+                          <Plus className="w-4 h-4 text-accent" />
                           <span>Request Consultation</span>
                         </div>
                         <ArrowRight className="w-3 h-3 text-slate-400 dark:text-slate-300" />
@@ -385,9 +390,9 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-700 dark:text-white bg-slate-100/90 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/20 shadow-xs shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-700 dark:text-white bg-white hover:bg-navy-50 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 shrink-0"
               >
-                {isDark ? <Sun className="w-3.5 h-3.5 text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-slate-700" />}
+                {isDark ? <Sun className="w-3.5 h-3.5 text-steel-light" /> : <Moon className="w-3.5 h-3.5 text-navy" />}
               </button>
 
               <button
@@ -405,14 +410,14 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-2xl p-5 space-y-3 bg-white/95 dark:bg-[#0A1120]/95 backdrop-blur-2xl border-slate-200 dark:border-white/20 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
+        <div className="lg:hidden border-b shadow-lift p-5 space-y-3 bg-white dark:bg-night-900 backdrop-blur-2xl border-slate-200 dark:border-white/20 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
           <div className="flex flex-col space-y-1.5">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
               className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                 pathname === "/"
-                  ? "bg-slate-100 text-[#E25C43] dark:bg-white/20 dark:text-white font-bold border border-slate-200 dark:border-white/25"
+                  ? "bg-navy/[0.06] text-navy dark:bg-white/10 dark:text-white font-bold border-s-[3px] border-rust"
                   : "text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/10"
               }`}
             >
@@ -427,7 +432,7 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
-                      ? "bg-slate-100 text-[#E25C43] dark:bg-white/20 dark:text-white font-bold border border-slate-200 dark:border-white/25"
+                      ? "bg-navy/[0.06] text-navy dark:bg-white/10 dark:text-white font-bold border-s-[3px] border-rust"
                       : "text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/10"
                   }`}
                 >
@@ -441,7 +446,7 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/20 text-xs text-slate-800 dark:text-white">
                 <div className="flex items-center gap-2">
-                  <User className="w-3.5 h-3.5 text-[#E25C43]" />
+                  <User className="w-3.5 h-3.5 text-accent" />
                   <span className="font-bold text-slate-900 dark:text-white">{user.name.split(" ")[0]}</span>
                 </div>
                 <button
@@ -462,7 +467,7 @@ export default function Navbar() {
                 }}
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-200 dark:border-white/20 text-slate-800 dark:text-white font-bold text-xs shadow-xs"
               >
-                <User className="w-3.5 h-3.5 text-[#E25C43]" />
+                <User className="w-3.5 h-3.5 text-accent" />
                 <span>Client Sign In</span>
               </button>
             )}
@@ -470,7 +475,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white font-bold text-xs shadow-md"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-rust hover:bg-rust-dark text-white font-bold text-sm shadow-cta"
             >
               <span>Request Consultation</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

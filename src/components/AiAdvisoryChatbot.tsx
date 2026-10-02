@@ -239,12 +239,12 @@ export default function AiAdvisoryChatbot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-[#0C1527] via-[#111F38] to-[#172A4C] border border-brand-steel/40 text-white shadow-2xl shadow-black/60 hover:shadow-brand-rust/25 hover:border-brand-rust transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-md"
+          className="group relative flex items-center gap-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-night-900 via-night-800 to-navy-900 border border-brand-steel/40 text-white shadow-lift shadow-black/60 hover:shadow-brand-rust/25 hover:border-brand-rust transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-md"
           aria-label="Open JARVIS AI Corporate Advisory Chat"
         >
           <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-rust opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-brand-rust border-2 border-[#0C1527]"></span>
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-brand-rust border-2 border-night-900"></span>
           </span>
 
           <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-brand-rust/30 to-brand-rust/10 border border-brand-rust/50 flex items-center justify-center text-brand-rust-light group-hover:rotate-12 transition-transform shadow-inner shrink-0">
@@ -269,7 +269,7 @@ export default function AiAdvisoryChatbot() {
 
       {isOpen && (
         <div
-          className={`flex flex-col bg-[#0B1322]/98 backdrop-blur-2xl border border-slate-700/70 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5 ${
+          className={`flex flex-col bg-night-900/98 backdrop-blur-2xl border border-slate-700/70 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5 ${
             isExpanded
               ? "w-[calc(100vw-1.5rem)] sm:w-[640px] h-[86vh] max-h-[800px]"
               : "w-[calc(100vw-1.5rem)] sm:w-[420px] h-[80vh] max-h-[620px]"
@@ -277,7 +277,7 @@ export default function AiAdvisoryChatbot() {
         >
           <div className="h-1 bg-gradient-to-r from-brand-rust via-brand-steel to-emerald-400 shrink-0" />
 
-          <div className="px-4 py-3 bg-gradient-to-r from-[#0F1A2E] via-[#122038] to-[#152542] border-b border-slate-800 flex items-center justify-between shrink-0">
+          <div className="px-4 py-3 bg-gradient-to-r from-night-850 via-night-800 to-navy-900 border-b border-slate-800 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="relative w-9 h-9 rounded-2xl bg-gradient-to-br from-brand-rust/25 to-brand-rust/5 border border-brand-rust/40 flex items-center justify-center overflow-hidden shadow-inner">
                 <Image
@@ -287,7 +287,7 @@ export default function AiAdvisoryChatbot() {
                   height={22}
                   className="object-contain"
                 />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0F1A2E]"></span>
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-night-850"></span>
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
@@ -333,14 +333,14 @@ export default function AiAdvisoryChatbot() {
             </div>
           </div>
 
-          <div className="px-3.5 py-2 bg-[#091120] border-b border-slate-800/90 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-1 bg-[#060C17] p-1 rounded-xl border border-slate-800">
+          <div className="px-3.5 py-2 bg-night-900 border-b border-slate-800/90 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-1 bg-night-950 p-1 rounded-xl border border-slate-800">
               <button
                 type="button"
                 onClick={() => setActiveTab("chat")}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "chat"
-                    ? "bg-gradient-to-r from-brand-rust to-[#933423] text-white shadow-sm"
+                    ? "bg-gradient-to-r from-brand-rust to-rust text-white shadow-sm"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -352,7 +352,7 @@ export default function AiAdvisoryChatbot() {
                 onClick={() => setActiveTab("calendar")}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "calendar"
-                    ? "bg-gradient-to-r from-brand-rust to-[#933423] text-white shadow-sm"
+                    ? "bg-gradient-to-r from-brand-rust to-rust text-white shadow-sm"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -367,7 +367,7 @@ export default function AiAdvisoryChatbot() {
                 }}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "history"
-                    ? "bg-gradient-to-r from-brand-rust to-[#933423] text-white shadow-sm"
+                    ? "bg-gradient-to-r from-brand-rust to-rust text-white shadow-sm"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -412,8 +412,8 @@ export default function AiAdvisoryChatbot() {
                     <div
                       className={`max-w-[88%] sm:max-w-[82%] rounded-2xl p-3.5 ${
                         msg.role === "user"
-                          ? "bg-gradient-to-br from-brand-rust to-[#933423] text-white shadow-lg shadow-brand-rust/20 rounded-tr-sm"
-                          : "bg-[#182238]/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm"
+                          ? "bg-gradient-to-br from-brand-rust to-rust text-white shadow-lg shadow-brand-rust/20 rounded-tr-sm"
+                          : "bg-night-800/90 text-slate-200 border border-slate-700/60 rounded-tl-sm shadow-sm"
                       }`}
                     >
                       <div className="whitespace-pre-wrap font-sans text-xs sm:text-[12.5px] leading-relaxed">
@@ -462,7 +462,7 @@ export default function AiAdvisoryChatbot() {
                     <div className="w-7 h-7 rounded-xl bg-brand-rust/20 border border-brand-rust/35 flex items-center justify-center shrink-0">
                       <Bot className="w-3.5 h-3.5 text-brand-rust animate-pulse" />
                     </div>
-                    <div className="bg-[#182238]/90 text-slate-300 border border-slate-700/60 rounded-2xl rounded-tl-sm p-3 flex items-center gap-2.5">
+                    <div className="bg-night-800/90 text-slate-300 border border-slate-700/60 rounded-2xl rounded-tl-sm p-3 flex items-center gap-2.5">
                       <div className="flex gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.3s]"></span>
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-rust animate-bounce [animation-delay:-0.15s]"></span>
@@ -476,7 +476,7 @@ export default function AiAdvisoryChatbot() {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="px-3 py-2 bg-[#0C1525]/90 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+              <div className="px-3 py-2 bg-night-900/90 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
                 {QUICK_PROMPTS.map((item, idx) => (
                   <button
                     key={idx}
@@ -493,7 +493,7 @@ export default function AiAdvisoryChatbot() {
                   e.preventDefault();
                   handleSendMessage();
                 }}
-                className="p-3 bg-[#0D1627] border-t border-slate-800/90 flex flex-col gap-1.5 shrink-0"
+                className="p-3 bg-night-900 border-t border-slate-800/90 flex flex-col gap-1.5 shrink-0"
               >
                 <div className="flex items-center gap-2">
                   <input
@@ -502,12 +502,12 @@ export default function AiAdvisoryChatbot() {
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     placeholder="Ask JARVIS about feasibility, audits, operations..."
-                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#070D18] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel focus:ring-1 focus:ring-brand-steel/40 transition-all"
+                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel focus:ring-1 focus:ring-brand-steel/40 transition-all"
                   />
                   <button
                     type="submit"
                     disabled={!inputMessage.trim() || isLoading}
-                    className="p-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] hover:from-[#B84530] hover:to-brand-rust disabled:opacity-35 text-white transition-all shrink-0 shadow-md hover:scale-105 active:scale-95"
+                    className="p-2.5 rounded-xl bg-gradient-to-r from-brand-rust to-rust hover:from-rust hover:to-brand-rust disabled:opacity-35 text-white transition-all shrink-0 shadow-md hover:scale-105 active:scale-95"
                     title="Send message"
                     aria-label="Send message"
                   >
@@ -544,7 +544,7 @@ export default function AiAdvisoryChatbot() {
 
           {activeTab === "history" && (
             <div className="flex-1 flex flex-col overflow-hidden">
-              <div className="p-3 bg-[#0C1525]/90 border-b border-slate-800 flex items-center gap-2 shrink-0">
+              <div className="p-3 bg-night-900/90 border-b border-slate-800 flex items-center gap-2 shrink-0">
                 <div className="relative flex-1">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
@@ -552,7 +552,7 @@ export default function AiAdvisoryChatbot() {
                     value={historySearch}
                     onChange={(e) => setHistorySearch(e.target.value)}
                     placeholder="Search past advisory consultations..."
-                    className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#070D18] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel transition-all"
+                    className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-night-950 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-steel transition-all"
                   />
                 </div>
               </div>
@@ -577,7 +577,7 @@ export default function AiAdvisoryChatbot() {
                     <button
                       type="button"
                       onClick={() => setActiveTab("chat")}
-                      className="mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] text-white text-xs font-semibold shadow hover:scale-102 transition-all"
+                      className="mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-brand-rust to-rust text-white text-xs font-semibold shadow hover:scale-102 transition-all"
                     >
                       <MessageSquare className="w-3.5 h-3.5" />
                       <span>Start a Consultation</span>
@@ -587,7 +587,7 @@ export default function AiAdvisoryChatbot() {
                   pairedHistory.map((item) => (
                     <div
                       key={item.id}
-                      className="p-3.5 rounded-2xl bg-[#182238]/90 border border-slate-700/70 hover:border-brand-steel/50 transition-all space-y-2.5 shadow-sm group"
+                      className="p-3.5 rounded-2xl bg-night-800/90 border border-slate-700/70 hover:border-brand-steel/50 transition-all space-y-2.5 shadow-sm group"
                     >
                       <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-slate-800/80 pb-2">
                         <span className="flex items-center gap-1 text-slate-300 font-medium">
@@ -611,7 +611,7 @@ export default function AiAdvisoryChatbot() {
                       </div>
 
                       {item.assistantText && (
-                        <div className="p-2.5 rounded-xl bg-[#0B1322] border border-slate-800/90 text-slate-300 text-[11.5px] leading-relaxed line-clamp-3">
+                        <div className="p-2.5 rounded-xl bg-night-900 border border-slate-800/90 text-slate-300 text-[11.5px] leading-relaxed line-clamp-3">
                           {item.assistantText}
                         </div>
                       )}
@@ -631,12 +631,12 @@ export default function AiAdvisoryChatbot() {
                 )}
               </div>
 
-              <div className="p-3 bg-[#0D1627] border-t border-slate-800/90 flex items-center justify-between shrink-0">
+              <div className="p-3 bg-night-900 border-t border-slate-800/90 flex items-center justify-between shrink-0">
                 <span className="text-[10px] text-slate-500">Live MongoDB Atlas Archive</span>
                 <button
                   type="button"
                   onClick={() => setActiveTab("chat")}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-brand-rust to-[#933423] text-white text-xs font-semibold shadow hover:scale-102 active:scale-95 transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-brand-rust to-rust text-white text-xs font-semibold shadow hover:scale-102 active:scale-95 transition-all"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>Return to Chat</span>

@@ -38,13 +38,13 @@ export default function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center gap-2.5 w-12 h-12 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 rounded-full bg-white/95 dark:bg-gradient-to-r dark:from-[#10192A] dark:to-[#15243E] border border-slate-200/90 dark:border-brand-steel/40 text-[#152238] dark:text-white shadow-xl shadow-slate-200/60 dark:shadow-2xl dark:shadow-black/60 hover:border-emerald-500 dark:hover:border-emerald-400/80 transition-all duration-300 hover:scale-105 backdrop-blur-md"
+        className="group relative flex items-center justify-center gap-2.5 w-12 h-12 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 rounded-full bg-white/95 dark:bg-gradient-to-r dark:from-night-850 dark:to-night-800 border border-slate-200/90 dark:border-brand-steel/40 text-ink dark:text-white shadow-card shadow-slate-200/60 dark:shadow-2xl dark:shadow-black/60 hover:border-emerald-500 dark:hover:border-emerald-400/80 transition-all duration-300 hover:scale-105 backdrop-blur-md"
         aria-label="Contact Factual Solutions on WhatsApp"
       >
         {/* Pulsating Online Status Dot */}
         <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 flex h-3 w-3 sm:h-3.5 sm:w-3.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-emerald-500 border-2 border-white dark:border-[#10192A]"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-emerald-500 border-2 border-white dark:border-night-850"></span>
         </span>
 
         {/* WhatsApp Icon with Brand Accent */}

@@ -41,26 +41,26 @@ const articles = [
 
 export default function LatestInsightsSection() {
   return (
-    <section id="latest-blogs" className="py-20 sm:py-24 bg-transparent text-[#152238] dark:text-white transition-colors duration-300">
+    <section id="latest-blogs" className="py-20 sm:py-24 bg-transparent text-ink dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header split */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div className="space-y-2 max-w-2xl">
-            <span className="text-[11px] font-bold tracking-widest uppercase text-[#E25C43] drop-shadow-sm">
+            <span className="text-[11px] font-bold tracking-widest uppercase text-accent">
               PUBLICATIONS &bull; RESEARCH
             </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display dark:drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-ink dark:text-white font-display">
               Latest Strategic Blog
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 leading-relaxed dark:drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 leading-relaxed">
               Practical frameworks, corporate valuation models, and market intelligence published by our senior advisory board.
             </p>
           </div>
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-800 dark:text-white hover:text-[#E25C43] transition-colors shrink-0"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-ink dark:text-white hover:text-accent transition-colors shrink-0"
           >
             <span>Explore All 18 Blogs</span>
             <ArrowRight className="w-4 h-4 rtl:rotate-180" />
@@ -72,7 +72,7 @@ export default function LatestInsightsSection() {
           {articles.map((art) => (
             <StaggerItem
               key={art.id}
-              className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-slate-900 dark:text-white"
+              className="bg-white dark:bg-night-800/80 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift hover:border-slate-300 dark:hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-ink dark:text-white"
             >
               <div>
                 {/* Image container */}
@@ -85,7 +85,7 @@ export default function LatestInsightsSection() {
                   />
                   {/* Category badge */}
                   <div className="absolute top-3 left-3">
-                    <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#070D18]/90 backdrop-blur-md text-white uppercase border border-white/15">
+                    <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-night-950/90 backdrop-blur-md text-white uppercase border border-white/15">
                       {art.category}
                     </span>
                   </div>
@@ -99,7 +99,7 @@ export default function LatestInsightsSection() {
                     <span>{art.readTime}</span>
                   </div>
 
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors drop-shadow-xs">
+                  <h3 className="text-sm sm:text-base font-bold text-ink dark:text-white leading-snug font-display group-hover:text-accent transition-colors">
                     {art.title}
                   </h3>
 
@@ -113,7 +113,7 @@ export default function LatestInsightsSection() {
               <div className="p-5 sm:p-6 pt-0 mt-auto">
                 <Link
                   href={`/blog/${art.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-ink dark:text-white group-hover:text-accent transition-colors"
                 >
                   <span>Read Full Article</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

@@ -11,19 +11,19 @@ export default function ClientTestimonials() {
   const pillars = [
     {
       icon: <Lock className="w-5 h-5 text-white" />,
-      iconBg: "bg-[#152238]",
+      iconBg: "bg-ink",
       title: "Strict Confidentiality",
       description: "All business details, financial models, and strategic plans remain protected under formal non-disclosure agreements."
     },
     {
       icon: <FileSpreadsheet className="w-5 h-5 text-white" />,
-      iconBg: "bg-[#A33C29]",
+      iconBg: "bg-rust",
       title: "Principal Action Plans",
       description: "Direct engagement leaders in your industry; actionable execution roadmap with systematic milestones."
     },
     {
       icon: <Users2 className="w-5 h-5 text-white" />,
-      iconBg: "bg-[#4B6584]",
+      iconBg: "bg-navy-500",
       title: "Partner-Level Multiplying",
       description: "Direct access to senior technical principals with continuous communication and executive briefing."
     }
@@ -36,13 +36,13 @@ export default function ClientTestimonials() {
           {pillars.map((pillar, idx) => (
             <StaggerItem
               key={idx}
-              className="flex items-start gap-4 p-5 sm:p-6 rounded-2xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl transition-all duration-200 text-slate-900 dark:text-white"
+              className="flex items-start gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift transition-all duration-200 text-ink dark:text-white"
             >
               <div className={`w-11 h-11 rounded-xl ${pillar.iconBg} flex items-center justify-center shrink-0 shadow-xs border border-white/15`}>
                 {pillar.icon}
               </div>
               <div className="space-y-1.5">
-                <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white font-display drop-shadow-xs">
+                <h3 className="text-sm sm:text-base font-bold text-ink dark:text-white font-display">
                   {pillar.title}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed font-medium">

@@ -50,7 +50,7 @@ export default function InteractiveHeroCube() {
         className="relative w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] flex items-center justify-center cursor-grab active:cursor-grabbing"
       >
         {/* User Uploaded HD 3D Puzzle Cube Symbol */}
-        <div className="relative w-full h-full flex items-center justify-center drop-shadow-[0_12px_24px_rgba(21,34,56,0.18)] dark:drop-shadow-[0_16px_28px_rgba(0,0,0,0.45)]">
+        <div className="relative w-full h-full flex items-center justify-center">
           <Image
             src="/images/logo-symbol.png"
             alt="Factual Solutions 3D Symbol"

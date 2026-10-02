@@ -91,20 +91,20 @@ export default function ServiceMatcherQuiz() {
   };
 
   return (
-    <div id="quiz" className="bg-white/90 dark:bg-black/45 backdrop-blur-md text-slate-900 dark:text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-slate-200/80 dark:border-white/20 relative overflow-hidden transition-colors">
+    <div id="quiz" className="bg-white dark:bg-night-800/80 text-ink dark:text-white rounded-3xl p-8 sm:p-12 shadow-lift border border-slate-200/80 dark:border-white/10 relative overflow-hidden transition-colors">
       {/* Background Decorators */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-[#8EA9D3]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#E25C43]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-72 h-72 bg-steel/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-rust/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
         
         {/* Header */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/20 text-slate-800 dark:text-white text-xs font-bold uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5 text-[#E25C43]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-ink dark:text-white text-xs font-bold uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-accent" />
           <span>{labels.badge}</span>
         </div>
 
-        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-white drop-shadow-xs">
+        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-ink dark:text-white">
           {labels.title}
         </h3>
 
@@ -123,7 +123,7 @@ export default function ServiceMatcherQuiz() {
                 <button
                   key={item.id}
                   onClick={() => handleSelectChallenge(item.id)}
-                  className="p-4 rounded-2xl bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/20 hover:border-slate-300 dark:hover:border-white/40 text-xs font-semibold text-slate-800 dark:text-white transition-all text-start flex items-center justify-between group shadow-xs"
+                  className="p-4 rounded-2xl bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/40 text-xs font-semibold text-ink dark:text-white transition-all text-start flex items-center justify-between group shadow-xs"
                 >
                   <span>{item.label}</span>
                   <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform shrink-0" />
@@ -148,7 +148,7 @@ export default function ServiceMatcherQuiz() {
                 <button
                   key={item.id}
                   onClick={() => handleSelectUrgency(item.id)}
-                  className="p-4 rounded-2xl bg-slate-100/90 dark:bg-white/10 hover:bg-[#E25C43]/20 border border-slate-200/80 dark:border-white/20 hover:border-[#E25C43]/60 text-xs font-semibold text-slate-800 dark:text-white transition-all text-center shadow-xs"
+                  className="p-4 rounded-2xl bg-slate-100/90 dark:bg-white/10 hover:bg-rust/20 border border-slate-200/80 dark:border-white/10 hover:border-accent/60 text-xs font-semibold text-ink dark:text-white transition-all text-center shadow-xs"
                 >
                   {item.label}
                 </button>
@@ -162,7 +162,7 @@ export default function ServiceMatcherQuiz() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-slate-50 dark:bg-black/60 backdrop-blur-md text-slate-900 dark:text-white rounded-2xl p-6 sm:p-8 text-start space-y-4 shadow-2xl border border-slate-200 dark:border-white/20"
+            className="bg-slate-50 dark:bg-night-900/85 backdrop-blur-md text-ink dark:text-white rounded-2xl p-6 sm:p-8 text-start space-y-4 shadow-lift border border-slate-200 dark:border-white/10"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -180,10 +180,10 @@ export default function ServiceMatcherQuiz() {
             </div>
 
             <div>
-              <div className="inline-block px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-white/15 text-slate-800 dark:text-white font-bold text-[11px] uppercase mb-2 border border-slate-300 dark:border-white/20">
+              <div className="inline-block px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-white/15 text-ink dark:text-white font-bold text-[11px] uppercase mb-2 border border-slate-300 dark:border-white/10">
                 {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
               </div>
-              <h4 className="text-xl font-extrabold text-slate-900 dark:text-white font-display drop-shadow-xs">
+              <h4 className="text-xl font-extrabold text-ink dark:text-white font-display">
                 {recommendedService.title}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-100 mt-1.5 leading-relaxed font-medium">
@@ -199,7 +199,7 @@ export default function ServiceMatcherQuiz() {
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <Link
                 href={`/contact?service=${encodeURIComponent(recommendedService.title)}`}
-                className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-colors shadow-md"
+                className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-colors shadow-cta"
               >
                 <span>{labels.bookBtn}</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

@@ -7,7 +7,7 @@ import ConsultationBanner from "@/components/home/ConsultationBanner";
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen text-[#152238] dark:text-white overflow-hidden bg-transparent">
+    <div className="relative min-h-screen text-ink dark:text-white overflow-hidden bg-transparent">
 
       {/* 1. Immersive Motion Hero */}
       <HeroSection />

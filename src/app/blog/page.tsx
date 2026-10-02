@@ -56,17 +56,17 @@ function BlogContent() {
     : filteredPosts;
 
   return (
-    <div className="min-h-screen bg-transparent text-[#152238] dark:text-white transition-colors pt-24 sm:pt-32 pb-20">
+    <div className="min-h-screen bg-transparent text-ink dark:text-white transition-colors pt-24 sm:pt-32 pb-20">
       
       {/* 1. Header Hero Section */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-10 sm:pb-16">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 dark:bg-black/45 backdrop-blur-md text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/20 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#E25C43]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-accent" />
             <span>Strategic Intelligence &amp; Blog</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display leading-tight dark:drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white font-display leading-tight">
             Executive Blog &amp; Advisory Perspectives
           </h1>
 
@@ -84,7 +84,7 @@ function BlogContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles by title, financial model, strategy, keyword..."
-              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43] shadow-lg transition-all"
+              className="w-full pl-11 pr-16 py-3 rounded-2xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust shadow-lg transition-all"
             />
             {searchQuery && (
               <button
@@ -101,24 +101,24 @@ function BlogContent() {
       {/* 2. Loading State */}
       {isLoading && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="w-8 h-8 border-3 border-[#E25C43] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-8 h-8 border-3 border-rust border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs text-slate-500 dark:text-slate-200">Loading strategic intelligence articles...</p>
         </div>
       )}
 
       {/* 3. Empty State */}
       {!isLoading && filteredPosts.length === 0 && (
-        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 p-8 shadow-xl text-slate-900 dark:text-white">
-          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-300">
+        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-3 bg-white dark:bg-night-800/80 rounded-2xl border border-slate-200/80 dark:border-white/10 p-8 shadow-card text-ink dark:text-white">
+          <div className="w-10 h-10 rounded-xl bg-navy-50 dark:bg-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-300">
             <BookOpen className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">No articles found</h3>
+          <h3 className="text-base font-bold text-ink dark:text-white">No articles found</h3>
           <p className="text-xs text-slate-600 dark:text-slate-200">
             No published blog posts match your current search query.
           </p>
           <button
             onClick={() => setSearchQuery("")}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#E25C43] text-white text-xs font-bold hover:bg-[#c94a33] transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rust text-white text-xs font-bold hover:bg-rust-dark transition-colors"
           >
             Clear Search
           </button>
@@ -131,7 +131,7 @@ function BlogContent() {
           
           {/* Featured Post Spotlight */}
           {featuredPost && (
-            <div className="relative rounded-2xl overflow-hidden bg-white/90 dark:bg-black/45 backdrop-blur-md border border-slate-200/80 dark:border-white/20 shadow-2xl group transition-all duration-300 hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 text-slate-900 dark:text-white">
+            <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 shadow-lift group transition-all duration-300 hover:shadow-lift hover:border-slate-300 dark:hover:border-white/35 text-ink dark:text-white">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 {/* Cover Image */}
                 <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[400px] overflow-hidden bg-slate-900">
@@ -142,8 +142,8 @@ function BlogContent() {
                     priority
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-md bg-[#152238]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <Sparkles className="w-3 h-3 text-[#E25C43]" />
+                  <div className="absolute top-4 left-4 px-3 py-1 rounded-md bg-ink/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-accent" />
                     <span>Featured Analysis</span>
                   </div>
                 </div>
@@ -152,18 +152,18 @@ function BlogContent() {
                 <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-5">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-300">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-white font-bold text-[10px] border border-slate-200 dark:border-white/15">
+                      <span className="px-2 py-0.5 rounded bg-navy-50 dark:bg-white/10 text-ink dark:text-white font-bold text-[10px] border border-slate-200 dark:border-white/15">
                         Advisory Insight
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1 text-[11px] text-slate-600 dark:text-slate-200">
-                        <Clock className="w-3 h-3 text-[#E25C43]" />
+                        <Clock className="w-3 h-3 text-accent" />
                         {featuredPost.readTime}
                       </span>
                     </div>
 
                     <Link href={`/blog/${featuredPost.slug}`}>
-                      <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-[#E25C43] transition-colors leading-snug font-display drop-shadow-xs">
+                      <h2 className="text-xl sm:text-2xl font-bold text-ink dark:text-white group-hover:text-accent transition-colors leading-snug font-display">
                         {featuredPost.title}
                       </h2>
                     </Link>
@@ -178,7 +178,7 @@ function BlogContent() {
                         {featuredPost.tags.slice(0, 4).map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-medium"
+                            className="text-[10px] px-2 py-0.5 rounded bg-navy-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-medium"
                           >
                             #{tag}
                           </span>
@@ -190,7 +190,7 @@ function BlogContent() {
                   {/* Author & CTA */}
                   <div className="pt-5 border-t border-slate-100 dark:border-white/15 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-700 relative shrink-0 border border-slate-200 dark:border-white/20">
+                      <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-700 relative shrink-0 border border-slate-200 dark:border-white/10">
                         <Image
                           src={featuredPost.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
                           alt={featuredPost.author.name}
@@ -199,7 +199,7 @@ function BlogContent() {
                         />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        <div className="text-xs font-bold text-ink dark:text-white">
                           {featuredPost.author.name}
                         </div>
                         <div className="text-[10px] text-slate-500 dark:text-slate-300">
@@ -210,7 +210,7 @@ function BlogContent() {
 
                     <Link
                       href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#E25C43] hover:underline transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-accent hover:underline transition-colors"
                     >
                       <span>Read Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -227,7 +227,7 @@ function BlogContent() {
               {gridPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-white/90 dark:bg-black/45 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-white/20 shadow-xl hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-slate-900 dark:text-white"
+                  className="bg-white dark:bg-night-800/80 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift hover:border-slate-300 dark:hover:border-white/35 transition-all duration-300 overflow-hidden flex flex-col justify-between group text-ink dark:text-white"
                 >
                   <div>
                     {/* Cover image */}
@@ -239,7 +239,7 @@ function BlogContent() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-[#070D18]/90 backdrop-blur-md text-white uppercase border border-white/10">
+                        <span className="text-[10px] font-bold tracking-wider px-2.5 py-1 rounded bg-night-950/90 backdrop-blur-md text-white uppercase border border-white/10">
                           Advisory Insight
                         </span>
                       </div>
@@ -254,7 +254,7 @@ function BlogContent() {
                       </div>
 
                       <Link href={`/blog/${post.slug}`}>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug font-display group-hover:text-[#E25C43] transition-colors line-clamp-2 drop-shadow-xs">
+                        <h3 className="text-base font-bold text-ink dark:text-white leading-snug font-display group-hover:text-accent transition-colors line-clamp-2">
                           {post.title}
                         </h3>
                       </Link>
@@ -269,7 +269,7 @@ function BlogContent() {
                   <div className="p-5 sm:p-6 pt-0 mt-auto border-t border-slate-100 dark:border-white/10 pt-4">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-white group-hover:text-[#E25C43] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-ink dark:text-white group-hover:text-accent transition-colors"
                     >
                       <span>Read Full Article</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />

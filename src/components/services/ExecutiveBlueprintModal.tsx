@@ -67,17 +67,17 @@ export default function ExecutiveBlueprintModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="w-full max-w-3xl bg-[#0A1120]/95 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-white"
+        className="w-full max-w-3xl bg-night-900/95 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-lift overflow-hidden flex flex-col max-h-[92vh] text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Bar */}
         <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-white/5">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#E25C43]/20 text-[#E25C43] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-rust/20 text-accent flex items-center justify-center font-bold">
               <FileText className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-[10px] uppercase font-bold text-[#E25C43] tracking-wider">
+              <div className="text-[10px] uppercase font-bold text-accent tracking-wider">
                 EXECUTIVE RESOURCE
               </div>
               <h3 className="text-sm sm:text-base font-bold text-white font-display">
@@ -90,7 +90,7 @@ export default function ExecutiveBlueprintModal({
             {step === "preview" && (
               <button
                 onClick={handlePrintOrDownload}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all shadow-sm"
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>Print / Save PDF</span>
@@ -133,7 +133,7 @@ export default function ExecutiveBlueprintModal({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Tariq Al-Ghamdi"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-rust"
                   />
                 </div>
 
@@ -147,7 +147,7 @@ export default function ExecutiveBlueprintModal({
                     value={workEmail}
                     onChange={(e) => setWorkEmail(e.target.value)}
                     placeholder="tariq@enterprise.com.sa"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-rust"
                   />
                 </div>
 
@@ -161,7 +161,7 @@ export default function ExecutiveBlueprintModal({
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="e.g. Al-Mashriq Holding"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#E25C43]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-rust"
                     />
                   </div>
 
@@ -172,13 +172,13 @@ export default function ExecutiveBlueprintModal({
                     <select
                       value={industry}
                       onChange={(e) => setIndustry(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white focus:outline-none focus:border-[#E25C43]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-xs text-white focus:outline-none focus:border-rust"
                     >
-                      <option value="Manufacturing & Logistics" className="bg-[#0A1120] text-white">Manufacturing &amp; Logistics</option>
-                      <option value="Retail & Multi-Branch" className="bg-[#0A1120] text-white">Retail &amp; Multi-Branch Networks</option>
-                      <option value="Real Estate & Construction" className="bg-[#0A1120] text-white">Real Estate &amp; Construction</option>
-                      <option value="Financial & Investment Funds" className="bg-[#0A1120] text-white">Financial &amp; Investment Funds</option>
-                      <option value="Healthcare & Life Sciences" className="bg-[#0A1120] text-white">Healthcare &amp; Life Sciences</option>
+                      <option value="Manufacturing & Logistics" className="bg-night-900 text-white">Manufacturing &amp; Logistics</option>
+                      <option value="Retail & Multi-Branch" className="bg-night-900 text-white">Retail &amp; Multi-Branch Networks</option>
+                      <option value="Real Estate & Construction" className="bg-night-900 text-white">Real Estate &amp; Construction</option>
+                      <option value="Financial & Investment Funds" className="bg-night-900 text-white">Financial &amp; Investment Funds</option>
+                      <option value="Healthcare & Life Sciences" className="bg-night-900 text-white">Healthcare &amp; Life Sciences</option>
                     </select>
                   </div>
                 </div>
@@ -186,14 +186,14 @@ export default function ExecutiveBlueprintModal({
                 <button
                   type="submit"
                   disabled={isSubmitting || !fullName || !workEmail}
-                  className="w-full py-3.5 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
+                  className="w-full py-3.5 rounded-full bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 group disabled:opacity-50"
                 >
                   <span>{isSubmitting ? "Generating Custom Blueprint..." : "Unlock & Generate Blueprint PDF"}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
                 <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 text-center">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#E25C43]" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-accent" />
                   <span>Strict confidentiality. Your information is never shared with third parties.</span>
                 </div>
               </form>
@@ -206,12 +206,12 @@ export default function ExecutiveBlueprintModal({
                 className="bg-white text-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-300 shadow-sm space-y-6 print:m-0 print:p-0 print:border-none print:shadow-none"
               >
                 {/* Header */}
-                <div className="flex items-start justify-between border-b-2 border-[#152238] pb-4">
+                <div className="flex items-start justify-between border-b-2 border-ink pb-4">
                   <div className="space-y-1">
-                    <div className="text-lg font-black tracking-tight text-[#152238] font-display">
+                    <div className="text-lg font-black tracking-tight text-ink font-display">
                       FACTUAL SOLUTIONS
                     </div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#A33C29]">
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-accent">
                       EXECUTIVE ADVISORY &amp; CORPORATE STRATEGY
                     </div>
                   </div>
@@ -224,7 +224,7 @@ export default function ExecutiveBlueprintModal({
 
                 {/* Title */}
                 <div className="space-y-1">
-                  <h1 className="text-base sm:text-lg font-extrabold text-[#152238]">
+                  <h1 className="text-base sm:text-lg font-extrabold text-ink">
                     FEASIBILITY STUDY &amp; STRATEGIC TURNAROUND BLUEPRINT
                   </h1>
                   <p className="text-[11px] text-slate-600 leading-relaxed">
@@ -235,35 +235,35 @@ export default function ExecutiveBlueprintModal({
                 {/* 4 Pillars Matrix */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                    <div className="text-[10px] font-bold text-[#A33C29] uppercase">Pillar 1</div>
-                    <div className="text-xs font-extrabold text-[#152238]">Market Feasibility</div>
+                    <div className="text-[10px] font-bold text-accent uppercase">Pillar 1</div>
+                    <div className="text-xs font-extrabold text-ink">Market Feasibility</div>
                     <p className="text-[10px] text-slate-600">TAM/SAM validation, competitor pricing power, regulatory entry compliance.</p>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                    <div className="text-[10px] font-bold text-[#A33C29] uppercase">Pillar 2</div>
-                    <div className="text-xs font-extrabold text-[#152238]">Financial Modeling</div>
+                    <div className="text-[10px] font-bold text-accent uppercase">Pillar 2</div>
+                    <div className="text-xs font-extrabold text-ink">Financial Modeling</div>
                     <p className="text-[10px] text-slate-600">5-year DCF, sensitivity simulations, CAPEX recovery horizon, IRR benchmarks.</p>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                    <div className="text-[10px] font-bold text-[#A33C29] uppercase">Pillar 3</div>
-                    <div className="text-xs font-extrabold text-[#152238]">Operational Audit</div>
+                    <div className="text-[10px] font-bold text-accent uppercase">Pillar 3</div>
+                    <div className="text-xs font-extrabold text-ink">Operational Audit</div>
                     <p className="text-[10px] text-slate-600">Scrap reduction, supply chain friction analysis, labor efficiency audits.</p>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                    <div className="text-[10px] font-bold text-[#A33C29] uppercase">Pillar 4</div>
-                    <div className="text-xs font-extrabold text-[#152238]">Execution Roadmap</div>
+                    <div className="text-[10px] font-bold text-accent uppercase">Pillar 4</div>
+                    <div className="text-xs font-extrabold text-ink">Execution Roadmap</div>
                     <p className="text-[10px] text-slate-600">Milestone timeline, partner governance, vendor contracts, risk mitigations.</p>
                   </div>
                 </div>
 
                 {/* KPI Benchmark Table */}
                 <div className="space-y-2">
-                  <div className="text-xs font-bold text-[#152238] uppercase tracking-wider">
+                  <div className="text-xs font-bold text-ink uppercase tracking-wider">
                     Target Turnaround &amp; Optimization Benchmarks
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-[11px] border border-slate-200">
-                      <thead className="bg-[#152238] text-white text-[10px]">
+                      <thead className="bg-ink text-white text-[10px]">
                         <tr>
                           <th className="p-2">Diagnostic Dimension</th>
                           <th className="p-2">Pre-Advisory Average</th>
@@ -298,7 +298,7 @@ export default function ExecutiveBlueprintModal({
                 {/* Footer Stamp & Signoff */}
                 <div className="flex items-center justify-between pt-4 border-t border-slate-200 text-[10px] text-slate-500">
                   <div className="space-y-0.5">
-                    <div className="font-bold text-[#152238]">Factual Solutions Corporate Advisory</div>
+                    <div className="font-bold text-ink">Factual Solutions Corporate Advisory</div>
                     <div>Riyadh, KSA &bull; Dubai, UAE &bull; Global Operations</div>
                     <div>Confidential Corporate Intelligence Document</div>
                   </div>
@@ -320,7 +320,7 @@ export default function ExecutiveBlueprintModal({
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handlePrintOrDownload}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#152238] dark:bg-white text-white dark:text-[#152238] text-xs font-bold shadow-md hover:opacity-90 transition-all"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-ink dark:bg-white text-white dark:text-ink text-xs font-bold shadow-md hover:opacity-90 transition-all"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Download / Print Blueprint</span>

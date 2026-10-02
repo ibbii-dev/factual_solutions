@@ -96,17 +96,17 @@ export default function ClientPortalPage() {
   // If not authenticated, show welcoming portal sign in screen
   if (!isLoading && !user) {
     return (
-      <div className="min-h-screen bg-transparent text-[#152238] dark:text-white pt-28 sm:pt-36 pb-20 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-xl p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#A33C29]/10 text-[#A33C29] flex items-center justify-center mx-auto">
+      <div className="min-h-screen bg-transparent text-ink dark:text-white pt-28 sm:pt-36 pb-20 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-card p-6 sm:p-8 text-center space-y-5 sm:space-y-6">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-rust/10 text-accent flex items-center justify-center mx-auto">
             <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#A33C29]">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-accent">
               SECURE CLIENT ENVIRONMENT
             </span>
-            <h1 className="text-xl sm:text-2xl font-bold font-display text-[#152238] dark:text-white">
+            <h1 className="text-xl sm:text-2xl font-bold font-display text-ink dark:text-white">
               Enterprise Client Portal
             </h1>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -117,7 +117,7 @@ export default function ClientPortalPage() {
           <div className="space-y-3 pt-2">
             <button
               onClick={() => openAuthModal("login")}
-              className="w-full py-3 sm:py-3.5 px-5 rounded-full bg-[#152238] dark:bg-white hover:bg-[#1E3150] dark:hover:bg-slate-100 text-white dark:text-[#152238] text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 hover:scale-[1.01]"
+              className="w-full py-3 sm:py-3.5 px-5 rounded-full bg-ink dark:bg-white hover:bg-night-700 dark:hover:bg-slate-100 text-white dark:text-ink text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 hover:scale-[1.01]"
             >
               <User className="w-4 h-4" />
               <span>Sign In to Access Portal</span>
@@ -138,7 +138,7 @@ export default function ClientPortalPage() {
           </div>
 
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
-            <Link href="/contact" className="text-xs text-[#A33C29] font-semibold hover:underline">
+            <Link href="/contact" className="text-xs text-accent font-semibold hover:underline">
               Submit a new advisory inquiry →
             </Link>
           </div>
@@ -148,13 +148,13 @@ export default function ClientPortalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-transparent text-[#152238] dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
+    <div className="min-h-screen bg-transparent text-ink dark:text-white pt-28 sm:pt-36 pb-24 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Portal Header & Client Identity */}
         <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-3xl p-5 sm:p-8 border border-slate-200/90 dark:border-white/15 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
           <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-[#152238] text-white flex items-center justify-center font-bold text-base sm:text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-ink text-white flex items-center justify-center font-bold text-base sm:text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
               {user?.avatar ? (
                 <Image src={user.avatar} alt={user.name} fill className="object-cover" />
               ) : (
@@ -163,7 +163,7 @@ export default function ClientPortalPage() {
             </div>
             <div className="space-y-0.5 min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-lg sm:text-2xl font-bold font-display text-[#152238] dark:text-white truncate">
+                <h1 className="text-lg sm:text-2xl font-bold font-display text-ink dark:text-white truncate">
                   {user?.name}
                 </h1>
                 <span className="text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
@@ -180,7 +180,7 @@ export default function ClientPortalPage() {
           <div className="flex items-center gap-2.5 sm:self-center">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all shadow-xs"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>New Advisory Request</span>
@@ -203,13 +203,13 @@ export default function ClientPortalPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white dark:bg-transparent backdrop-blur-md p-5 rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm space-y-1">
             <span className="text-[10px] uppercase font-bold text-slate-400">Total Inquiries</span>
-            <div className="text-2xl font-extrabold text-[#152238] dark:text-white">{inquiries.length}</div>
+            <div className="text-2xl font-extrabold text-ink dark:text-white">{inquiries.length}</div>
             <p className="text-[11px] text-slate-500">Registered under this corporate account</p>
           </div>
 
           <div className="bg-white dark:bg-transparent backdrop-blur-md p-5 rounded-2xl border border-slate-200/90 dark:border-white/15 shadow-sm space-y-1">
             <span className="text-[10px] uppercase font-bold text-slate-400">Active Consultations</span>
-            <div className="text-2xl font-extrabold text-[#A33C29]">
+            <div className="text-2xl font-extrabold text-accent">
               {inquiries.filter((i) => i.status !== "Closed").length}
             </div>
             <p className="text-[11px] text-slate-500">Under evaluation or ongoing review</p>
@@ -228,10 +228,10 @@ export default function ClientPortalPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold font-display text-white drop-shadow-sm">
+              <h2 className="text-lg font-bold font-display text-white">
                 My Enquiries &amp; Advisory Tracking
               </h2>
-              <p className="text-xs text-slate-200 drop-shadow-xs">
+              <p className="text-xs text-slate-200">
                 Live statuses, preliminary AI diagnostics, and official updates from our senior consulting partners.
               </p>
             </div>
@@ -248,7 +248,7 @@ export default function ClientPortalPage() {
 
           {loadingInquiries ? (
             <div className="bg-white dark:bg-transparent backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-white/15 p-12 text-center space-y-3">
-              <div className="w-8 h-8 border-3 border-[#A33C29] border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="w-8 h-8 border-3 border-rust border-t-transparent rounded-full animate-spin mx-auto" />
               <p className="text-xs text-slate-500">Retrieving your consultation records...</p>
             </div>
           ) : inquiries.length === 0 ? (
@@ -257,7 +257,7 @@ export default function ClientPortalPage() {
                 <FileText className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-[#152238] dark:text-white">
+                <h3 className="text-base font-bold text-ink dark:text-white">
                   No consultation inquiries found for {user?.email}
                 </h3>
                 <p className="text-xs text-slate-500 max-w-md mx-auto">
@@ -266,7 +266,7 @@ export default function ClientPortalPage() {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#A33C29] text-white text-xs font-bold hover:bg-[#8E3221] transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-rust text-white text-xs font-bold hover:bg-rust-dark transition-colors"
               >
                 <span>Submit Initial Consultation</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -295,7 +295,7 @@ export default function ClientPortalPage() {
                     >
                       <div className="space-y-1.5">
                         <div className="flex flex-wrap items-center gap-2.5">
-                          <span className="text-xs font-bold text-[#152238] dark:text-white font-mono">
+                          <span className="text-xs font-bold text-ink dark:text-white font-mono">
                             {inq.id}
                           </span>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${statusColors[inq.status] || statusColors.New}`}>
@@ -306,7 +306,7 @@ export default function ClientPortalPage() {
                           </span>
                         </div>
 
-                        <h3 className="text-sm sm:text-base font-bold text-[#152238] dark:text-white">
+                        <h3 className="text-sm sm:text-base font-bold text-ink dark:text-white">
                           {inq.serviceOfInterest}
                         </h3>
 
@@ -333,15 +333,15 @@ export default function ClientPortalPage() {
                         <div className="bg-white dark:bg-white/5 rounded-2xl p-5 sm:p-6 border border-slate-200/90 dark:border-white/10 space-y-4 shadow-sm">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/70 dark:border-white/10 pb-3">
                             <div>
-                              <div className="text-[10px] uppercase font-bold text-[#A33C29] tracking-wider">
+                              <div className="text-[10px] uppercase font-bold text-accent tracking-wider">
                                 ADVISORY ENGAGEMENT LIFECYCLE
                               </div>
-                              <h4 className="text-sm font-bold text-[#152238] dark:text-white font-display">
+                              <h4 className="text-sm font-bold text-ink dark:text-white font-display">
                                 Project Milestone Timeline
                               </h4>
                             </div>
                             <div className="text-[11px] text-slate-500 font-medium">
-                              Estimated Turnaround: <span className="font-bold text-[#152238] dark:text-white">3&ndash;5 Business Days</span>
+                              Estimated Turnaround: <span className="font-bold text-ink dark:text-white">3&ndash;5 Business Days</span>
                             </div>
                           </div>
 
@@ -354,14 +354,14 @@ export default function ClientPortalPage() {
                                 : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
                             }`}>
                               <div className="flex items-center justify-between mb-2">
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#152238] text-white">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-ink text-white">
                                   Stage 1
                                 </span>
                                 <span className={`text-[10px] font-bold ${inq.status !== 'New' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500'}`}>
                                   {inq.status !== 'New' ? '✓ Completed' : '● In Review'}
                                 </span>
                               </div>
-                              <h5 className="text-xs font-bold text-[#152238] dark:text-white">Partner Review</h5>
+                              <h5 className="text-xs font-bold text-ink dark:text-white">Partner Review</h5>
                               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
                                 Confidentiality triage, initial scope analysis, and senior partner routing.
                               </p>
@@ -376,7 +376,7 @@ export default function ClientPortalPage() {
                                 : 'bg-slate-100/50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-60'
                             }`}>
                               <div className="flex items-center justify-between mb-2">
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#A33C29] text-white">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-xl bg-rust text-white">
                                   Stage 2
                                 </span>
                                 <span className={`text-[10px] font-bold ${
@@ -393,7 +393,7 @@ export default function ClientPortalPage() {
                                     : '○ Scheduled'}
                                 </span>
                               </div>
-                              <h5 className="text-xs font-bold text-[#152238] dark:text-white">Feasibility Diagnostic</h5>
+                              <h5 className="text-xs font-bold text-ink dark:text-white">Feasibility Diagnostic</h5>
                               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
                                 Operational bottlenecks, financial modeling, scrap/working capital audit.
                               </p>
@@ -413,7 +413,7 @@ export default function ClientPortalPage() {
                                   {inq.status === 'Closed' ? '✓ Ready' : '○ Upcoming'}
                                 </span>
                               </div>
-                              <h5 className="text-xs font-bold text-[#152238] dark:text-white">Formal Proposal</h5>
+                              <h5 className="text-xs font-bold text-ink dark:text-white">Formal Proposal</h5>
                               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
                                 Executive deliverables, strategic roadmap, and contract execution terms.
                               </p>
@@ -433,9 +433,9 @@ export default function ClientPortalPage() {
 
                         {/* 3. AI Preliminary Diagnostic Assessment (if generated) */}
                         {inq.aiAssessment && (
-                          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#8EA9D3]/10 to-[#A33C29]/5 border border-[#8EA9D3]/20 space-y-3">
-                            <div className="flex items-center gap-2 text-xs font-bold text-[#152238] dark:text-white">
-                              <Bot className="w-4 h-4 text-[#A33C29]" />
+                          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-steel/10 to-rust/5 border border-steel/20 space-y-3">
+                            <div className="flex items-center gap-2 text-xs font-bold text-ink dark:text-white">
+                              <Bot className="w-4 h-4 text-accent" />
                               <span>AI Preliminary Diagnostic Assessment</span>
                             </div>
                             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -447,7 +447,7 @@ export default function ClientPortalPage() {
                                 <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
                                   {inq.aiAssessment.keyStrategicFocus.map((pt: string, idx: number) => (
                                     <li key={idx} className="flex items-start gap-2">
-                                      <CheckCircle2 className="w-3.5 h-3.5 text-[#A33C29] shrink-0 mt-0.5" />
+                                      <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
                                       <span>{pt}</span>
                                     </li>
                                   ))}
@@ -459,8 +459,8 @@ export default function ClientPortalPage() {
 
                         {/* 4. Official Consultant Responses & Updates */}
                         <div className="space-y-3">
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#152238] dark:text-white flex items-center gap-2">
-                            <MessageSquare className="w-3.5 h-3.5 text-[#A33C29]" />
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-ink dark:text-white flex items-center gap-2">
+                            <MessageSquare className="w-3.5 h-3.5 text-accent" />
                             <span>Consultant Responses &amp; Progress Updates</span>
                           </h4>
 
@@ -476,7 +476,7 @@ export default function ClientPortalPage() {
                                   }`}
                                 >
                                   <div className="flex items-center justify-between text-[10px] font-bold">
-                                    <span className={reply.sender === 'client' ? 'text-slate-600 dark:text-slate-300' : 'text-[#A33C29]'}>
+                                    <span className={reply.sender === 'client' ? 'text-slate-600 dark:text-slate-300' : 'text-accent'}>
                                       {reply.sender === 'client' ? 'You' : (reply.authorName || 'Lead Consultant - Factual Solutions')}
                                     </span>
                                     <span className="text-slate-400">{reply.date}</span>
@@ -511,12 +511,12 @@ export default function ClientPortalPage() {
                               value={replyMessage}
                               onChange={(e) => setReplyMessage(e.target.value)}
                               placeholder="Type your question or clarification here..."
-                              className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#152238] dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#A33C29]"
+                              className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
                             />
                             <button
                               onClick={() => handleSendFollowUp(inq.id)}
                               disabled={isSendingReply || !replyMessage.trim()}
-                              className="px-5 py-2.5 rounded-xl bg-[#A33C29] hover:bg-[#8E3221] text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5 disabled:opacity-50"
+                              className="px-5 py-2.5 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5 disabled:opacity-50"
                             >
                               <Send className="w-3.5 h-3.5" />
                               <span>{isSendingReply ? 'Sending...' : 'Send'}</span>
