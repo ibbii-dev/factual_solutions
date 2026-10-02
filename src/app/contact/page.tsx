@@ -23,7 +23,7 @@ import { saveInquiry } from "@/data/inquiriesStore";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import PartnerBookingWidget from "@/components/calendar/PartnerBookingWidget";
-import CaptchaVerification from "@/components/ui/CaptchaVerification";
+import GoogleRecaptcha from "@/components/ui/GoogleRecaptcha";
 
 interface AiAssessmentData {
   clientName: string;
@@ -55,7 +55,7 @@ function ContactContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [aiAssessment, setAiAssessment] = useState<AiAssessmentData | null>(null);
   const [activeMode, setActiveMode] = useState<"inquiry" | "calendar">("inquiry");
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState("");
 
   useEffect(() => {
@@ -78,11 +78,11 @@ function ContactContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isCaptchaVerified) {
+    if (!recaptchaToken) {
       setCaptchaError(
         language === "ar"
-          ? "يرجى استكمال التحقق الأمني من الهوية أدناه قبل إرسال الاستفسار."
-          : "Please complete the security verification challenge below before submitting your inquiry."
+          ? "يرجى تأكيد التحقق الأمني عبر Google reCAPTCHA أدناه قبل الإرسال."
+          : "Please complete the Google reCAPTCHA verification below before submitting."
       );
       return;
     }
@@ -245,7 +245,7 @@ function ContactContent() {
                     onClick={() => {
                       setSubmitted(false);
                       setAiAssessment(null);
-                      setIsCaptchaVerified(false);
+                      setRecaptchaToken(null);
                       setCaptchaError("");
                       setFormData({
                         fullName: "",
@@ -384,13 +384,13 @@ function ContactContent() {
                   />
                 </div>
 
-                {/* Captcha Security Verification */}
+                {/* Google reCAPTCHA Security Verification */}
                 <div className="pt-1">
-                  <CaptchaVerification
+                  <GoogleRecaptcha
                     language={language}
-                    onVerify={(valid) => {
-                      setIsCaptchaVerified(valid);
-                      if (valid) setCaptchaError("");
+                    onVerify={(token) => {
+                      setRecaptchaToken(token);
+                      if (token) setCaptchaError("");
                     }}
                   />
                   {captchaError && (
@@ -403,7 +403,7 @@ function ContactContent() {
                 {/* Submit CTA */}
                 <button
                   type="submit"
-                  disabled={isSubmitting || !isCaptchaVerified}
+                  disabled={isSubmitting || !recaptchaToken}
                   className="w-full py-3 rounded-full bg-[#E25C43] hover:bg-[#c94a33] text-white text-xs font-bold transition-all duration-200 shadow-lg flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span>{isSubmitting ? (language === "ar" ? "جارٍ الإرسال والتحليل الذكي..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
