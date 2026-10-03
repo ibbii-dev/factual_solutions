@@ -6,6 +6,7 @@ import { motion, useInView, animate, useReducedMotion } from "framer-motion";
 import { ArrowRight, Layers, ShieldCheck, CheckCircle2, TrendingUp, Compass, BarChart3 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import HeaderVideo from "@/components/ui/HeaderVideo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -71,7 +72,10 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white transition-colors duration-300">
+    <section className="dark relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
+      {/* Cinematic brand film (forces this section onto a dark stage in both themes) */}
+      <HeaderVideo variant="hero" />
+
       {/* Backdrop: slow-drifting logo-color glows */}
       <motion.div
         aria-hidden="true"
@@ -171,123 +175,13 @@ export default function HeroSection() {
             </ScrollReveal>
           </div>
 
-          {/* Visual column: animated growth dashboard */}
-          <motion.div
-            className="lg:col-span-5 hidden sm:block"
-            initial={{ opacity: 0, y: 30, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: EASE }}
-          >
-            <div className="relative mx-auto w-full max-w-[460px] py-10">
-              {/* Main card */}
-              <div className="relative rounded-3xl bg-white dark:bg-night-800 border border-slate-200/80 dark:border-white/10 shadow-lift p-6 sm:p-7">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-                      {isAr ? "مؤشر النمو التجاري" : "Commercial Growth Index"}
-                    </div>
-                    <div className="mt-1 text-3xl font-extrabold font-display text-ink dark:text-white tracking-tight">
-                      +<CountUp value="38.6%" />
-                    </div>
-                  </div>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-navy-50 dark:bg-steel/15 text-navy dark:text-steel-light text-[11px] font-bold">
-                    <TrendingUp className="w-3.5 h-3.5" /> YoY
-                  </span>
-                </div>
-
-                {/* Animated bar chart with trend line */}
-                <div className="relative mt-6 h-44">
-                  <div className="absolute inset-0 flex items-end justify-between gap-2.5">
-                    {bars.map((h, i) => (
-                      <motion.div
-                        key={i}
-                        className={`flex-1 rounded-t-lg ${i === bars.length - 1 ? "bg-rust" : i % 2 === 0 ? "bg-navy" : "bg-steel"}`}
-                        initial={{ height: 0 }}
-                        animate={{ height: `${h}%` }}
-                        transition={{ duration: 1, delay: 0.6 + i * 0.08, ease: EASE }}
-                      />
-                    ))}
-                  </div>
-                  <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                    <motion.path
-                      d="M4 66 L19 50 L34 56 L49 38 L64 44 L79 26 L95 12"
-                      fill="none"
-                      className="stroke-ink dark:stroke-white"
-                      strokeWidth="1.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      vectorEffect="non-scaling-stroke"
-                      style={{ strokeWidth: 2.5 }}
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 1.6, delay: 1.1, ease: EASE }}
-                    />
-                  </svg>
-                </div>
-
-                <div className="mt-4 flex justify-between text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
-                  <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span><span>Q1</span><span>Q2</span><span>Q3</span>
-                </div>
-
-                <div className="mt-5 pt-5 border-t border-slate-200/80 dark:border-white/10 grid grid-cols-3 gap-3 text-center">
-                  {[
-                    { k: isAr ? "الهامش" : "Margin", v: "+12%", c: "text-navy dark:text-steel" },
-                    { k: isAr ? "التكلفة" : "Cost", v: "−18%", c: "text-accent" },
-                    { k: "ROI", v: "3.4x", c: "text-ink dark:text-white" },
-                  ].map((m) => (
-                    <div key={m.k}>
-                      <div className={`text-lg font-extrabold font-display ${m.c}`}>{m.v}</div>
-                      <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{m.k}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Floating insight chips */}
-              <motion.div
-                className="absolute top-0 -left-4 sm:-left-8"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 1.2, ease: EASE }}
-              >
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/95 dark:bg-night-700/95 backdrop-blur border border-slate-200 dark:border-white/10 shadow-lift"
-                >
-                  <span className="w-8 h-8 rounded-lg bg-navy text-white flex items-center justify-center"><Compass className="w-4 h-4" /></span>
-                  <span className="text-start">
-                    <span className="block text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">{isAr ? "استراتيجية" : "Strategy"}</span>
-                    <span className="block text-xs font-bold text-ink dark:text-white">{isAr ? "خارطة طريق واضحة" : "Clear Roadmaps"}</span>
-                  </span>
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                className="absolute bottom-0 -right-4 sm:-right-8"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 1.4, ease: EASE }}
-              >
-                <motion.div
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/95 dark:bg-night-700/95 backdrop-blur border border-slate-200 dark:border-white/10 shadow-lift"
-                >
-                  <span className="w-8 h-8 rounded-lg bg-rust text-white flex items-center justify-center"><BarChart3 className="w-4 h-4" /></span>
-                  <span className="text-start">
-                    <span className="block text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">{isAr ? "نمو" : "Growth"}</span>
-                    <span className="block text-xs font-bold text-ink dark:text-white">{isAr ? "نمو تجاري مستقر" : "Steady Commercial Growth"}</span>
-                  </span>
-                </motion.div>
-              </motion.div>
-            </div>
-          </motion.div>
+          {/* Right side intentionally open: the cinematic film is the visual */}
+          <div className="hidden lg:block lg:col-span-5" aria-hidden="true" />
         </div>
 
         {/* Metric strip with count-up numbers */}
         <ScrollReveal variant="fade-up" delay={0.2} duration={0.8} className="pt-14 sm:pt-20">
-          <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 shadow-card overflow-hidden">
+          <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl bg-white dark:bg-night-900/60 dark:backdrop-blur-md border border-slate-200/80 dark:border-white/10 shadow-card overflow-hidden">
             {stats.map((st, idx) => (
               <div
                 key={idx}
