@@ -178,3 +178,12 @@ html.dark ::selection { color: #FFFFFF; }
 .btn-sheen:hover::after {
   transform: translateX(120%);
 }
+
+/* Floating light particles around the hero logo stage */
+@keyframes fsRise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 0.8; }
+  100% { transform: translate3d(14px, -160px, 0) scale(1); opacity: 0; }
+}
+.fs-particle { animation: fsRise 10s ease-in-out infinite; }

@@ -6,7 +6,7 @@ import { motion, useInView, animate, useReducedMotion } from "framer-motion";
 import { ArrowRight, Layers, ShieldCheck, CheckCircle2, TrendingUp, Compass, BarChart3 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import HeaderVideo from "@/components/ui/HeaderVideo";
+import LogoStage from "@/components/ui/LogoStage";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -73,8 +73,8 @@ export default function HeroSection() {
 
   return (
     <section className="dark relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
-      {/* Cinematic brand film (forces this section onto a dark stage in both themes) */}
-      <HeaderVideo variant="hero" />
+      {/* Dark cinematic stage in both themes; the live logo assembly is the visual */}
+      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(31,58,125,0.45),transparent_60%)]" />
 
       {/* Backdrop: slow-drifting logo-color glows */}
       <motion.div
@@ -175,8 +175,10 @@ export default function HeroSection() {
             </ScrollReveal>
           </div>
 
-          {/* Right side intentionally open: the cinematic film is the visual */}
-          <div className="hidden lg:block lg:col-span-5" aria-hidden="true" />
+          {/* Live 3D logo assembly */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <LogoStage variant="hero" className="w-[64%] max-w-[300px] sm:w-[52%] lg:w-full lg:max-w-[460px] mt-2 lg:mt-0" />
+          </div>
         </div>
 
         {/* Metric strip with count-up numbers */}
