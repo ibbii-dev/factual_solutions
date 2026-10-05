@@ -36,11 +36,12 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.title} | Factual Solutions Blog`,
-    description: post.excerpt || "Strategic advisory and management consulting intelligence.",
+    title: `${post.metaTitle || post.title} | Factual Solutions Blog`,
+    description: post.metaDescription || post.excerpt || "Practical insights on operational excellence, quality and digital transformation.",
+    keywords: [post.focusKeyword, ...(post.tags || [])].filter(Boolean) as string[],
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.excerpt,
       type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author.name],
@@ -218,7 +219,7 @@ export default async function BlogPostPage({
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-full overflow-hidden bg-brand-rust/20 relative shrink-0 border border-brand-rust/30">
               <Image
-                src={post.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
+                src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
                 alt={post.author.name}
                 fill
                 className="object-cover"
@@ -245,7 +246,7 @@ export default async function BlogPostPage({
           <div className="relative h-72 sm:h-96 lg:h-[480px] w-full rounded-3xl overflow-hidden shadow-lift border border-slate-200 dark:border-slate-800 bg-slate-900">
             <Image
               src={post.coverImage}
-              alt={post.title}
+              alt={post.coverImageAlt || post.title}
               fill
               priority
               className="object-cover"
@@ -285,7 +286,7 @@ export default async function BlogPostPage({
         <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-night-800/60 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left text-ink dark:text-white">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
             <Image
-              src={post.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
+              src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
               alt={post.author.name}
               fill
               className="object-cover"
@@ -299,7 +300,7 @@ export default async function BlogPostPage({
               {post.author.role}
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed">
-              Practitioner at Factual Solutions, sharing practical insights on operational excellence, Lean Six Sigma, strategy, and digital transformation.
+              {post.author.bio || "Practitioner at Factual Solutions, sharing practical insights on operational excellence, Lean Six Sigma, strategy, and digital transformation."}
             </p>
           </div>
         </div>
@@ -355,7 +356,7 @@ export default async function BlogPostPage({
               >
                 <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
                   <Image
-                    src={related.coverImage || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"}
+                    src={related.coverImage || "/images/consulting-meeting.jpg"}
                     alt={related.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"

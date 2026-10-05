@@ -95,12 +95,17 @@ export interface IBlogPost {
   excerpt: string;
   content: string;
   coverImage?: string;
+  coverImageAlt?: string;
   category: string;
   author: {
     name: string;
     role: string;
     avatar?: string;
+    bio?: string;
   };
+  metaTitle?: string;
+  metaDescription?: string;
+  focusKeyword?: string;
   readTime: string;
   tags: string[];
   status: "published" | "draft";

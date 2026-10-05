@@ -88,6 +88,10 @@ export async function PUT(
     if (body.status !== undefined) updates.status = body.status;
     if (body.featured !== undefined) updates.featured = Boolean(body.featured);
     if (body.publishedAt !== undefined) updates.publishedAt = body.publishedAt;
+    if (body.coverImageAlt !== undefined) updates.coverImageAlt = String(body.coverImageAlt).trim();
+    if (body.metaTitle !== undefined) updates.metaTitle = String(body.metaTitle).trim();
+    if (body.metaDescription !== undefined) updates.metaDescription = String(body.metaDescription).trim();
+    if (body.focusKeyword !== undefined) updates.focusKeyword = String(body.focusKeyword).trim();
     if (body.tags !== undefined) {
       updates.tags = Array.isArray(body.tags)
         ? body.tags.map((t: string) => t.trim()).filter(Boolean)

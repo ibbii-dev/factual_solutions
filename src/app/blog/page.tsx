@@ -14,12 +14,16 @@ import {
   TrendingUp, 
   Layers
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { IBlogPost } from "@/models";
+import { BLOG_CATEGORIES } from "@/data/blogCategories";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 function BlogContent() {
   const [posts, setPosts] = useState<IBlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+  const [activeCategory, setActiveCategory] = useState(searchParams.get("category") || "All");
 
   useEffect(() => {
     async function fetchPosts() {
@@ -46,8 +50,10 @@ function BlogContent() {
       post.excerpt.toLowerCase().includes(query) ||
       post.author.name.toLowerCase().includes(query) ||
       post.tags.some((t) => t.toLowerCase().includes(query));
+    const matchesCategory =
+      activeCategory === "All" || post.category.toLowerCase() === activeCategory.toLowerCase();
 
-    return matchesSearch;
+    return matchesSearch && matchesCategory;
   });
 
   const featuredPost = filteredPosts.find((p) => p.featured) || filteredPosts[0];
@@ -83,7 +89,8 @@ function BlogContent() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search articles by title, financial model, strategy, keyword..."
+              placeholder="Search articles by title, topic or keyword..."
+              aria-label="Search articles"
               className="w-full pl-11 pr-16 py-3 rounded-2xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust shadow-lg transition-all"
             />
             {searchQuery && (
@@ -94,6 +101,23 @@ function BlogContent() {
                 Clear
               </button>
             )}
+          </div>
+          <div className="mt-4 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter by category">
+            {["All", ...BLOG_CATEGORIES].map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                aria-pressed={activeCategory === cat}
+                className={`px-3 py-1.5 rounded-full text-[11px] font-bold border transition-colors ${
+                  activeCategory === cat
+                    ? "bg-navy text-white border-navy"
+                    : "bg-white dark:bg-night-800/70 text-slate-600 dark:text-slate-200 border-slate-200 dark:border-white/10 hover:border-navy/40"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -112,16 +136,16 @@ function BlogContent() {
           <div className="w-10 h-10 rounded-xl bg-navy-50 dark:bg-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-300">
             <BookOpen className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-ink dark:text-white">{searchQuery ? "No articles found" : "Articles coming soon"}</h3>
+          <h3 className="text-base font-bold text-ink dark:text-white">{searchQuery || activeCategory !== "All" ? "No articles found" : "Articles coming soon"}</h3>
           <p className="text-xs text-slate-600 dark:text-slate-200">
-            {searchQuery ? "No published blog posts match your search." : "New articles are on the way. Check back soon."}
+            {searchQuery || activeCategory !== "All" ? "No published articles match this search or category." : "New articles are on the way. Check back soon."}
           </p>
-          {searchQuery && (
+          {(searchQuery || activeCategory !== "All") && (
           <button
-            onClick={() => setSearchQuery("")}
+            onClick={() => { setSearchQuery(""); setActiveCategory("All"); }}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rust text-white text-xs font-bold hover:bg-rust-dark transition-colors"
           >
-            Clear Search
+            Clear Filters
           </button>
           )}
         </div>
@@ -138,7 +162,7 @@ function BlogContent() {
                 {/* Cover Image */}
                 <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-[400px] overflow-hidden bg-slate-900">
                   <Image
-                    src={featuredPost.coverImage || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"}
+                    src={featuredPost.coverImage || "/images/consulting-meeting.jpg"}
                     alt={featuredPost.title}
                     fill
                     priority
@@ -194,7 +218,7 @@ function BlogContent() {
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-700 relative shrink-0 border border-slate-200 dark:border-white/10">
                         <Image
-                          src={featuredPost.author.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
+                          src={featuredPost.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
                           alt={featuredPost.author.name}
                           fill
                           className="object-cover"
@@ -235,7 +259,7 @@ function BlogContent() {
                     {/* Cover image */}
                     <div className="relative h-48 w-full overflow-hidden bg-slate-900">
                       <Image
-                        src={post.coverImage || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"}
+                        src={post.coverImage || "/images/consulting-meeting.jpg"}
                         alt={post.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"

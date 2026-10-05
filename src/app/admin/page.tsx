@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
@@ -48,6 +48,7 @@ import {
   Quote
 } from "lucide-react";
 import { IInquiry, IInquiryReply, IBlogPost } from "@/models";
+import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER, calculateReadTime } from "@/data/blogCategories";
 
 interface Subscriber {
   _id?: string;
@@ -92,16 +93,22 @@ export default function AdminPage() {
     slug: "",
     excerpt: "",
     content: "",
-    coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-    category: "Strategic Management",
-    authorName: "Ahsan Malik",
-    authorRole: "Managing Director & Principal Consultant",
-    authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80",
-    readTime: "5 min read",
-    tags: "Strategy, Restructuring, Advisory",
+    coverImage: DEFAULT_BLOG_COVER,
+    coverImageAlt: "",
+    category: DEFAULT_BLOG_CATEGORY as string,
+    authorName: DEFAULT_BLOG_AUTHOR.name,
+    authorRole: DEFAULT_BLOG_AUTHOR.role,
+    authorAvatar: DEFAULT_BLOG_AUTHOR.avatar,
+    authorBio: "",
+    readTime: "1 min read",
+    tags: "",
     status: "published" as "published" | "draft",
-    featured: false
+    featured: false,
+    metaTitle: "",
+    metaDescription: "",
+    focusKeyword: ""
   };
+  const pendingStatusRef = useRef<"published" | "draft" | null>(null);
 
   const [blogFormData, setBlogFormData] = useState(initialBlogForm);
 
@@ -259,14 +266,19 @@ export default function AdminPage() {
       excerpt: post.excerpt || "",
       content: post.content,
       coverImage: post.coverImage || "",
-      category: post.category || "Strategic Management",
-      authorName: post.author?.name || "Executive Team",
-      authorRole: post.author?.role || "Principal Consultant",
+      coverImageAlt: post.coverImageAlt || "",
+      category: post.category || DEFAULT_BLOG_CATEGORY,
+      authorName: post.author?.name || DEFAULT_BLOG_AUTHOR.name,
+      authorRole: post.author?.role || DEFAULT_BLOG_AUTHOR.role,
       authorAvatar: post.author?.avatar || "",
-      readTime: post.readTime || "5 min read",
+      authorBio: post.author?.bio || "",
+      readTime: post.readTime || calculateReadTime(post.content || ""),
       tags: Array.isArray(post.tags) ? post.tags.join(", ") : (post.tags || ""),
       status: post.status,
-      featured: Boolean(post.featured)
+      featured: Boolean(post.featured),
+      metaTitle: post.metaTitle || "",
+      metaDescription: post.metaDescription || "",
+      focusKeyword: post.focusKeyword || ""
     });
     setBlogEditorTab("edit");
     setBlogFeedback("");
@@ -280,6 +292,9 @@ export default function AdminPage() {
       return;
     }
 
+    const finalStatus = pendingStatusRef.current || blogFormData.status;
+    pendingStatusRef.current = null;
+
     setIsSavingBlog(true);
     setBlogFeedback("");
     try {
@@ -289,16 +304,21 @@ export default function AdminPage() {
         excerpt: blogFormData.excerpt,
         content: blogFormData.content,
         coverImage: blogFormData.coverImage,
+        coverImageAlt: blogFormData.coverImageAlt,
         category: blogFormData.category,
         author: {
           name: blogFormData.authorName,
           role: blogFormData.authorRole,
-          avatar: blogFormData.authorAvatar
+          avatar: blogFormData.authorAvatar,
+          bio: blogFormData.authorBio
         },
-        readTime: blogFormData.readTime,
+        readTime: calculateReadTime(blogFormData.content),
         tags: blogFormData.tags.split(",").map((s) => s.trim()).filter(Boolean),
-        status: blogFormData.status,
-        featured: blogFormData.featured
+        status: finalStatus,
+        featured: blogFormData.featured,
+        metaTitle: blogFormData.metaTitle,
+        metaDescription: blogFormData.metaDescription,
+        focusKeyword: blogFormData.focusKeyword
       };
 
       let res;
@@ -401,27 +421,28 @@ export default function AdminPage() {
   };
 
   const handleScaffoldOutline = () => {
-    const template = `## Executive Overview & Problem Statement
-Outline the core strategic challenge faced by mid-market or enterprise leadership in this domain.
+    const template = `## Introduction
+State the problem in one or two sentences and why it matters to the reader.
 
-### 1. Root Cause Diagnostic
-Analyze the fundamental organizational, financial, or market inefficiencies causing friction:
-- Inefficient capital deployment or misallocated operational overhead
-- Lack of visibility into departmental unit economics
-- Fragmented execution governance across functional teams
+## The Challenge
+Describe what typically goes wrong and how it shows up on the shop floor or in the numbers.
 
-> "A precise strategic thesis executed decisively always outperforms broad generalizations."
+## A Practical Approach
+1. **Step one**: what to do first, and why.
+2. **Step two**: how to measure it.
+3. **Step three**: how to sustain it.
 
-### 2. Implementation Methodology & Action Roadmap
-Detail the tactical 3-phase consulting framework applied:
-1. **Discovery & Benchmarking**: Quantitative audit of current baselines.
-2. **Model Engineering & Scenario Stress-Testing**: Formulate probabilistic outcomes.
-3. **Execution Enablement**: War-room governance, KPI dashboards, and team alignment.
+> One key takeaway the reader should remember.
 
-### 3. Projected Commercial Returns & Governance
-Summarize expected EBITDA improvements, working capital cycle velocity, and risk mitigation protocols.`;
+## Key Takeaways
+- Takeaway one
+- Takeaway two
+- Takeaway three
 
-    if (!blogFormData.content || confirm("Replace editor content with Executive Article Template?")) {
+## Next Step
+Invite the reader to get in touch or explore a related service.`;
+
+    if (!blogFormData.content || confirm("Replace editor content with the article structure template?")) {
       setBlogFormData({ ...blogFormData, content: template });
     }
   };
@@ -1695,18 +1716,18 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
 
               <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
-                  <span>Published Online</span>
+                  <span>Published</span>
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div className="text-2xl sm:text-3xl font-bold text-emerald-400 font-display">
                   {publishedBlogCount}
                 </div>
-                <div className="text-[11px] text-slate-500">Visible on public /blog</div>
+                <div className="text-[11px] text-slate-500">Live on the Blog and homepage</div>
               </div>
 
               <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-amber-400 font-semibold uppercase tracking-wider">
-                  <span>Drafts in Progress</span>
+                  <span>Drafts</span>
                   <Clock className="w-4 h-4 text-amber-400" />
                 </div>
                 <div className="text-2xl sm:text-3xl font-bold text-amber-400 font-display">
@@ -1717,13 +1738,13 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
 
               <div className="p-4 sm:p-5 rounded-2xl bg-night-850 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs text-brand-rust-light font-semibold uppercase tracking-wider">
-                  <span>Spotlight Featured</span>
+                  <span>Featured</span>
                   <Star className="w-4 h-4 text-brand-rust" />
                 </div>
                 <div className="text-2xl sm:text-3xl font-bold text-brand-rust-light font-display">
                   {featuredBlogCount}
                 </div>
-                <div className="text-[11px] text-slate-500">Top hero showcase</div>
+                <div className="text-[11px] text-slate-500">Shown first on the homepage</div>
               </div>
             </div>
 
@@ -1736,7 +1757,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                     type="text"
                     value={blogSearchQuery}
                     onChange={(e) => setBlogSearchQuery(e.target.value)}
-                    placeholder="Search articles by title, tags, author, category..."
+                    placeholder="Search by title, tag, author or category..."
                     className="w-full pl-10 pr-4 py-2 rounded-xl bg-night-950 border border-slate-700/80 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-steel"
                   />
                 </div>
@@ -1769,11 +1790,9 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   className="px-3 py-1.5 rounded-lg bg-night-950 border border-slate-700 text-xs text-slate-300 font-semibold focus:outline-none"
                 >
                   <option value="All">All Categories</option>
-                  <option value="Strategic Management">Strategic Management</option>
-                  <option value="Financial Modeling">Financial Modeling</option>
-                  <option value="Feasibility Studies">Feasibility Studies</option>
-                  <option value="Operational Excellence">Operational Excellence</option>
-                  <option value="Enterprise Growth">Enterprise Growth</option>
+                  {BLOG_CATEGORIES.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
                 </select>
               </div>
 
@@ -1792,7 +1811,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
               {isLoadingBlog ? (
                 <div className="py-20 text-center text-xs text-slate-400 space-y-2">
                   <div className="w-6 h-6 border-2 border-brand-rust border-t-transparent rounded-full animate-spin mx-auto" />
-                  <div>Loading live blog articles from MongoDB Atlas...</div>
+                  <div>Loading articles...</div>
                 </div>
               ) : filteredBlogPosts.length === 0 ? (
                 <div className="py-16 text-center text-xs text-slate-400 space-y-3">
@@ -1814,9 +1833,10 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                   <table className="w-full text-left text-xs border-collapse">
                     <thead>
                       <tr className="border-b border-slate-800 bg-night-950/60 text-slate-400 font-bold uppercase tracking-wider text-[10.5px]">
-                        <th className="py-3 px-4">Article & Cover</th>
-                        <th className="py-3 px-4">Category & Discipline</th>
-                        <th className="py-3 px-4">Status & Visibility</th>
+                        <th className="py-3 px-4">Article</th>
+                        <th className="py-3 px-4">Category</th>
+                        <th className="py-3 px-4">SEO</th>
+                        <th className="py-3 px-4">Status</th>
                         <th className="py-3 px-4">Author & Date</th>
                         <th className="py-3 px-4 text-right">Actions</th>
                       </tr>
@@ -1832,11 +1852,11 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                             <div className="flex items-center gap-3">
                               <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-900 relative shrink-0 border border-slate-700/60">
                                 {post.coverImage ? (
-                                  <Image
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
                                     src={post.coverImage}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover"
+                                    alt={post.coverImageAlt || post.title}
+                                    className="absolute inset-0 w-full h-full object-cover"
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center text-slate-600">
@@ -1865,6 +1885,29 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                                 {post.readTime || "5 min read"}
                               </div>
                             </div>
+                          </td>
+
+                          {/* SEO readiness */}
+                          <td className="py-3.5 px-4 whitespace-nowrap">
+                            {(() => {
+                              const items = [
+                                { ok: !!post.metaDescription || (post.excerpt || "").length >= 70, label: "Meta description" },
+                                { ok: !!post.focusKeyword, label: "Focus keyword" },
+                                { ok: !!post.coverImageAlt, label: "Image alt text" },
+                                { ok: (post.tags || []).length > 0, label: "Tags" },
+                              ];
+                              const n = items.filter((i) => i.ok).length;
+                              return (
+                                <div className="flex items-center gap-1.5" title={items.map((i) => `${i.ok ? "✓" : "✗"} ${i.label}`).join("\n")}>
+                                  <div className="flex gap-0.5">
+                                    {items.map((i) => (
+                                      <span key={i.label} className={`w-1.5 h-4 rounded-sm ${i.ok ? "bg-emerald-400" : "bg-slate-700"}`} />
+                                    ))}
+                                  </div>
+                                  <span className={`text-[10.5px] font-bold ${n === 4 ? "text-emerald-400" : n >= 2 ? "text-amber-400" : "text-slate-500"}`}>{n}/4</span>
+                                </div>
+                              );
+                            })()}
                           </td>
 
                           {/* Status & Featured Toggle */}
@@ -1903,7 +1946,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                           <td className="py-3.5 px-4 whitespace-nowrap">
                             <div className="space-y-0.5">
                               <div className="font-semibold text-slate-200 text-xs">
-                                {post.author?.name || "Executive Team"}
+                                {post.author?.name || DEFAULT_BLOG_AUTHOR.name}
                               </div>
                               <div className="text-[10px] text-slate-500">
                                 {post.publishedAt || "Recently drafted"}
@@ -2416,7 +2459,7 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
       {/* ============================================================== */}
       {showBlogModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-night-900 border border-slate-700/90 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+          <div className="bg-night-900 border border-slate-700/90 rounded-3xl max-w-6xl w-full max-h-[94vh] flex flex-col shadow-2xl overflow-hidden">
             
             {/* Modal Header */}
             <div className="p-4 sm:p-5 bg-gradient-to-r from-night-900 to-[#14233A] border-b border-slate-800 flex items-center justify-between shrink-0">
@@ -2426,10 +2469,10 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white">
-                    {editingPostId ? "Edit Executive Article" : "Write & Publish Strategic Article"}
+                    {editingPostId ? "Edit Article" : "New Article"}
                   </h3>
                   <p className="text-[11px] text-slate-400">
-                    Live publication on public /blog and executive perspectives
+                    Publishes to the Blog and the homepage “Latest Insights” section
                   </p>
                 </div>
               </div>
@@ -2477,199 +2520,140 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
             {/* Modal Body */}
             <div className="flex-1 p-4 sm:p-6 overflow-y-auto custom-scrollbar text-xs">
               {blogEditorTab === "edit" ? (
-                <form id="blogPostForm" onSubmit={handleSaveBlogPost} className="space-y-4">
+                <form id="blogPostForm" onSubmit={handleSaveBlogPost} className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                   
-                  {/* Title & Auto-slug */}
-                  <div className="space-y-1.5">
-                    <label className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">
-                      Article Title *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={blogFormData.title}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        const autoSlug = val
-                          .toLowerCase()
-                          .trim()
-                          .replace(/[^\w\s-]/g, "")
-                          .replace(/[\s_-]+/g, "-");
-                        setBlogFormData({
-                          ...blogFormData,
-                          title: val,
-                          slug: editingPostId ? blogFormData.slug : autoSlug
-                        });
-                      }}
-                      placeholder="e.g. Navigating Enterprise Restructuring in High Rate Regimes"
-                      className="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-sm font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
-                    />
-                  </div>
-
-                  {/* URL Slug Preview */}
-                  <div className="space-y-1">
-                    <label className="text-slate-400 font-semibold text-[10.5px]">
-                      URL Path Slug
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <span className="text-slate-500 font-mono text-[11px] bg-night-950 px-3 py-2.5 rounded-xl border border-slate-800">
-                        /blog/
-                      </span>
+                  {/* ===== Main column: post anatomy ===== */}
+                  <div className="lg:col-span-8 space-y-4">
+                    {/* Title */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <label htmlFor="blogTitle" className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">Headline *</label>
+                        <span className={`text-[10.5px] font-mono ${blogFormData.title.length > 70 ? "text-amber-400" : "text-slate-500"}`}>{blogFormData.title.length}/70</span>
+                      </div>
                       <input
+                        id="blogTitle"
                         type="text"
                         required
-                        value={blogFormData.slug}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, slug: e.target.value })}
-                        placeholder="article-slug-url"
-                        className="flex-1 px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 font-mono text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
+                        value={blogFormData.title}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const autoSlug = val
+                            .toLowerCase()
+                            .trim()
+                            .replace(/[^\w\s-]/g, "")
+                            .replace(/[\s_-]+/g, "-");
+                          setBlogFormData({
+                            ...blogFormData,
+                            title: val,
+                            slug: editingPostId ? blogFormData.slug : autoSlug
+                          });
+                        }}
+                        placeholder="A clear, specific headline readers will click"
+                        className="w-full px-4 py-3 rounded-xl bg-night-950 border border-slate-700 text-base font-bold text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel"
                       />
-                    </div>
-                  </div>
-
-                  {/* Summary / Excerpt */}
-                  <div className="space-y-1.5">
-                    <label className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">
-                      Summary / Lead Excerpt
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={blogFormData.excerpt}
-                      onChange={(e) => setBlogFormData({ ...blogFormData, excerpt: e.target.value })}
-                      placeholder="A short executive briefing summarizing the core thesis and practical takeaways..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed"
-                    />
-                  </div>
-
-                  {/* Category, Read Time, Status */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-slate-400 font-semibold">Strategic Discipline</label>
-                      <select
-                        value={blogFormData.category}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, category: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
-                      >
-                        <option value="Strategic Management">Strategic Management</option>
-                        <option value="Financial Modeling">Financial Modeling</option>
-                        <option value="Feasibility Studies">Feasibility Studies</option>
-                        <option value="Operational Excellence">Operational Excellence</option>
-                        <option value="Enterprise Growth">Enterprise Growth</option>
-                      </select>
+                      <div className="flex items-center gap-2">
+                        <span className="text-slate-500 font-mono text-[11px]">/blog/</span>
+                        <input
+                          type="text"
+                          required
+                          aria-label="URL slug"
+                          value={blogFormData.slug}
+                          onChange={(e) => setBlogFormData({ ...blogFormData, slug: e.target.value })}
+                          placeholder="article-url-slug"
+                          className="flex-1 px-3 py-1.5 rounded-lg bg-night-950 border border-slate-800 font-mono text-slate-300 text-[11px] placeholder:text-slate-600 focus:outline-none focus:border-brand-steel"
+                        />
+                      </div>
                     </div>
 
-                    <div className="space-y-1">
-                      <label className="text-slate-400 font-semibold">Read Time</label>
-                      <input
-                        type="text"
-                        value={blogFormData.readTime}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, readTime: e.target.value })}
-                        placeholder="5 min read"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
+                    {/* Excerpt */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <label htmlFor="blogExcerpt" className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">Excerpt</label>
+                        <span className="text-[10.5px] text-slate-500">Shown on the homepage and blog cards</span>
+                      </div>
+                      <textarea
+                        id="blogExcerpt"
+                        rows={2}
+                        value={blogFormData.excerpt}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, excerpt: e.target.value })}
+                        placeholder="One or two sentences that tell the reader what they will learn."
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-steel leading-relaxed"
                       />
                     </div>
 
-                    <div className="space-y-1">
-                      <label className="text-slate-400 font-semibold">Publication Visibility</label>
-                      <select
-                        value={blogFormData.status}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, status: e.target.value as any })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white font-bold"
-                      >
-                        <option value="published">Published (Live Online)</option>
-                        <option value="draft">Draft (Internal Only)</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Author Details */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-slate-400 font-semibold">Author Name & Role</label>
-                      <input
-                        type="text"
-                        value={blogFormData.authorName}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, authorName: e.target.value })}
-                        placeholder="e.g. Ahsan Malik"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white mb-2"
+                    {/* Body */}
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <label htmlFor="blogContentTextarea" className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">
+                          Body (Markdown) *
+                        </label>
+                        <div className="flex flex-wrap items-center gap-1">
+                          {[
+                            { label: "H2", pre: "## ", suf: "\n", title: "Section heading" },
+                            { label: "H3", pre: "### ", suf: "\n", title: "Sub-heading" },
+                            { label: "B", pre: "**", suf: "**", title: "Bold" },
+                            { label: "Quote", pre: "> ", suf: "\n", title: "Quote / key takeaway" },
+                            { label: "List", pre: "- ", suf: "\n", title: "Bullet list" },
+                            { label: "1. 2.", pre: "1. ", suf: "\n", title: "Numbered list" },
+                          ].map((b) => (
+                            <button
+                              key={b.label}
+                              type="button"
+                              title={b.title}
+                              onClick={() => insertMarkdownInContent(b.pre, b.suf)}
+                              className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[10px]"
+                            >
+                              {b.label}
+                            </button>
+                          ))}
+                          <button
+                            type="button"
+                            onClick={handleScaffoldOutline}
+                            className="px-2.5 py-1 rounded bg-brand-rust/20 hover:bg-brand-rust/30 text-brand-rust-light border border-brand-rust/40 text-[10px] font-semibold flex items-center gap-1 ml-1"
+                          >
+                            <Sparkles className="w-3 h-3" />
+                            <span>Post Structure</span>
+                          </button>
+                        </div>
+                      </div>
+                      <textarea
+                        id="blogContentTextarea"
+                        required
+                        rows={18}
+                        value={blogFormData.content}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, content: e.target.value, readTime: calculateReadTime(e.target.value) })}
+                        placeholder={`## Introduction\nWhat problem does this article solve?\n\n## Main section\nExplain the method with examples.\n\n- Key point\n- Key point\n\n## Key Takeaways\nSummarize and point to a next step.`}
+                        className="w-full p-4 rounded-2xl bg-night-950 border border-slate-700 font-sans text-[13px] text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
                       />
-                      <input
-                        type="text"
-                        value={blogFormData.authorRole}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, authorRole: e.target.value })}
-                        placeholder="e.g. Managing Director & Senior Partner"
-                        className="w-full px-3.5 py-2 rounded-xl bg-night-950 border border-slate-800 text-slate-300 text-[11px]"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-slate-400 font-semibold">Author Avatar Image URL</label>
-                      <input
-                        type="text"
-                        value={blogFormData.authorAvatar}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, authorAvatar: e.target.value })}
-                        placeholder="https://images.unsplash.com/..."
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
-                      />
-                      <div className="text-[10.5px] text-slate-500 pt-1">
-                        Professional headshot URL for the author profile box.
+                      <div className="flex flex-wrap items-center gap-3 text-[10.5px] text-slate-500">
+                        <span>{blogFormData.content.trim() ? blogFormData.content.trim().split(/\s+/).length : 0} words</span>
+                        <span>•</span>
+                        <span>{calculateReadTime(blogFormData.content)} (auto)</span>
+                        <span>•</span>
+                        <span>{(blogFormData.content.match(/^#{2,3}\s/gm) || []).length} headings</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Cover Image URL with Presets */}
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <label className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">
-                        Article Cover Image URL
-                      </label>
-                      <div className="flex items-center gap-1.5 text-[10.5px]">
-                        <span className="text-slate-500">Presets:</span>
-                        <button
-                          type="button"
-                          onClick={() => setBlogFormData({ ...blogFormData, coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" })}
-                          className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
-                        >
-                          Corporate
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setBlogFormData({ ...blogFormData, coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" })}
-                          className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
-                        >
-                          Financial
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setBlogFormData({ ...blogFormData, coverImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" })}
-                          className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
-                        >
-                          Strategy
-                        </button>
+                  {/* ===== Sidebar: publishing settings ===== */}
+                  <aside className="lg:col-span-4 space-y-3">
+                    {/* Publish */}
+                    <div className="rounded-2xl bg-night-950/70 border border-slate-800 p-4 space-y-3">
+                      <h4 className="text-[10.5px] font-bold uppercase tracking-wider text-slate-300">Publish</h4>
+                      <div className="grid grid-cols-2 gap-1 bg-night-950 border border-slate-800 rounded-xl p-1">
+                        {(["published", "draft"] as const).map((st) => (
+                          <button
+                            key={st}
+                            type="button"
+                            onClick={() => setBlogFormData({ ...blogFormData, status: st })}
+                            className={`py-1.5 rounded-lg text-[11px] font-bold transition-colors ${
+                              blogFormData.status === st ? (st === "published" ? "bg-emerald-600 text-white" : "bg-slate-600 text-white") : "text-slate-400 hover:text-white"
+                            }`}
+                          >
+                            {st === "published" ? "Published" : "Draft"}
+                          </button>
+                        ))}
                       </div>
-                    </div>
-                    <input
-                      type="text"
-                      value={blogFormData.coverImage}
-                      onChange={(e) => setBlogFormData({ ...blogFormData, coverImage: e.target.value })}
-                      placeholder="https://images.unsplash.com/photo-..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
-                    />
-                  </div>
-
-                  {/* Tags and Featured toggle */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
-                    <div className="space-y-1">
-                      <label className="text-slate-400 font-semibold">Keywords & Tags (comma separated)</label>
-                      <input
-                        type="text"
-                        value={blogFormData.tags}
-                        onChange={(e) => setBlogFormData({ ...blogFormData, tags: e.target.value })}
-                        placeholder="Strategy, M&A, Feasibility, Cost Reduction"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
-                      />
-                    </div>
-
-                    <div className="pt-4 flex items-center gap-3">
                       <label className="flex items-center gap-2 cursor-pointer select-none">
                         <input
                           type="checkbox"
@@ -2679,109 +2663,184 @@ Summarize expected EBITDA improvements, working capital cycle velocity, and risk
                         />
                         <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                           <Star className={`w-3.5 h-3.5 ${blogFormData.featured ? "text-amber-400 fill-current" : "text-slate-500"}`} />
-                          <span>Pin as Featured Headline Article</span>
+                          Feature on homepage
                         </span>
                       </label>
                     </div>
-                  </div>
 
-                  {/* Content Toolbar & Textarea */}
-                  <div className="space-y-2 pt-2 border-t border-slate-800">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <label className="text-slate-300 font-bold uppercase tracking-wider text-[10.5px]">
-                        Article Body Content (Markdown Supported) *
-                      </label>
+                    {/* Category & tags */}
+                    <div className="rounded-2xl bg-night-950/70 border border-slate-800 p-4 space-y-3">
+                      <h4 className="text-[10.5px] font-bold uppercase tracking-wider text-slate-300">Category &amp; Tags</h4>
+                      <select
+                        aria-label="Category"
+                        value={blogFormData.category}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, category: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white"
+                      >
+                        {!(BLOG_CATEGORIES as readonly string[]).includes(blogFormData.category) && blogFormData.category && (
+                          <option value={blogFormData.category}>{blogFormData.category} (legacy)</option>
+                        )}
+                        {BLOG_CATEGORIES.map((c) => (
+                          <option key={c} value={c}>{c}</option>
+                        ))}
+                      </select>
+                      <input
+                        type="text"
+                        aria-label="Tags"
+                        value={blogFormData.tags}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, tags: e.target.value })}
+                        placeholder="Tags, comma separated (e.g. Lean, 5S, Kaizen)"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                      />
+                    </div>
 
-                      {/* Formatting Helper Buttons */}
-                      <div className="flex flex-wrap items-center gap-1">
-                        <button
-                          type="button"
-                          onClick={() => insertMarkdownInContent("## ", "\n")}
-                          className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[10px]"
-                          title="Heading 2"
-                        >
-                          H2
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => insertMarkdownInContent("### ", "\n")}
-                          className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[10px]"
-                          title="Heading 3"
-                        >
-                          H3
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => insertMarkdownInContent("**", "**")}
-                          className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[10px]"
-                          title="Bold text"
-                        >
-                          B
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => insertMarkdownInContent("> ", "\n")}
-                          className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px]"
-                          title="Executive Quote / Highlight"
-                        >
-                          Quote
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => insertMarkdownInContent("- ", "\n")}
-                          className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px]"
-                          title="Bullet point"
-                        >
-                          List
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => insertMarkdownInContent("1. ", "\n")}
-                          className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px]"
-                          title="Numbered list"
-                        >
-                          1. 2. 3.
-                        </button>
-                        <button
-                          type="button"
-                          onClick={handleScaffoldOutline}
-                          className="px-2.5 py-1 rounded bg-brand-rust/20 hover:bg-brand-rust/30 text-brand-rust-light border border-brand-rust/40 text-[10px] font-semibold flex items-center gap-1 ml-1"
-                        >
-                          <Sparkles className="w-3 h-3" />
-                          <span>Advisory Template</span>
-                        </button>
+                    {/* Featured image */}
+                    <div className="rounded-2xl bg-night-950/70 border border-slate-800 p-4 space-y-2.5">
+                      <h4 className="text-[10.5px] font-bold uppercase tracking-wider text-slate-300">Featured Image</h4>
+                      {blogFormData.coverImage && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={blogFormData.coverImage} alt="" className="w-full aspect-[16/9] object-cover rounded-xl border border-slate-800" />
+                      )}
+                      <input
+                        type="text"
+                        aria-label="Featured image URL"
+                        value={blogFormData.coverImage}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, coverImage: e.target.value })}
+                        placeholder="Image URL or /images/..."
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                      />
+                      <input
+                        type="text"
+                        aria-label="Image alt text"
+                        value={blogFormData.coverImageAlt}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, coverImageAlt: e.target.value })}
+                        placeholder="Alt text: describe the image for accessibility"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                      />
+                    </div>
+
+                    {/* Author */}
+                    <div className="rounded-2xl bg-night-950/70 border border-slate-800 p-4 space-y-2.5">
+                      <h4 className="text-[10.5px] font-bold uppercase tracking-wider text-slate-300">Author</h4>
+                      <input
+                        type="text"
+                        aria-label="Author name"
+                        value={blogFormData.authorName}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, authorName: e.target.value })}
+                        placeholder="Name"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                      />
+                      <input
+                        type="text"
+                        aria-label="Author role"
+                        value={blogFormData.authorRole}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, authorRole: e.target.value })}
+                        placeholder="Role"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-slate-300 placeholder:text-slate-500"
+                      />
+                      <input
+                        type="text"
+                        aria-label="Author photo URL"
+                        value={blogFormData.authorAvatar}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, authorAvatar: e.target.value })}
+                        placeholder="Photo URL"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-slate-300 placeholder:text-slate-500"
+                      />
+                      <textarea
+                        rows={2}
+                        aria-label="Author bio"
+                        value={blogFormData.authorBio}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, authorBio: e.target.value })}
+                        placeholder="Short bio shown under the article (optional)"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-slate-300 placeholder:text-slate-500"
+                      />
+                    </div>
+
+                    {/* SEO */}
+                    <div className="rounded-2xl bg-night-950/70 border border-slate-800 p-4 space-y-2.5">
+                      <h4 className="text-[10.5px] font-bold uppercase tracking-wider text-slate-300">SEO</h4>
+                      <input
+                        type="text"
+                        aria-label="Focus keyword"
+                        value={blogFormData.focusKeyword}
+                        onChange={(e) => setBlogFormData({ ...blogFormData, focusKeyword: e.target.value })}
+                        placeholder="Focus keyword (e.g. lean manufacturing)"
+                        className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                      />
+                      <div>
+                        <input
+                          type="text"
+                          aria-label="Meta title"
+                          value={blogFormData.metaTitle}
+                          onChange={(e) => setBlogFormData({ ...blogFormData, metaTitle: e.target.value })}
+                          placeholder="Meta title (defaults to headline)"
+                          className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                        />
+                        <div className="text-right text-[10px] font-mono text-slate-500 mt-0.5">{(blogFormData.metaTitle || blogFormData.title).length}/60</div>
+                      </div>
+                      <div>
+                        <textarea
+                          rows={3}
+                          aria-label="Meta description"
+                          value={blogFormData.metaDescription}
+                          onChange={(e) => setBlogFormData({ ...blogFormData, metaDescription: e.target.value })}
+                          placeholder="Meta description (defaults to excerpt)"
+                          className="w-full px-3 py-2 rounded-xl bg-night-950 border border-slate-700 text-white placeholder:text-slate-500"
+                        />
+                        <div className="text-right text-[10px] font-mono text-slate-500">{(blogFormData.metaDescription || blogFormData.excerpt).length}/160</div>
+                      </div>
+                      {/* Search snippet preview */}
+                      <div className="rounded-xl bg-white p-3 space-y-0.5">
+                        <div className="text-[10px] text-slate-500 truncate">factual-solutions.com › blog › {blogFormData.slug || "article"}</div>
+                        <div className="text-[13px] text-[#1a0dab] font-medium leading-snug line-clamp-1">{(blogFormData.metaTitle || blogFormData.title || "Article headline")} | Factual Solutions</div>
+                        <div className="text-[11px] text-slate-600 leading-snug line-clamp-2">{blogFormData.metaDescription || blogFormData.excerpt || "Your meta description will appear here."}</div>
                       </div>
                     </div>
 
-                    <textarea
-                      id="blogContentTextarea"
-                      required
-                      rows={14}
-                      value={blogFormData.content}
-                      onChange={(e) => setBlogFormData({ ...blogFormData, content: e.target.value })}
-                      placeholder={`Write your executive analysis here...
-
-## Executive Overview
-Detail the strategic context...
-
-### 1. Root Cause Analysis
-Explain the primary drivers...
-
-> "Key strategic quotation or insight."
-
-- Bullet insight 1
-- Bullet insight 2`}
-                      className="w-full p-4 rounded-2xl bg-night-950 border border-slate-700 font-sans text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-brand-steel leading-relaxed custom-scrollbar"
-                    />
-                  </div>
-
+                    {/* Checklist */}
+                    {(() => {
+                      const kw = blogFormData.focusKeyword.trim().toLowerCase();
+                      const mTitle = (blogFormData.metaTitle || blogFormData.title).trim();
+                      const mDesc = (blogFormData.metaDescription || blogFormData.excerpt).trim();
+                      const words = blogFormData.content.trim() ? blogFormData.content.trim().split(/\s+/).length : 0;
+                      const checks = [
+                        { ok: mTitle.length >= 30 && mTitle.length <= 60, label: "Title is 30–60 characters" },
+                        { ok: mDesc.length >= 70 && mDesc.length <= 160, label: "Meta description is 70–160 characters" },
+                        { ok: !!kw && blogFormData.title.toLowerCase().includes(kw), label: "Focus keyword in headline" },
+                        { ok: !!kw && blogFormData.content.toLowerCase().includes(kw), label: "Focus keyword in body" },
+                        { ok: (blogFormData.content.match(/^##\s/gm) || []).length >= 2, label: "At least 2 section headings" },
+                        { ok: words >= 300, label: "Body is 300+ words" },
+                        { ok: !!blogFormData.coverImage && !!blogFormData.coverImageAlt.trim(), label: "Featured image has alt text" },
+                        { ok: blogFormData.tags.split(",").filter((t) => t.trim()).length >= 1, label: "At least one tag" },
+                      ];
+                      const score = checks.filter((c) => c.ok).length;
+                      return (
+                        <div className="rounded-2xl bg-night-950/70 border border-slate-800 p-4 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-[10.5px] font-bold uppercase tracking-wider text-slate-300">Quality Checklist</h4>
+                            <span className={`text-[11px] font-bold ${score >= 7 ? "text-emerald-400" : score >= 4 ? "text-amber-400" : "text-red-400"}`}>{score}/{checks.length}</span>
+                          </div>
+                          <ul className="space-y-1.5">
+                            {checks.map((c) => (
+                              <li key={c.label} className={`flex items-center gap-2 text-[11px] ${c.ok ? "text-slate-300" : "text-slate-500"}`}>
+                                <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center shrink-0 ${c.ok ? "bg-emerald-500/20 text-emerald-400" : "bg-slate-800 text-slate-600"}`}>
+                                  <CheckCircle2 className="w-3 h-3" />
+                                </span>
+                                {c.label}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })()}
+                  </aside>
                 </form>
               ) : (
                 /* LIVE PREVIEW TAB */
                 <div className="space-y-6 max-w-3xl mx-auto py-2">
                   <div className="p-3 bg-brand-steel/10 border border-brand-steel/20 rounded-xl text-[11px] text-brand-steel-light flex items-center gap-2">
                     <Eye className="w-4 h-4 shrink-0" />
-                    <span>Live reader simulation previewing layout as visible to site visitors.</span>
+                    <span>Preview of how the article appears to readers.</span>
                   </div>
 
                   {/* Header */}
@@ -2790,8 +2849,8 @@ Explain the primary drivers...
                       <span className="px-3 py-1 rounded-full bg-brand-rust/20 text-brand-rust-light font-bold text-[10px] uppercase">
                         {blogFormData.category}
                       </span>
-                      <span className="text-slate-400 text-xs">• {blogFormData.readTime}</span>
-                      <span className="text-slate-400 text-xs">• Today</span>
+                      <span className="text-slate-400 text-xs">• {calculateReadTime(blogFormData.content)}</span>
+                      <span className="text-slate-400 text-xs">• {new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</span>
                     </div>
 
                     <h1 className="text-2xl sm:text-3xl font-bold text-white font-display">
@@ -2808,11 +2867,11 @@ Explain the primary drivers...
                   {/* Cover preview */}
                   {blogFormData.coverImage && (
                     <div className="relative h-60 w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-800">
-                      <Image
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
                         src={blogFormData.coverImage}
-                        alt="Cover"
-                        fill
-                        className="object-cover"
+                        alt={blogFormData.coverImageAlt || blogFormData.title}
+                        className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
                   )}
@@ -2820,16 +2879,17 @@ Explain the primary drivers...
                   {/* Author Card preview */}
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-brand-rust/20 relative shrink-0">
-                      <Image
-                        src={blogFormData.authorAvatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"}
-                        alt="Author"
-                        fill
-                        className="object-cover"
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={blogFormData.authorAvatar || DEFAULT_BLOG_AUTHOR.avatar}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
                     <div>
                       <div className="font-bold text-white text-xs">{blogFormData.authorName}</div>
                       <div className="text-[11px] text-slate-400">{blogFormData.authorRole}</div>
+                      {blogFormData.authorBio && <div className="text-[11px] text-slate-500 mt-0.5">{blogFormData.authorBio}</div>}
                     </div>
                   </div>
 
@@ -2908,7 +2968,7 @@ Explain the primary drivers...
                 <button
                   type="button"
                   onClick={() => {
-                    setBlogFormData({ ...blogFormData, status: "draft" });
+                    pendingStatusRef.current = "draft";
                     const form = document.getElementById("blogPostForm") as HTMLFormElement;
                     if (form) form.requestSubmit();
                   }}
@@ -2921,7 +2981,7 @@ Explain the primary drivers...
                 <button
                   type="button"
                   onClick={() => {
-                    setBlogFormData({ ...blogFormData, status: "published" });
+                    pendingStatusRef.current = "published";
                     const form = document.getElementById("blogPostForm") as HTMLFormElement;
                     if (form) form.requestSubmit();
                   }}

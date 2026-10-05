@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbGetBlogPosts, dbSaveBlogPost, DatabaseBlogPost } from "@/lib/mongodb";
+import { DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER } from "@/data/blogCategories";
 
 function slugify(text: string): string {
   return text
@@ -66,7 +67,11 @@ export async function POST(request: NextRequest) {
       readTime: customReadTime,
       tags,
       status,
-      featured
+      featured,
+      coverImageAlt,
+      metaTitle,
+      metaDescription,
+      focusKeyword
     } = body;
 
     if (!title || !title.trim()) {
@@ -95,19 +100,24 @@ export async function POST(request: NextRequest) {
       slug: finalSlug,
       excerpt: (excerpt || "").trim(),
       content: content.trim(),
-      coverImage: coverImage?.trim() || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-      category: (category || "Strategic Management").trim(),
+      coverImage: coverImage?.trim() || DEFAULT_BLOG_COVER,
+      coverImageAlt: (coverImageAlt || "").trim() || title.trim(),
+      category: (category || DEFAULT_BLOG_CATEGORY).trim(),
       author: {
-        name: author?.name?.trim() || "Executive Editorial Team",
-        role: author?.role?.trim() || "Factual Solutions Advisory",
-        avatar: author?.avatar?.trim() || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80"
+        name: author?.name?.trim() || DEFAULT_BLOG_AUTHOR.name,
+        role: author?.role?.trim() || DEFAULT_BLOG_AUTHOR.role,
+        avatar: author?.avatar?.trim() || DEFAULT_BLOG_AUTHOR.avatar,
+        bio: author?.bio?.trim() || undefined
       },
+      metaTitle: (metaTitle || "").trim() || undefined,
+      metaDescription: (metaDescription || "").trim() || undefined,
+      focusKeyword: (focusKeyword || "").trim() || undefined,
       readTime: calculatedReadTime,
       tags: Array.isArray(tags)
         ? tags.map((t: string) => t.trim()).filter(Boolean)
         : typeof tags === "string"
         ? tags.split(",").map((t: string) => t.trim()).filter(Boolean)
-        : ["Advisory"],
+        : [],
       status: status === "draft" ? "draft" : "published",
       featured: Boolean(featured),
       publishedAt: dateStr,
