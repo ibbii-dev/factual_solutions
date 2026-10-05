@@ -27,11 +27,6 @@ const content = {
       "We have worked inside factories, alongside project teams, and with leadership in boardrooms. That gives us a practical perspective on both sides of improvement: what looks right on paper and what actually works on the shop floor.",
       "Our approach combines proven management methods with practical implementation, capability building, and measurable improvement.",
     ],
-    pillars: [
-      { title: "Factories & Shop Floors", desc: "Hands-on improvement where the work actually happens." },
-      { title: "Project Teams", desc: "Delivering programs and change alongside the people doing the work." },
-      { title: "Leadership & Boardrooms", desc: "Strategy, performance, and decisions grounded in data." },
-    ],
     leadBadge: "Our Lead Consultant",
     leadName: "Qadeer Bhatti",
     leadRole: "Lead Consultant & Trainer",
@@ -39,6 +34,7 @@ const content = {
       "Mr. Bhatti began his professional career in London, UK, before joining Nokia Mobile Phones and later moving to Canada.",
       "In Canada, he managed projects and programs across the software and telecommunications industries before moving into business excellence and organizational improvement in Vancouver.",
       "His international assignments and professional experience have taken him across the United States, Finland, Germany, China, Brazil, Sweden, the UAE, Pakistan, and Iran, giving him exposure to diverse industries, operating environments, and organizational cultures.",
+      "His experience spans strategy, project and program management, Lean Six Sigma, operational excellence, innovation, risk management, supply chain, data analysis, and digital transformation.",
     ],
     countriesTitle: "International Experience",
     countries: ["United Kingdom", "Canada", "United States", "Finland", "Germany", "China", "Brazil", "Sweden", "UAE", "Pakistan", "Iran"],
@@ -78,11 +74,6 @@ const content = {
       "عملنا داخل المصانع وإلى جانب فرق المشاريع ومع القيادات في مجالس الإدارة. وهذا يمنحنا منظوراً عملياً لجانبي التحسين: ما يبدو صحيحاً على الورق، وما ينجح فعلاً في أرض المصنع.",
       "يجمع نهجنا بين الأساليب الإدارية المثبتة والتنفيذ العملي وبناء القدرات والتحسين القابل للقياس.",
     ],
-    pillars: [
-      { title: "المصانع ومواقع العمل", desc: "تحسين عملي حيث يتم العمل فعلياً." },
-      { title: "فرق المشاريع", desc: "تنفيذ البرامج والتغيير جنباً إلى جنب مع من يقومون بالعمل." },
-      { title: "القيادة ومجالس الإدارة", desc: "استراتيجية وأداء وقرارات مبنية على البيانات." },
-    ],
     leadBadge: "مستشارنا الرئيسي",
     leadName: "قدير بهاتي",
     leadRole: "المستشار والمدرب الرئيسي",
@@ -90,6 +81,7 @@ const content = {
       "بدأ السيد بهاتي مسيرته المهنية في لندن بالمملكة المتحدة، ثم انضم إلى نوكيا للهواتف المحمولة قبل انتقاله لاحقاً إلى كندا.",
       "في كندا، أدار مشاريع وبرامج في قطاعي البرمجيات والاتصالات قبل أن ينتقل إلى مجال التميز المؤسسي وتطوير المؤسسات في فانكوفر.",
       "أخذته مهامه الدولية وخبرته المهنية إلى الولايات المتحدة وفنلندا وألمانيا والصين والبرازيل والسويد والإمارات وباكستان وإيران، مما أتاح له الاطلاع على قطاعات وبيئات تشغيل وثقافات مؤسسية متنوعة.",
+      "تشمل خبرته الاستراتيجية وإدارة المشاريع والبرامج ولين ستة سيجما والتميز التشغيلي والابتكار وإدارة المخاطر وسلسلة الإمداد وتحليل البيانات والتحول الرقمي.",
     ],
     countriesTitle: "الخبرة الدولية",
     countries: ["المملكة المتحدة", "كندا", "الولايات المتحدة", "فنلندا", "ألمانيا", "الصين", "البرازيل", "السويد", "الإمارات", "باكستان", "إيران"],
@@ -123,7 +115,6 @@ const content = {
   },
 };
 
-const pillarIcons = [Factory, Users, LineChart];
 const tones = ["bg-navy text-white", "bg-steel text-ink", "bg-rust text-white"];
 
 export default function AboutPage() {
@@ -149,25 +140,12 @@ export default function AboutPage() {
 
         {/* Perspective */}
         <ScrollReveal variant="fade-up" className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 sm:mb-24 bg-white dark:bg-night-800/80 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-card border border-slate-200/80 dark:border-white/10">
-          <div className="lg:col-span-6 space-y-4">
+          <div className="lg:col-span-12 max-w-4xl space-y-4">
             <div className="brand-rule" aria-hidden="true" />
             <p className="text-base sm:text-lg text-ink dark:text-white leading-relaxed font-medium">{c.intro[1]}</p>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">{c.intro[2]}</p>
           </div>
-          <StaggerContainer delayChildren={0.1} staggerChildren={0.08} className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {c.pillars.map((p, i) => {
-              const Icon = pillarIcons[i];
-              return (
-                <StaggerItem key={p.title} className="p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
-                  <span className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm ${tones[i]}`}>
-                    <Icon className="w-5 h-5" />
-                  </span>
-                  <h3 className="mt-3 text-sm font-bold font-display text-ink dark:text-white">{p.title}</h3>
-                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{p.desc}</p>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
+
         </ScrollReveal>
 
         {/* Lead Consultant */}
@@ -262,7 +240,7 @@ export default function AboutPage() {
                 <ArrowRight className="w-4 h-4 rtl:rotate-180" />
               </Link>
             </div>
-            <p className="text-xs text-slate-300">{c.blogCta} — {c.blogText}</p>
+            <p className="text-xs text-slate-300"><Link href="/blog" className="font-bold text-steel-light hover:text-white">{c.blogCta} →</Link> {c.blogText}</p>
           </div>
         </ScrollReveal>
 

@@ -157,6 +157,7 @@ export default function Navbar() {
                   return (
                     <div
                       key={link.name}
+                      className="relative"
                       onMouseEnter={handleServicesMouseEnter}
                       onMouseLeave={handleServicesMouseLeave}
                     >
@@ -176,21 +177,21 @@ export default function Navbar() {
                       <AnimatePresence>
                         {servicesDropdownOpen && (
                           <motion.div
-                            initial={{ opacity: 0, x: "-50%", y: 10, scale: 0.98 }}
-                            animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
-                            exit={{ opacity: 0, x: "-50%", y: 8, scale: 0.98 }}
+                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-1/2 mt-0 w-[min(860px,calc(100vw-48px))] rounded-2xl shadow-lift p-4 border bg-white dark:bg-night-850 border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100] overflow-hidden"
+                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[min(400px,calc(100vw-48px))] max-h-[calc(100vh-110px)] overflow-y-auto rounded-2xl shadow-lift p-3 border bg-white dark:bg-night-850 border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100]"
                           >
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="flex flex-col divide-y divide-slate-100 dark:divide-white/10">
                               {servicePillars.map((pillar) => {
                                 const IconComp = pillarIcons[pillar.id];
                                 return (
-                                  <div key={pillar.id} className="rounded-xl p-2">
+                                  <div key={pillar.id} className="py-2.5 first:pt-1">
                                     <Link
                                       href={`/services?line=${pillar.id}#${pillar.id}`}
                                       onClick={() => setServicesDropdownOpen(false)}
-                                      className="group/head flex items-center gap-2.5 mb-2 px-1"
+                                      className="group/head flex items-center gap-2.5 mb-1.5 px-2"
                                     >
                                       <span className="w-8 h-8 rounded-lg text-white flex items-center justify-center shrink-0 shadow-sm" style={{ backgroundColor: pillarColors[pillar.id] }}>
                                         <IconComp className="w-4 h-4" />
@@ -199,13 +200,13 @@ export default function Navbar() {
                                         {pillar.title}
                                       </span>
                                     </Link>
-                                    <ul className="space-y-0.5">
+                                    <ul className="flex flex-col ps-10">
                                       {allServiceItems.filter((s) => s.category === pillar.id).map((srv) => (
                                         <li key={srv.id}>
                                           <Link
                                             href={`/services/${srv.id}`}
                                             onClick={() => setServicesDropdownOpen(false)}
-                                            className="block px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white hover:bg-navy-50 dark:hover:bg-white/10 transition-colors"
+                                            className="block px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white hover:bg-navy-50 dark:hover:bg-white/10 transition-colors"
                                           >
                                             {srv.title}
                                           </Link>

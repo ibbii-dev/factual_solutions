@@ -51,20 +51,20 @@ export default function IndustrySectorsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 sm:mb-14">
           <div className="lg:col-span-7 space-y-4">
             <div className="brand-rule" aria-hidden="true" />
-            <span className="eyebrow block">{isAr ? "القطاعات التي نخدمها" : "INDUSTRIES WE SERVE"}</span>
+            <span className="eyebrow block">{isAr ? "خبرة متعددة التخصصات" : "MULTIDISCIPLINARY EXPERIENCE"}</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-ink dark:text-white font-display leading-[1.1]">
               {isAr ? (
-                <>خبرة متعددة التخصصات<br /><span className="text-navy dark:text-steel">عبر قطاعات متنوعة</span></>
+                <>القطاعات <span className="text-navy dark:text-steel">التي نخدمها</span></>
               ) : (
-                <>Multidisciplinary Experience<br /><span className="text-navy dark:text-steel">Across Many Sectors</span></>
+                <>Industries <span className="text-navy dark:text-steel">We Serve</span></>
               )}
             </h2>
           </div>
           <div className="lg:col-span-5">
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
               {isAr
-                ? "تتيح لنا خبرتنا متعددة التخصصات العمل عبر مجموعة واسعة من القطاعات، مع أساليب قابلة للنقل وتحسين قابل للقياس."
-                : "Our multidisciplinary experience allows us to work across a wide range of sectors—bringing transferable methods and measurable improvement to each."}
+                ? "تتيح لنا خبرتنا متعددة التخصصات العمل عبر مجموعة واسعة من القطاعات."
+                : "Our multidisciplinary experience allows us to work across a wide range of sectors."}
             </p>
           </div>
         </div>

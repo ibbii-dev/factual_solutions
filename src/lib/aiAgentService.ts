@@ -1,3 +1,4 @@
+import { contactDetails } from "@/data/companyData";
 export interface AiAssessmentResult {
   clientName: string;
   industryCategory: string;
@@ -34,7 +35,7 @@ export async function generateAiAutoReply(inquiry: {
               {
                 parts: [
                   {
-                    text: `You are an elite Senior Management Consultant and AI Agent representing Factual Solutions (a premier business planning, feasibility, and management advisory firm).
+                    text: `You are an elite Senior Management Consultant and AI Agent representing Factual Solutions, a consulting, training, and ERP & digital transformation firm specializing in Lean Six Sigma, operational excellence, strategy, quality, and continuous improvement.
 Analyze this incoming business inquiry and generate a professional, executive-grade preliminary response in JSON format.
 
 Client Name: ${fullName}
@@ -44,7 +45,7 @@ Inquiry Message: ${message}
 
 Output strictly valid JSON with keys:
 - clientName
-- industryCategory (e.g. Retail & Distribution, Industrial Manufacturing, Commercial Services)
+- industryCategory (e.g. Textiles & Apparel, Pharmaceuticals, Food & Beverages, IT & Technology)
 - executiveSummary (A concise 2-sentence empathetic analysis of their situation)
 - keyStrategicFocus (array of 3 specific actionable points we will address)
 - recommendedConsultingPath (the exact engagement framework suited for them)
@@ -73,45 +74,61 @@ Output strictly valid JSON with keys:
   // High-Quality Executive Rule-Based Neural Engine Fallback
   const serviceLower = (serviceOfInterest + " " + message).toLowerCase();
   
-  let industry = "Commercial Business & Growth";
-  let path = "Structured 4-Week Strategic Advisory & Roadmapping";
+  let industry = "Operational Excellence & Performance";
+  let path = "Consulting Engagement — Operational Excellence";
   let strategicPoints = [
-    "Baseline Operational & Cost-Structure Audit",
-    "Unit Economics & Revenue Optimization Modeling",
-    "Actionable Step-by-Step Implementation Roadmap"
+    "Current process mapping and performance measurement",
+    "Improvement priorities based on data, not assumptions",
+    "Implementation plan with capability building for your team"
   ];
 
-  if (serviceLower.includes("financial") || serviceLower.includes("budget") || serviceLower.includes("investment") || serviceLower.includes("cash")) {
-    industry = "Financial Planning & Capital Budgeting";
-    path = "36-Month Dynamic Financial & Working Capital Modeling";
+  if (serviceLower.includes("erp") || serviceLower.includes("workflow") || serviceLower.includes("software") || serviceLower.includes("digital") || serviceLower.includes("automation") || serviceLower.includes("system")) {
+    industry = "ERP & Digital Transformation";
+    path = "ERP / Workflow Implementation — process first, then technology";
     strategicPoints = [
-      "Historical Cash Flow & Burn-Rate Diagnostics",
-      "Multi-Scenario Sensitivity & Working Capital Forecasting",
-      "Investor/Bank-Grade Executive Presentation Pack"
+      "Requirements gathering and business process analysis",
+      "System configuration, workflows, and reporting needs",
+      "Data migration, user training, and go-live support"
     ];
-  } else if (serviceLower.includes("erp") || serviceLower.includes("process") || serviceLower.includes("software") || serviceLower.includes("system")) {
-    industry = "Operations & Digital Systems Transformation";
-    path = "Business Process Re-Engineering & ERP Implementation Supervision";
+  } else if (serviceLower.includes("training") || serviceLower.includes("belt") || serviceLower.includes("pmp") || serviceLower.includes("course")) {
+    industry = "Training & Capability Building";
+    path = "Training Program tailored to your teams";
     strategicPoints = [
-      "As-Is vs. To-Be Departmental Handover Mapping",
-      "Functional Requirements Specification (FRS) Preparation",
-      "Vendor Milestone Verification & Change Management Protocol"
+      "Learning objectives and participant profile",
+      "Program content, format, and schedule",
+      "Applying the tools to your own processes"
     ];
-  } else if (serviceLower.includes("feasibility") || serviceLower.includes("idea") || serviceLower.includes("market") || serviceLower.includes("research")) {
-    industry = "Market Feasibility & Venture Launch";
-    path = "Empirical Feasibility Study & Market Entry Strategy";
+  } else if (serviceLower.includes("strategy") || serviceLower.includes("balanced scorecard") || serviceLower.includes("swot") || serviceLower.includes("vision")) {
+    industry = "Strategy & Performance";
+    path = "Consulting Engagement — Strategy & Performance Management";
     strategicPoints = [
-      "Competitor Pricing Benchmarking & Demand Survey Analysis",
-      "CapEx / OpEx Recovery Timeline & Break-Even Modeling",
-      "Commercial Go-To-Market Execution Blueprint"
+      "Mission, vision, and SWOT / organizational analysis",
+      "Strategic objectives and Balanced Scorecard measures",
+      "Performance review and management routines"
     ];
-  } else if (serviceLower.includes("lean") || serviceLower.includes("pmp") || serviceLower.includes("project") || serviceLower.includes("quality")) {
-    industry = "Projects & Operational Excellence (Lean Six Sigma)";
-    path = "PMP Project Governance & Zero-Waste Lean Execution";
+  } else if (serviceLower.includes("quality") || serviceLower.includes("risk") || serviceLower.includes("sop") || serviceLower.includes("fmea") || serviceLower.includes("spc")) {
+    industry = "Quality, Risk & Compliance";
+    path = "Consulting Engagement — Quality, Risk & Compliance";
     strategicPoints = [
-      "DMAIC Root-Cause & Process Variation Reduction",
-      "Milestone Accountability & Critical-Path Scheduling",
-      "Standard Operating Procedure (SOP) Deployment"
+      "Quality system and SOP review",
+      "Risk assessment and FMEA priorities",
+      "Statistical process control and improvement plan"
+    ];
+  } else if (serviceLower.includes("hr") || serviceLower.includes("people") || serviceLower.includes("change") || serviceLower.includes("competenc") || serviceLower.includes("survey")) {
+    industry = "People & Organizational Development";
+    path = "Consulting Engagement — People & Organizational Development";
+    strategicPoints = [
+      "Organizational and HR assessment",
+      "Competency frameworks and satisfaction surveys",
+      "Change management using ADKAR"
+    ];
+  } else if (serviceLower.includes("tpm") || serviceLower.includes("maintenance") || serviceLower.includes("5s") || serviceLower.includes("energy") || serviceLower.includes("safety")) {
+    industry = "Operations & Maintenance";
+    path = "Consulting Engagement — Operations & Maintenance";
+    strategicPoints = [
+      "Equipment reliability and TPM baseline",
+      "5S workplace organization",
+      "Energy, ergonomics, and health & safety review"
     ];
   }
 
@@ -119,10 +136,10 @@ Output strictly valid JSON with keys:
 
 Thank you for reaching out to Factual Solutions regarding ${serviceOfInterest}.
 
-Our Senior Advisory Team has received your inquiry for ${company}. We specialize in structured commercial planning, financial feasibility, and operational excellence tailored to growing enterprises.
+Our Senior Advisory Team has received your inquiry for ${company}. We help organizations perform better through consulting, training, and ERP & digital transformation.
 
 Preliminary Assessment & Next Steps:
-1. Review: Our practice lead (Master Black Belt / PMP certified) is reviewing your requirements (${serviceOfInterest}).
+1. Review: Our lead consultant (Lean Six Sigma Master Black Belt / PMP) is reviewing your requirements (${serviceOfInterest}).
 2. Focus Areas: We will prepare specific discussion points addressing:
    • ${strategicPoints[0]}
    • ${strategicPoints[1]}
@@ -135,8 +152,8 @@ Warm regards,
 
 Client Advisory Practice
 Factual Solutions
-Direct: +92 321 884 1029
-Email: qadeer@factualsolutions.com
+Direct: ${contactDetails.phone}
+Email: ${contactDetails.email}
 Web: https://factual-solutions.vercel.app`;
 
   return {

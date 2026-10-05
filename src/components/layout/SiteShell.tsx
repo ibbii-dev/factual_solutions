@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import HeroFilm from "@/components/ui/HeroFilm";
 

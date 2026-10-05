@@ -163,6 +163,9 @@ function ServicesContent() {
                         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink dark:text-white font-display">
                           {pillar.title}
                         </h2>
+                        {pillar.id === "digital" && (
+                          <p className="text-sm sm:text-base font-bold text-navy dark:text-steel-light max-w-2xl">{pillar.tagline}</p>
+                        )}
                         <p className="text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">{pillar.intro}</p>
                       </div>
                     </div>
@@ -171,69 +174,82 @@ function ServicesContent() {
                     </span>
                   </ScrollReveal>
 
-                  <StaggerContainer delayChildren={0.05} staggerChildren={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                    {items.map((service) => (
+                  <StaggerContainer delayChildren={0.05} staggerChildren={0.06} className="flex flex-col gap-4 sm:gap-5">
+                    {items.map((service, sIdx) => (
                       <StaggerItem
                         key={service.id}
                         variant="fade-up"
-                        className="relative overflow-hidden bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-7 shadow-card border border-slate-200/80 dark:border-white/10 flex flex-col justify-between hover:border-navy/25 dark:hover:border-steel/30 hover:shadow-lift hover:-translate-y-1 transition-all duration-300 group text-ink dark:text-white"
+                        className="relative overflow-hidden bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 hover:border-navy/25 dark:hover:border-steel/30 hover:shadow-lift transition-all duration-300 group text-ink dark:text-white"
                       >
-                        <span className="absolute top-0 inset-x-0 h-[3px] bg-brand-tri scale-x-0 origin-left rtl:origin-right group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between gap-3">
-                            <div className={`w-11 h-11 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-sm ${pillarTone[pillar.id]}`}>
-                              {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
+                        <span className="absolute inset-y-0 start-0 w-[4px] bg-gradient-to-b from-navy via-steel to-rust scale-y-0 origin-top group-hover:scale-y-100 transition-transform duration-500" aria-hidden="true" />
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
+                          {/* Category */}
+                          <div className="md:col-span-5 flex flex-col gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm shrink-0 ${pillarTone[pillar.id]}`}>
+                                {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
+                              </div>
+                              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.14em]">
+                                {String(sIdx + 1).padStart(2, "0")} · {service.deliverables.length} {isAr ? "مجالات" : "Focus Areas"}
+                              </span>
                             </div>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.14em] text-end">
-                              {service.deliverables.length} {isAr ? "مجالات" : "Focus Areas"}
-                            </span>
+                            <div className="space-y-2">
+                              <Link href={`/services/${service.id}`}>
+                                <h3 className="text-xl sm:text-2xl font-bold text-ink dark:text-white leading-snug font-display group-hover:text-navy dark:group-hover:text-steel-light transition-colors">
+                                  {service.title}
+                                </h3>
+                              </Link>
+                              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{service.shortDescription}</p>
+                            </div>
+                            <div className="flex items-center gap-3 mt-auto pt-1">
+                              <Link
+                                href={`/services/${service.id}`}
+                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-navy-50 dark:bg-white/10 text-navy dark:text-steel-light text-xs font-bold hover:bg-navy hover:text-white dark:hover:bg-steel dark:hover:text-ink transition-colors"
+                              >
+                                <span>{sp.viewDetails}</span>
+                              </Link>
+                              <Link
+                                href={`/contact?service=${encodeURIComponent(service.title)}`}
+                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-ink dark:text-white border border-slate-200 dark:border-white/15 hover:bg-rust hover:text-white hover:border-rust transition-colors"
+                              >
+                                <span>{isAr ? "اطلب هذه الخدمة" : "Enquire"}</span>
+                                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                              </Link>
+                            </div>
                           </div>
 
-                          <div className="space-y-1.5">
-                            <Link href={`/services/${service.id}`}>
-                              <h3 className="text-lg font-bold text-ink dark:text-white leading-snug font-display group-hover:text-navy dark:group-hover:text-steel-light transition-colors">
-                                {service.title}
-                              </h3>
-                            </Link>
-                            <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed">
-                              {service.shortDescription}
-                            </p>
-                          </div>
-
-                          <ul className="space-y-1.5 pt-1">
-                            {service.deliverables.slice(0, 5).map((del, dIdx) => (
-                              <li key={dIdx} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-100 font-medium">
-                                <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-accent" />
+                          {/* Everything this category covers, listed vertically */}
+                          <ul className="md:col-span-7 flex flex-col divide-y divide-slate-100 dark:divide-white/10 md:border-s md:border-slate-100 md:dark:border-white/10 md:ps-8">
+                            {service.deliverables.map((del, dIdx) => (
+                              <li key={dIdx} className="flex items-start gap-3 py-2.5 first:pt-0 last:pb-0 text-sm text-slate-700 dark:text-slate-100 font-medium">
+                                <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
                                 <span>{del}</span>
                               </li>
                             ))}
-                            {service.deliverables.length > 5 && (
-                              <li className="text-xs font-semibold text-slate-500 dark:text-slate-400 ps-5">
-                                {isAr ? `+ ${service.deliverables.length - 5} المزيد` : `+ ${service.deliverables.length - 5} more`}
-                              </li>
-                            )}
                           </ul>
-                        </div>
-
-                        <div className="pt-5 mt-5 border-t border-slate-100 dark:border-white/15 flex items-center justify-between">
-                          <Link
-                            href={`/services/${service.id}`}
-                            className="text-xs font-bold text-navy dark:text-steel-light hover:text-accent transition-colors flex items-center gap-1"
-                          >
-                            <span>{sp.viewDetails}</span>
-                          </Link>
-                          <Link
-                            href={`/contact?service=${encodeURIComponent(service.title)}`}
-                            className="p-2 rounded-xl text-ink dark:text-white transition-all duration-200 bg-slate-100 hover:bg-rust hover:text-white dark:bg-white/15 dark:hover:bg-rust border border-slate-200 dark:border-white/10"
-                            title={isAr ? "اطلب هذه الخدمة" : "Enquire about this service"}
-                            aria-label={isAr ? "اطلب هذه الخدمة" : "Enquire about this service"}
-                          >
-                            <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
-                          </Link>
                         </div>
                       </StaggerItem>
                     ))}
                   </StaggerContainer>
+
+                  {pillar.id === "digital" && (
+                    <ScrollReveal variant="fade-up" className="mt-6 rounded-2xl p-6 sm:p-8 bg-rust/[0.06] dark:bg-white/5 border border-rust/15 dark:border-white/10">
+                      <h3 className="text-lg sm:text-xl font-bold font-display text-ink dark:text-white">
+                        {isAr ? "تحول رقمي مبني حول أعمالكم" : "Digital Transformation, Built Around the Business"}
+                      </h3>
+                      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
+                        {isAr
+                          ? "لا نقوم برقمنة العمليات غير الفعالة؛ بل نحسّنها أولاً ثم نبني التقنية حولها. يربط نهجنا بين تحسين العمليات وأنظمة ERP وأتمتة سير العمل والبيانات والأفراد لتحقق الأنظمة الرقمية قيمة تشغيلية قابلة للقياس."
+                          : "We don't digitize inefficient processes, we improve them first, then build the technology around them. Our approach connects process improvement, ERP, workflow automation, data, and people so that digital systems deliver measurable operational value."}
+                      </p>
+                      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+                        <Link href="/blog" className="font-bold text-accent hover:underline">{isAr ? "تصفح مدونتنا ←" : "Explore our Blog →"}</Link>{" "}
+                        {isAr
+                          ? "للاطلاع على رؤى عملية حول ERP وERPNext وأتمتة سير العمل والتحول الرقمي وتحسين العمليات والتميز التشغيلي المدعوم بالتقنية."
+                          : "for practical insights on ERP, ERPNext, workflow automation, digital transformation, process improvement, and technology-enabled operational excellence."}
+                      </p>
+                    </ScrollReveal>
+                  )}
                 </section>
               );
             })}
@@ -263,10 +279,12 @@ function ServicesContent() {
                   ? "تحدد الاستشارات ما يجب تغييره. ويبني التدريب القدرة على تغييره. ويساعد التطبيق الرقمي على جعل التحسين جزءاً من العمل اليومي."
                   : "Consulting identifies what needs to change. Training builds the capability to change it. Digital implementation helps make the improvement part of everyday work."}
               </p>
-              <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-bold text-steel-light hover:text-white transition-colors">
-                <span>{isAr ? "تصفح المدونة" : "Explore our Blog"}</span>
-                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-              </Link>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                <Link href="/blog" className="font-bold text-steel-light hover:text-white transition-colors">{isAr ? "تصفح مدونتنا ←" : "Explore our Blog →"}</Link>{" "}
+                {isAr
+                  ? "للاطلاع على رؤى وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية والجودة والتحسين المستدام."
+                  : "for practical insights, tools, and real-world perspectives on operational excellence, strategy, quality, and sustainable improvement."}
+              </p>
             </div>
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
               {pillars.map((p, i) => (

@@ -32,25 +32,25 @@ export default function ConsultationBanner() {
               </div>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display leading-[1.1]">
-                Improvement That Works in Practice
+                Practical Experience. Transferable Methods. Measurable Improvement.
               </h2>
 
               <p className="text-sm sm:text-base text-slate-200/90 leading-relaxed max-w-xl">
-                We have worked inside factories, alongside project teams, and with leadership in boardrooms. Talk to us about consulting, training, or ERP and digital transformation for your organization.
+                We bring the perspective of practitioners who have worked with real processes, real teams, real constraints, and real business challenges. Our role is not simply to recommend what should change, but to help organizations understand, implement, measure, and sustain that change.
               </p>
 
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2.5 sm:gap-6 pt-1 text-sm text-white/90 font-medium">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-steel shrink-0" />
-                  <span>Practical Experience</span>
+                  <span>Consulting</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-steel shrink-0" />
-                  <span>Transferable Methods</span>
+                  <span>Training</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-steel shrink-0" />
-                  <span>Measurable Improvement</span>
+                  <span>ERP &amp; Digital Transformation</span>
                 </div>
               </div>
 

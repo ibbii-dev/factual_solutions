@@ -63,15 +63,15 @@ function BlogContent() {
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-accent" />
-            <span>Strategic Intelligence &amp; Blog</span>
+            <span>Blog</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white font-display leading-tight">
-            Executive Blog &amp; Advisory Perspectives
+            Insights from Practice
           </h1>
 
           <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-100 max-w-2xl mx-auto leading-relaxed font-normal">
-            Data-backed methodologies, corporate finance research, and practical operational frameworks curated by our senior consulting partners.
+            Practical insights, tools, and real-world perspectives on operational excellence, strategy, Lean Six Sigma, quality, ERP, digital transformation, and continuous improvement.
           </p>
         </div>
 
@@ -102,7 +102,7 @@ function BlogContent() {
       {isLoading && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <div className="w-8 h-8 border-3 border-rust border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-slate-500 dark:text-slate-200">Loading strategic intelligence articles...</p>
+          <p className="text-xs text-slate-500 dark:text-slate-200">Loading articles...</p>
         </div>
       )}
 
@@ -112,16 +112,18 @@ function BlogContent() {
           <div className="w-10 h-10 rounded-xl bg-navy-50 dark:bg-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-300">
             <BookOpen className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-ink dark:text-white">No articles found</h3>
+          <h3 className="text-base font-bold text-ink dark:text-white">{searchQuery ? "No articles found" : "Articles coming soon"}</h3>
           <p className="text-xs text-slate-600 dark:text-slate-200">
-            No published blog posts match your current search query.
+            {searchQuery ? "No published blog posts match your search." : "New articles are on the way. Check back soon."}
           </p>
+          {searchQuery && (
           <button
             onClick={() => setSearchQuery("")}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rust text-white text-xs font-bold hover:bg-rust-dark transition-colors"
           >
             Clear Search
           </button>
+          )}
         </div>
       )}
 

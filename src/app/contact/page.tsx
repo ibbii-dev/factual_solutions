@@ -134,7 +134,7 @@ function ContactContent() {
         {/* Page Hero */}
         <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
-            <span>DIRECT ENGAGEMENT</span>
+            <span>CONTACT US</span>
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
             {c.headline}
@@ -156,7 +156,7 @@ function ContactContent() {
                 }`}
               >
                 <Bot className="w-3.5 h-3.5 text-accent" />
-                <span>Advisory Inquiry &amp; AI Diagnostic</span>
+                <span>Send a Message</span>
               </button>
 
               <button
@@ -169,7 +169,7 @@ function ContactContent() {
                 }`}
               >
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Partner Calendar (30-Min Discovery)</span>
+                <span>Book a Discussion</span>
               </button>
             </div>
           </div>
@@ -206,7 +206,7 @@ function ContactContent() {
                           <Bot className="w-3.5 h-3.5" />
                         </div>
                         <span className="text-xs font-bold text-ink dark:text-white uppercase tracking-wider">
-                          JARVIS AI Preliminary Diagnostic
+                          Preliminary Assessment
                         </span>
                       </div>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200 dark:bg-white/15 text-ink dark:text-white border border-slate-300 dark:border-white/15">
