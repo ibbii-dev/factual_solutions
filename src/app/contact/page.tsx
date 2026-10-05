@@ -265,9 +265,9 @@ function ContactContent() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-bold text-ink dark:text-white mb-0.5 font-display">
+                  <h2 className="text-lg font-bold text-ink dark:text-white mb-0.5 font-display">
                     {c.formTitle}
-                  </h3>
+                  </h2>
                   <p className="text-xs text-slate-600 dark:text-slate-200">
                     {c.formSubtitle}
                   </p>
@@ -470,7 +470,7 @@ function ContactContent() {
                   className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/30 hover:border-emerald-400 transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                    <svg className="w-4 h-4 fill-current" viewBox="24 24">
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                       <path d="M17.472 14.382c-.301-.15-1.781-.879-2.057-.98-.276-.1-.477-.15-.678.15-.201.3-.778.98-.954 1.18-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.495-.896-.799-1.501-1.787-1.677-2.088-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.201-.301.301-.502.1-.201.05-.376-.025-.527-.075-.15-.678-1.634-.929-2.237-.245-.588-.494-.508-.678-.517l-.578-.01c-.201 0-.527.075-.803.376s-1.054 1.03-1.054 2.511c0 1.482 1.079 2.912 1.23 3.113.15.201 2.123 3.242 5.143 4.547.718.31 1.279.496 1.716.635.722.23 1.379.197 1.898.12.578-.087 1.781-.728 2.032-1.431.251-.703.251-1.305.175-1.431-.075-.125-.276-.201-.577-.351zM12.042 21.996h-.008a9.93 9.93 0 0 1-5.068-1.391l-.364-.216-3.766.988 1.005-3.67-.237-.378a9.92 9.92 0 0 1-1.523-5.275c0-5.485 4.464-9.95 9.955-9.95 2.657 0 5.155 1.036 7.032 2.915a9.88 9.88 0 0 1 2.913 7.034c0 5.487-4.465 9.953-9.957 9.953z" />
                     </svg>
                   </div>

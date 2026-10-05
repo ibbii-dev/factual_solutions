@@ -17,6 +17,7 @@ import {
   ChevronUp
 } from "lucide-react";
 import { useUserAuth } from "@/context/UserAuthContext";
+import { loadScript } from "@/lib/loadScript";
 
 export default function AuthModal() {
   const router = useRouter();
@@ -98,10 +99,16 @@ export default function AuthModal() {
       }
     };
 
-    const timer = setTimeout(setupGoogleGSI, 300);
+    // Google Identity Services is only downloaded when the sign-in modal opens.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    loadScript("https://accounts.google.com/gsi/client", "google-gsi-client")
+      .then(() => {
+        if (isMounted) timer = setTimeout(setupGoogleGSI, 50);
+      })
+      .catch(() => {});
     return () => {
       isMounted = false;
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
     };
   }, [isAuthModalOpen, googleClientId, loginWithGoogle, router]);
 
@@ -213,7 +220,7 @@ export default function AuthModal() {
 
             <div className="flex items-center gap-3 mb-2">
               <div className="relative w-8 h-8 shrink-0">
-                <Image
+                <Image sizes="64px"
                   src="/images/logo-symbol.png"
                   alt="Factual Solutions"
                   fill

@@ -169,7 +169,7 @@ function ServicesContent() {
                         <p className="text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">{pillar.intro}</p>
                       </div>
                     </div>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 shrink-0">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600 dark:text-slate-400 shrink-0">
                       {items.length} {isAr ? "فئات" : items.length === 1 ? "Category" : "Categories"}
                     </span>
                   </ScrollReveal>
@@ -189,7 +189,7 @@ function ServicesContent() {
                               <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm shrink-0 ${pillarTone[pillar.id]}`}>
                                 {iconMap[service.iconName] || <Briefcase className="w-5 h-5" />}
                               </div>
-                              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.14em]">
+                              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.14em]">
                                 {String(sIdx + 1).padStart(2, "0")} · {service.deliverables.length} {isAr ? "مجالات" : "Focus Areas"}
                               </span>
                             </div>

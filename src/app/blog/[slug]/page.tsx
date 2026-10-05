@@ -218,7 +218,7 @@ export default async function BlogPostPage({
         <div className="pt-4 pb-6 border-y border-slate-200/80 dark:border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-full overflow-hidden bg-brand-rust/20 relative shrink-0 border border-brand-rust/30">
-              <Image
+              <Image sizes="64px"
                 src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
                 alt={post.author.name}
                 fill
@@ -244,7 +244,7 @@ export default async function BlogPostPage({
       {post.coverImage && (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
           <div className="relative h-72 sm:h-96 lg:h-[480px] w-full rounded-3xl overflow-hidden shadow-lift border border-slate-200 dark:border-slate-800 bg-slate-900">
-            <Image
+            <Image sizes="(max-width: 1024px) 100vw, 1024px"
               src={post.coverImage}
               alt={post.coverImageAlt || post.title}
               fill
@@ -285,7 +285,7 @@ export default async function BlogPostPage({
         {/* Author Executive Card */}
         <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-night-800/60 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left text-ink dark:text-white">
           <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
-            <Image
+            <Image sizes="64px"
               src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
               alt={post.author.name}
               fill
@@ -355,7 +355,7 @@ export default async function BlogPostPage({
                 className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl overflow-hidden shadow-card hover:shadow-lift transition-all group flex flex-col justify-between text-ink dark:text-white"
               >
                 <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
-                  <Image
+                  <Image sizes="(max-width: 640px) 100vw, 400px"
                     src={related.coverImage || "/images/consulting-meeting.jpg"}
                     alt={related.title}
                     fill

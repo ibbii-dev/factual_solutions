@@ -7,6 +7,25 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { UserAuthProvider } from "@/context/UserAuthContext";
 import AuthModal from "@/components/auth/AuthModal";
 import SiteShell from "@/components/layout/SiteShell";
+import { contactDetails } from "@/data/companyData";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://factual-solutions.vercel.app";
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Factual Solutions",
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/logo-symbol.png`,
+  image: `${SITE_URL}/images/logo-symbol.png`,
+  description:
+    "Consulting, training, and ERP & digital transformation: Lean Six Sigma, operational excellence, strategy, quality, and continuous improvement.",
+  email: contactDetails.email,
+  telephone: contactDetails.phone,
+  address: { "@type": "PostalAddress", addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" },
+  areaServed: "Worldwide",
+  knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
+};
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +55,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  openGraph: {
+    type: "website",
+    siteName: "Factual Solutions",
+    title: "Factual Solutions | Consulting, Training & Digital Transformation",
+    description: "Consulting, training, and ERP & digital transformation that help organizations perform better.",
+    url: SITE_URL,
+  },
   title: "Factual Solutions | Consulting, Training & Digital Transformation",
   description: "Factual Solutions helps organizations perform better through consulting, training, and ERP & digital transformation—Lean Six Sigma, operational excellence, strategy, quality, and continuous improvement.",
   keywords: ["Factual Solutions", "Management Consulting", "Lean Six Sigma", "Operational Excellence", "Training", "ERP", "ERPNext", "Digital Transformation", "TPM", "Balanced Scorecard"],
@@ -80,7 +107,6 @@ export default function RootLayout({
             `,
           }}
         />
-        <script src="https://accounts.google.com/gsi/client" async defer />
       </head>
       <body className="font-sans antialiased bg-canvas text-ink dark:text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
         <ThemeProvider>
@@ -92,6 +118,10 @@ export default function RootLayout({
           </LanguageProvider>
         </ThemeProvider>
         <SpeedInsights />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </body>
     </html>
   );

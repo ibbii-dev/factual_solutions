@@ -99,7 +99,7 @@ export default function Footer() {
             <Link href="/" className="inline-flex items-center gap-3 group select-none">
               <div className="relative w-11 h-11 shrink-0 rounded-xl bg-white p-1.5 shadow-lg">
                 <div className="relative w-full h-full">
-                  <Image
+                  <Image sizes="48px"
                     src="/images/logo-symbol.png"
                     alt="Factual Solutions Symbol"
                     fill
@@ -205,12 +205,12 @@ export default function Footer() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-300">
             <Link href="/contact" className="hover:text-white font-semibold transition-colors">Contact Us</Link>
-            <span className="text-white/20">•</span>
+            <span className="text-white/30" aria-hidden="true">•</span>
             <Link href="/about" className="hover:text-white transition-colors">Who We Are</Link>
-            <span className="text-white/20">•</span>
+            <span className="text-white/30" aria-hidden="true">•</span>
             <Link href="/services" className="hover:text-white transition-colors">What We Do</Link>
-            <span className="text-white/20">•</span>
-            <Link href="/admin" className="text-slate-500 hover:text-slate-200 transition-colors text-[11px]">Staff Admin</Link>
+            <span className="text-white/30" aria-hidden="true">•</span>
+            <Link href="/admin" className="text-slate-400 hover:text-white transition-colors text-[11px]">Staff Admin</Link>
           </div>
         </div>
 

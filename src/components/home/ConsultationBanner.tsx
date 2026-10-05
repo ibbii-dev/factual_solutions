@@ -20,7 +20,7 @@ export default function ConsultationBanner() {
             {/* Decorative: logo mark */}
             <div className="absolute -bottom-24 -right-24 w-[380px] h-[380px] rounded-full bg-steel/20 blur-3xl pointer-events-none" aria-hidden="true" />
             <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[360px] h-[360px] opacity-90 hidden lg:block pointer-events-none" aria-hidden="true">
-              <Image src="/images/logo-symbol.png" alt="" fill className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)]" />
+              <Image sizes="360px" src="/images/logo-symbol.png" alt="" fill className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)]" />
             </div>
             <div className="absolute top-0 left-0 h-1 w-full bg-brand-tri" aria-hidden="true" />
 

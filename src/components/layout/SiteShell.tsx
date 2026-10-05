@@ -28,7 +28,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
       <ScrollProgress />
       <Navbar />
-      <main className="flex-grow relative z-0 bg-transparent">
+      <main className="flex-grow relative z-0 bg-transparent min-h-screen">
         {/* Brand backdrop for inner pages: soft logo-color glows */}
         {pathname !== "/" && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[620px] -z-10 overflow-hidden">

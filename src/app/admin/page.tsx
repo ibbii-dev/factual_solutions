@@ -847,7 +847,7 @@ Invite the reader to get in touch or explore a related service.`;
           
           <div className="text-center space-y-3">
             <div className="relative w-14 h-14 mx-auto p-2 rounded-2xl bg-gradient-to-br from-brand-rust/20 to-night-850 border border-brand-rust/30 flex items-center justify-center">
-              <Image
+              <Image sizes="48px"
                 src="/images/logo-symbol.png"
                 alt="Factual Solutions"
                 width={36}
@@ -947,7 +947,7 @@ Invite the reader to get in touch or explore a related service.`;
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-8 h-8 rounded-xl bg-brand-rust/20 border border-brand-rust/40 flex items-center justify-center overflow-hidden">
-              <Image
+              <Image sizes="48px"
                 src="/images/logo-symbol.png"
                 alt="Factual Solutions"
                 width={20}

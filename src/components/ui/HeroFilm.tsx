@@ -51,8 +51,20 @@ export default function HeroFilm({ variant = "hero" }: { variant?: "hero" | "pag
 
   return (
     <div aria-hidden="true" className={`pointer-events-none absolute inset-0 overflow-hidden ${variant === "hero" ? "bg-night-950" : ""}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={POSTER} alt="" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-right" />
+      <picture>
+        <source media="(max-width: 767px)" srcSet="/videos/hero-film-poster-768.webp" type="image/webp" />
+        <source srcSet="/videos/hero-film-poster.webp" type="image/webp" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={POSTER}
+          alt=""
+          width={1280}
+          height={720}
+          decoding="async"
+          fetchPriority={variant === "hero" ? "high" : "auto"}
+          className="absolute inset-0 w-full h-full object-cover object-right"
+        />
+      </picture>
       {load && (
         <video
           ref={ref}

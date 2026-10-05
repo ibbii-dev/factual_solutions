@@ -21,7 +21,7 @@ export const DEFAULT_BLOG_AUTHOR = {
   avatar: "/images/qadeer-ahmad-bhatti.jpg",
 };
 
-export const DEFAULT_BLOG_COVER = "/images/consulting-meeting.jpg";
+export const DEFAULT_BLOG_COVER = "/images/consulting-meeting.webp";
 
 export function calculateReadTime(content: string): string {
   const words = content.trim() ? content.trim().split(/\s+/).length : 0;

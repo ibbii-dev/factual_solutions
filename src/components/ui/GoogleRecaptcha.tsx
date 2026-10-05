@@ -133,7 +133,7 @@ export default function GoogleRecaptcha({
 
       <div className="min-h-[78px] flex items-center">
         {loadError ? (
-          <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
+          <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>
               {language === "ar"

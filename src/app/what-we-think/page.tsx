@@ -81,7 +81,7 @@ export default function WhatWeThinkPage() {
                   <span className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${tones[i]}`}>
                     <Icon className="w-5 h-5" />
                   </span>
-                  <span className="text-[11px] font-bold tracking-[0.14em] text-slate-400">0{i + 1}</span>
+                  <span className="text-[11px] font-bold tracking-[0.14em] text-slate-500 dark:text-slate-400">0{i + 1}</span>
                 </div>
                 <div className="space-y-1.5">
                   <h2 className="text-lg sm:text-xl font-bold font-display text-ink dark:text-white">{p.title}</h2>

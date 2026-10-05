@@ -187,3 +187,27 @@ html.dark ::selection { color: #FFFFFF; }
   100% { transform: translate3d(14px, -160px, 0) scale(1); opacity: 0; }
 }
 .fs-particle { animation: fsRise 10s ease-in-out infinite; }
+
+/* ------------------------------------------------------------------ */
+/* Load-time entrance animations (pure CSS: they start at first paint, */
+/* so above-the-fold content never waits for JavaScript to hydrate).   */
+/* ------------------------------------------------------------------ */
+@keyframes fsPageIn {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fsWordUp {
+  from { opacity: 0; transform: translate3d(0, 105%, 0); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fsDraw {
+  to { stroke-dashoffset: 0; }
+}
+.fs-page-in { animation: fsPageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fs-hero-in { animation: fsPageIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--fs-delay, 0s); }
+.fs-word { display: inline-block; animation: fsWordUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--fs-delay, 0s); }
+.fs-draw { stroke-dasharray: 320; stroke-dashoffset: 320; animation: fsDraw 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .fs-page-in, .fs-hero-in, .fs-word { animation: none; }
+  .fs-draw { animation: none; stroke-dashoffset: 0; }
+}

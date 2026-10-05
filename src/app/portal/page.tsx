@@ -156,7 +156,7 @@ export default function ClientPortalPage() {
           <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
             <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-ink text-white flex items-center justify-center font-bold text-base sm:text-lg shrink-0 border border-slate-200 dark:border-slate-700 shadow-xs">
               {user?.avatar ? (
-                <Image src={user.avatar} alt={user.name} fill className="object-cover" />
+                <Image sizes="96px" src={user.avatar} alt={user.name} fill className="object-cover" />
               ) : (
                 <span>{user?.name?.charAt(0) || "C"}</span>
               )}

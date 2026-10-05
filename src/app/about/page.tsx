@@ -156,7 +156,7 @@ export default function AboutPage() {
               <span>{c.leadBadge}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-ink dark:text-white font-display">{c.leadName}</h2>
-            <p className="text-sm font-semibold text-slate-500 dark:text-slate-300">{c.leadRole}</p>
+            <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">{c.leadRole}</p>
           </ScrollReveal>
 
           <ScrollReveal variant="fade-up" className="bg-white dark:bg-night-800/80 rounded-3xl p-6 sm:p-10 border border-slate-200/80 dark:border-white/10 shadow-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">

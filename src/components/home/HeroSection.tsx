@@ -2,10 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useInView, animate, useReducedMotion } from "framer-motion";
-import { ArrowRight, Layers, ShieldCheck, CheckCircle2, TrendingUp, Compass, BarChart3 } from "lucide-react";
+import { useInView, animate, useReducedMotion } from "framer-motion";
+import { ArrowRight, Layers, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import HeroFilm from "@/components/ui/HeroFilm";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -37,28 +36,26 @@ function CountUp({ value }: { value: string }) {
   return <span ref={ref}>{display}</span>;
 }
 
-/** Headline that reveals word by word with a soft blur-rise. */
+/** Headline that reveals word by word (CSS-driven, so it paints without waiting for JS). */
 function RevealWords({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
   return (
     <>
-      {text.split(" ").map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]">
-          <motion.span
-            className={`inline-block ${className}`}
-            initial={{ y: "105%", opacity: 0 }}
-            animate={{ y: "0%", opacity: 1 }}
-            transition={{ duration: 0.8, delay: delay + i * 0.07, ease: EASE }}
-          >
-            {word}
-            {" "}
-          </motion.span>
-        </span>
+      {text.split(" ").map((word, i, arr) => (
+        <React.Fragment key={i}>
+          <span className="inline-block overflow-hidden align-bottom pb-[0.08em] -mb-[0.08em]">
+            <span
+              className={`fs-word ${className}`}
+              style={{ "--fs-delay": `${(delay + i * 0.05).toFixed(2)}s` } as React.CSSProperties}
+            >
+              {word}
+            </span>
+          </span>
+          {i < arr.length - 1 ? " " : null}
+        </React.Fragment>
       ))}
     </>
   );
 }
-
-const bars = [38, 52, 46, 64, 58, 76, 88];
 
 export default function HeroSection() {
   const { language } = useLanguage();
@@ -72,7 +69,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="dark relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
+    <section className="dark relative pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
       {/* Cinematic 3D puzzle-cube film (dark stage in both themes) */}
       <HeroFilm />
 
@@ -81,42 +78,28 @@ export default function HeroSection() {
 
           {/* Copy column */}
           <div className="lg:col-span-7 space-y-7 text-center lg:text-start">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE }}
-              className="inline-flex items-center gap-2.5 ps-1.5 pe-4 py-1.5 rounded-full bg-white dark:bg-white/5 border border-navy/10 dark:border-white/10 text-navy dark:text-steel-light text-[10px] sm:text-[11px] font-bold tracking-[0.08em] sm:tracking-[0.14em] uppercase shadow-card max-w-full"
-            >
-              <span className="relative inline-flex items-center justify-center w-6 h-6 rounded-full bg-navy text-white">
-                <span className="absolute inset-0 rounded-full bg-navy/40 animate-ping" aria-hidden="true" />
-                <ShieldCheck className="relative w-3.5 h-3.5" />
-              </span>
-              <span>{isAr ? "من الاستراتيجية إلى أرض المصنع" : "FROM STRATEGY TO SHOP FLOOR"}</span>
-            </motion.div>
 
             <h1 className="text-[2.35rem] sm:text-6xl lg:text-[4.25rem] font-extrabold tracking-tight text-ink dark:text-white leading-[1.06] font-display">
               {isAr ? (
                 <>
-                  <RevealWords text="تمكين المؤسسات" delay={0.1} />
+                  <RevealWords text="تمكين المؤسسات" delay={0} />
                   <br />
-                  <RevealWords text="لتنمية أعمالها بنجاح." className="text-navy dark:text-steel" delay={0.3} />
+                  <RevealWords text="لتنمية أعمالها بنجاح." className="text-navy dark:text-steel" delay={0.12} />
                 </>
               ) : (
                 <>
-                  <RevealWords text="Consulting People to" delay={0.1} />
+                  <RevealWords text="Consulting People to" delay={0} />
                   <br />
                   <span className="relative inline-block">
-                    <RevealWords text="Grow Their Business." className="text-navy dark:text-steel" delay={0.35} />
+                    <RevealWords text="Grow Their Business." className="text-navy dark:text-steel" delay={0.15} />
                     <svg className="absolute -bottom-1 left-0 w-[96%] h-3 text-rust" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true">
-                      <motion.path
+                      <path
+                        className="fs-draw"
                         d="M2 9 C 80 2, 220 2, 298 7"
                         stroke="currentColor"
                         strokeWidth="4"
                         fill="none"
                         strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 1.1, delay: 0.9, ease: EASE }}
                       />
                     </svg>
                   </span>
@@ -124,15 +107,15 @@ export default function HeroSection() {
               )}
             </h1>
 
-            <ScrollReveal variant="fade-up" delay={0.45} duration={0.8}>
+            <div className="fs-hero-in" style={{ "--fs-delay": "0.25s" } as React.CSSProperties}>
               <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 {isAr
                   ? "نجمع بين الاستشارات والتدريب والتطبيق الرقمي لمساعدة المؤسسات على تصميم أساليب عمل أفضل، وبناء القدرات اللازمة لاستدامتها، وترسيخ التحسين في العمليات اليومية."
                   : "We combine consulting, training, and digital implementation to help organizations design better ways of working, build the capabilities to sustain them, and embed improvement into daily operations."}
               </p>
-            </ScrollReveal>
+            </div>
 
-            <ScrollReveal variant="fade-up" delay={0.55} duration={0.8}>
+            <div className="fs-hero-in" style={{ "--fs-delay": "0.32s" } as React.CSSProperties}>
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1">
                 <Link
                   href="/contact"
@@ -150,15 +133,15 @@ export default function HeroSection() {
                   <span>{isAr ? "ما نقوم به" : "What We Do"}</span>
                 </Link>
               </div>
-            </ScrollReveal>
+            </div>
 
-            <ScrollReveal variant="fade-up" delay={0.65} duration={0.8}>
+            <div className="fs-hero-in" style={{ "--fs-delay": "0.4s" } as React.CSSProperties}>
               <ul className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "الاستشارات" : "Consulting"}</li>
                 <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "التدريب" : "Training"}</li>
                 <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "ERP والتحول الرقمي" : "ERP & Digital Transformation"}</li>
               </ul>
-            </ScrollReveal>
+            </div>
           </div>
 
           {/* Right side left open: the film is the visual */}
@@ -166,7 +149,7 @@ export default function HeroSection() {
         </div>
 
         {/* Metric strip with count-up numbers */}
-        <ScrollReveal variant="fade-up" delay={0.2} duration={0.8} className="pt-14 sm:pt-20">
+        <div className="fs-hero-in pt-14 sm:pt-20" style={{ "--fs-delay": "0.45s" } as React.CSSProperties}>
           <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl bg-white dark:bg-night-900/80 border border-slate-200/80 dark:border-white/10 shadow-card overflow-hidden">
             {stats.map((st, idx) => (
               <div
@@ -181,7 +164,7 @@ export default function HeroSection() {
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
 
       </div>
     </section>

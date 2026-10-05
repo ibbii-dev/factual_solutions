@@ -171,7 +171,9 @@ export default function CustomLanguageSelector() {
       }
     };
 
-    if (!document.getElementById("google-translate-hidden-script")) {
+    // Only download Google Translate (~200 KB) when a translated language is active.
+    // English visitors never load it; choosing a language sets the cookie and reloads.
+    if (activeLang !== "en" && !document.getElementById("google-translate-hidden-script")) {
       const script = document.createElement("script");
       script.id = "google-translate-hidden-script";
       script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";

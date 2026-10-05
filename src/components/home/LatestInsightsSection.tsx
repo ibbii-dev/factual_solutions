@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowRight,
@@ -20,6 +21,15 @@ import { BLOG_CATEGORIES, DEFAULT_BLOG_COVER } from "@/data/blogCategories";
 import { principalConsultant } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
+
+/** Local images go through next/image (resized + WebP/AVIF); external URLs fall back to a lazy <img>. */
+function PostImage({ src, sizes, className = "", priority = false }: { src?: string; sizes: string; className?: string; priority?: boolean }) {
+  const url = src || DEFAULT_BLOG_COVER;
+  if (url.startsWith("/")) {
+    return <Image src={url} alt="" fill sizes={sizes} priority={priority} className={className} />;
+  }
+  return <img src={url} alt="" loading="lazy" decoding="async" className={`absolute inset-0 w-full h-full ${className}`} />;
+}
 
 function formatDate(value: string, lang: string) {
   const d = new Date(value);
@@ -189,12 +199,7 @@ export default function LatestInsightsSection() {
               <ScrollReveal variant="fade-up">
                 <article className="group grid md:grid-cols-2 overflow-hidden rounded-3xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift transition-shadow">
                   <Link href={`/blog/${featured.slug}`} className="relative block aspect-[16/10] md:aspect-auto md:min-h-[300px] overflow-hidden bg-navy-900" tabIndex={-1} aria-hidden="true">
-                    <img
-                      src={featured.coverImage || DEFAULT_BLOG_COVER}
-                      alt=""
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    <PostImage src={featured.coverImage} sizes="(max-width: 768px) 100vw, 420px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                     <span className="absolute top-4 left-4 rtl:left-auto rtl:right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rust text-white text-[10.5px] font-bold uppercase tracking-wider shadow-cta">
                       {t.featured}
                     </span>
@@ -215,11 +220,9 @@ export default function LatestInsightsSection() {
                     )}
                     <div className="mt-auto flex items-center justify-between gap-3 pt-2">
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <img
-                          src={featured.author.avatar || principalConsultant.image}
-                          alt=""
-                          className="w-8 h-8 rounded-full object-cover border border-slate-200 dark:border-white/10"
-                        />
+                        <span className="relative w-8 h-8 rounded-full overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
+                          <PostImage src={featured.author.avatar || principalConsultant.image} sizes="32px" className="object-cover" />
+                        </span>
                         <div className="min-w-0">
                           <div className="text-xs font-bold text-ink dark:text-white truncate">{featured.author.name}</div>
                           <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{featured.author.role}</div>
@@ -244,12 +247,7 @@ export default function LatestInsightsSection() {
                     <StaggerItem key={post.id}>
                       <article className="group h-full flex flex-col overflow-hidden rounded-2xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift hover:-translate-y-0.5 transition-all duration-300">
                         <Link href={`/blog/${post.slug}`} className="relative block aspect-[16/9] overflow-hidden bg-navy-900" tabIndex={-1} aria-hidden="true">
-                          <img
-                            src={post.coverImage || DEFAULT_BLOG_COVER}
-                            alt=""
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
+                          <PostImage src={post.coverImage} sizes="(max-width: 640px) 100vw, 400px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                         </Link>
                         <div className="p-5 flex flex-col gap-2.5 flex-1">
                           <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-rust dark:text-rust-light">{post.category}</span>
@@ -364,12 +362,9 @@ export default function LatestInsightsSection() {
             <div className="rounded-2xl bg-white dark:bg-night-800/80 border border-slate-200/80 dark:border-white/10 shadow-card p-5">
               <h3 className="text-sm font-bold text-ink dark:text-white mb-3">{t.aboutTitle}</h3>
               <div className="flex items-center gap-3 mb-3">
-                <img
-                  src={principalConsultant.image}
-                  alt={principalConsultant.name}
-                  loading="lazy"
-                  className="w-14 h-14 rounded-xl object-cover border-2 border-steel/40"
-                />
+                <span className="relative w-14 h-14 rounded-xl overflow-hidden border-2 border-steel/40 shrink-0">
+                  <Image src={principalConsultant.image} alt={principalConsultant.name} fill sizes="56px" className="object-cover" />
+                </span>
                 <div>
                   <div className="text-sm font-bold text-ink dark:text-white">{principalConsultant.name}</div>
                   <div className="text-xs font-semibold text-rust dark:text-rust-light">{principalConsultant.role}</div>

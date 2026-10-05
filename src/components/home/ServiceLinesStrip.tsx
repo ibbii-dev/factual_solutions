@@ -51,7 +51,7 @@ export default function ServiceLinesStrip() {
                     <span className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm ${TONES[p.id]}`}>
                       <Icon className="w-5 h-5" />
                     </span>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                       {count} {isAr ? "فئات" : "categories"}
                     </span>
                   </div>

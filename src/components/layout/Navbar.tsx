@@ -123,7 +123,7 @@ export default function Navbar() {
             {/* Brand Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
               <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-105 shrink-0 dark:bg-white dark:rounded-lg dark:ring-4 dark:ring-white">
-                <Image
+                <Image sizes="56px"
                   src="/images/logo-symbol.png"
                   alt="Factual Solutions Symbol"
                   fill
@@ -294,7 +294,7 @@ export default function Navbar() {
                   >
                     <div className="relative w-7 h-7 rounded-full overflow-hidden bg-rust text-white flex items-center justify-center font-bold text-xs">
                       {user.avatar ? (
-                        <Image src={user.avatar} alt={user.name} fill className="object-cover" />
+                        <Image sizes="40px" src={user.avatar} alt={user.name} fill className="object-cover" />
                       ) : (
                         <span>{user.name.charAt(0)}</span>
                       )}
