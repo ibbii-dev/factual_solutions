@@ -6,7 +6,7 @@ import { motion, useInView, animate, useReducedMotion } from "framer-motion";
 import { ArrowRight, Layers, ShieldCheck, CheckCircle2, TrendingUp, Compass, BarChart3 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import CubeFilm from "@/components/ui/CubeFilm";
+import HeroFilm from "@/components/ui/HeroFilm";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -73,21 +73,8 @@ export default function HeroSection() {
 
   return (
     <section className="dark relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
-      {/* Dark cinematic stage in both themes; the live logo assembly is the visual */}
-
-      {/* Backdrop: slow-drifting logo-color glows */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-steel/25 dark:bg-steel/10 blur-3xl pointer-events-none"
-        animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        aria-hidden="true"
-        className="absolute top-20 -right-40 w-[460px] h-[460px] rounded-full bg-rust/10 dark:bg-rust/15 blur-3xl pointer-events-none"
-        animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Cinematic 3D puzzle-cube film (dark stage in both themes) */}
+      <HeroFilm />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
@@ -174,15 +161,13 @@ export default function HeroSection() {
             </ScrollReveal>
           </div>
 
-          {/* 3D-rendered puzzle cube film */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <CubeFilm className="w-[78%] max-w-[360px] sm:w-[60%] lg:w-[118%] lg:max-w-[600px] -mt-2 lg:-my-10 lg:-mr-10" />
-          </div>
+          {/* Right side left open: the film is the visual */}
+          <div className="hidden lg:block lg:col-span-5" aria-hidden="true" />
         </div>
 
         {/* Metric strip with count-up numbers */}
         <ScrollReveal variant="fade-up" delay={0.2} duration={0.8} className="pt-14 sm:pt-20">
-          <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl bg-white dark:bg-night-900/60 dark:backdrop-blur-md border border-slate-200/80 dark:border-white/10 shadow-card overflow-hidden">
+          <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl bg-white dark:bg-night-900/80 border border-slate-200/80 dark:border-white/10 shadow-card overflow-hidden">
             {stats.map((st, idx) => (
               <div
                 key={idx}
