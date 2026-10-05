@@ -2,156 +2,100 @@
 
 import React from "react";
 import Link from "next/link";
-import { 
-  ShoppingBag, 
-  Factory, 
-  Truck, 
-  Building2, 
-  Home, 
-  Cpu, 
-  ArrowRight 
+import {
+  Shirt,
+  FlaskConical,
+  Pill,
+  UtensilsCrossed,
+  Fuel,
+  Wheat,
+  Factory,
+  Zap,
+  Cpu,
+  Building2,
+  GraduationCap,
+  Users,
+  HeartHandshake,
+  ArrowRight,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
+import { StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
-const sectors = [
-  {
-    id: "retail",
-    icon: ShoppingBag,
-    badge: "RETAIL & E-COMMERCE",
-    title: "Retail & Consumer Commerce",
-    description: "Omnichannel scaling, inventory turn planning & unit economics.",
-    link: "/services?sector=retail"
-  },
-  {
-    id: "manufacturing",
-    icon: Factory,
-    badge: "MANUFACTURING",
-    title: "Manufacturing & Industrial",
-    description: "Lean factory structures, throughput optimization & CapEx equipment viability.",
-    link: "/services?sector=manufacturing"
-  },
-  {
-    id: "logistics",
-    icon: Truck,
-    badge: "LOGISTICS & TRADE",
-    title: "Logistics & Distribution",
-    description: "Route optimization, procurement formulas & distribution hub frameworks.",
-    link: "/services?sector=logistics"
-  },
-  {
-    id: "commercial",
-    icon: Building2,
-    badge: "CORPORATE SERVICES",
-    title: "Commercial Services",
-    description: "B2B organizational design, SLA restructuring & margin expansion.",
-    link: "/services?sector=commercial"
-  },
-  {
-    id: "real-estate",
-    icon: Home,
-    badge: "REAL ESTATE",
-    title: "Real Estate & Contracting",
-    description: "Financial feasibility, contractor cash-flow models & yield curve analysis.",
-    link: "/services?sector=realestate"
-  },
-  {
-    id: "tech",
-    icon: Cpu,
-    badge: "TECHNOLOGY & SAAS",
-    title: "Technology & Software",
-    description: "SaaS unit economics, CAC/LTV calibration & go-to-market roadmaps.",
-    link: "/services?sector=technology"
-  }
+const industries = [
+  { icon: Shirt, en: "Textiles & Apparel", ar: "المنسوجات والملابس" },
+  { icon: FlaskConical, en: "Chemicals", ar: "الكيماويات" },
+  { icon: Pill, en: "Pharmaceuticals", ar: "الأدوية" },
+  { icon: UtensilsCrossed, en: "Food & Beverages", ar: "الأغذية والمشروبات" },
+  { icon: Fuel, en: "Oil & Gas", ar: "النفط والغاز" },
+  { icon: Wheat, en: "Sugar", ar: "السكر" },
+  { icon: Factory, en: "Steel", ar: "الصلب" },
+  { icon: Zap, en: "Power & Utilities", ar: "الطاقة والمرافق" },
+  { icon: Cpu, en: "IT & Technology", ar: "تقنية المعلومات والتكنولوجيا" },
+  { icon: Building2, en: "Real Estate", ar: "العقارات" },
+  { icon: GraduationCap, en: "Academia", ar: "الأوساط الأكاديمية" },
+  { icon: Users, en: "HR & Organizational Development", ar: "الموارد البشرية والتطوير المؤسسي" },
+  { icon: HeartHandshake, en: "Nonprofits", ar: "المنظمات غير الربحية" },
 ];
 
-export default function IndustrySectorsSection() {
-  const { language, isRTL } = useLanguage();
-  const isAr = language === "ar";
+const tones = ["bg-navy text-white", "bg-steel text-ink", "bg-rust text-white"];
 
-  const tones = [
-    "bg-navy text-white",
-    "bg-steel text-ink",
-    "bg-rust text-white",
-  ];
+export default function IndustrySectorsSection() {
+  const { language } = useLanguage();
+  const isAr = language === "ar";
 
   return (
     <section className="relative py-20 sm:py-28 bg-white dark:bg-night-900 border-y border-slate-200/70 dark:border-white/5 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12 sm:mb-14">
           <div className="lg:col-span-7 space-y-4">
             <div className="brand-rule" aria-hidden="true" />
-            <span className="eyebrow block">
-              {isAr ? "القطاعات الاقتصادية" : "INDUSTRY SPECIALIZATIONS"}
-            </span>
+            <span className="eyebrow block">{isAr ? "القطاعات التي نخدمها" : "INDUSTRIES WE SERVE"}</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-ink dark:text-white font-display leading-[1.1]">
               {isAr ? (
-                <>
-                  خبرات قطاعية متخصصة <br />
-                  في الأسواق الرئيسية
-                </>
+                <>خبرة متعددة التخصصات<br /><span className="text-navy dark:text-steel">عبر قطاعات متنوعة</span></>
               ) : (
-                <>
-                  Advising Businesses Across <br />
-                  <span className="text-navy dark:text-steel">Key Industry Sectors</span>
-                </>
+                <>Multidisciplinary Experience<br /><span className="text-navy dark:text-steel">Across Many Sectors</span></>
               )}
             </h2>
           </div>
           <div className="lg:col-span-5">
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
               {isAr
-                ? "أطر عمل مصممة خصيصاً لكل قطاع، مع تقييم المخاطر وتحديد خطط العمل ذات الأثر التشغيلي العالي."
-                : "Tailored market frameworks, sector-specific risk registers, and operational playbooks configured for high-execution reliability."}
+                ? "تتيح لنا خبرتنا متعددة التخصصات العمل عبر مجموعة واسعة من القطاعات، مع أساليب قابلة للنقل وتحسين قابل للقياس."
+                : "Our multidisciplinary experience allows us to work across a wide range of sectors—bringing transferable methods and measurable improvement to each."}
             </p>
           </div>
         </div>
 
-        {/* 6 Cards Grid */}
-        <StaggerContainer delayChildren={0.1} staggerChildren={0.06} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {sectors.map((sector, idx) => {
-            const IconComp = sector.icon;
+        {/* Industries grid */}
+        <StaggerContainer delayChildren={0.05} staggerChildren={0.04} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+          {industries.map((ind, idx) => {
+            const Icon = ind.icon;
             return (
               <StaggerItem
-                key={sector.id}
-                className="relative p-6 sm:p-7 rounded-2xl bg-slate-50/70 dark:bg-night-800/70 border border-slate-200/80 dark:border-white/10 hover:bg-white dark:hover:bg-night-800 hover:border-navy/25 dark:hover:border-steel/30 hover:shadow-lift hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group text-ink dark:text-white overflow-hidden"
+                key={ind.en}
+                className="group flex items-center gap-3 p-4 rounded-2xl bg-slate-50/70 dark:bg-night-800/70 border border-slate-200/80 dark:border-white/10 hover:bg-white dark:hover:bg-night-800 hover:border-navy/25 dark:hover:border-steel/30 hover:shadow-lift hover:-translate-y-0.5 transition-all duration-300"
               >
-                <span className="absolute top-0 inset-x-0 h-[3px] bg-brand-tri scale-x-0 origin-left rtl:origin-right group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-6 group-hover:scale-110 ${tones[idx % 3]}`}>
-                      <IconComp className="w-5 h-5" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400 text-end pt-1">
-                      {sector.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg font-bold text-ink dark:text-white font-display group-hover:text-navy dark:group-hover:text-steel-light transition-colors">
-                    {sector.title}
-                  </h3>
-
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                    {sector.description}
-                  </p>
-                </div>
-
-                <div className="pt-5 mt-5 border-t border-slate-200/80 dark:border-white/10">
-                  <Link
-                    href={sector.link}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-navy dark:text-steel-light group-hover:text-accent transition-colors after:absolute after:inset-0"
-                  >
-                    <span>{isAr ? "استكشف خدمات القطاع" : "Explore Sector Services"}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
-                  </Link>
-                </div>
+                <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300 group-hover:scale-110 ${tones[idx % 3]}`}>
+                  <Icon className="w-[18px] h-[18px]" />
+                </span>
+                <span className="text-[13px] font-bold leading-snug text-ink dark:text-white">{isAr ? ind.ar : ind.en}</span>
               </StaggerItem>
             );
           })}
         </StaggerContainer>
 
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-navy hover:bg-navy-800 text-white text-sm font-bold transition-colors shadow-sm"
+          >
+            <span>{isAr ? "استكشف ما نقوم به" : "Explore What We Do"}</span>
+            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+          </Link>
+        </div>
       </div>
     </section>
   );

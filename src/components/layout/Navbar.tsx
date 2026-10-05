@@ -29,6 +29,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { useUserAuth } from "@/context/UserAuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import CustomLanguageSelector from "@/components/CustomLanguageSelector";
+import { getServicePillars, getServices } from "@/data/servicesData";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -97,50 +98,10 @@ export default function Navbar() {
     },
   ];
 
-  const featuredServicesList = [
-    {
-      title: language === "ar" ? "الإدارة الاستراتيجية" : "Strategic Management",
-      desc: language === "ar" ? "التوافق التنفيذي، مؤشرات الأداء وخارطة الطريق" : "Executive alignment, OKRs & roadmap",
-      href: "/services/strategic-consulting",
-      icon: Compass,
-      color: "#A2351E"
-    },
-    {
-      title: language === "ar" ? "النمذجة المالية ودراسات الجدوى" : "Financial Modeling & Feasibility",
-      desc: language === "ar" ? "تدفقات نقدية، العائد على الاستثمار والميزانيات" : "5-Year cash flows, ROI & budgets",
-      href: "/services/investment-planning",
-      icon: TrendingUp,
-      color: "#82A9E2"
-    },
-    {
-      title: language === "ar" ? "إدارة المشاريع ومنهجية لين" : "Projects & Lean Management",
-      desc: language === "ar" ? "مكاتب إدارة المشاريع، لين 6 سيجما والتدقيق" : "PMO delivery, Lean Six Sigma & audits",
-      href: "/services/projects-management",
-      icon: Layers,
-      color: "#1F3A7D"
-    },
-    {
-      title: language === "ar" ? "تحول العمليات وأنظمة ERP" : "Process & ERP Transformation",
-      desc: language === "ar" ? "إجراءات العمل المعيارية، التسليم والأتمتة" : "SOPs, handover optimization & workflows",
-      href: "/services/process-transformation",
-      icon: Cpu,
-      color: "#A2351E"
-    },
-    {
-      title: language === "ar" ? "الدراسات وأبحاث السوق" : "Studies & Feasibility Research",
-      desc: language === "ar" ? "تحليل دخول السوق والتحقق من الجدوى" : "Market entry analysis & demand validation",
-      href: "/services/studies-research",
-      icon: FileText,
-      color: "#82A9E2"
-    },
-    {
-      title: language === "ar" ? "حلول الأعمال المتخصصة" : "Specialized Business Solutions",
-      desc: language === "ar" ? "توسيع النطاق التجاري، والتعافي المؤسسي" : "Commercial scaling, turnarounds & growth",
-      href: "/services/business-growth",
-      icon: Briefcase,
-      color: "#1F3A7D"
-    }
-  ];
+  const servicePillars = getServicePillars(language);
+  const allServiceItems = getServices(language);
+  const pillarIcons = { consulting: Briefcase, training: Compass, digital: Cpu } as const;
+  const pillarColors = { consulting: "#1F3A7D", training: "#5E86C4", digital: "#A2351E" } as const;
 
   const isDark = theme === "dark";
 
@@ -196,7 +157,6 @@ export default function Navbar() {
                   return (
                     <div
                       key={link.name}
-                      className="relative"
                       onMouseEnter={handleServicesMouseEnter}
                       onMouseLeave={handleServicesMouseLeave}
                     >
@@ -216,34 +176,43 @@ export default function Navbar() {
                       <AnimatePresence>
                         {servicesDropdownOpen && (
                           <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                            initial={{ opacity: 0, x: "-50%", y: 10, scale: 0.98 }}
+                            animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: "-50%", y: 8, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-3 w-[420px] rounded-2xl shadow-lift p-3 border bg-white dark:bg-night-850 backdrop-blur-2xl border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100] overflow-hidden"
+                            className="absolute top-full left-1/2 mt-0 w-[min(860px,calc(100vw-48px))] rounded-2xl shadow-lift p-4 border bg-white dark:bg-night-850 border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100] overflow-hidden"
                           >
-                            <div className="flex flex-col space-y-1">
-                              {featuredServicesList.map((srv) => {
-                                const IconComp = srv.icon;
+                            <div className="grid grid-cols-3 gap-3">
+                              {servicePillars.map((pillar) => {
+                                const IconComp = pillarIcons[pillar.id];
                                 return (
-                                  <Link
-                                    key={srv.href}
-                                    href={srv.href}
-                                    onClick={() => setServicesDropdownOpen(false)}
-                                    className="group/item p-2.5 rounded-xl transition-all duration-200 border border-transparent hover:border-slate-200 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/10 flex items-center gap-3"
-                                  >
-                                    <div className="w-9 h-9 rounded-lg text-white flex items-center justify-center shrink-0 transition-transform group-hover/item:scale-105 shadow-sm" style={{ backgroundColor: srv.color }}>
-                                      <IconComp className="w-4 h-4" />
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                      <h4 className="font-bold text-xs text-slate-900 dark:text-white group-hover/item:text-navy dark:group-hover/item:text-steel-light transition-colors truncate">
-                                        {srv.title}
-                                      </h4>
-                                      <p className="text-[11px] text-slate-500 dark:text-slate-300 mt-0.5 line-clamp-1">
-                                        {srv.desc}
-                                      </p>
-                                    </div>
-                                  </Link>
+                                  <div key={pillar.id} className="rounded-xl p-2">
+                                    <Link
+                                      href={`/services?line=${pillar.id}#${pillar.id}`}
+                                      onClick={() => setServicesDropdownOpen(false)}
+                                      className="group/head flex items-center gap-2.5 mb-2 px-1"
+                                    >
+                                      <span className="w-8 h-8 rounded-lg text-white flex items-center justify-center shrink-0 shadow-sm" style={{ backgroundColor: pillarColors[pillar.id] }}>
+                                        <IconComp className="w-4 h-4" />
+                                      </span>
+                                      <span className="font-extrabold text-[13px] text-ink dark:text-white group-hover/head:text-accent transition-colors leading-tight">
+                                        {pillar.title}
+                                      </span>
+                                    </Link>
+                                    <ul className="space-y-0.5">
+                                      {allServiceItems.filter((s) => s.category === pillar.id).map((srv) => (
+                                        <li key={srv.id}>
+                                          <Link
+                                            href={`/services/${srv.id}`}
+                                            onClick={() => setServicesDropdownOpen(false)}
+                                            className="block px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white hover:bg-navy-50 dark:hover:bg-white/10 transition-colors"
+                                          >
+                                            {srv.title}
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
                                 );
                               })}
                             </div>
@@ -255,7 +224,7 @@ export default function Navbar() {
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className="flex items-center gap-1.5 font-bold text-accent hover:underline text-xs"
                               >
-                                <span>{language === "ar" ? "استكشف جميع الممارسات الـ 18" : "Explore All 18 Practices"}</span>
+                                <span>{language === "ar" ? "عرض جميع الخدمات" : "View All Services"}</span>
                                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                               </Link>
                               <Link
@@ -263,7 +232,7 @@ export default function Navbar() {
                                 onClick={() => setServicesDropdownOpen(false)}
                                 className="font-bold text-xs text-slate-800 dark:text-white bg-slate-100 hover:bg-rust hover:text-white dark:bg-white/15 dark:hover:bg-rust px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs border border-slate-200 dark:border-white/20"
                               >
-                                <span>{language === "ar" ? "اختبار التوجيه" : "Advisor Quiz"}</span>
+                                <span>{language === "ar" ? "ساعدني في الاختيار" : "Help Me Choose"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                               </Link>
                             </div>

@@ -342,7 +342,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     },
     contactPage: {
       headline: "Contact Our Advisory Team",
-      subheadline: "Get in touch directly with our consultants to discuss your business requirements, market analysis, or operational strategy.",
+      subheadline: "Talk to our consultants about consulting, training, or ERP and digital transformation for your organization.",
       formTitle: "Send a Message",
       formSubtitle: "Fill in the form below and we will get back to you promptly.",
       fullNameLabel: "Full Name *",
@@ -365,21 +365,21 @@ export const translations: Record<Language, TranslationDictionary> = {
       headOfficeTitle: "Head Office Location"
     },
     servicesPage: {
-      badge: "Enterprise Advisory Practices",
-      headline: "Comprehensive Business Solutions & Advisory",
-      subheadline: "Explore our integrated suite of strategic management consulting, financial engineering, feasibility research, and operational excellence practices.",
+      badge: "What We Do",
+      headline: "From Strategy to Shop Floor, We Help Organizations Perform Better",
+      subheadline: "Improvement only creates value when it works in practice. We combine consulting, training, and digital implementation to help organizations design better ways of working, build the capabilities to sustain them, and embed improvement into daily operations.",
       allTab: "All Practices",
       businessTab: "Commercial Solutions",
       consultingTab: "Management Consulting",
       searchPlaceholder: "Search services...",
       deliverableLabel: "Practical Deliverable",
-      viewDetails: "View Full Details →",
+      viewDetails: "View Details →",
       noResultsTitle: "No Matching Capabilities Found",
-      noResultsDesc: "Try adjusting your keyword search to discover relevant practices.",
+      noResultsDesc: "Try a different keyword or show all services.",
       resetFilters: "Clear Search"
     },
     footer: {
-      desc: "Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.",
+      desc: "Consulting, training, and digital implementation that help organizations perform better—from strategy to shop floor.",
       insightsTitle: "Monthly Advisory Insights",
       subscribed: "Subscribed! You will receive our monthly brief.",
       emailPlaceholder: "Enter business email",
@@ -552,7 +552,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     },
     contactPage: {
       headline: "تواصل مع فريقنا الاستشاري",
-      subheadline: "تواصل مباشرة مع مستشارينا لمناقشة متطلبات عملك، دراسات السوق، أو استراتيجيات التحول التشغيلي.",
+      subheadline: "تحدث مع مستشارينا حول الاستشارات أو التدريب أو أنظمة ERP والتحول الرقمي لمؤسستك.",
       formTitle: "إرسال رسالة",
       formSubtitle: "املأ النموذج أدناه وسيقوم فريقنا بالتواصل معك في أقرب وقت.",
       fullNameLabel: "الاسم الكامل *",
@@ -575,9 +575,9 @@ export const translations: Record<Language, TranslationDictionary> = {
       headOfficeTitle: "مقر المكتب الرئيسي"
     },
     servicesPage: {
-      badge: "الممارسات الاستشارية للمؤسسات",
-      headline: "حلول الأعمال المتكاملة والاستشارات الإدارية",
-      subheadline: "استكشف باقتنا المتكاملة من الاستشارات الإدارية الاستراتيجية، النماذج المالية، أبحاث الجدوى، والتميز التشغيلي.",
+      badge: "ما نقوم به",
+      headline: "من الاستراتيجية إلى أرض المصنع، نساعد المؤسسات على تحسين أدائها",
+      subheadline: "لا يخلق التحسين قيمة إلا عندما ينجح في الواقع. نجمع بين الاستشارات والتدريب والتطبيق الرقمي لمساعدة المؤسسات على تصميم أساليب عمل أفضل وبناء القدرات اللازمة لاستدامتها وترسيخ التحسين في العمليات اليومية.",
       allTab: "كافة الممارسات",
       businessTab: "حلول الأعمال",
       consultingTab: "الاستشارات الإدارية",
@@ -589,7 +589,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       resetFilters: "مسح البحث"
     },
     footer: {
-      desc: "استشارات عملية في تخطيط الأعمال، دراسات الجدوى، التخطيط المالي، والاستشارات الإدارية لتحقيق نمو مؤسسي مستدام.",
+      desc: "استشارات وتدريب وتطبيق رقمي يساعد المؤسسات على تحسين أدائها، من الاستراتيجية إلى أرض المصنع.",
       insightsTitle: "النشرة الاستشارية الشهرية",
       subscribed: "تم الاشتراك بنجاح! ستصلك نشرتنا الدورية.",
       emailPlaceholder: "أدخل البريد الإلكتروني للعمل",

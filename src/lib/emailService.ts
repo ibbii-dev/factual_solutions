@@ -250,7 +250,7 @@ export async function sendConsultantReplyEmail(
         <div class="header">
           <div class="brand-badge">Executive Advisory Response</div>
           <h1 class="brand-title">Factual Solutions Advisory</h1>
-          <p class="brand-sub">Corporate Turnaround &bull; Industrial Engineering &bull; Feasibility Advisory</p>
+          <p class="brand-sub">Consulting &bull; Training &bull; ERP &amp; Digital Transformation</p>
         </div>
 
         <div class="body-content">
@@ -278,7 +278,7 @@ export async function sendConsultantReplyEmail(
             <div style="margin-bottom: 8px; color: #64748b;">Warm regards,</div>
             <div class="signature-name">${payload.author}</div>
             <div class="signature-role">Factual Solutions Advisory Practice</div>
-            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Al-Khobar &bull; Riyadh, KSA &bull; International Advisory</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Lahore, Pakistan &bull; International Advisory</div>
           </div>
         </div>
 

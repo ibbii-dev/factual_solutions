@@ -28,8 +28,8 @@ export default function PartnerBookingWidget({
   onBookingComplete?: (details: any) => void;
   compact?: boolean;
 }) {
-  const [selectedMeetingType, setSelectedMeetingType] = useState<string>("30-Min Executive Discovery");
-  const [selectedTimezone, setSelectedTimezone] = useState<string>("Asia/Riyadh");
+  const [selectedMeetingType, setSelectedMeetingType] = useState<string>("Consulting Discussion");
+  const [selectedTimezone, setSelectedTimezone] = useState<string>("Asia/Karachi");
   const [selectedDateIndex, setSelectedDateIndex] = useState<number>(0);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [clientName, setClientName] = useState("");
@@ -188,6 +188,7 @@ export default function PartnerBookingWidget({
             onChange={(e) => setSelectedTimezone(e.target.value)}
             className="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer text-ink dark:text-white"
           >
+            <option value="Asia/Karachi" className="dark:bg-slate-900">Pakistan (PKT GMT+5)</option>
             <option value="Asia/Riyadh" className="dark:bg-slate-900">Riyadh (AST GMT+3)</option>
             <option value="Asia/Dubai" className="dark:bg-slate-900">Dubai (GST GMT+4)</option>
             <option value="Europe/London" className="dark:bg-slate-900">London (BST GMT+1)</option>
@@ -202,13 +203,13 @@ export default function PartnerBookingWidget({
         <div className="space-y-2">
           <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
             <Video className="w-3.5 h-3.5 text-accent" />
-            <span>1. Select Consulting Track</span>
+            <span>1. Select a Topic</span>
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {[
-              { id: "30-Min Executive Discovery", label: "Executive Discovery", desc: "Strategy & Turnaround Overview" },
-              { id: "Feasibility & Financial Modeling", label: "Feasibility & Modeling", desc: "CAPEX, Scrap, Multi-Branch" },
-              { id: "M&A & Partner Expansion", label: "M&A & Expansion", desc: "Valuation & KSA / GCC Entry" },
+              { id: "Consulting Discussion", label: "Consulting", desc: "Operations, Strategy, Quality" },
+              { id: "Training Program Discussion", label: "Training", desc: "Lean Six Sigma, PMP, TPM & more" },
+              { id: "ERP & Digital Discussion", label: "ERP & Digital", desc: "ERPNext, Workflows, Software" },
             ].map((track) => (
               <button
                 key={track.id}

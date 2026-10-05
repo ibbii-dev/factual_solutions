@@ -1,650 +1,676 @@
 import { Language } from "./translations";
 
+/**
+ * Factual Solutions — "What We Do"
+ * Three service lines (Consulting, Training, ERP & Digital Transformation),
+ * each broken into categories. Every category is a service page at /services/[id].
+ */
+
+export type ServiceCategory = "consulting" | "training" | "digital";
+
 export interface ServiceItem {
   id: string;
-  category: "business" | "consultancy";
+  category: ServiceCategory;
   title: string;
   shortDescription: string;
   fullDescription: string;
   iconName: string;
+  /** Service-line label shown as a tag (e.g. "Consulting") */
   metrics: string;
+  /** Everything this category covers */
   deliverables: string[];
   idealFor: string;
+  /** Engagement format (e.g. "Consulting Engagement") */
   duration: string;
   tags: string[];
   executionPhases?: { phase: string; title: string; desc: string }[];
 }
 
-export const businessServicesEN: ServiceItem[] = [
-  {
-    id: "business-idea",
-    category: "business",
-    title: "Business Idea & Model Development",
-    shortDescription: "Turning new business concepts into structured, practical, and viable commercial plans.",
-    fullDescription: "We assess the feasibility of your business idea, review customer demand, calculate realistic startup and running costs, and outline a step-by-step launch plan so you can invest with confidence.",
-    iconName: "Sparkles",
-    metrics: "Structured Launch Roadmap",
-    deliverables: [
-      "Commercial Feasibility Review",
-      "Cost & Revenue Estimation Model",
-      "Step-by-Step Launch Timeline",
-      "Target Customer Profile & Value Proposition"
-    ],
-    idealFor: "Entrepreneurs, business owners, and companies launching new products or services.",
-    duration: "3 - 6 Weeks",
-    tags: ["Business Idea", "Feasibility", "Planning", "Launch"],
-    executionPhases: [
-      { phase: "01", title: "Concept & Demand Validation", desc: "Evaluating market need, customer willingness-to-pay, and initial cost modeling." },
-      { phase: "02", title: "Unit Economics & Pricing Strategy", desc: "Structuring gross margins, customer acquisition cost benchmarks, and pricing tiers." },
-      { phase: "03", title: "Commercial Rollout Blueprint", desc: "Delivering a comprehensive operational launch roadmap with milestone checkpoints." }
-    ]
-  },
-  {
-    id: "market-analysis",
-    category: "business",
-    title: "Market Analysis & Industry Research",
-    shortDescription: "Clear research on competitors, market pricing, customer trends, and local opportunities.",
-    fullDescription: "We gather reliable data on your target market, evaluate what competitors are doing, identify gaps in supply or pricing, and help you position your business effectively.",
-    iconName: "TrendingUp",
-    metrics: "Clear Competitor Benchmarks",
-    deliverables: [
-      "Industry & Sector Overview",
-      "Competitor Pricing & Offer Comparison",
-      "Customer Demand & Target Audience Survey",
-      "Actionable Market Entry Recommendations"
-    ],
-    idealFor: "Businesses looking to enter a new market, adjust pricing, or differentiate from competitors.",
-    duration: "2 - 4 Weeks",
-    tags: ["Market Analysis", "Research", "Competitors", "Pricing"],
-    executionPhases: [
-      { phase: "01", title: "Sector Mapping", desc: "Gathering verified commercial market data, regulatory landscape, and sector growth indicators." },
-      { phase: "02", title: "Competitor Benchmarking", desc: "Auditing direct and indirect competitor pricing, positioning, and service gaps." },
-      { phase: "03", title: "Strategic Positioning", desc: "Defining clear market entry advantages and differentiation opportunities." }
-    ]
-  },
-  {
-    id: "investment-planning",
-    category: "business",
-    title: "Financial Modeling & Budgeting",
-    shortDescription: "Realistic financial forecasting, budget planning, and investor-ready documentation.",
-    fullDescription: "We build clear financial projections, evaluate cash flow requirements, and prepare structured business plans and presentations for banks, partners, or investors.",
-    iconName: "BarChart3",
-    metrics: "Detailed 3-Year Projections",
-    deliverables: [
-      "3-Year Financial Forecast & Cash Flow Model",
-      "Budget & Working Capital Breakdown",
-      "Business Plan & Executive Presentation",
-      "Break-Even & ROI Calculation"
-    ],
-    idealFor: "Companies seeking bank financing, partner investments, or internal capital planning.",
-    duration: "3 - 6 Weeks",
-    tags: ["Investment", "Financial Modeling", "Budgeting", "Business Plan"],
-    executionPhases: [
-      { phase: "01", title: "Historical & Cost Audits", desc: "Analyzing current revenue drivers, fixed vs variable expenses, and working capital cycle." },
-      { phase: "02", title: "Dynamic Financial Modeling", desc: "Building 36-month integrated P&L, Balance Sheet, and Cash Flow projection spreadsheets." },
-      { phase: "03", title: "Investor & Bank Pack", desc: "Structuring executive summaries, sensitivity analyses, and capital repayment schedules." }
-    ]
-  },
-  {
-    id: "business-growth",
-    category: "business",
-    title: "Specialized Business Solutions",
-    shortDescription: "Identifying sales bottlenecks, improving customer retention, and scaling everyday revenue.",
-    fullDescription: "We review your existing sales processes, identify where potential customers drop off, train your sales team on proven conversion techniques, and build practical customer retention workflows.",
-    iconName: "Layers",
-    metrics: "Improved Sales Conversion",
-    deliverables: [
-      "Sales Process Audit & Bottleneck Review",
-      "Customer Acquisition & Lead Funnel Plan",
-      "Client Retention & Repeat Purchase Strategy",
-      "Practical Sales Performance Guidelines"
-    ],
-    idealFor: "Established businesses looking to increase sales, improve customer retention, or expand operations.",
-    duration: "1 - 3 Months",
-    tags: ["Business Growth", "Sales", "Customer Retention", "Operations"],
-    executionPhases: [
-      { phase: "01", title: "Funnel Diagnostics", desc: "Tracking lead generation, inquiry drop-offs, and sales conversion rates." },
-      { phase: "02", title: "Process Optimization", desc: "Redesigning closing scripts, incentive structures, and qualification workflows." },
-      { phase: "03", title: "Execution & Monitoring", desc: "Implementing weekly KPI dashboards and coaching sales teams on deal progression." }
-    ]
-  },
-  {
-    id: "global-business",
-    category: "business",
-    title: "Global Business & Regional Expansion",
-    shortDescription: "Practical guidance for setting up operations, finding partners, and exporting regionally.",
-    fullDescription: "Expanding into a new city or country requires careful planning. We help you navigate local commercial regulations, evaluate distribution channels, and find reliable local commercial partners.",
-    iconName: "Cpu",
-    metrics: "Direct Market Entry Support",
-    deliverables: [
-      "Regional Market Readiness Assessment",
-      "Local Commercial Setup Checklist",
-      "Distribution & Supply Partner Sourcing",
-      "Cross-Border Operational Guidelines"
-    ],
-    idealFor: "Companies looking to expand regionally into neighboring markets or export products.",
-    duration: "2 - 4 Months",
-    tags: ["Global Business", "Regional Expansion", "Trade", "Distribution"],
-    executionPhases: [
-      { phase: "01", title: "Cross-Border Assessment", desc: "Reviewing regional tariff codes, business setup requirements, and logistics constraints." },
-      { phase: "02", title: "Partner Screening", desc: "Identifying, vetting, and negotiating preliminary agreements with regional distributors." },
-      { phase: "03", title: "Operational Launch", desc: "Setting up regional supply chains, localized pricing, and billing frameworks." }
-    ]
-  },
-  {
-    id: "studies-research",
-    category: "business",
-    title: "Studies & Feasibility Research",
-    shortDescription: "Rigorous market analysis, unit-economic modeling, capital budgeting, and commercial feasibility studies for new ventures and enterprise expansions.",
-    fullDescription: "We provide comprehensive feasibility studies based on real market data, cost benchmarking, regulatory reviews, and multi-scenario economic models suitable for bank financing and executive decisions.",
-    iconName: "BarChart3",
-    metrics: "Bank-Grade Feasibility Study",
-    deliverables: [
-      "Comprehensive Market Feasibility Report",
-      "Technical & Operational Requirements Study",
-      "Detailed Financial & Cash Flow Sensitivity Analysis",
-      "Risk Mitigation & Regulatory Compliance Matrix"
-    ],
-    idealFor: "Enterprises planning major capital investments, industrial plants, or new commercial divisions.",
-    duration: "4 - 8 Weeks",
-    tags: ["Feasibility", "Research", "Financial Modeling", "Capital Investment"],
-    executionPhases: [
-      { phase: "01", title: "Scope & Baseline Research", desc: "Defining project technical parameters, location factors, and raw input economics." },
-      { phase: "02", title: "Commercial & Economic Modeling", desc: "Evaluating revenue scenarios, break-even timelines, and CapEx recovery." },
-      { phase: "03", title: "Institutional Documentation", desc: "Delivering bank-ready feasibility books and investor slide decks." }
-    ]
-  }
-];
-
-export const consultancyServicesEN: ServiceItem[] = [
-  {
-    id: "strategic-consulting",
-    category: "consultancy",
-    title: "Strategic Management Consulting",
-    shortDescription: "Objective advice and guidance for business owners facing key organizational decisions.",
-    fullDescription: "When your business reaches a turning point—whether restructuring, launching a new division, or resolving internal bottlenecks—we provide seasoned, unbiased consulting to guide your decisions.",
-    iconName: "ShieldCheck",
-    metrics: "Clear Action Roadmaps",
-    deliverables: [
-      "Comprehensive Business Health Review",
-      "Strategic Priority Matrix & Action Items",
-      "Departmental Resource Planning",
-      "Bi-Weekly Executive Advisory Sessions"
-    ],
-    idealFor: "Business owners, managing directors, and partners looking for steady strategic direction.",
-    duration: "Ongoing Advisory or 2 - 4 Months",
-    tags: ["Consulting", "Management", "Advisory", "Business Health"],
-    executionPhases: [
-      { phase: "01", title: "Executive Alignment & Audit", desc: "Interviews with leadership, operational diagnostics, and priority mapping." },
-      { phase: "02", title: "Strategic Roadmap Authoring", desc: "Formulating milestone timelines, governance frameworks, and executive OKRs." },
-      { phase: "03", title: "Implementation Oversight", desc: "Bi-weekly executive steering sessions to ensure cross-departmental accountability." }
-    ]
-  },
-  {
-    id: "projects-management",
-    category: "consultancy",
-    title: "Projects & Lean Management",
-    shortDescription: "We provide project management and Lean Six Sigma services to ensure initiatives are executed efficiently, on time, within budget, and with top quality.",
-    fullDescription: "Led by certified PMP and Lean Six Sigma Master Black Belt professionals, we help enterprises structure project governance, remove operational waste (Muda), and achieve predictable on-budget delivery.",
-    iconName: "Target",
-    metrics: "Zero-Waste Lean Execution",
-    deliverables: [
-      "PMP Project Charter & WBS Framework",
-      "Lean Six Sigma DMAIC Process Analysis",
-      "Resource Allocation & Gantt Timelines",
-      "Quality Gate & Milestone Verification Protocol"
-    ],
-    idealFor: "Industrial manufacturers, commercial developers, and enterprises executing complex multi-stakeholder projects.",
-    duration: "1 - 6 Months",
-    tags: ["Project Management", "Lean Six Sigma", "Process Control", "PMP"],
-    executionPhases: [
-      { phase: "01", title: "Charter & Value Stream Mapping", desc: "Defining project deliverables, critical path schedules, and eliminating procedural bottlenecks." },
-      { phase: "02", title: "DMAIC Implementation", desc: "Measuring baseline variance, analyzing root causes, and applying Lean waste reduction." },
-      { phase: "03", title: "Control & Handover", desc: "Setting up control charts, standard operating procedures (SOPs), and final governance transfer." }
-    ]
-  },
-  {
-    id: "process-transformation",
-    category: "consultancy",
-    title: "Process & ERP Transformation",
-    shortDescription: "Streamlining business operations, eliminating shop-floor waste, and supervising ERP implementation to ensure maximum productivity and compliance.",
-    fullDescription: "We re-engineer organizational processes before automation, eliminating unnecessary steps and ensuring ERP systems (SAP, Oracle, Odoo, custom) mirror optimal real-world operations rather than digitizing broken workflows.",
-    iconName: "Cpu",
-    metrics: "Streamlined Enterprise ERP",
-    deliverables: [
-      "As-Is vs To-Be Business Process Mapping",
-      "ERP Functional Requirements Specification (FRS)",
-      "Vendor Selection & Implementation Supervision",
-      "User Acceptance Testing (UAT) & Training SOPs"
-    ],
-    idealFor: "Growing enterprises upgrading legacy accounting, inventory, or management software to modern ERP.",
-    duration: "2 - 6 Months",
-    tags: ["ERP", "Process Transformation", "Digital Systems", "Automation"],
-    executionPhases: [
-      { phase: "01", title: "Process Diagnostics", desc: "Documenting all departmental handovers, approval chains, and bottlenecks." },
-      { phase: "02", title: "Process Optimization & FRS", desc: "Designing simplified 'To-Be' workflows and technical specifications for software vendors." },
-      { phase: "03", title: "Supervision & Change Management", desc: "Guiding data migration, employee training, and post-go-live stability." }
-    ]
-  },
-  {
-    id: "risk-management",
-    category: "consultancy",
-    title: "Risk Management & Compliance",
-    shortDescription: "Identifying financial, operational, and regulatory risks before they cause problems.",
-    fullDescription: "We systematically review your business contracts, operational workflows, and regulatory filings to pinpoint potential liabilities and put practical safeguards in place.",
-    iconName: "Scale",
-    metrics: "Comprehensive Risk Checklist",
-    deliverables: [
-      "Operational & Financial Risk Audit",
-      "Regulatory Compliance Assessment",
-      "Internal Workflow Safeguards & Controls",
-      "Contingency & Continuity Guidelines"
-    ],
-    idealFor: "Growing businesses wanting to ensure compliance, protect cash flow, and avoid legal disputes.",
-    duration: "3 - 5 Weeks",
-    tags: ["Risk Management", "Compliance", "Controls", "Safeguards"],
-    executionPhases: [
-      { phase: "01", title: "Risk Identification", desc: "Reviewing contractual agreements, fiscal filings, and operational exposure points." },
-      { phase: "02", title: "Controls Design", desc: "Drafting preventative approval matrixes, compliance checklists, and audit schedules." },
-      { phase: "03", title: "Business Continuity Protocol", desc: "Establishing actionable emergency response and risk mitigation plans." }
-    ]
-  },
-  {
-    id: "success-reports",
-    category: "consultancy",
-    title: "Performance Reports & Business Analytics",
-    shortDescription: "Clear, easy-to-read performance tracking and factual monthly KPI reports.",
-    fullDescription: "Stop guessing how your business is performing. We help you set up straightforward tracking for revenue, expenses, employee productivity, and customer acquisition costs with easy-to-read dashboards.",
-    iconName: "BrainCircuit",
-    metrics: "Clear Monthly Tracking",
-    deliverables: [
-      "Custom Business KPI Dashboard Setup",
-      "Monthly & Quarterly Performance Reports",
-      "Cost Center & Overhead Breakdown",
-      "Actionable Recommendations Based on Data"
-    ],
-    idealFor: "Owners and managers who want transparent, straightforward reporting without complex jargon.",
-    duration: "2 - 4 Weeks Setup",
-    tags: ["Success Reports", "Performance", "KPIs", "Tracking"],
-    executionPhases: [
-      { phase: "01", title: "Metric Definition", desc: "Isolating the top 5 to 10 factual indicators that dictate profitability and client satisfaction." },
-      { phase: "02", title: "Reporting Architecture", desc: "Configuring automated data feeds and visual management dashboards." },
-      { phase: "03", title: "Monthly Review Cadence", desc: "Establishing recurring leadership review meetings to evaluate factual variances." }
-    ]
-  },
-  {
-    id: "customer-prioritization",
-    category: "consultancy",
-    title: "Customer Prioritization & Research",
-    shortDescription: "Identifying your most profitable customers and improving client satisfaction.",
-    fullDescription: "Most businesses get 80% of their profit from 20% of their clients. We analyze your customer base to identify your highest-value accounts and build strategies to keep them happy and loyal.",
-    iconName: "Users",
-    metrics: "Clear Account Segmentation",
-    deliverables: [
-      "Customer Profitability Analysis",
-      "Client Feedback & Satisfaction Review",
-      "Key Account Management Guidelines",
-      "Customer Retention Action Plan"
-    ],
-    idealFor: "Service providers, trading firms, and B2B businesses managing multiple customer accounts.",
-    duration: "3 - 5 Weeks",
-    tags: ["Customer Research", "Key Accounts", "Retention", "Satisfaction"],
-    executionPhases: [
-      { phase: "01", title: "ABC / Pareto Analysis", desc: "Calculating net contribution margins across customer tiers and product categories." },
-      { phase: "02", title: "Client Retention Playbook", desc: "Defining dedicated SLA service levels and onboarding protocols for top accounts." },
-      { phase: "03", title: "Account Growth Implementation", desc: "Structuring up-sell / cross-sell schedules and customer feedback loops." }
-    ]
-  },
-  {
-    id: "leadership-advisory",
-    category: "consultancy",
-    title: "Team Structure & Operational Leadership",
-    shortDescription: "Organizing your team, clarifying job roles, and improving departmental efficiency.",
-    fullDescription: "As your team grows, confusion over roles can slow things down. We help organize your company hierarchy, define clear job responsibilities, and establish practical KPIs for your staff.",
-    iconName: "GitMerge",
-    metrics: "Clear Team Responsibilities",
-    deliverables: [
-      "Organizational Chart & Role Definitions",
-      "Staff Performance Evaluation Guidelines",
-      "Departmental Handover & Workflow SOPs",
-      "Management Communication Protocols"
-    ],
-    idealFor: "Companies expanding their workforce or experiencing internal communication bottlenecks.",
-    duration: "1 - 2 Months",
-    tags: ["Team Structure", "Job Roles", "SOPs", "Efficiency"],
-    executionPhases: [
-      { phase: "01", title: "Workforce & Role Audit", desc: "Reviewing job descriptions, reporting lines, and operational overlap." },
-      { phase: "02", title: "Hierarchical Architecture", desc: "Restructuring departments with clear decision authority and accountable metrics." },
-      { phase: "03", title: "Performance Evaluation System", desc: "Deploying quarterly appraisal templates and departmental handover standards." }
-    ]
-  }
-];
-
-export const businessServicesAR: ServiceItem[] = [
-  {
-    id: "business-idea",
-    category: "business",
-    title: "تطوير نماذج وأفكار الأعمال",
-    shortDescription: "تحويل المفاهيم التجارية الجديدة إلى خطط عمل مهيكلة وقابلة للتطبيق تجارياً.",
-    fullDescription: "نقيّم الجدوى الاقتصادية لفكرتك التجارية، ونحلل حجم الطلب في السوق، ونحسب التكاليف التأسيسية والتشغيلية الواقعية، ونضع خطة إطلاق مرحلية تتيح لك الاستثمار بثقة.",
-    iconName: "Sparkles",
-    metrics: "خارطة طريق إطلاق متكاملة",
-    deliverables: [
-      "مراجعة الجدوى التجارية",
-      "نموذج تقدير التكاليف والإيرادات",
-      "الجدول الزمني للإطلاق خطوة بخطوة",
-      "ملف العميل المستهدف وعرض القيمة"
-    ],
-    idealFor: "رواد الأعمال وأصحاب المشاريع والشركات التي تطلق منتجات أو خدمات جديدة.",
-    duration: "3 - 6 أسابيع",
-    tags: ["فكرة عمل", "دراسة جدوى", "تخطيط", "إطلاق تجاري"],
-    executionPhases: [
-      { phase: "01", title: "التحقق من الفكرة وحجم الطلب", desc: "تقييم احتياج السوق، واستعداد العملاء للشراء، ونمذجة التكاليف التأسيسية." },
-      { phase: "02", title: "اقتصاديات الوحدة واستراتيجية التسعير", desc: "هيكلة هوامش الربح الإجمالية، وتكلفة اكتساب العملاء، وشرائح الأسعار." },
-      { phase: "03", title: "مخطط الإطلاق التجاري", desc: "تسليم خطة تشغيلية تنفيذية كاملة بمراحل واضحة ومؤشرات أداء قابلة للقياس." }
-    ]
-  },
-  {
-    id: "market-analysis",
-    category: "business",
-    title: "تحليل السوق والأبحاث القطاعية",
-    shortDescription: "أبحاث سوقية دقيقة حول المنافسين، الأسعار، اتجاهات المستهلكين، والفرص المتاحة محلياً.",
-    fullDescription: "نجمع بيانات موثوقة حول سوقك المستهدف، ونحلل استراتيجيات المنافسين وأسعارهم، ونحدد الفجوات في العرض أو التسعير لمساعدتك على وضع تموضع تنافسي قوي.",
-    iconName: "TrendingUp",
-    metrics: "معايير قياس تنافسية دقيقة",
-    deliverables: [
-      "نظرة عامة على القطاع والصناعة",
-      "مقارنة أسعار وعروض المنافسين",
-      "استبيان طلب العملاء والجمهور المستهدف",
-      "توصيات تنفيذية لدخول السوق"
-    ],
-    idealFor: "الشركات التي تسعى لدخول سوق جديد أو تعديل التسعير أو التميز عن المنافسين.",
-    duration: "2 - 4 أسابيع",
-    tags: ["تحليل السوق", "أبحاث", "منافسون", "تسعير"],
-    executionPhases: [
-      { phase: "01", title: "مسح وتحليل القطاع", desc: "جمع البيانات التجارية الميدانية الموثوقة واللوائح المنظمة ومؤشرات نمو الصناعة." },
-      { phase: "02", title: "المقارنة المعيارية للمنافسين", desc: "تدقيق أسعار المنافسين المباشرين وغير المباشرين ومزاياهم وفجوات الخدمة لديهم." },
-      { phase: "03", title: "التموضع الاستراتيجي", desc: "تحديد مزايا الدخول التجاري وفرص التميز والتفرد التنافسي في السوق." }
-    ]
-  },
-  {
-    id: "investment-planning",
-    category: "business",
-    title: "النمذجة المالية وإعداد الميزانيات",
-    shortDescription: "توقعات مالية واقعية، إعداد الميزانيات، وملفات جاهزة للبنوك والمستثمرين.",
-    fullDescription: "نبني توقعات مالية دقيقة، ونحلل متطلبات التدفق النقدي ورأس المال العامل، ونعد خطط عمل وعروض تقديمية تنفيذية للبنوك والمستثمرين والشركاء.",
-    iconName: "BarChart3",
-    metrics: "توقعات مالية لـ 3 سنوات",
-    deliverables: [
-      "نموذج توقعات مالية وتدفقات نقدية لـ 3 سنوات",
-      "تفصيل الميزانية ورأس المال العامل",
-      "خطة عمل وعرض تقديمي تنفيذي",
-      "حساب نقطة التعادل والعائد على الاستثمار (ROI)"
-    ],
-    idealFor: "الشركات التي تسعى للحصول على تمويل بنكي أو استثمار أو تخطيط رأس المال الداخلي.",
-    duration: "3 - 6 أسابيع",
-    tags: ["استثمار", "نمذجة مالية", "ميزانيات", "خطة عمل"],
-    executionPhases: [
-      { phase: "01", title: "التدقيق المالي والتكاليف", desc: "تحليل محركات الإيرادات، والمصروفات الثابتة والمتغيرة، ودورة رأس المال العامل." },
-      { phase: "02", title: "النمذجة المالية الديناميكية", desc: "بناء ملفات متكاملة لبيان الأرباح والخسائر والتدفقات النقدية لمدة 36 شهراً." },
-      { phase: "03", title: "حقيبة المستثمرين والمصارف", desc: "إعداد الملخصات التنفيذية وجداول حساسية الأرباح وخطط سداد التمويل." }
-    ]
-  },
-  {
-    id: "business-growth",
-    category: "business",
-    title: "حلول الأعمال وتطوير المبيعات",
-    shortDescription: "معالجة اختناقات البيع، زيادة ولاء العملاء، ورفع الإيرادات التجارية المتكررة.",
-    fullDescription: "نراجع مسارات البيع الحالية، ونحدد نقاط تسرب العملاء، وندرّب فريق المبيعات على تقنيات التحويل المثبتة، ونبني إجراءات عمل عملية لزيادة ولاء العملاء وتكرار الشراء.",
-    iconName: "Layers",
-    metrics: "تحسين معدل تحويل المبيعات",
-    deliverables: [
-      "تدقيق مسار المبيعات ومراجعة نقاط الاختناق",
-      "خطة اكتساب العملاء ومسار الفرص البيعية",
-      "استراتيجية الاحتفاظ بالعملاء والشراء المتكرر",
-      "إرشادات عملية لأداء فريق المبيعات"
-    ],
-    idealFor: "الشركات القائمة التي تسعى لزيادة المبيعات أو تحسين الاحتفاظ بالعملاء أو توسيع العمليات.",
-    duration: "1 - 3 أشهر",
-    tags: ["تنمية الأعمال", "مبيعات", "ولاء العملاء", "عمليات"],
-    executionPhases: [
-      { phase: "01", title: "تشخيص قنوات المبيعات", desc: "تتبع مسار توليد الفرص ونقاط انسحاب العملاء ومعدلات التحويل الفعلية." },
-      { phase: "02", title: "إعادة هندسة الإجراءات البيعية", desc: "تحديث نصوص الإقناع وهياكل الحوافز وإجراءات تأهيل العملاء المحتملين." },
-      { phase: "03", title: "التنفيذ والمتابعة الأسبوعية", desc: "تطبيق لوحات تتبع KPIs أسبوعية وتدريب الفرق الميدانية على إتمام الصفقات." }
-    ]
-  },
-  {
-    id: "global-business",
-    category: "business",
-    title: "الأعمال الإقليمية والتوسع الجغرافي",
-    shortDescription: "إرشادات عملية لتأسيس العمليات الخارجية، إيجاد الشركاء، والتصدير الإقليمي.",
-    fullDescription: "التوسع نحو مدن أو أسواق إقليمية جديدة يتطلب تخطيطاً دقيقاً. نساعدك على فهم اللوائح التجارية المحلية، وتقييم قنوات التوزيع، وإيجاد شركاء تجاريين وموزعين موثوقين.",
-    iconName: "Cpu",
-    metrics: "دعم مباشر لدخول الأسواق",
-    deliverables: [
-      "تقييم الجاهزية لدخول الأسواق الإقليمية",
-      "قائمة التحقق للتأسيس التجاري المحلي",
-      "استقطاب وتأهيل قنوات التوزيع والتوريد",
-      "إرشادات العمليات التشغيلية عبر الحدود"
-    ],
-    idealFor: "الشركات الراغبة في التوسع إقليمياً في الأسواق المجاورة أو تصدير المنتجات.",
-    duration: "2 - 4 أشهر",
-    tags: ["أعمال دولية", "توسع إقليمي", "تجارة", "توزيع"],
-    executionPhases: [
-      { phase: "01", title: "التقييم الجمركي والتشغيلي", desc: "مراجعة متطلبات التأسيس، والتعرفات الجمركية، والقيود اللوجستية الإقليمية." },
-      { phase: "02", title: "تأهيل الشركاء والموزعين", desc: "حصر وتقييم الشركاء التجاريين والتفاوض المبدئي على شروط التوزيع." },
-      { phase: "03", title: "التشغيل والفوترة", desc: "تأسيس سلاسل الإمداد الإقليمية والتسعير المحلي وأنظمة التحصيل المالي." }
-    ]
-  },
-  {
-    id: "studies-research",
-    category: "business",
-    title: "الدراسات وأبحاث الجدوى الاقتصادية",
-    shortDescription: "تحليلات سوقية دقيقة، نمذجة اقتصاديات الوحدة، ميزانيات الاستثمار، ودراسات جدوى تجارية للمشاريع والتوسعات الجديدة.",
-    fullDescription: "نقدّم دراسات جدوى اقتصادية شاملة مبنية على بيانات واقعية من السوق المحلي، ومقارنات التكاليف واللوائح القانونية، ونماذج مالية متعددة السيناريوهات معتمدة للمصارف والمستثمرين.",
-    iconName: "BarChart3",
-    metrics: "دراسة جدوى بنكية متكاملة",
-    deliverables: [
-      "تقرير دراسة الجدوى التسويقية الشاملة",
-      "دراسة المتطلبات الفنية والتشغيلية للمشروع",
-      "تحليل الحساسية المالية والتدفقات النقدية",
-      "مصفوفة إدارة المخاطر والامتثال النظامي"
-    ],
-    idealFor: "المؤسسات والمستثمرون الذين يخططون لاستثمارات رأسمالية كبرى أو مصانع أو قطاعات تجارية جديدة.",
-    duration: "4 - 8 أسابيع",
-    tags: ["دراسة جدوى", "أبحاث", "نمذجة مالية", "استثمار رأسمالي"],
-    executionPhases: [
-      { phase: "01", title: "تحديد النطاق والأبحاث الميدانية", desc: "حصر المحددات الفنية وتكاليف المواد الأولية والعوامل الجغرافية للمشروع." },
-      { phase: "02", title: "النمذجة التجارية والاقتصادية", desc: "تقييم سيناريوهات الإيرادات، والجدول الزمني للوصول إلى نقطة التعادل، وفترة استرداد رأس المال." },
-      { phase: "03", title: "التوثيق المؤسسي للاعتماد", desc: "تسليم ملفات الجدوى المعتمدة للبنوك والجهات التمويلية وصناديق الاستثمار." }
-    ]
-  }
-];
-
-export const consultancyServicesAR: ServiceItem[] = [
-  {
-    id: "strategic-consulting",
-    category: "consultancy",
-    title: "الاستشارات الإدارية والاستراتيجية",
-    shortDescription: "مشورة موضوعية وتوجيه استراتيجي لأصحاب الأعمال والمديرين في القرارات الحيوية.",
-    fullDescription: "عندما تصل شركتك إلى نقطة تحول—سواء لإعادة الهيكلة أو إطلاق قطاع جديد أو معالجة معوقات الأداء—نقدّم استشارات متمرسة ومحايدة لترشيد قراراتك وقيادة النمو.",
-    iconName: "ShieldCheck",
-    metrics: "خرائط طريق تنفيذية واضحة",
-    deliverables: [
-      "مراجعة شاملة للصحة المؤسسية والتشغيلية",
-      "مصفوفة الأولويات الاستراتيجية وبنود العمل",
-      "تخطيط وتوزيع الموارد على الأقسام",
-      "جلسات استشارية تنفيذية نصف شهرية"
-    ],
-    idealFor: "أصحاب الشركات والمدراء التنفيذيين والشركاء الباحثين عن اتجاه استراتيجي ثابت.",
-    duration: "استشارات مستمرة أو 2 - 4 أشهر",
-    tags: ["استشارات", "إدارة", "استراتيجية", "صحة الأعمال"],
-    executionPhases: [
-      { phase: "01", title: "التشخيص والمواءمة القيادية", desc: "مقابلات تنفيذية، وتقييم ميداني للعمليات، وتحديد الأولويات الاستراتيجية." },
-      { phase: "02", title: "صياغة خارطة الطريق", desc: "وضع الجداول الزمنية ومؤشرات الأداء المؤسسية (OKRs) وأطر الحوكمة." },
-      { phase: "03", title: "الإشراف على التنفيذ", desc: "جلسات توجيه دورية مع الإدارة العليا لضمان التنسيق والمساءلة بين الأقسام." }
-    ]
-  },
-  {
-    id: "projects-management",
-    category: "consultancy",
-    title: "إدارة المشاريع والتميز التشغيلي",
-    shortDescription: "خدمات إدارة المشاريع وتطبيق منهجية اللين ستة سيجما لضمان تنفيذ المبادرات بكفاءة وفي الوقت المحدد وضمن الميزانية.",
-    fullDescription: "بإشراف مستشارين معتمدين بشهادات PMP و Master Black Belt في اللين ستة سيجما، نساعد الشركات على بناء حوكمة المشاريع، وإلغاء الهدر التشغيلي، وضمان الالتزام الصارم بالميزانيات والجداول الزمنية.",
-    iconName: "Target",
-    metrics: "تنفيذ رشيق وخالٍ من الهدر",
-    deliverables: [
-      "ميثاق المشروع (Project Charter) وهيكل تجزئة العمل (WBS)",
-      "تحليل العمليات بمنهجية اللين ستة سيجما (DMAIC)",
-      "تخطيط الموارد والجداول الزمنية (Gantt Charts)",
-      "بروتوكول بوابات الجودة ومراجعة المخرجات"
-    ],
-    idealFor: "الشركات الصناعية، والمطورون، والمؤسسات التي تدير مشاريع متعددة الأطراف.",
-    duration: "1 - 6 أشهر",
-    tags: ["إدارة مشاريع", "لين ستة سيجما", "ضبط الجودة", "PMP"],
-    executionPhases: [
-      { phase: "01", title: "ميثاق المشروع وخريطة تدفق القيمة", desc: "تحديد نطاق العمل والمسار الحرج وإلغاء التعقيدات الإجرائية." },
-      { phase: "02", title: "تطبيق منهجية DMAIC", desc: "قياس الانحرافات التشغيلية وتحليل الأسباب الجذرية وتقليص الهدر." },
-      { phase: "03", title: "التحكم والضبط المستمر", desc: "إرساء لوحات التحكم، وإجراءات التشغيل القياسية (SOPs)، وتسليم القيادة للفريق الداخلي." }
-    ]
-  },
-  {
-    id: "process-transformation",
-    category: "consultancy",
-    title: "تحول العمليات وتطبيق أنظمة ERP",
-    shortDescription: "تبسيط العمليات التشغيلية، تقليص الهدر، والإشراف على تطبيق برمجيات تخطيط موارد المؤسسات لتحقيق أعلى إنتاجية.",
-    fullDescription: "نقوم بإعادة هندسة العمليات المؤسسية قبل التحول الرقمي لإلغاء الخطوات الفائضة وضمان أن أنظمة ERP (مثل SAP، Oracle، Odoo، والأنظمة المخصصة) تعكس أفضل الممارسات التشغيلية بدلاً من أتمتة إجراءات غير فعالة.",
-    iconName: "Cpu",
-    metrics: "أنظمة ERP مؤسسية متكاملة",
-    deliverables: [
-      "مخطط العمليات الحالي والمستقبلي (As-Is vs To-Be)",
-      "وثيقة المتطلبات الوظيفية للأنظمة (FRS)",
-      "اختيار مزودي البرمجيات والإشراف على التنفيذ",
-      "اختبارات قبول المستخدم (UAT) وأدلة التدريب القياسية"
-    ],
-    idealFor: "الشركات النامية التي تقوم بترقية أنظمتها المحاسبية أو الإدارية القديمة إلى برمجيات ERP حديثة.",
-    duration: "2 - 6 أشهر",
-    tags: ["ERP", "تحول العمليات", "أنظمة رقمية", "أتمتة"],
-    executionPhases: [
-      { phase: "01", title: "تشخيص الإجراءات الحالية", desc: "توثيق سلاسل الموافقات والتسليم بين الإدارات ونقاط التعطل." },
-      { phase: "02", title: "تصميم العمليات المستقبلية و FRS", desc: "ابتكار مسارات عمل مبسطة وصياغة المواصفات التقنية لمطوري البرمجيات." },
-      { phase: "03", title: "الإشراف وإدارة التغيير", desc: "متابعة ترحيل البيانات، وتدريب الكوادر، وضمان الاستقرار بعد إطلاق النظام." }
-    ]
-  },
-  {
-    id: "risk-management",
-    category: "consultancy",
-    title: "إدارة المخاطر والامتثال المؤسسي",
-    shortDescription: "تحديد المخاطر المالية والتشغيلية والنظامية قبل تحولها إلى أزمات.",
-    fullDescription: "نراجع عقودك التجارية وإجراءاتك التشغيلية ومتطلبات الامتثال لحصر الالتزامات المحتملة ووضع الضوابط الوقائية لحماية أصول الشركة واستمرارية أعمالها.",
-    iconName: "Scale",
-    metrics: "قائمة تدقيق شاملة للمخاطر",
-    deliverables: [
-      "تدقيق المخاطر التشغيلية والمالية",
-      "تقييم الامتثال التنظيمي والنظامي",
-      "ضوابط وإجراءات حماية العمليات الداخلية",
-      "إرشادات الطوارئ واستمرارية الأعمال"
-    ],
-    idealFor: "الشركات النامية الساعية لضمان الامتثال وحماية التدفق النقدي وتجنب النزاعات القانونية.",
-    duration: "3 - 5 أسابيع",
-    tags: ["إدارة المخاطر", "امتثال", "ضوابط", "حماية"],
-    executionPhases: [
-      { phase: "01", title: "حصر المخاطر والتعرضات", desc: "مراجعة الالتزامات التعاقدية والإيداعات النظامية ونقاط الانكشاف المالي." },
-      { phase: "02", title: "تصميم الضوابط الوقائية", desc: "صياغة مصفوفات الصلاحيات وقوائم التحقق وجداول التدقيق الدوري." },
-      { phase: "03", title: "بروتوكول استمرارية الأعمال", desc: "وضع خطط طوارئ تنفيذية وإجراءات حماية التدفقات التشغيلية." }
-    ]
-  },
-  {
-    id: "success-reports",
-    category: "consultancy",
-    title: "تقارير الأداء وتحليلات الأعمال",
-    shortDescription: "تتبع واضح للأداء وتقارير شهرية واقعية لمؤشرات الأداء الرئيسية (KPIs).",
-    fullDescription: "توقف عن التخمين في أداء شركتك. نساعدك على إعداد لوحات تتبع واضحة للإيرادات والمصروفات وإنتاجية الموظفين وتكاليف اكتساب العملاء عبر مؤشرات سهلة وموثوقة.",
-    iconName: "BrainCircuit",
-    metrics: "متابعة شهرية واضحة للأداء",
-    deliverables: [
-      "إعداد لوحة مخصصة لمؤشرات أداء الأعمال (KPIs)",
-      "تقارير أداء شهرية وربع سنوية",
-      "تحليل مراكز التكلفة والمصروفات العامة",
-      "توصيات تنفيذية مستندة إلى البيانات"
-    ],
-    idealFor: "أصحاب الأعمال والمدراء الراغبين في تقارير شفافة ومباشرة دون مصطلحات معقدة.",
-    duration: "2 - 4 أسابيع للإعداد",
-    tags: ["تقارير أداء", "تحليلات", "KPIs", "تتبع"],
-    executionPhases: [
-      { phase: "01", title: "تحديد المؤشرات المحورية", desc: "عزل أهم 5 إلى 10 مؤشرات رقمية تقود الربحية ورضا العملاء." },
-      { phase: "02", title: "هندسة لوحات البيانات", desc: "ربط مصادر البيانات وتجهيز لوحات مرئية واضحة لصناع القرار." },
-      { phase: "03", title: "مراجعة الأداء الدورية", desc: "عقد اجتماعات تقييم شهرية منتظمة لتحليل الانحرافات واتخاذ القرارات التصحيحية." }
-    ]
-  },
-  {
-    id: "customer-prioritization",
-    category: "consultancy",
-    title: "تصنيف العملاء وأبحاث القيمة",
-    shortDescription: "تحديد العملاء الأكثر ربحية ورفع مستوى رضاهم واستبقائهم.",
-    fullDescription: "تحقق معظم الشركات 80% من أرباحها من 20% من عملائها. نساعدك على تحليل قاعدة عملائك لتحديد الحسابات الأكثر قيمة وبناء استراتيجيات لضمان ولائهم واستمرار تعاملهم.",
-    iconName: "Users",
-    metrics: "تقسيم واضح لشرائح العملاء",
-    deliverables: [
-      "تحليل ربحية شرائح العملاء",
-      "مراجعة ملاحظات العملاء ومستوى الرضا",
-      "إرشادات إدارة الحسابات الاستراتيجية",
-      "خطة عمل للاحتفاظ بالعملاء المميزين"
-    ],
-    idealFor: "شركات الخدمات والتجارة والأعمال (B2B) التي تدير حسابات عملاء متعددة.",
-    duration: "3 - 5 أسابيع",
-    tags: ["أبحاث العملاء", "حسابات كبرى", "استبقاء", "رضا العملاء"],
-    executionPhases: [
-      { phase: "01", title: "تحليل باريتو وهوامش المساهمة", desc: "حساب صافي الهوامش الربحية لكل شريحة عملاء وتصنيف الحسابات الكبرى." },
-      { phase: "02", title: "دليل إدارة الحسابات الاستراتيجية", desc: "تحديد مستويات الخدمة المخصصة (SLAs) وبروتوكولات الرعاية للحسابات المميزة." },
-      { phase: "03", title: "توسيع الإيرادات والولاء", desc: "هيكلة برامج المبيعات الإضافية والمتابعة المستمرة لرضا العملاء." }
-    ]
-  },
-  {
-    id: "leadership-advisory",
-    category: "consultancy",
-    title: "الهيكل التنظيمي والقيادة التشغيلية",
-    shortDescription: "تنظيم الهيكل الإداري، توضيح المهام الوظيفية، ورفع كفاءة التنسيق بين الأقسام.",
-    fullDescription: "مع نمو فريق العمل، قد يؤدي تداخل المسؤوليات إلى تباطؤ العمليات. نساعدك على بناء هيكل تنظيمي واضح، وتحديد بطاقات الوصف الوظيفي، وتحديد مؤشرات أداء دقيقة لكل وظيفة.",
-    iconName: "GitMerge",
-    metrics: "مسؤوليات وظيفية محددة بدقة",
-    deliverables: [
-      "الهيكل التنظيمي وبطاقات الوصف الوظيفي",
-      "إرشادات تقييم أداء الموظفين",
-      "إجراءات التسليم المتبادل بين الأقسام (SOPs)",
-      "بروتوكولات التواصل والتنسيق الإداري"
-    ],
-    idealFor: "الشركات التي توسع فريق عملها أو تواجه اختناقات في التواصل الداخلي.",
-    duration: "1 - 2 أشهر",
-    tags: ["هيكل تنظيمي", "أدوار وظيفية", "إجراءات قياسية", "كفاءة"],
-    executionPhases: [
-      { phase: "01", title: "تدقيق الأدوار وتوزيع المهام", desc: "مراجعة التوصيف الوظيفي وخطوط التبعية وحصر الازدواجية التشغيلية." },
-      { phase: "02", title: "بناء الهيكل الإداري والمصفوفات", desc: "إعادة هيكلة الأقسام مع تحديد صلاحيات اتخاذ القرار ومؤشرات المساءلة." },
-      { phase: "03", title: "نظام تقييم الأداء والتسليم", desc: "تطبيق نماذج التقييم الفصلي ومعايير التسليم القياسية بين الإدارات." }
-    ]
-  }
-];
-
-export function getBusinessServices(lang: Language = "en"): ServiceItem[] {
-  return lang === "ar" ? businessServicesAR : businessServicesEN;
+export interface ServicePillar {
+  id: ServiceCategory;
+  title: string;
+  tagline: string;
+  intro: string;
 }
 
-export function getConsultancyServices(lang: Language = "en"): ServiceItem[] {
-  return lang === "ar" ? consultancyServicesAR : consultancyServicesEN;
+/* ------------------------------------------------------------------ */
+/* Shared phases per service line                                      */
+/* ------------------------------------------------------------------ */
+const PHASES_EN = {
+  consulting: [
+    { phase: "01", title: "Understand & Measure", desc: "We map the current process and measure performance first—analyzing rigorously and recommending based on evidence, not assumptions." },
+    { phase: "02", title: "Improve & Implement", desc: "We apply the method that fits the problem and work with your teams to put the improvement into practice where the work happens." },
+    { phase: "03", title: "Sustain & Build Capability", desc: "We embed standards, measures, and ownership so your teams can continue improving long after the engagement ends." },
+  ],
+  training: [
+    { phase: "01", title: "Align to Your Needs", desc: "We agree the learning objectives and tailor the content to your organization, industry, and participants." },
+    { phase: "02", title: "Practical Learning", desc: "Proven methods taught by practitioners, with hands-on exercises built around real processes and real constraints." },
+    { phase: "03", title: "Apply & Sustain", desc: "Participants apply the tools to their own work so new skills turn into measurable improvement." },
+  ],
+  digital: [
+    { phase: "01", title: "Process First", desc: "We map, challenge, and improve the process before configuring any system—so technology supports good practice instead of automating waste." },
+    { phase: "02", title: "Configure & Build", desc: "We translate operational requirements into practical systems, workflows, and reports around the way your organization works." },
+    { phase: "03", title: "Go Live, Train & Optimize", desc: "Testing, go-live support, user training, and continuous improvement based on real performance data." },
+  ],
+};
+
+const PHASES_AR = {
+  consulting: [
+    { phase: "01", title: "الفهم والقياس", desc: "نرسم العملية الحالية ونقيس الأداء أولاً، ثم نحلل بدقة ونقدّم توصياتنا بناءً على الأدلة لا الافتراضات." },
+    { phase: "02", title: "التحسين والتنفيذ", desc: "نطبّق المنهجية المناسبة للمشكلة ونعمل مع فرقكم لتحويل التحسين إلى واقع في موقع العمل." },
+    { phase: "03", title: "الاستدامة وبناء القدرات", desc: "نرسّخ المعايير والمؤشرات والمسؤولية لتواصل فرقكم التحسين بعد انتهاء المشروع." },
+  ],
+  training: [
+    { phase: "01", title: "المواءمة مع احتياجاتكم", desc: "نحدد أهداف التعلم ونكيّف المحتوى بما يناسب مؤسستكم وقطاعكم والمشاركين." },
+    { phase: "02", title: "تعلّم عملي", desc: "منهجيات مثبتة يقدّمها ممارسون، مع تمارين تطبيقية مبنية على عمليات وتحديات حقيقية." },
+    { phase: "03", title: "التطبيق والاستدامة", desc: "يطبّق المشاركون الأدوات على أعمالهم لتتحول المهارات الجديدة إلى تحسين ملموس." },
+  ],
+  digital: [
+    { phase: "01", title: "العملية أولاً", desc: "نرسم العملية ونراجعها ونحسّنها قبل إعداد أي نظام، لتدعم التقنية الممارسات الجيدة بدلاً من أتمتة الهدر." },
+    { phase: "02", title: "الإعداد والبناء", desc: "نحوّل المتطلبات التشغيلية إلى أنظمة وسير عمل وتقارير عملية تناسب طريقة عمل مؤسستكم." },
+    { phase: "03", title: "الإطلاق والتدريب والتحسين", desc: "الاختبار ودعم الإطلاق وتدريب المستخدمين والتحسين المستمر بناءً على بيانات الأداء الفعلية." },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Service lines                                                       */
+/* ------------------------------------------------------------------ */
+export const servicePillarsEN: ServicePillar[] = [
+  {
+    id: "consulting",
+    title: "Consulting",
+    tagline: "Identify what needs to change—and make it work in practice.",
+    intro: "Consulting identifies what needs to change. We combine proven management methods with practical implementation and measurable improvement.",
+  },
+  {
+    id: "training",
+    title: "Training",
+    tagline: "Build the capability to change it.",
+    intro: "Training builds the capability to change it. Practical programs delivered by practitioners, so your teams can keep improving on their own.",
+  },
+  {
+    id: "digital",
+    title: "ERP & Digital Transformation",
+    tagline: "Technology should make better processes easier to run, measure, and improve.",
+    intro: "We help organizations translate operational requirements into practical digital systems—from ERP implementation and workflow automation to purpose-built software.",
+  },
+];
+
+export const servicePillarsAR: ServicePillar[] = [
+  {
+    id: "consulting",
+    title: "الاستشارات",
+    tagline: "نحدد ما يجب تغييره، ونجعله ينجح على أرض الواقع.",
+    intro: "تحدد الاستشارات ما يجب تغييره. نجمع بين أساليب إدارية مثبتة وتنفيذ عملي وتحسين قابل للقياس.",
+  },
+  {
+    id: "training",
+    title: "التدريب",
+    tagline: "نبني القدرة على إحداث التغيير.",
+    intro: "يبني التدريب القدرة على التغيير. برامج عملية يقدّمها ممارسون لتتمكن فرقكم من مواصلة التحسين بنفسها.",
+  },
+  {
+    id: "digital",
+    title: "تخطيط موارد المؤسسة والتحول الرقمي",
+    tagline: "يجب أن تجعل التقنية العمليات الأفضل أسهل في التشغيل والقياس والتحسين.",
+    intro: "نساعد المؤسسات على تحويل متطلباتها التشغيلية إلى أنظمة رقمية عملية، من تطبيق أنظمة ERP وأتمتة سير العمل إلى البرمجيات المصممة خصيصاً.",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* English                                                             */
+/* ------------------------------------------------------------------ */
+export const consultingServicesEN: ServiceItem[] = [
+  {
+    id: "operational-excellence",
+    category: "consulting",
+    title: "Operational Excellence",
+    shortDescription: "Lean, Six Sigma, planning, and process improvement that raise productivity where the work actually happens.",
+    fullDescription: "We help organizations remove waste, reduce variation, and run operations more predictably. Drawing on Lean, the Toyota Production System, and Six Sigma, we map and re-engineer processes, strengthen production planning and supply chains, and improve productivity and yield on the shop floor.",
+    iconName: "Layers",
+    metrics: "Consulting",
+    deliverables: [
+      "Lean, Six Sigma & Operational Excellence",
+      "Production Planning & Control (PPC)",
+      "Process Re-engineering & Business Process Mapping",
+      "Supply Chain Management",
+      "Productivity & Yield Improvement",
+    ],
+    idealFor: "Manufacturing and service organizations that want higher productivity, shorter lead times, and more predictable operations.",
+    duration: "Consulting Engagement",
+    tags: ["Lean", "Six Sigma", "PPC", "Process Mapping", "Supply Chain", "Productivity"],
+    executionPhases: PHASES_EN.consulting,
+  },
+  {
+    id: "strategy-performance",
+    category: "consulting",
+    title: "Strategy & Performance",
+    shortDescription: "Clear direction, strategic plans, and performance systems that connect goals to daily work.",
+    fullDescription: "We help leadership teams define where the organization is going and how progress will be measured—from mission, vision, and SWOT analysis to strategic plans and Balanced Scorecard performance management.",
+    iconName: "Target",
+    metrics: "Consulting",
+    deliverables: [
+      "Strategy & Performance Management",
+      "Balanced Scorecard",
+      "Mission, Vision & Strategic Planning",
+      "SWOT & Organizational Analysis",
+    ],
+    idealFor: "Leadership teams that need a clear strategy and a practical way to track and manage performance.",
+    duration: "Consulting Engagement",
+    tags: ["Strategy", "Balanced Scorecard", "Strategic Planning", "SWOT", "KPIs"],
+    executionPhases: PHASES_EN.consulting,
+  },
+  {
+    id: "quality-risk-compliance",
+    category: "consulting",
+    title: "Quality, Risk & Compliance",
+    shortDescription: "Quality systems, standard procedures, and risk controls that make performance consistent and auditable.",
+    fullDescription: "We design and strengthen quality management systems, standardize processes through clear SOPs, and apply risk management, FMEA, and statistical process control so quality is built into the process rather than inspected in.",
+    iconName: "ShieldCheck",
+    metrics: "Consulting",
+    deliverables: [
+      "Quality Management Systems",
+      "SOP Development & Process Standardization",
+      "Risk Management & FMEA",
+      "Statistical Process Control (SPC)",
+      "Quality Improvement & Control Systems",
+    ],
+    idealFor: "Organizations that need consistent quality, documented standards, and better control of operational risk.",
+    duration: "Consulting Engagement",
+    tags: ["Quality", "SOPs", "Risk Management", "FMEA", "SPC", "Compliance"],
+    executionPhases: PHASES_EN.consulting,
+  },
+  {
+    id: "operations-maintenance",
+    category: "consulting",
+    title: "Operations & Maintenance",
+    shortDescription: "Reliable equipment, organized workplaces, and safer, more efficient operations.",
+    fullDescription: "We improve equipment reliability and workplace efficiency through Total Productive Maintenance, 5S workplace organization, maintenance and reliability practices, energy efficiency, and ergonomics and occupational health and safety.",
+    iconName: "Cpu",
+    metrics: "Consulting",
+    deliverables: [
+      "Total Productive Maintenance (TPM)",
+      "Workplace Organization (5S)",
+      "Machine Maintenance & Reliability",
+      "Energy Conservation & Efficiency",
+      "Ergonomics, Occupational Health & Safety",
+    ],
+    idealFor: "Plants and facilities looking to reduce downtime, energy costs, and safety risks.",
+    duration: "Consulting Engagement",
+    tags: ["TPM", "5S", "Maintenance", "Reliability", "Energy", "Health & Safety"],
+    executionPhases: PHASES_EN.consulting,
+  },
+  {
+    id: "people-organizational-development",
+    category: "consulting",
+    title: "People & Organizational Development",
+    shortDescription: "Competencies, assessments, and change management that help people make improvement stick.",
+    fullDescription: "Even the best-designed improvement can fail if people aren't ready for it. We build competency frameworks, assess HR and organizational effectiveness, measure employee and customer satisfaction, and lead change using the ADKAR model.",
+    iconName: "Users",
+    metrics: "Consulting",
+    deliverables: [
+      "Competency Frameworks",
+      "HR & Organizational Assessments",
+      "Employee & Customer Satisfaction Surveys",
+      "Change Management (ADKAR)",
+    ],
+    idealFor: "Organizations going through change, growth, or restructuring that need engaged, capable people.",
+    duration: "Consulting Engagement",
+    tags: ["HR", "Competencies", "Surveys", "ADKAR", "Change Management"],
+    executionPhases: PHASES_EN.consulting,
+  },
+];
+
+export const trainingServicesEN: ServiceItem[] = [
+  {
+    id: "training-project-strategy",
+    category: "training",
+    title: "Project & Strategy Training",
+    shortDescription: "PMP preparation, project management, and strategy programs for managers and project teams.",
+    fullDescription: "Practical training in managing projects and strategy—from PMP exam preparation and project management fundamentals to project cycle management, logframes, Balanced Scorecard performance management, and business model development.",
+    iconName: "Compass",
+    metrics: "Training",
+    deliverables: [
+      "PMP Preparatory Training",
+      "Project Management Crash Course",
+      "Project Cycle Management & Logframe",
+      "Performance Management Using the Balanced Scorecard",
+      "Business Model Development",
+    ],
+    idealFor: "Project managers, team leads, and managers responsible for planning and delivering results.",
+    duration: "Training Program",
+    tags: ["PMP", "Project Management", "Logframe", "Balanced Scorecard", "Business Model"],
+    executionPhases: PHASES_EN.training,
+  },
+  {
+    id: "training-lean-quality",
+    category: "training",
+    title: "Lean & Quality Training",
+    shortDescription: "Lean Six Sigma belts, 5S, TPM, SPC, and quality tools for continuous improvement teams.",
+    fullDescription: "Hands-on programs in Lean and quality—from Lean Six Sigma Green and Black Belt to 5S, TPM, statistical process control, data analysis with the 7 quality tools, quality control circles, and yield and productivity improvement.",
+    iconName: "BarChart3",
+    metrics: "Training",
+    deliverables: [
+      "Lean Six Sigma Green Belt",
+      "Lean Six Sigma Black Belt",
+      "5S Workplace Organization",
+      "Total Productive Maintenance (TPM)",
+      "Statistical Process Control (SPC)",
+      "Data Analysis & the 7 Quality Tools",
+      "Quality Control Circles",
+      "Yield & Productivity Improvement",
+    ],
+    idealFor: "Engineers, supervisors, and quality and improvement teams who lead change on the shop floor.",
+    duration: "Training Program",
+    tags: ["Lean Six Sigma", "Green Belt", "Black Belt", "5S", "TPM", "SPC", "Quality Tools"],
+    executionPhases: PHASES_EN.training,
+  },
+  {
+    id: "training-operations-risk",
+    category: "training",
+    title: "Operations & Risk Training",
+    shortDescription: "Planning, process mapping, risk analysis, and problem-solving skills for operations teams.",
+    fullDescription: "Practical training for running operations well and managing risk—production planning and control, business process mapping, risk management and FMEA, TRIZ problem solving, and occupational health and safety.",
+    iconName: "Scale",
+    metrics: "Training",
+    deliverables: [
+      "Production Planning & Control (PPC)",
+      "Business Process Mapping",
+      "Risk Management & FMEA",
+      "TRIZ Problem Solving",
+      "Occupational Health & Safety",
+    ],
+    idealFor: "Operations, planning, and safety staff who need practical tools for day-to-day decisions.",
+    duration: "Training Program",
+    tags: ["PPC", "Process Mapping", "FMEA", "TRIZ", "Health & Safety"],
+    executionPhases: PHASES_EN.training,
+  },
+  {
+    id: "training-people-performance",
+    category: "training",
+    title: "People & Performance Training",
+    shortDescription: "Change management, time management, and stress management for people at every level.",
+    fullDescription: "Programs that help people perform at their best and adapt to change—change management with ADKAR, strategic time management, and workplace stress management.",
+    iconName: "Sparkles",
+    metrics: "Training",
+    deliverables: [
+      "Change Management (ADKAR)",
+      "Strategic Time Management",
+      "Workplace Stress Management",
+    ],
+    idealFor: "Managers and employees navigating change, heavy workloads, or new ways of working.",
+    duration: "Training Program",
+    tags: ["ADKAR", "Change Management", "Time Management", "Stress Management"],
+    executionPhases: PHASES_EN.training,
+  },
+];
+
+export const digitalServicesEN: ServiceItem[] = [
+  {
+    id: "erp-implementation",
+    category: "digital",
+    title: "ERP Implementation",
+    shortDescription: "ERP systems configured around the way your organization operates—without unnecessary complexity.",
+    fullDescription: "We configure and implement ERP systems around the way your organization operates, rather than forcing teams into unnecessary complexity. From requirements and process alignment to data migration, go-live, and training, we deliver ERPNext functional and technical implementation end to end.",
+    iconName: "Cpu",
+    metrics: "ERP & Digital",
+    deliverables: [
+      "ERP configuration and business process alignment",
+      "ERPNext functional and technical implementation",
+      "Requirements gathering and process analysis",
+      "Module configuration and system setup",
+      "Master data structure and data migration",
+      "User roles, permissions, and approval workflows",
+      "Reports, dashboards, and management information systems",
+      "Integration with existing systems and applications",
+      "Testing, user acceptance testing (UAT), and go-live support",
+      "User training, documentation, and knowledge transfer",
+      "Post-implementation optimization and continuous improvement",
+    ],
+    idealFor: "Organizations moving to an ERP, or getting more value from an existing one such as ERPNext.",
+    duration: "Implementation Project",
+    tags: ["ERP", "ERPNext", "Data Migration", "Dashboards", "Integration", "UAT"],
+    executionPhases: PHASES_EN.digital,
+  },
+  {
+    id: "workflow-automation",
+    category: "digital",
+    title: "Workflow Automation",
+    shortDescription: "Turn manual processes into structured, trackable digital workflows.",
+    fullDescription: "We design and implement workflows that reduce unnecessary manual work, improve accountability, and give management better visibility into operations—with digital approvals, escalations, audit trails, and live status tracking.",
+    iconName: "GitMerge",
+    metrics: "ERP & Digital",
+    deliverables: [
+      "Business process and workflow mapping",
+      "Digital approval and authorization workflows",
+      "Task assignment, escalation, and notifications",
+      "Multi-level approval systems",
+      "Document and record management workflows",
+      "Automated data collection and validation",
+      "Workflow dashboards and status tracking",
+      "Integration between departments and business functions",
+      "Process controls, audit trails, and accountability",
+      "Workflow optimization based on performance data",
+    ],
+    idealFor: "Teams slowed down by paper, email chains, and spreadsheets who need clear approvals and visibility.",
+    duration: "Implementation Project",
+    tags: ["Workflow", "Automation", "Approvals", "Audit Trail", "Dashboards"],
+    executionPhases: PHASES_EN.digital,
+  },
+  {
+    id: "custom-software-development",
+    category: "digital",
+    title: "Custom Software Development",
+    shortDescription: "Software built around specific business requirements when standard ERP functionality is not enough.",
+    fullDescription: "When standard ERP functionality is not enough, we develop software solutions around specific business requirements—business applications and portals, web and mobile apps, dashboards, integrations, and custom ERPNext modules, through to deployment and support.",
+    iconName: "BrainCircuit",
+    metrics: "ERP & Digital",
+    deliverables: [
+      "Custom business applications and internal portals",
+      "Web-based management systems",
+      "Mobile and field-service applications",
+      "Customer and employee portals",
+      "Custom dashboards and reporting systems",
+      "API development and system integrations",
+      "Database design and application architecture",
+      "Legacy-system modernization",
+      "Custom modules and extensions for ERPNext",
+      "Software testing, deployment, maintenance, and support",
+    ],
+    idealFor: "Organizations with specific needs that off-the-shelf systems don't cover.",
+    duration: "Development Project",
+    tags: ["Custom Software", "Web Apps", "Mobile Apps", "APIs", "ERPNext Modules", "Portals"],
+    executionPhases: PHASES_EN.digital,
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Arabic                                                              */
+/* ------------------------------------------------------------------ */
+export const consultingServicesAR: ServiceItem[] = [
+  {
+    id: "operational-excellence",
+    category: "consulting",
+    title: "التميز التشغيلي",
+    shortDescription: "منهجيات لين وستة سيجما والتخطيط وتحسين العمليات لرفع الإنتاجية حيث يتم العمل فعلياً.",
+    fullDescription: "نساعد المؤسسات على إزالة الهدر وتقليل التباين وإدارة العمليات بشكل أكثر انتظاماً. بالاعتماد على منهجية لين ونظام تويوتا للإنتاج وستة سيجما، نرسم العمليات ونعيد هندستها، ونعزز تخطيط الإنتاج وسلاسل الإمداد، ونحسّن الإنتاجية والمردود في مواقع العمل.",
+    iconName: "Layers",
+    metrics: "الاستشارات",
+    deliverables: [
+      "لين وستة سيجما والتميز التشغيلي",
+      "تخطيط الإنتاج والتحكم فيه (PPC)",
+      "إعادة هندسة العمليات ورسم عمليات الأعمال",
+      "إدارة سلسلة الإمداد",
+      "تحسين الإنتاجية والمردود",
+    ],
+    idealFor: "المؤسسات الصناعية والخدمية التي تسعى إلى إنتاجية أعلى وزمن تنفيذ أقصر وعمليات أكثر انتظاماً.",
+    duration: "مشروع استشاري",
+    tags: ["لين", "ستة سيجما", "تخطيط الإنتاج", "رسم العمليات", "سلسلة الإمداد", "الإنتاجية"],
+    executionPhases: PHASES_AR.consulting,
+  },
+  {
+    id: "strategy-performance",
+    category: "consulting",
+    title: "الاستراتيجية والأداء",
+    shortDescription: "توجه واضح وخطط استراتيجية وأنظمة أداء تربط الأهداف بالعمل اليومي.",
+    fullDescription: "نساعد فرق القيادة على تحديد وجهة المؤسسة وكيفية قياس التقدم، بدءاً من الرسالة والرؤية وتحليل SWOT وصولاً إلى الخطط الاستراتيجية وإدارة الأداء باستخدام بطاقة الأداء المتوازن.",
+    iconName: "Target",
+    metrics: "الاستشارات",
+    deliverables: [
+      "إدارة الاستراتيجية والأداء",
+      "بطاقة الأداء المتوازن",
+      "الرسالة والرؤية والتخطيط الاستراتيجي",
+      "تحليل SWOT والتحليل المؤسسي",
+    ],
+    idealFor: "فرق القيادة التي تحتاج إلى استراتيجية واضحة وطريقة عملية لمتابعة الأداء وإدارته.",
+    duration: "مشروع استشاري",
+    tags: ["الاستراتيجية", "بطاقة الأداء المتوازن", "التخطيط الاستراتيجي", "SWOT", "مؤشرات الأداء"],
+    executionPhases: PHASES_AR.consulting,
+  },
+  {
+    id: "quality-risk-compliance",
+    category: "consulting",
+    title: "الجودة والمخاطر والامتثال",
+    shortDescription: "أنظمة جودة وإجراءات معيارية وضوابط للمخاطر تجعل الأداء ثابتاً وقابلاً للتدقيق.",
+    fullDescription: "نصمم أنظمة إدارة الجودة ونعززها، ونوحّد العمليات عبر إجراءات تشغيل معيارية واضحة، ونطبّق إدارة المخاطر وتحليل FMEA والتحكم الإحصائي في العمليات لتكون الجودة جزءاً من العملية لا مجرد فحص لاحق.",
+    iconName: "ShieldCheck",
+    metrics: "الاستشارات",
+    deliverables: [
+      "أنظمة إدارة الجودة",
+      "إعداد إجراءات التشغيل المعيارية وتوحيد العمليات",
+      "إدارة المخاطر وتحليل FMEA",
+      "التحكم الإحصائي في العمليات (SPC)",
+      "أنظمة تحسين الجودة والتحكم فيها",
+    ],
+    idealFor: "المؤسسات التي تحتاج إلى جودة ثابتة ومعايير موثقة وتحكم أفضل في المخاطر التشغيلية.",
+    duration: "مشروع استشاري",
+    tags: ["الجودة", "إجراءات التشغيل", "إدارة المخاطر", "FMEA", "SPC", "الامتثال"],
+    executionPhases: PHASES_AR.consulting,
+  },
+  {
+    id: "operations-maintenance",
+    category: "consulting",
+    title: "العمليات والصيانة",
+    shortDescription: "معدات موثوقة وأماكن عمل منظمة وعمليات أكثر أماناً وكفاءة.",
+    fullDescription: "نحسّن موثوقية المعدات وكفاءة بيئة العمل من خلال الصيانة الإنتاجية الشاملة وتنظيم مكان العمل 5S وممارسات الصيانة والموثوقية وكفاءة الطاقة وبيئة العمل والصحة والسلامة المهنية.",
+    iconName: "Cpu",
+    metrics: "الاستشارات",
+    deliverables: [
+      "الصيانة الإنتاجية الشاملة (TPM)",
+      "تنظيم مكان العمل (5S)",
+      "صيانة الآلات وموثوقيتها",
+      "ترشيد الطاقة وكفاءتها",
+      "بيئة العمل والصحة والسلامة المهنية",
+    ],
+    idealFor: "المصانع والمنشآت التي تسعى إلى تقليل التوقفات وتكاليف الطاقة ومخاطر السلامة.",
+    duration: "مشروع استشاري",
+    tags: ["TPM", "5S", "الصيانة", "الموثوقية", "الطاقة", "الصحة والسلامة"],
+    executionPhases: PHASES_AR.consulting,
+  },
+  {
+    id: "people-organizational-development",
+    category: "consulting",
+    title: "تطوير الأفراد والمؤسسات",
+    shortDescription: "الكفاءات والتقييمات وإدارة التغيير لمساعدة الأفراد على ترسيخ التحسين.",
+    fullDescription: "قد يفشل أفضل تحسين إذا لم يكن الأفراد مستعدين له. نبني أطر الكفاءات، ونقيّم فعالية الموارد البشرية والمؤسسة، ونقيس رضا الموظفين والعملاء، ونقود التغيير باستخدام نموذج ADKAR.",
+    iconName: "Users",
+    metrics: "الاستشارات",
+    deliverables: [
+      "أطر الكفاءات",
+      "تقييمات الموارد البشرية والمؤسسة",
+      "استبيانات رضا الموظفين والعملاء",
+      "إدارة التغيير (ADKAR)",
+    ],
+    idealFor: "المؤسسات التي تمر بمرحلة تغيير أو نمو أو إعادة هيكلة وتحتاج إلى أفراد متفاعلين وقادرين.",
+    duration: "مشروع استشاري",
+    tags: ["الموارد البشرية", "الكفاءات", "الاستبيانات", "ADKAR", "إدارة التغيير"],
+    executionPhases: PHASES_AR.consulting,
+  },
+];
+
+export const trainingServicesAR: ServiceItem[] = [
+  {
+    id: "training-project-strategy",
+    category: "training",
+    title: "تدريب المشاريع والاستراتيجية",
+    shortDescription: "التحضير لشهادة PMP وإدارة المشاريع وبرامج الاستراتيجية للمديرين وفرق المشاريع.",
+    fullDescription: "تدريب عملي على إدارة المشاريع والاستراتيجية، من التحضير لاختبار PMP وأساسيات إدارة المشاريع إلى إدارة دورة المشروع والإطار المنطقي وإدارة الأداء ببطاقة الأداء المتوازن وتطوير نماذج الأعمال.",
+    iconName: "Compass",
+    metrics: "التدريب",
+    deliverables: [
+      "التدريب التحضيري لشهادة PMP",
+      "دورة مكثفة في إدارة المشاريع",
+      "إدارة دورة المشروع والإطار المنطقي",
+      "إدارة الأداء باستخدام بطاقة الأداء المتوازن",
+      "تطوير نماذج الأعمال",
+    ],
+    idealFor: "مديرو المشاريع وقادة الفرق والمديرون المسؤولون عن التخطيط وتحقيق النتائج.",
+    duration: "برنامج تدريبي",
+    tags: ["PMP", "إدارة المشاريع", "الإطار المنطقي", "بطاقة الأداء المتوازن", "نموذج الأعمال"],
+    executionPhases: PHASES_AR.training,
+  },
+  {
+    id: "training-lean-quality",
+    category: "training",
+    title: "تدريب لين والجودة",
+    shortDescription: "أحزمة لين ستة سيجما و5S والصيانة الإنتاجية والتحكم الإحصائي وأدوات الجودة لفرق التحسين المستمر.",
+    fullDescription: "برامج تطبيقية في لين والجودة، من الحزام الأخضر والأسود في لين ستة سيجما إلى 5S والصيانة الإنتاجية الشاملة والتحكم الإحصائي في العمليات وتحليل البيانات بأدوات الجودة السبع وحلقات ضبط الجودة وتحسين المردود والإنتاجية.",
+    iconName: "BarChart3",
+    metrics: "التدريب",
+    deliverables: [
+      "الحزام الأخضر في لين ستة سيجما",
+      "الحزام الأسود في لين ستة سيجما",
+      "تنظيم مكان العمل 5S",
+      "الصيانة الإنتاجية الشاملة (TPM)",
+      "التحكم الإحصائي في العمليات (SPC)",
+      "تحليل البيانات وأدوات الجودة السبع",
+      "حلقات ضبط الجودة",
+      "تحسين المردود والإنتاجية",
+    ],
+    idealFor: "المهندسون والمشرفون وفرق الجودة والتحسين الذين يقودون التغيير في مواقع العمل.",
+    duration: "برنامج تدريبي",
+    tags: ["لين ستة سيجما", "الحزام الأخضر", "الحزام الأسود", "5S", "TPM", "SPC", "أدوات الجودة"],
+    executionPhases: PHASES_AR.training,
+  },
+  {
+    id: "training-operations-risk",
+    category: "training",
+    title: "تدريب العمليات والمخاطر",
+    shortDescription: "مهارات التخطيط ورسم العمليات وتحليل المخاطر وحل المشكلات لفرق العمليات.",
+    fullDescription: "تدريب عملي لإدارة العمليات بكفاءة والتعامل مع المخاطر: تخطيط الإنتاج والتحكم فيه، ورسم عمليات الأعمال، وإدارة المخاطر وتحليل FMEA، وحل المشكلات بمنهجية TRIZ، والصحة والسلامة المهنية.",
+    iconName: "Scale",
+    metrics: "التدريب",
+    deliverables: [
+      "تخطيط الإنتاج والتحكم فيه (PPC)",
+      "رسم عمليات الأعمال",
+      "إدارة المخاطر وتحليل FMEA",
+      "حل المشكلات بمنهجية TRIZ",
+      "الصحة والسلامة المهنية",
+    ],
+    idealFor: "موظفو العمليات والتخطيط والسلامة الذين يحتاجون إلى أدوات عملية لقراراتهم اليومية.",
+    duration: "برنامج تدريبي",
+    tags: ["تخطيط الإنتاج", "رسم العمليات", "FMEA", "TRIZ", "الصحة والسلامة"],
+    executionPhases: PHASES_AR.training,
+  },
+  {
+    id: "training-people-performance",
+    category: "training",
+    title: "تدريب الأفراد والأداء",
+    shortDescription: "إدارة التغيير وإدارة الوقت وإدارة الضغوط للأفراد في جميع المستويات.",
+    fullDescription: "برامج تساعد الأفراد على تقديم أفضل أداء والتكيف مع التغيير: إدارة التغيير بنموذج ADKAR، والإدارة الاستراتيجية للوقت، وإدارة ضغوط العمل.",
+    iconName: "Sparkles",
+    metrics: "التدريب",
+    deliverables: [
+      "إدارة التغيير (ADKAR)",
+      "الإدارة الاستراتيجية للوقت",
+      "إدارة ضغوط العمل",
+    ],
+    idealFor: "المديرون والموظفون الذين يواجهون التغيير أو ضغط العمل أو أساليب عمل جديدة.",
+    duration: "برنامج تدريبي",
+    tags: ["ADKAR", "إدارة التغيير", "إدارة الوقت", "إدارة الضغوط"],
+    executionPhases: PHASES_AR.training,
+  },
+];
+
+export const digitalServicesAR: ServiceItem[] = [
+  {
+    id: "erp-implementation",
+    category: "digital",
+    title: "تطبيق أنظمة ERP",
+    shortDescription: "أنظمة ERP مُعدّة وفق طريقة عمل مؤسستكم، دون تعقيد غير ضروري.",
+    fullDescription: "نُعِدّ أنظمة ERP ونطبّقها وفق طريقة عمل مؤسستكم بدلاً من إجبار الفرق على تعقيد غير ضروري. من جمع المتطلبات ومواءمة العمليات إلى ترحيل البيانات والإطلاق والتدريب، نقدّم تطبيق ERPNext الوظيفي والتقني من البداية إلى النهاية.",
+    iconName: "Cpu",
+    metrics: "ERP والتحول الرقمي",
+    deliverables: [
+      "إعداد نظام ERP ومواءمته مع عمليات الأعمال",
+      "التطبيق الوظيفي والتقني لنظام ERPNext",
+      "جمع المتطلبات وتحليل العمليات",
+      "إعداد الوحدات وتهيئة النظام",
+      "هيكلة البيانات الرئيسية وترحيل البيانات",
+      "أدوار المستخدمين والصلاحيات وسير عمل الموافقات",
+      "التقارير ولوحات المتابعة ونظم المعلومات الإدارية",
+      "التكامل مع الأنظمة والتطبيقات الحالية",
+      "الاختبار واختبار قبول المستخدم (UAT) ودعم الإطلاق",
+      "تدريب المستخدمين والتوثيق ونقل المعرفة",
+      "التحسين بعد التطبيق والتحسين المستمر",
+    ],
+    idealFor: "المؤسسات التي تنتقل إلى نظام ERP أو تسعى للاستفادة أكثر من نظام قائم مثل ERPNext.",
+    duration: "مشروع تطبيق",
+    tags: ["ERP", "ERPNext", "ترحيل البيانات", "لوحات المتابعة", "التكامل", "UAT"],
+    executionPhases: PHASES_AR.digital,
+  },
+  {
+    id: "workflow-automation",
+    category: "digital",
+    title: "أتمتة سير العمل",
+    shortDescription: "تحويل العمليات اليدوية إلى سير عمل رقمي منظم وقابل للتتبع.",
+    fullDescription: "نصمم وننفذ سير عمل يقلل العمل اليدوي غير الضروري ويعزز المساءلة ويمنح الإدارة رؤية أوضح للعمليات، مع موافقات رقمية وتصعيد وسجلات تدقيق وتتبع مباشر للحالة.",
+    iconName: "GitMerge",
+    metrics: "ERP والتحول الرقمي",
+    deliverables: [
+      "رسم عمليات الأعمال وسير العمل",
+      "سير عمل رقمي للموافقات والتفويض",
+      "إسناد المهام والتصعيد والإشعارات",
+      "أنظمة الموافقات متعددة المستويات",
+      "سير عمل إدارة المستندات والسجلات",
+      "جمع البيانات والتحقق منها آلياً",
+      "لوحات متابعة سير العمل وتتبع الحالة",
+      "التكامل بين الإدارات ووظائف الأعمال",
+      "ضوابط العمليات وسجلات التدقيق والمساءلة",
+      "تحسين سير العمل بناءً على بيانات الأداء",
+    ],
+    idealFor: "الفرق التي تعيقها الأوراق وسلاسل البريد الإلكتروني وجداول البيانات وتحتاج إلى موافقات ورؤية واضحة.",
+    duration: "مشروع تطبيق",
+    tags: ["سير العمل", "الأتمتة", "الموافقات", "سجل التدقيق", "لوحات المتابعة"],
+    executionPhases: PHASES_AR.digital,
+  },
+  {
+    id: "custom-software-development",
+    category: "digital",
+    title: "تطوير البرمجيات المخصصة",
+    shortDescription: "برمجيات مبنية وفق متطلبات أعمال محددة عندما لا تكفي وظائف ERP القياسية.",
+    fullDescription: "عندما لا تكفي وظائف ERP القياسية، نطوّر حلولاً برمجية وفق متطلبات الأعمال المحددة: تطبيقات وبوابات الأعمال، وتطبيقات الويب والجوال، ولوحات المتابعة، والتكاملات، ووحدات ERPNext المخصصة، وصولاً إلى النشر والدعم.",
+    iconName: "BrainCircuit",
+    metrics: "ERP والتحول الرقمي",
+    deliverables: [
+      "تطبيقات أعمال مخصصة وبوابات داخلية",
+      "أنظمة إدارة عبر الويب",
+      "تطبيقات الجوال والخدمات الميدانية",
+      "بوابات العملاء والموظفين",
+      "لوحات متابعة وأنظمة تقارير مخصصة",
+      "تطوير واجهات API وتكامل الأنظمة",
+      "تصميم قواعد البيانات وبنية التطبيقات",
+      "تحديث الأنظمة القديمة",
+      "وحدات وإضافات مخصصة لنظام ERPNext",
+      "اختبار البرمجيات ونشرها وصيانتها ودعمها",
+    ],
+    idealFor: "المؤسسات ذات الاحتياجات الخاصة التي لا تغطيها الأنظمة الجاهزة.",
+    duration: "مشروع تطوير",
+    tags: ["برمجيات مخصصة", "تطبيقات ويب", "تطبيقات جوال", "API", "وحدات ERPNext", "بوابات"],
+    executionPhases: PHASES_AR.digital,
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Accessors                                                           */
+/* ------------------------------------------------------------------ */
+export function getServicePillars(lang: Language = "en"): ServicePillar[] {
+  return lang === "ar" ? servicePillarsAR : servicePillarsEN;
+}
+
+export function getServicesByCategory(category: ServiceCategory, lang: Language = "en"): ServiceItem[] {
+  return getServices(lang).filter((s) => s.category === category);
 }
 
 export function getServices(lang: Language = "en"): ServiceItem[] {
-  return lang === "ar" 
-    ? [...businessServicesAR, ...consultancyServicesAR]
-    : [...businessServicesEN, ...consultancyServicesEN];
+  return lang === "ar"
+    ? [...consultingServicesAR, ...trainingServicesAR, ...digitalServicesAR]
+    : [...consultingServicesEN, ...trainingServicesEN, ...digitalServicesEN];
 }
 
 export function getServiceById(id: string, lang: Language = "en"): ServiceItem | undefined {
-  const list = getServices(lang);
-  return list.find((s) => s.id === id);
+  return getServices(lang).find((s) => s.id === id);
 }
 
-// Static fallbacks
-export const businessServices = businessServicesEN;
-export const consultancyServices = consultancyServicesEN;
-export const allServices = [...businessServicesEN, ...consultancyServicesEN];
+// Static fallbacks (English)
+export const allServices = [...consultingServicesEN, ...trainingServicesEN, ...digitalServicesEN];

@@ -65,10 +65,10 @@ export default function HeroSection() {
   const isAr = language === "ar";
 
   const stats = [
-    { value: "91.4%", label: isAr ? "دقة تنفيذ المخرجات" : "Delivery Execution", bar: "bg-navy" },
-    { value: isAr ? "الربع الأعلى" : "Top Quartile", label: isAr ? "المعيار الاستشاري" : "Industry Benchmark", bar: "bg-rust" },
-    { value: "18+", label: isAr ? "ممارسة متخصصة" : "Advisory Practices", bar: "bg-steel" },
-    { value: "100% NDA", label: isAr ? "سرية وحوكمة صارمة" : "Strict Governance", bar: "bg-ink dark:bg-white" },
+    { value: "60+", label: isAr ? "سنة من الخبرة المشتركة" : "Years of Combined Experience", bar: "bg-navy" },
+    { value: "13", label: isAr ? "قطاعاً نخدمه" : "Industries Served", bar: "bg-rust" },
+    { value: "11", label: isAr ? "دولة شملتها مهامنا" : "Countries of Professional Experience", bar: "bg-steel" },
+    { value: "3", label: isAr ? "خطوط خدمة: استشارات · تدريب · رقمي" : "Service Lines: Consulting · Training · Digital", bar: "bg-ink dark:bg-white" },
   ];
 
   return (
@@ -91,7 +91,7 @@ export default function HeroSection() {
                 <span className="absolute inset-0 rounded-full bg-navy/40 animate-ping" aria-hidden="true" />
                 <ShieldCheck className="relative w-3.5 h-3.5" />
               </span>
-              <span>{isAr ? "استشارات وحلول الأعمال التنفيذية" : "EXECUTIVE ADVISORY • BUSINESS EXCELLENCE"}</span>
+              <span>{isAr ? "من الاستراتيجية إلى أرض المصنع" : "FROM STRATEGY TO SHOP FLOOR"}</span>
             </motion.div>
 
             <h1 className="text-[2.35rem] sm:text-6xl lg:text-[4.25rem] font-extrabold tracking-tight text-ink dark:text-white leading-[1.06] font-display">
@@ -127,8 +127,8 @@ export default function HeroSection() {
             <ScrollReveal variant="fade-up" delay={0.45} duration={0.8}>
               <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 {isAr
-                  ? "تخطيط عملي للأعمال، نمذجة مالية واستشارات استراتيجية لمساعدة الشركات على توسيع نطاق عملياتها واستقرار نموها التجاري."
-                  : "Practical business planning, financial modeling, and management consulting to help companies scale operations and steady commercial growth."}
+                  ? "نجمع بين الاستشارات والتدريب والتطبيق الرقمي لمساعدة المؤسسات على تصميم أساليب عمل أفضل، وبناء القدرات اللازمة لاستدامتها، وترسيخ التحسين في العمليات اليومية."
+                  : "We combine consulting, training, and digital implementation to help organizations design better ways of working, build the capabilities to sustain them, and embed improvement into daily operations."}
               </p>
             </ScrollReveal>
 
@@ -147,16 +147,16 @@ export default function HeroSection() {
                   className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white hover:bg-navy-50 dark:bg-white/5 dark:hover:bg-white/10 text-navy dark:text-white text-sm font-semibold border border-navy/15 dark:border-white/15 transition-all duration-300 hover:-translate-y-0.5"
                 >
                   <Layers className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
-                  <span>{isAr ? "استكشف الممارسات" : "Explore Practices"}</span>
+                  <span>{isAr ? "ما نقوم به" : "What We Do"}</span>
                 </Link>
               </div>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-up" delay={0.65} duration={0.8}>
               <ul className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "تخطيط الأعمال" : "Business Planning"}</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "النمذجة المالية" : "Financial Modeling"}</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "الاستشارات الإدارية" : "Management Consulting"}</li>
+                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "الاستشارات" : "Consulting"}</li>
+                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "التدريب" : "Training"}</li>
+                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "ERP والتحول الرقمي" : "ERP & Digital Transformation"}</li>
               </ul>
             </ScrollReveal>
           </div>

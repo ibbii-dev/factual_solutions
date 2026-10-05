@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { contactDetails, officeLocations } from "@/data/companyData";
 import { 
   ArrowRight, 
   MapPin, 
@@ -49,13 +50,13 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             <div className="lg:col-span-7 space-y-2">
               <span className="text-[11px] font-bold tracking-[0.16em] uppercase text-steel">
-                EXECUTIVE ADVISORY BRIEFING
+                STAY INFORMED
               </span>
               <h3 className="text-xl sm:text-3xl font-bold text-white font-display">
-                Schedule an Enterprise Advisory Briefing
+                Practical Insights on Operational Excellence
               </h3>
               <p className="text-sm text-slate-300 max-w-xl leading-relaxed">
-                Connect with our strategic analysts to assess financial exposures, market opportunities, and organizational roadmaps.
+                Ideas on Lean Six Sigma, strategy, quality, ERP, and digital transformation—straight to your inbox.
               </p>
             </div>
 
@@ -63,7 +64,7 @@ export default function Footer() {
               {subscribed ? (
                 <div className="p-3.5 bg-emerald-500/10 border border-emerald-400/30 rounded-xl text-emerald-300 text-sm flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>Briefing request sent. Our advisory team will contact you.</span>
+                  <span>Thank you, you're subscribed.</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 w-full p-1.5 rounded-2xl bg-white/5 border border-white/10">
@@ -72,7 +73,7 @@ export default function Footer() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your corporate email"
+                    placeholder="Enter your email"
                     aria-label="Corporate email"
                     className="w-full px-4 py-3 rounded-xl bg-transparent text-sm text-white placeholder:text-slate-400 focus:outline-none focus:bg-white/5"
                   />
@@ -80,7 +81,7 @@ export default function Footer() {
                     type="submit"
                     className="w-full sm:w-auto px-5 py-3 rounded-xl bg-rust hover:bg-rust-light text-white text-xs font-bold transition-colors shrink-0 tracking-wider uppercase text-center shadow-cta"
                   >
-                    SEND BRIEFING REQUEST
+                    SUBSCRIBE
                   </button>
                 </form>
               )}
@@ -113,18 +114,12 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              Practical business modeling, market research, financial planning, and management consulting for steady enterprise growth.
+              Consulting, training, and digital implementation that help organizations perform better—from strategy to shop floor.
             </p>
 
             {/* Social Links */}
             <div className="flex items-center gap-2.5">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={socialCls} aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={socialCls} aria-label="Twitter">
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a href="mailto:contact@factualsolutions.com" className={socialCls} aria-label="Email">
+              <a href={`mailto:${contactDetails.email}`} className={socialCls} aria-label="Email">
                 <Mail className="w-4 h-4" />
               </a>
             </div>
@@ -133,14 +128,14 @@ export default function Footer() {
           {/* Column 2: Knowledge Sectors */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-[11px] font-bold text-white uppercase tracking-[0.16em]">
-              KNOWLEDGE SECTORS
+              WHAT WE DO
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/services/investment-planning" className={linkCls}>Financial Modeling</Link></li>
-              <li><Link href="/services/studies-research" className={linkCls}>Market Opportunity Assessment</Link></li>
-              <li><Link href="/services/studies-research" className={linkCls}>Feasibility Studies</Link></li>
-              <li><Link href="/services/business-growth" className={linkCls}>Corporate Restructuring</Link></li>
-              <li><Link href="/services/process-transformation" className={linkCls}>Operational Audit</Link></li>
+              <li><Link href="/services/operational-excellence" className={linkCls}>Operational Excellence</Link></li>
+              <li><Link href="/services/strategy-performance" className={linkCls}>Strategy &amp; Performance</Link></li>
+              <li><Link href="/services/quality-risk-compliance" className={linkCls}>Quality, Risk &amp; Compliance</Link></li>
+              <li><Link href="/services?line=training#training" className={linkCls}>Training Programs</Link></li>
+              <li><Link href="/services/erp-implementation" className={linkCls}>ERP &amp; Digital Transformation</Link></li>
             </ul>
           </div>
 
@@ -153,7 +148,7 @@ export default function Footer() {
               <li><Link href="/about" className={linkCls}>About Us</Link></li>
               <li><Link href="/services" className={linkCls}>Our Services</Link></li>
               <li><Link href="/what-we-think" className={linkCls}>What We Think</Link></li>
-              <li><Link href="/blog" className={linkCls}>Executive Blog</Link></li>
+              <li><Link href="/blog" className={linkCls}>Blog</Link></li>
               <li>
                 <Link href="/contact" className="text-white hover:text-steel-light font-semibold transition-colors inline-flex items-center gap-1.5">
                   <span>Contact Us</span>
@@ -167,7 +162,7 @@ export default function Footer() {
           <div className="lg:col-span-3 space-y-4">
             <div className="flex flex-wrap items-center gap-2">
               <h4 className="text-[11px] font-bold text-white uppercase tracking-[0.16em]">
-                GLOBAL HEADQUARTERS
+                HEAD OFFICE
               </h4>
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-steel/15 text-steel-light border border-steel/25">
                 1-Day Response
@@ -177,15 +172,15 @@ export default function Footer() {
             <div className="space-y-2.5 text-sm text-slate-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-brand-rust-light shrink-0 mt-0.5" />
-                <span>Executive District, Building 4, Level 6, Riyadh 12214</span>
+                <span>{officeLocations[0].address}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-steel shrink-0" />
-                <a href="tel:+97140000000" className="hover:text-white transition-colors">+971 4 000 0000</a>
+                <a href={`tel:${contactDetails.phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors">{contactDetails.phone}</a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-steel shrink-0" />
-                <a href="mailto:contact@factualsolutions.com" className="hover:text-white transition-colors break-all">contact@factualsolutions.com</a>
+                <a href={`mailto:${contactDetails.email}`} className="hover:text-white transition-colors break-all">{contactDetails.email}</a>
               </div>
             </div>
 
@@ -206,16 +201,14 @@ export default function Footer() {
         {/* Bottom Legal & Disclosures */}
         <div className="pt-8 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="text-center sm:text-start">
-            &copy; {new Date().getFullYear()} Factual Solutions. All rights reserved. Registered Enterprise Advisory Ltd.
+            &copy; {new Date().getFullYear()} Factual Solutions. All rights reserved.
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-300">
             <Link href="/contact" className="hover:text-white font-semibold transition-colors">Contact Us</Link>
             <span className="text-white/20">•</span>
-            <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/about" className="hover:text-white transition-colors">Who We Are</Link>
             <span className="text-white/20">•</span>
-            <Link href="/services" className="hover:text-white transition-colors">Terms of Engagement</Link>
-            <span className="text-white/20">•</span>
-            <Link href="/contact" className="hover:text-white transition-colors">Regulatory Disclosures</Link>
+            <Link href="/services" className="hover:text-white transition-colors">What We Do</Link>
             <span className="text-white/20">•</span>
             <Link href="/admin" className="text-slate-500 hover:text-slate-200 transition-colors text-[11px]">Staff Admin</Link>
           </div>

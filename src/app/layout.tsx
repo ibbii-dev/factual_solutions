@@ -36,9 +36,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Factual Solutions | Business & Management Consulting",
-  description: "Factual Solutions provides practical business planning, market analysis, investment modeling, and management consulting.",
-  keywords: ["Factual Solutions", "Business Consulting", "Management Consulting", "Market Analysis", "Business Idea", "Investment Planning", "Risk Management"],
+  title: "Factual Solutions | Consulting, Training & Digital Transformation",
+  description: "Factual Solutions helps organizations perform better through consulting, training, and ERP & digital transformation—Lean Six Sigma, operational excellence, strategy, quality, and continuous improvement.",
+  keywords: ["Factual Solutions", "Management Consulting", "Lean Six Sigma", "Operational Excellence", "Training", "ERP", "ERPNext", "Digital Transformation", "TPM", "Balanced Scorecard"],
   icons: {
     icon: "/images/logo-symbol.svg",
     apple: "/images/logo-symbol.svg",

@@ -28,29 +28,29 @@ export default function ConsultationBanner() {
 
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-steel-light border border-white/15 text-[11px] font-bold uppercase tracking-[0.14em]">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-rust-light" />
-                <span>ADVISORY ENGAGEMENT</span>
+                <span>PRACTITIONERS, NOT JUST ADVISORS</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-display leading-[1.1]">
-                Ready to Discuss Your Business Goals?
+                Improvement That Works in Practice
               </h2>
 
               <p className="text-sm sm:text-base text-slate-200/90 leading-relaxed max-w-xl">
-                Connect directly with our consulting team to explore market research, business plan validation, financial modeling, or sales workflows.
+                We have worked inside factories, alongside project teams, and with leadership in boardrooms. Talk to us about consulting, training, or ERP and digital transformation for your organization.
               </p>
 
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2.5 sm:gap-6 pt-1 text-sm text-white/90 font-medium">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-steel shrink-0" />
-                  <span>Confidential Discussion</span>
+                  <span>Practical Experience</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-steel shrink-0" />
-                  <span>Direct Consultant Callback</span>
+                  <span>Transferable Methods</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-steel shrink-0" />
-                  <span>No Immediate Commitment</span>
+                  <span>Measurable Improvement</span>
                 </div>
               </div>
 
@@ -68,7 +68,7 @@ export default function ConsultationBanner() {
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold border border-white/20 transition-all duration-200 hover:-translate-y-0.5 text-center"
                 >
                   <PhoneCall className="w-4 h-4 text-steel" />
-                  <span>Book a Discovery Call</span>
+                  <span>Book a Discussion</span>
                 </Link>
               </div>
 

@@ -19,7 +19,7 @@ import {
   Calendar,
   Send
 } from "lucide-react";
-import { getServiceById, getServices, ServiceItem } from "@/data/servicesData";
+import { getServiceById, getServices, getServicePillars, ServiceItem } from "@/data/servicesData";
 import { useLanguage } from "@/context/LanguageContext";
 import { saveInquiry } from "@/data/inquiriesStore";
 
@@ -31,7 +31,12 @@ export default function ServiceDetailPage() {
 
   const service = getServiceById(serviceId, language) || getServiceById(serviceId, "en");
   const allServicesList = getServices(language);
-  const relatedServices = allServicesList.filter((s) => s.id !== serviceId).slice(0, 3);
+  const relatedServices = (() => {
+    const others = allServicesList.filter((s) => s.id !== serviceId);
+    const cat = (getServiceById(serviceId, "en") || others[0])?.category;
+    return [...others.filter((s) => s.category === cat), ...others.filter((s) => s.category !== cat)].slice(0, 4);
+  })();
+  const pillar = service ? getServicePillars(language).find((p) => p.id === service.category) : undefined;
 
   // Quick Consultation Form State in Sidebar
   const [formData, setFormData] = useState({
@@ -100,22 +105,21 @@ export default function ServiceDetailPage() {
     );
   }
 
-  const isBusiness = service.category === "business";
 
   const labels = language === "ar" ? {
     breadcrumbHome: "الرئيسية",
     breadcrumbServices: "الخدمات",
     categoryBusiness: "حلول الأعمال",
     categoryConsultancy: "الاستشارات الإدارية",
-    overviewTitle: "نظرة عامة على الخدمة والأثر المؤسسي",
-    deliverablesTitle: "مخرجات العمل الاستشارية والتنفيذية",
-    phasesTitle: "منهجية التنفيذ ومراحل العمل",
-    idealForTitle: "الملف المؤسسي المستهدف",
-    idealForSubtitle: "صممت هذه الخدمة للشركات والقيادات التي تواجه التحديات التالية:",
-    statsTimeline: "الإطار الزمني",
+    overviewTitle: "نظرة عامة",
+    deliverablesTitle: "ما تشمله هذه الخدمة",
+    phasesTitle: "كيف نعمل",
+    idealForTitle: "لمن هذه الخدمة",
+    idealForSubtitle: "تناسب هذه الخدمة:",
+    statsTimeline: "نوع الخدمة",
     statsDeliverables: "المخرجات",
     statsLead: "الإشراف",
-    statsLeadVal: "مستشار معتمد (PMP / MBB)",
+    statsLeadVal: "حزام أسود رئيسي في لين ستة سيجما · PMP",
     statsBenchmark: "معيار الإنجاز",
     sidebarTitle: "طلب جلسة استشارية مباشرة",
     sidebarDesc: "ناقش متطلبات مشروعك مباشرة مع خبرائنا واحصل على تقييم أولي مجاني.",
@@ -129,22 +133,22 @@ export default function ServiceDetailPage() {
     successTitle: "تم استلام طلبك بنجاح",
     successDesc: "شكراً لك. سيتواصل معك مستشارنا المختص خلال 24 ساعة.",
     confidential: "جلسة استشارية سرية ومحمية باتفاقية عدم إفصاح",
-    relatedTitle: "خدمات استشارية ذات صلة",
+    relatedTitle: "خدمات ذات صلة",
     viewService: "عرض تفاصيل الخدمة",
   } : {
     breadcrumbHome: "Home",
     breadcrumbServices: "Services",
     categoryBusiness: "Business Solution",
     categoryConsultancy: "Consultancy Advisory",
-    overviewTitle: "Strategic Overview & Business Impact",
-    deliverablesTitle: "Core Strategic & Operational Deliverables",
-    phasesTitle: "Structured 3-Phase Execution Roadmap",
-    idealForTitle: "Ideal Organization Profile & Target Readiness",
-    idealForSubtitle: "This engagement is tailored for enterprises and leadership teams requiring structured outcomes:",
-    statsTimeline: "Timeline",
-    statsDeliverables: "Deliverables",
+    overviewTitle: "Overview",
+    deliverablesTitle: "What This Covers",
+    phasesTitle: "How We Work",
+    idealForTitle: "Who It's For",
+    idealForSubtitle: "This service is a good fit for:",
+    statsTimeline: "Format",
+    statsDeliverables: "Coverage",
     statsLead: "Lead Advisory",
-    statsLeadVal: "Senior PMP / Master Black Belt",
+    statsLeadVal: "Lean Six Sigma Master Black Belt · PMP",
     statsBenchmark: "Key Deliverable",
     sidebarTitle: "Schedule Direct Consultation",
     sidebarDesc: "Discuss your objectives directly with our lead advisory team for a structured initial assessment.",
@@ -157,8 +161,8 @@ export default function ServiceDetailPage() {
     submittingBtn: "Sending Inquiry...",
     successTitle: "Inquiry Received Successfully",
     successDesc: "Thank you. Our practice lead will contact you within 24 business hours.",
-    confidential: "Strict client confidentiality protected under mutual NDA",
-    relatedTitle: "Related Strategic Capabilities",
+    confidential: "Your information is kept strictly confidential",
+    relatedTitle: "Related Services",
     viewService: "Explore Service",
   };
 
@@ -188,12 +192,9 @@ export default function ServiceDetailPage() {
             {/* Practice Indicator & Deliverable Tag */}
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="px-3 py-1 rounded-md bg-navy-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/15 text-accent text-[11px] font-bold uppercase tracking-wider">
-                {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
+                {pillar?.title}
               </span>
 
-              <span className="px-3 py-1 rounded-md bg-navy-50 text-navy dark:bg-steel/15 dark:text-steel-light border border-navy/15 dark:border-steel/25 font-bold text-[11px]">
-                {service.metrics}
-              </span>
             </div>
 
             {/* Main Title */}
@@ -222,7 +223,7 @@ export default function ServiceDetailPage() {
                   <Layers className="w-3.5 h-3.5 text-slate-400 dark:text-slate-300" /> {labels.statsDeliverables}
                 </div>
                 <div className="text-xs sm:text-sm font-bold text-ink dark:text-white mt-1">
-                  {service.deliverables.length} {language === "ar" ? "مخرجات رئيسية" : "Key Frameworks"}
+                  {service.deliverables.length} {language === "ar" ? "مجالات" : "Focus Areas"}
                 </div>
               </div>
 
@@ -278,8 +279,8 @@ export default function ServiceDetailPage() {
                 </h2>
                 <p className="text-xs text-slate-600 dark:text-slate-200 mt-1">
                   {language === "ar" 
-                    ? "مجموعة متكاملة من التقارير والنماذج وخرائط العمل المعتمدة التي يتم تسليمها خلال المشروع:" 
-                    : "Tangible reports, financial models, and strategic blueprints provided during the engagement:"}
+                    ? "المجالات التي تغطيها هذه الخدمة:" 
+                    : "The areas this service covers:"}
                 </p>
               </div>
 
@@ -295,9 +296,6 @@ export default function ServiceDetailPage() {
                     <div>
                       <div className="text-xs sm:text-sm font-bold text-ink dark:text-white leading-snug">
                         {del}
-                      </div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-300 mt-0.5">
-                        {language === "ar" ? "وثيقة تنفيذية معتمدة وموثقة" : "Verified operational artifact"}
                       </div>
                     </div>
                   </div>
@@ -315,8 +313,8 @@ export default function ServiceDetailPage() {
                   </h2>
                   <p className="text-xs text-slate-600 dark:text-slate-200 mt-1">
                     {language === "ar"
-                      ? "نتبع مساراً استشارياً منظماً يضمن تحقيق المستهدفات بدقة وانضباط:"
-                      : "A disciplined step-by-step approach ensuring clear milestone accountability:"}
+                      ? "نهجنا العملي من البداية إلى النهاية:"
+                      : "Our practical approach, from start to finish:"}
                   </p>
                 </div>
 

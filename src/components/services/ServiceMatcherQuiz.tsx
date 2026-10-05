@@ -18,19 +18,19 @@ export default function ServiceMatcherQuiz() {
 
   const labels = language === "ar" ? {
     badge: "مستشار الخدمات التفاعلي",
-    title: "ألست متأكداً من الخدمة الأنسب لمرحلة مشروعك الحالية؟",
+    title: "لست متأكداً من الخدمة الأنسب لاحتياجاتك؟",
     step1Title: "الخطوة 1 من 2: ما هو هدفك المؤسسي الأبرز حالياً؟",
     step2Title: "الخطوة 2 من 2: ما هو الإطار الزمني المستهدف للتنفيذ؟",
     recTag: "الاستشارة الموصى بها",
     retake: "إعادة التقييم",
-    roiLabel: "المخرجات المتوقعة:",
+    roiLabel: "مجال الخدمة:",
     bookBtn: "حجز جلسة استشارية لهذه الخدمة",
     challenges: [
-      { id: "modernize", label: "أفكار تجارية ودراسات جدوى اقتصادية" },
-      { id: "expansion", label: "التوسع الإقليمي وتحليل السوق والمنافسين" },
-      { id: "governance", label: "الاستشارات الاستراتيجية وإعادة الهيكلة" },
-      { id: "financial", label: "النمذجة المالية والتخطيط الاستثماري" },
-      { id: "ops", label: "تطوير العمليات وتحسين مسارات المبيعات" }
+      { id: "ops", label: "رفع الإنتاجية وتحسين العمليات" },
+      { id: "strategy", label: "الاستراتيجية وإدارة الأداء" },
+      { id: "quality", label: "الجودة والمخاطر والامتثال" },
+      { id: "skills", label: "بناء مهارات الفرق (التدريب)" },
+      { id: "digital", label: "أنظمة ERP والأدوات الرقمية" }
     ],
     timeframes: [
       { id: "immediate", label: "فوري (خلال 30 يوماً)" },
@@ -39,19 +39,19 @@ export default function ServiceMatcherQuiz() {
     ]
   } : {
     badge: "Interactive Service Advisor",
-    title: "Not Sure Which Engagement Fits Your Milestone?",
-    step1Title: "Step 1 of 2: What is your primary enterprise objective right now?",
+    title: "Not Sure Which Service Fits Your Needs?",
+    step1Title: "Step 1 of 2: What do you want to improve most right now?",
     step2Title: "Step 2 of 2: What is your intended timeline for execution?",
     recTag: "Recommended Engagement",
     retake: "Retake Quiz",
-    roiLabel: "Expected Benchmark Deliverable:",
+    roiLabel: "Service line:",
     bookBtn: "Book Priority Consultation for this Service",
     challenges: [
-      { id: "modernize", label: "Business Idea & Feasibility Modeling" },
-      { id: "expansion", label: "Market Analysis & Industry Research" },
-      { id: "governance", label: "Strategic Management & Corporate Advisory" },
-      { id: "financial", label: "Investment Planning & Financial Modeling" },
-      { id: "ops", label: "Business Growth & Sales Optimization" }
+      { id: "ops", label: "Improve operations & productivity" },
+      { id: "strategy", label: "Strategy & performance management" },
+      { id: "quality", label: "Quality, risk & compliance" },
+      { id: "skills", label: "Build my team's skills (training)" },
+      { id: "digital", label: "ERP & digital systems" }
     ],
     timeframes: [
       { id: "immediate", label: "Immediate (Within 30 Days)" },
@@ -67,18 +67,14 @@ export default function ServiceMatcherQuiz() {
 
   const handleSelectUrgency = (timeframe: string) => {
     setUrgency(timeframe);
-    let match: ServiceItem;
-    if (challengeType === "modernize") {
-      match = currentServices.find((s) => s.id === "business-idea") || currentServices[0];
-    } else if (challengeType === "expansion") {
-      match = currentServices.find((s) => s.id === "market-analysis") || currentServices[1];
-    } else if (challengeType === "governance") {
-      match = currentServices.find((s) => s.id === "strategic-consulting") || currentServices[5];
-    } else if (challengeType === "financial") {
-      match = currentServices.find((s) => s.id === "investment-planning") || currentServices[2];
-    } else {
-      match = currentServices.find((s) => s.id === "business-growth") || currentServices[3];
-    }
+    const target: Record<string, string> = {
+      ops: "operational-excellence",
+      strategy: "strategy-performance",
+      quality: "quality-risk-compliance",
+      skills: "training-lean-quality",
+      digital: "erp-implementation",
+    };
+    const match: ServiceItem = currentServices.find((s) => s.id === target[challengeType]) || currentServices[0];
     setRecommendedService(match);
     setStep(3);
   };
@@ -193,7 +189,7 @@ export default function ServiceMatcherQuiz() {
 
             <div className="p-3 bg-white dark:bg-white/10 rounded-xl border border-slate-200 dark:border-white/15 flex items-center justify-between text-xs">
               <span className="font-medium text-slate-600 dark:text-slate-200">{labels.roiLabel}</span>
-              <span className="font-bold text-emerald-600 dark:text-emerald-400">{recommendedService.metrics}</span>
+              <span className="font-bold text-navy dark:text-steel-light">{recommendedService.metrics}</span>
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3">

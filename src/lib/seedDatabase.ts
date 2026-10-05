@@ -122,7 +122,7 @@ export async function seedDatabase(): Promise<{
     const serviceDocs: IService[] = allServices.map((s) => ({
       id: s.id,
       title: s.title,
-      category: s.category as "business" | "consultancy",
+      category: s.category,
       shortDescription: s.shortDescription,
       fullDescription: s.fullDescription,
       iconName: s.iconName,
@@ -132,7 +132,7 @@ export async function seedDatabase(): Promise<{
       duration: s.duration,
       tags: s.tags,
       executionPhases: s.executionPhases,
-      pricingTier: s.category === "business" ? "Tier 1 Commercial Advisory" : "Tier 2 Strategic Transformation",
+      pricingTier: s.category === "training" ? "Training Program" : s.category === "digital" ? "Implementation Project" : "Consulting Engagement",
       createdAt: new Date()
     }));
     await servicesColl.insertMany(serviceDocs);

@@ -47,7 +47,7 @@ export interface IService {
   _id?: string;
   id: string;
   title: string;
-  category: "business" | "consultancy";
+  category: "consulting" | "training" | "digital";
   shortDescription: string;
   fullDescription: string;
   iconName: string;

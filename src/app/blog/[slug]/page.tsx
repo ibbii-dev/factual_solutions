@@ -299,7 +299,7 @@ export default async function BlogPostPage({
               {post.author.role}
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed">
-              Senior partner and practice lead at Factual Solutions. Specializes in multi-variable business modeling, feasibility validation, and corporate restructuring for high-growth enterprises.
+              Practitioner at Factual Solutions, sharing practical insights on operational excellence, Lean Six Sigma, strategy, and digital transformation.
             </p>
           </div>
         </div>

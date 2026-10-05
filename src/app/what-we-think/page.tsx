@@ -2,174 +2,112 @@
 
 import React from "react";
 import Link from "next/link";
-import { 
-  ArrowRight, 
-  Lightbulb, 
-  Sparkles, 
-  Compass, 
-  ShieldCheck, 
-  TrendingUp, 
-  Layers, 
-  MessageSquare,
-  Clock
-} from "lucide-react";
+import { ArrowRight, Workflow, BarChart3, Users, Puzzle, GraduationCap, Lightbulb } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
+const content = {
+  en: {
+    badge: "What We Think",
+    headline: "Improvement That Lasts Starts with How You Think",
+    lead: "Tools are easy to buy. Lasting results come from the thinking behind them.",
+    sub: "Here are the principles that guide how we approach every engagement:",
+    principles: [
+      { title: "Fix the process before you buy the software.", desc: "ERP systems amplify whatever process they are given. We map, challenge, and improve the process first—so technology supports good practice rather than simply automating waste." },
+      { title: "Make decisions based on data.", desc: "From statistical process control to gap analysis, we measure first, analyze rigorously, and recommend based on evidence—not assumptions." },
+      { title: "People make change stick.", desc: "Methods such as ADKAR exist because even the best-designed improvement can fail if the people responsible for it aren't ready. We build skills, engagement, and ownership alongside every system." },
+      { title: "Fit the method to the problem.", desc: "Lean, Six Sigma, TPM, TRIZ, and the Balanced Scorecard each address different challenges. We choose the approach the situation requires—not simply the one we happen to prefer." },
+      { title: "Leave clients stronger than we found them.", desc: "Our goal is to build teams that can continue improving long after our engagement ends. That's why capability building and training sit at the center of our consulting." },
+    ],
+    deeperTitle: "Want to go deeper?",
+    deeperText: "Explore our Blog for practical insights, frameworks, and ideas on process improvement, operational excellence, technology, and sustainable organizational change.",
+    blogCta: "Read the Blog",
+    servicesCta: "See What We Do",
+  },
+  ar: {
+    badge: "رؤيتنا",
+    headline: "التحسين الذي يدوم يبدأ بطريقة التفكير",
+    lead: "شراء الأدوات سهل. أما النتائج المستدامة فتأتي من التفكير الذي يقف خلفها.",
+    sub: "هذه هي المبادئ التي توجّه طريقة عملنا في كل مشروع:",
+    principles: [
+      { title: "أصلح العملية قبل أن تشتري البرنامج.", desc: "تضخّم أنظمة ERP أي عملية تُعطى لها. لذلك نرسم العملية ونراجعها ونحسّنها أولاً، لتدعم التقنية الممارسات الجيدة بدلاً من أتمتة الهدر." },
+      { title: "اتخذ قراراتك بناءً على البيانات.", desc: "من التحكم الإحصائي في العمليات إلى تحليل الفجوات، نقيس أولاً ونحلل بدقة ونوصي بناءً على الأدلة لا الافتراضات." },
+      { title: "الأفراد هم من يرسّخون التغيير.", desc: "وُجدت منهجيات مثل ADKAR لأن أفضل تحسين قد يفشل إذا لم يكن المسؤولون عنه مستعدين. نبني المهارات والتفاعل والمسؤولية إلى جانب كل نظام." },
+      { title: "اختر المنهجية التي تناسب المشكلة.", desc: "تعالج لين وستة سيجما والصيانة الإنتاجية الشاملة وTRIZ وبطاقة الأداء المتوازن تحديات مختلفة. نختار النهج الذي يتطلبه الموقف، لا الذي نفضّله." },
+      { title: "اترك عملاءك أقوى مما وجدتهم.", desc: "هدفنا بناء فرق قادرة على مواصلة التحسين بعد انتهاء عملنا بوقت طويل، ولهذا يقع بناء القدرات والتدريب في صميم استشاراتنا." },
+    ],
+    deeperTitle: "هل تريد التعمق أكثر؟",
+    deeperText: "تصفح مدونتنا للاطلاع على رؤى عملية وأطر وأفكار حول تحسين العمليات والتميز التشغيلي والتقنية والتغيير المؤسسي المستدام.",
+    blogCta: "اقرأ المدونة",
+    servicesCta: "اطّلع على ما نقوم به",
+  },
+};
+
+const icons = [Workflow, BarChart3, Users, Puzzle, GraduationCap];
+const tones = ["bg-navy text-white", "bg-steel text-ink", "bg-rust text-white", "bg-navy text-white", "bg-steel text-ink"];
+
 export default function WhatWeThinkPage() {
-  const { language, isRTL } = useLanguage();
-
-  const isAr = language === "ar";
-
-  const previewThemes = [
-    {
-      icon: Compass,
-      title: isAr ? "معايير التميز المؤسسي والحوكمة" : "Institutional Excellence & Governance",
-      desc: isAr 
-        ? "رؤى استراتيجية حول هيكلة مجالس الإدارة وحوكمة اتخاذ القرارات في المنشآت الإقليمية."
-        : "Strategic frameworks for executive board alignment, KPI ownership, and sustainable organizational governance."
-    },
-    {
-      icon: TrendingUp,
-      title: isAr ? "هندسة النمو والتعافي المؤسسي" : "Growth Architecture & Turnarounds",
-      desc: isAr
-        ? "منهجيات عملية لتحويل الشركات المتعثرة إلى مسارات نمو وربحية مستدامة."
-        : "Actionable frameworks for business restructuring, turnaround roadmaps, and commercial scaling."
-    },
-    {
-      icon: Layers,
-      title: isAr ? "دراسات الجدوى ونمذجة رأس المال" : "Capital Modeling & Market Feasibility",
-      desc: isAr
-        ? "أدلة توجيهية حول إعداد الدراسات البنكية المعتمدة وتقييم المخاطر الاستثمارية."
-        : "Rigorous standards for bank-grade feasibility studies, capital deployment, and sensitivity testing."
-    }
-  ];
+  const { language } = useLanguage();
+  const c = language === "ar" ? content.ar : content.en;
 
   return (
     <div className="pt-24 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-transparent text-ink dark:text-white transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Page Hero */}
-        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 dark:bg-night-800/60 text-accent border border-slate-200/80 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{isAr ? "رؤيتنا الاستراتيجية والفكرية" : "Perspectives & Thought Leadership"}</span>
+        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[11px] font-bold uppercase tracking-widest shadow-xs">
+            <Lightbulb className="w-3.5 h-3.5" />
+            <span>{c.badge}</span>
           </div>
-          
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
-            {isAr ? "رؤيتنا" : "What We Think"}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
+            {c.headline}
           </h1>
-          
-          <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-100 leading-relaxed font-medium">
-            {isAr
-              ? "وجهات نظر استشارية معمقة، أطر عمل منهجية، وتحليلات استراتيجية يقودها نخبة من الخبراء والمستشارين."
-              : "Proprietary advisory viewpoints, executive frameworks, and institutional strategic analyses curated by our senior consulting leadership."}
-          </p>
+          <p className="text-base sm:text-xl font-bold text-navy dark:text-steel-light">{c.lead}</p>
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">{c.sub}</p>
         </ScrollReveal>
 
-        {/* Editorial Notice Banner */}
-        <ScrollReveal variant="fade-up" delay={0.1} className="max-w-4xl mx-auto mb-16 sm:mb-20">
-          <div className="rounded-3xl p-6 sm:p-10 border border-slate-200/80 dark:border-white/10 bg-white dark:bg-night-800/80 shadow-lift relative overflow-hidden text-ink dark:text-white transition-colors">
-            <div className="absolute top-0 right-0 w-72 h-72 bg-steel/10 dark:bg-steel/5 rounded-full blur-3xl pointer-events-none" />
-            
-            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="w-14 h-14 rounded-2xl bg-rust/[0.07] dark:bg-white/5 border border-rust/15 dark:border-white/10 text-accent flex items-center justify-center shrink-0">
-                <Lightbulb className="w-7 h-7" />
-              </div>
-              
-              <div className="flex-1 space-y-2">
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-accent uppercase tracking-wider">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>{isAr ? "محتوى حصري قيد التحرير" : "Curated Content in Editorial Finalization"}</span>
+        {/* Principles */}
+        <StaggerContainer delayChildren={0.05} staggerChildren={0.08} className="space-y-4 sm:space-y-5 mb-16 sm:mb-20">
+          {c.principles.map((p, i) => {
+            const Icon = icons[i];
+            return (
+              <StaggerItem
+                key={p.title}
+                className="group relative overflow-hidden grid grid-cols-[auto,1fr] gap-4 sm:gap-6 items-start bg-white dark:bg-night-800/80 rounded-2xl p-5 sm:p-7 border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift hover:border-navy/25 dark:hover:border-steel/30 transition-all"
+              >
+                <span className="absolute top-0 inset-x-0 h-[3px] bg-brand-tri scale-x-0 origin-left rtl:origin-right group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
+                <div className="flex flex-col items-center gap-2">
+                  <span className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${tones[i]}`}>
+                    <Icon className="w-5 h-5" />
+                  </span>
+                  <span className="text-[11px] font-bold tracking-[0.14em] text-slate-400">0{i + 1}</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-ink dark:text-white font-display">
-                  {isAr 
-                    ? "أوراق عمل استشارية ورؤى استراتيجية جديدة قادمة قريباً" 
-                    : "Executive Briefings & Perspectives Releasing Soon"}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 font-medium leading-relaxed">
-                  {isAr
-                    ? "يقوم فريقنا الاستشاري حالياً بإعداد ونشر أوراق العمل المتخصصة، أطر القياس، والتحليلات القطاعية المعمقة. سيتم إطلاق المحتوى الفكري الكامل هنا قريباً."
-                    : "Our senior consulting leadership is finalizing a suite of proprietary frameworks, sector diagnostics, and board-level strategic publications. Dedicated briefings will be published directly here."}
-                </p>
-              </div>
+                <div className="space-y-1.5">
+                  <h2 className="text-lg sm:text-xl font-bold font-display text-ink dark:text-white">{p.title}</h2>
+                  <p className="text-sm sm:text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed">{p.desc}</p>
+                </div>
+              </StaggerItem>
+            );
+          })}
+        </StaggerContainer>
 
-              <div className="shrink-0 pt-2 md:pt-0 w-full md:w-auto">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs sm:text-sm font-bold transition-all shadow-cta"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>{isAr ? "طلب إحاطة تنفيذية" : "Request Executive Briefing"}</span>
-                </Link>
-              </div>
+        {/* Go deeper */}
+        <ScrollReveal variant="fade-up" className="rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 dark:from-night-800 dark:via-night-850 dark:to-night-950 text-white p-7 sm:p-12 border border-navy-700 dark:border-white/10 shadow-lift relative overflow-hidden">
+          <div className="absolute top-0 left-0 h-1 w-full bg-brand-tri" aria-hidden="true" />
+          <div className="max-w-2xl space-y-4">
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">{c.deeperTitle}</h2>
+            <p className="text-sm sm:text-base text-slate-200/90 leading-relaxed">{c.deeperText}</p>
+            <div className="flex flex-col sm:flex-row gap-3 pt-1">
+              <Link href="/blog" className="btn-sheen inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-rust hover:bg-rust-light text-white text-sm font-bold shadow-cta">
+                <span>{c.blogCta}</span>
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+              </Link>
+              <Link href="/services" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white text-sm font-semibold">
+                <span>{c.servicesCta}</span>
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+              </Link>
             </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Thematic Pillars Preview */}
-        <div className="max-w-5xl mx-auto mb-16 sm:mb-20">
-          <div className="text-center mb-8 sm:mb-10 space-y-2">
-            <span className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-200 uppercase tracking-widest">
-              {isAr ? "محاور الرؤية الاستشارية" : "CORE PERSPECTIVE THEMES"}
-            </span>
-            <h2 className="text-xl sm:text-3xl font-bold text-ink dark:text-white font-display">
-              {isAr ? "ما نركز عليه في دراساتنا وتوجهاتنا" : "Key Areas of Institutional Research"}
-            </h2>
-          </div>
-
-          <StaggerContainer delayChildren={0.1} staggerChildren={0.1} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {previewThemes.map((theme, idx) => {
-              const IconComp = theme.icon;
-              return (
-                <StaggerItem
-                  key={idx}
-                  className="bg-white dark:bg-night-800/80 p-6 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-card flex flex-col justify-between hover:border-slate-300 dark:hover:border-white/35 hover:shadow-lift transition-all text-ink dark:text-white"
-                >
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-xl bg-rust/[0.07] dark:bg-white/5 border border-rust/15 dark:border-white/10 text-accent flex items-center justify-center font-bold">
-                      <IconComp className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-sm sm:text-base font-bold text-ink dark:text-white font-display">
-                      {theme.title}
-                    </h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-100 font-medium leading-relaxed">
-                      {theme.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-5 mt-4 border-t border-slate-200/80 dark:border-white/15 flex items-center gap-1.5 text-xs font-semibold text-accent">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>{isAr ? "منهجيات مدققة" : "Empirical Methodology"}</span>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </div>
-
-        {/* Quick Navigation to Services & Contact */}
-        <ScrollReveal variant="fade-up" className="max-w-3xl mx-auto text-center space-y-4 pt-6">
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 font-semibold">
-            {isAr 
-              ? "هل ترغب في استكشاف قدراتنا وممارساتنا الاستشارية الحالية؟"
-              : "Looking to explore our current consulting practices and advisory frameworks?"}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-white/15 hover:bg-slate-200 dark:hover:bg-white/25 text-ink dark:text-white text-xs sm:text-sm font-semibold border border-slate-200/80 dark:border-white/15 backdrop-blur-md transition-all shadow-xs"
-            >
-              <span>{isAr ? "استكشف ما نقوم به (الممارسات)" : "Explore What We Do"}</span>
-              <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-            </Link>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy-50 dark:bg-white/10 hover:bg-rust text-ink dark:text-white hover:text-white text-xs sm:text-sm font-semibold border border-slate-200/80 dark:border-white/10 backdrop-blur-md transition-all shadow-xs"
-            >
-              <span>{isAr ? "تصفح المقالات والمدونة" : "Browse Blog & Articles"}</span>
-              <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-            </Link>
           </div>
         </ScrollReveal>
 

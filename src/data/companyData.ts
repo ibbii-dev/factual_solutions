@@ -1,56 +1,6 @@
-export const companyStats = [
-  { label: "Projects Completed", value: "150+", highlight: false },
-  { label: "Years of Advisory Experience", value: "8+ Years", highlight: true },
-  { label: "Active Business Clients", value: "35+", highlight: false },
-  { label: "Regional Advisory Hubs", value: "4 Hubs", highlight: false }
-];
-
-export const coreMethodologySteps = [
-  {
-    step: "01",
-    title: "Discovery & Business Assessment",
-    description: "We review your existing operations, market position, and financial goals to identify practical bottlenecks and growth opportunities.",
-    outcome: "Diagnostic Review",
-    accentColor: "steel"
-  },
-  {
-    step: "02",
-    title: "Strategic Planning & Analysis",
-    description: "We conduct detailed market research, evaluate unit economics, and prepare a realistic action plan tailored to your budget and capacity.",
-    outcome: "Action Roadmap",
-    accentColor: "navy"
-  },
-  {
-    step: "03",
-    title: "Execution & Hands-On Guidance",
-    description: "We work directly with your leadership and team to implement business changes, sales processes, and risk management practices.",
-    outcome: "Operational Delivery",
-    accentColor: "rust"
-  },
-  {
-    step: "04",
-    title: "Review & Performance Tracking",
-    description: "We provide clear, transparent progress reports with practical KPIs to make sure your business stays on track and achieves steady growth.",
-    outcome: "Verified Outcomes",
-    accentColor: "steel"
-  }
-];
-
 export const principalConsultant = {
-  name: "Qadeer Ahmad Bhatti",
-  role: "Principal Business Excellence Consultant & Strategic Advisor",
-  headline: "Business Excellence Consultant | Lean Six Sigma Master Black Belt | PMP | ERP Transformation | Operational Excellence | Business Strategy | Continuous Improvement",
-  bio: "Senior management consultant and business excellence practitioner specializing in operational restructuring, strategic planning, process optimization, ERP transformation, and commercial performance enhancement.",
-  skills: [
-    "Strategic Management Consulting",
-    "Business Strategy & Planning",
-    "Operational Excellence",
-    "Lean Six Sigma Deployment",
-    "ERP & Process Transformation",
-    "Project Management (PMP)",
-    "Performance Analytics & KPIs",
-    "Continuous Improvement"
-  ],
+  name: "Qadeer Bhatti",
+  role: "Lead Consultant & Trainer",
   image: "/images/qadeer-ahmad-bhatti.jpg"
 };
 
