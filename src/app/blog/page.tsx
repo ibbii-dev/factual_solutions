@@ -72,7 +72,7 @@ function BlogContent() {
             <span>Blog</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white font-display leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-ink dark:text-white font-display leading-tight">
             Insights from Practice
           </h1>
 

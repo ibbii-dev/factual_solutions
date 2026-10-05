@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { dbGetBlogPostBySlug, dbGetBlogPosts } from "@/lib/mongodb";
 import BlogArticleClientActions from "./BlogArticleClientActions";
+import { SITE_URL, SITE_NAME, breadcrumbJsonLd } from "@/lib/seo";
 
 export async function generateMetadata({
   params
@@ -30,13 +31,15 @@ export async function generateMetadata({
   const post = await dbGetBlogPostBySlug(params.slug);
   if (!post) {
     return {
-      title: "Article Not Found | Factual Solutions",
+      title: "Article Not Found",
+      robots: { index: false },
       description: "The requested executive blog post could not be found."
     };
   }
 
   return {
-    title: `${post.metaTitle || post.title} | Factual Solutions Blog`,
+    title: { absolute: `${post.metaTitle || post.title} | Factual Solutions` },
+    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
     description: post.metaDescription || post.excerpt || "Practical insights on operational excellence, quality and digital transformation.",
     keywords: [post.focusKeyword, ...(post.tags || [])].filter(Boolean) as string[],
     openGraph: {
@@ -169,8 +172,31 @@ export default async function BlogPostPage({
     });
   };
 
+  const articleJsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.metaTitle || post.title,
+      description: post.metaDescription || post.excerpt,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : post.publishedAt,
+      author: { "@type": "Person", name: post.author.name, jobTitle: post.author.role },
+      publisher: { "@type": "Organization", name: SITE_NAME, logo: { "@type": "ImageObject", url: `${SITE_URL}/images/logo-symbol.png` } },
+      image: post.coverImage ? [post.coverImage.startsWith("/") ? `${SITE_URL}${post.coverImage}` : post.coverImage] : undefined,
+      mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+      keywords: [post.focusKeyword, ...(post.tags || [])].filter(Boolean).join(", "),
+      articleSection: post.category,
+    },
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]),
+  ];
+
   return (
     <article className="min-h-screen bg-transparent text-ink dark:text-white transition-colors pt-24 sm:pt-32 pb-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       
       {/* 1. Article Hero & Header */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

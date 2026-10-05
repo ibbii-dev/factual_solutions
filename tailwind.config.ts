@@ -79,9 +79,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-display)", "'Plus Jakarta Sans'", "sans-serif"],
-        body: ["var(--font-body)", "Inter", "sans-serif"],
-        sans: ["var(--font-body)", "Inter", "'Plus Jakarta Sans'", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "Cambria", "'Times New Roman'", "serif"],
+        body: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
+        sans: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
       },
       boxShadow: {
         card: "0 1px 2px rgba(14,26,56,0.04), 0 8px 24px -12px rgba(14,26,56,0.12)",

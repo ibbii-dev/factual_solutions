@@ -79,7 +79,7 @@ export default function HeroSection() {
           {/* Copy column */}
           <div className="lg:col-span-7 space-y-7 text-center lg:text-start">
 
-            <h1 className="text-[2.35rem] sm:text-6xl lg:text-[4.25rem] font-extrabold tracking-tight text-ink dark:text-white leading-[1.06] font-display">
+            <h1 className="text-[2.25rem] sm:text-[3.4rem] lg:text-[3.75rem] font-extrabold tracking-tight text-ink dark:text-white leading-[1.06] font-display">
               {isAr ? (
                 <>
                   <RevealWords text="تمكين المؤسسات" delay={0} />

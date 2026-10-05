@@ -27,7 +27,7 @@ export default function ServiceLinesStrip() {
             <div className="brand-rule" aria-hidden="true" />
             <span className="eyebrow block">{isAr ? "ما نقوم به" : "WHAT WE DO"}</span>
             <h2 id="what-we-do-heading" className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink dark:text-white font-display">
-              {isAr ? "ثلاثة مسارات خدمة" : "Three Service Lines, One Goal"}
+              {isAr ? "ثلاثة مسارات خدمة" : "How We Can Help"}
             </h2>
           </div>
           <Link href="/services" className="inline-flex items-center gap-1.5 text-sm font-bold text-navy dark:text-steel hover:text-rust dark:hover:text-rust-light transition-colors">

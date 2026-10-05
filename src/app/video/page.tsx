@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Background Video Experience | Factual Solutions",
   description: "Full-screen background video experience",
+  robots: { index: false, follow: false },
 };
 
 const BG_VIDEO =

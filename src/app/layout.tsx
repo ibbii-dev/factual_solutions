@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
+import { Inter, Source_Serif_4, Tajawal } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -27,24 +27,37 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
+// Typography: a serif for headings + a sans-serif for reading text.
+// next/font self-hosts every face as compressed .woff2 on our own domain (no extra
+// DNS lookup to Google), uses font-display: swap, and generates a size-matched
+// system-font fallback so text shows instantly and nothing jumps when the web
+// font arrives. Weights are kept to the minimum: body 400/600, headings 700.
 const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "600"],
   variable: "--font-body",
   display: "swap",
+  fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "system-ui", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+  adjustFontFallback: true,
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
+  weight: ["700"],
   variable: "--font-display",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+  fallback: ["Georgia", "Cambria", "Times New Roman", "Times", "serif"],
+  adjustFontFallback: true,
 });
 
+// Arabic face: only downloaded when Arabic text is actually rendered (not preloaded).
 const tajawal = Tajawal({
-  subsets: ["arabic", "latin"],
+  subsets: ["arabic"],
+  weight: ["400", "700"],
   variable: "--font-arabic",
   display: "swap",
-  weight: ["400", "500", "700", "800"],
+  preload: false,
+  fallback: ["Segoe UI", "Tahoma", "Geeza Pro", "Arial", "sans-serif"],
 });
 
 export const viewport: Viewport = {
@@ -56,6 +69,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  alternates: { canonical: SITE_URL },
   openGraph: {
     type: "website",
     siteName: "Factual Solutions",
@@ -63,8 +77,11 @@ export const metadata: Metadata = {
     description: "Consulting, training, and ERP & digital transformation that help organizations perform better.",
     url: SITE_URL,
   },
-  title: "Factual Solutions | Consulting, Training & Digital Transformation",
-  description: "Factual Solutions helps organizations perform better through consulting, training, and ERP & digital transformation—Lean Six Sigma, operational excellence, strategy, quality, and continuous improvement.",
+  title: {
+    default: "Factual Solutions | Consulting, Training & Digital Transformation",
+    template: "%s | Factual Solutions",
+  },
+  description: "Consulting, training and ERP & digital transformation: Lean Six Sigma, operational excellence, strategy and quality that help organizations perform better.",
   keywords: ["Factual Solutions", "Management Consulting", "Lean Six Sigma", "Operational Excellence", "Training", "ERP", "ERPNext", "Digital Transformation", "TPM", "Balanced Scorecard"],
   icons: {
     icon: "/images/logo-symbol.svg",
@@ -80,7 +97,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${inter.variable} ${plusJakarta.variable} ${tajawal.variable}`} 
+      className={`scroll-smooth ${inter.variable} ${sourceSerif.variable} ${tajawal.variable}`} 
       suppressHydrationWarning
     >
       <head>

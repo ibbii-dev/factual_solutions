@@ -60,7 +60,7 @@ export default function WhatWeThinkPage() {
             <Lightbulb className="w-3.5 h-3.5" />
             <span>{c.badge}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
+          <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
             {c.headline}
           </h1>
           <p className="text-base sm:text-xl font-bold text-navy dark:text-steel-light">{c.lead}</p>

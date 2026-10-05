@@ -130,7 +130,7 @@ export default function AboutPage() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[11px] font-bold uppercase tracking-widest shadow-xs">
             {c.badge}
           </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-ink dark:text-white tracking-tight leading-tight font-display">
+          <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-ink dark:text-white tracking-tight leading-tight font-display">
             {c.headline}
           </h1>
           <p className="text-sm sm:text-lg text-slate-600 dark:text-slate-200 leading-relaxed">

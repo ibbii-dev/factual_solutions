@@ -47,7 +47,10 @@ html {
 }
 
 body {
-  font-family: var(--font-body), 'Inter', sans-serif;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Arial, sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   color: var(--text-primary);
   background-color: var(--bg-primary) !important;
   overflow-x: hidden;
@@ -59,7 +62,7 @@ body {
 /* Executive Arabic Typography & RTL Balancing */
 [dir="rtl"],
 [dir="rtl"] body {
-  font-family: var(--font-arabic), 'Cairo', sans-serif !important;
+  font-family: var(--font-arabic), 'Segoe UI', Tahoma, 'Geeza Pro', Arial, sans-serif !important;
   letter-spacing: 0px !important;
 }
 
@@ -68,7 +71,7 @@ body {
 [dir="rtl"] h3,
 [dir="rtl"] h4,
 [dir="rtl"] .font-display {
-  font-family: var(--font-arabic), 'Cairo', sans-serif !important;
+  font-family: var(--font-arabic), 'Segoe UI', Tahoma, 'Geeza Pro', Arial, sans-serif !important;
   line-height: 1.35 !important;
 }
 
@@ -103,18 +106,24 @@ body > .skiptranslate {
   box-shadow: none !important;
 }
 
-h1, h2, h3, h4, h5, h6, .font-display {
-  font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
+/* Serif for headlines and section titles; small UI headings (h4-h6) stay in the sans. */
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), Georgia, Cambria, 'Times New Roman', serif;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
+h4, h5, h6 {
+  font-weight: 600;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
 
 /* Custom Form Select Options */
 select option, select optgroup {
   background-color: #FFFFFF;
   color: #0E1A38;
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   padding: 8px 12px;
 }
 
@@ -161,23 +170,8 @@ html.dark ::selection { color: #FFFFFF; }
 
 /* ---------- Motion utilities ---------- */
 /* Light sweep across primary buttons on hover */
-.btn-sheen {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.btn-sheen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.btn-sheen:hover::after {
-  transform: translateX(120%);
-}
+/* .btn-sheen kept as a no-op hook: the hover shine sweep was removed for a calmer, less template-like feel. */
+.btn-sheen { position: relative; }
 
 /* Floating light particles around the hero logo stage */
 @keyframes fsRise {

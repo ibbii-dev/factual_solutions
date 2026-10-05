@@ -136,7 +136,7 @@ function ContactContent() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
             <span>CONTACT US</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
             {c.headline}
           </h1>
           <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-100 max-w-2xl mx-auto leading-relaxed font-medium">
