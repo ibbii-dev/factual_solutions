@@ -6,7 +6,7 @@ import { motion, useInView, animate, useReducedMotion } from "framer-motion";
 import { ArrowRight, Layers, ShieldCheck, CheckCircle2, TrendingUp, Compass, BarChart3 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import LogoStage from "@/components/ui/LogoStage";
+import CubeFilm from "@/components/ui/CubeFilm";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -74,7 +74,6 @@ export default function HeroSection() {
   return (
     <section className="dark relative pt-32 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
       {/* Dark cinematic stage in both themes; the live logo assembly is the visual */}
-      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(31,58,125,0.45),transparent_60%)]" />
 
       {/* Backdrop: slow-drifting logo-color glows */}
       <motion.div
@@ -90,7 +89,7 @@ export default function HeroSection() {
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
 
           {/* Copy column */}
@@ -175,9 +174,9 @@ export default function HeroSection() {
             </ScrollReveal>
           </div>
 
-          {/* Live 3D logo assembly */}
+          {/* 3D-rendered puzzle cube film */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <LogoStage variant="hero" className="w-[64%] max-w-[300px] sm:w-[52%] lg:w-full lg:max-w-[460px] mt-2 lg:mt-0" />
+            <CubeFilm className="w-[78%] max-w-[360px] sm:w-[60%] lg:w-[118%] lg:max-w-[600px] -mt-2 lg:-my-10 lg:-mr-10" />
           </div>
         </div>
 
