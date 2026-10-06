@@ -118,13 +118,13 @@ export default function Navbar() {
   const isDark = theme === "dark";
 
   return (
-    <header className={`dark fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHidden && !mobileMenuOpen && !servicesDropdownOpen ? "-translate-y-full" : "translate-y-0"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHidden && !mobileMenuOpen && !servicesDropdownOpen ? "-translate-y-full" : "translate-y-0"}`}>
       {/* Main Navbar */}
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-navy/95 backdrop-blur-sm border-b border-white/10 py-2 sm:py-2.5 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.6)]"
-            : "bg-navy border-b border-white/10 py-3 sm:py-4"
+            ? "bg-white/85 dark:bg-night-900/85 backdrop-blur-md border-b border-paper-line dark:border-white/10 py-2 sm:py-2.5 shadow-card dark:shadow-none"
+            : "bg-white/70 dark:bg-night-900/70 backdrop-blur-md border-b border-paper-line/70 dark:border-white/10 py-3 sm:py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -132,21 +132,21 @@ export default function Navbar() {
             
             {/* Brand Logo */}
             <Link href="/" aria-label="Factual Solutions home" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
-              <span className="shrink-0 w-9 h-9 sm:w-11 sm:h-11 bg-white rounded-md p-1 shadow-[0_6px_18px_-8px_rgba(0,0,0,0.5)]">
+              <span className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 dark:bg-white dark:rounded-lg dark:p-1">
                 <BrandMark className="w-full h-full overflow-visible" />
               </span>
               <span className="flex flex-col min-w-0" translate="no" dir="ltr">
-                <span className="fs-wordmark font-brand text-[1.2rem] sm:text-[1.35rem] lg:text-[1.45rem] leading-none tracking-[-0.02em] text-white truncate">
-                  Factual<span className="text-steel"> Solutions</span>
+                <span className="fs-wordmark font-display text-[1.1rem] sm:text-[1.25rem] leading-tight tracking-[-0.01em] text-ink dark:text-white truncate">
+                  <span className="font-medium">Factual </span><span className="font-bold text-navy dark:text-steel-light">Solutions</span>
                 </span>
-                <span className="fs-tagline mt-1 text-[10.5px] sm:text-[12px] leading-none font-semibold tracking-[0.01em] sm:tracking-[0.03em] text-[#C9D3E6] whitespace-nowrap">
-                  Your Business Excellence Partners.
+                <span className="fs-tagline text-[9.5px] sm:text-[10px] leading-none font-semibold normal-case sm:uppercase tracking-normal sm:tracking-[0.14em] text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                  Your Business Excellence Partners
                 </span>
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 shrink-0">
               {navLinks.map((link) => {
                 const isActive = link.href === "/" 
                   ? pathname === "/" 
@@ -163,8 +163,8 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         aria-current={isActive ? "page" : undefined}
-                        className={`fs-navlink relative px-3 py-2 text-[15px] transition-colors duration-200 flex items-center gap-1.5 ${
-                          isActive ? "text-ink dark:text-white font-semibold" : "text-slate-500 hover:text-ink dark:text-slate-300 dark:hover:text-white"
+                        className={`fs-navlink relative px-3 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
+                          isActive ? "bg-paper-deep text-navy dark:bg-white/10 dark:text-white" : "text-slate-600 hover:text-navy hover:bg-paper-deep/70 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                         }`}
                       >
                         <span>{link.name}</span>
@@ -174,7 +174,7 @@ export default function Navbar() {
                       {/* SERVICES DROPDOWN */}
                       {servicesDropdownOpen && (
                           <div
-                            className="fs-menu-in absolute top-full left-0 rtl:left-auto rtl:right-0 mt-3 w-[min(420px,calc(100vw-48px))] max-h-[calc(100vh-110px)] overflow-y-auto shadow-lg p-5 border bg-canvas dark:bg-night-850 border-ink/10 dark:border-white/15 text-slate-900 dark:text-white z-[100]"
+                            className="fs-menu-in absolute top-full left-0 rtl:left-auto rtl:right-0 mt-3 w-[min(420px,calc(100vw-48px))] max-h-[calc(100vh-110px)] overflow-y-auto rounded-2xl shadow-lift p-5 border bg-white dark:bg-night-850 border-paper-line dark:border-white/15 text-slate-900 dark:text-white z-[100]"
                           >
                             <div className="flex flex-col divide-y divide-slate-100 dark:divide-white/10">
                               {servicePillars.map((pillar) => {
@@ -238,8 +238,8 @@ export default function Navbar() {
                     key={link.name}
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
-                    className={`fs-navlink relative px-3 py-2 text-[15px] transition-colors duration-200 ${
-                      isActive ? "text-ink dark:text-white font-semibold" : "text-slate-500 hover:text-ink dark:text-slate-300 dark:hover:text-white"
+                    className={`fs-navlink relative px-3 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 ${
+                      isActive ? "bg-paper-deep text-navy dark:bg-white/10 dark:text-white" : "text-slate-600 hover:text-navy hover:bg-paper-deep/70 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                     }`}
                   >
                     {link.name}
@@ -249,7 +249,7 @@ export default function Navbar() {
             </nav>
 
             {/* Right Action Controls: Language + Theme + CTA + User Client Account */}
-            <div className="hidden lg:flex items-center gap-2 sm:gap-3">
+            <div className="hidden lg:flex items-center gap-2 shrink-0">
               {/* Language Selector */}
               <CustomLanguageSelector />
 
@@ -257,7 +257,7 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 flex items-center justify-center transition-colors text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white"
+                className="w-9 h-9 rounded-full flex items-center justify-center border border-paper-line bg-white text-slate-600 hover:text-navy hover:border-navy/30 dark:bg-white/5 dark:border-white/15 dark:text-slate-200 dark:hover:text-white transition-colors"
                 title={`Switch to ${isDark ? "Light Mode" : "Dark Mode"}`}
               >
                 {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -266,10 +266,10 @@ export default function Navbar() {
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="fs-btn fs-btn-rust !min-h-[44px] !px-5 !text-[14px]"
+                className="btn-primary !min-h-[40px] !px-4 !text-[13px] !rounded-lg whitespace-nowrap"
               >
                 <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
-                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                <ArrowRight className="fs-arrow w-3.5 h-3.5 rtl:rotate-180" />
               </Link>
 
               {/* USER CLIENT PORTAL BUTTON */}
@@ -293,9 +293,10 @@ export default function Navbar() {
                 ) : (
                   <button
                     onClick={() => openAuthModal("login")}
-                    className="inline-flex items-center gap-1.5 py-1.5 text-[13px] font-medium text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 whitespace-nowrap min-h-[40px] px-3.5 rounded-full border border-paper-line bg-white text-[13px] font-semibold text-ink hover:border-navy/30 dark:bg-white/5 dark:border-white/15 dark:text-white transition-colors"
                     title={language === "ar" ? "تسجيل الدخول" : "Sign In"}
                   >
+                    <User className="w-3.5 h-3.5" aria-hidden="true" />
                     <span>{language === "ar" ? "تسجيل الدخول" : "Sign in"}</span>
                   </button>
                 )}
@@ -347,14 +348,14 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0"
+                className="w-9 h-9 rounded-full flex items-center justify-center border border-paper-line bg-white text-slate-600 dark:bg-white/5 dark:border-white/15 dark:text-slate-200 shrink-0"
               >
                 {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 text-ink dark:text-white shrink-0"
+                className="w-9 h-9 rounded-lg flex items-center justify-center border border-paper-line bg-white text-ink dark:bg-white/5 dark:border-white/15 dark:text-white shrink-0"
                 aria-label={language === "ar" ? "القائمة" : "Toggle Menu"}
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -367,7 +368,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b p-5 space-y-3 bg-canvas dark:bg-night-900 border-ink/10 dark:border-white/15 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
+        <div className="lg:hidden border-b p-5 space-y-3 bg-white dark:bg-night-900 border-paper-line dark:border-white/15 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
           <div className="flex flex-col divide-y divide-ink/10 dark:divide-white/10">
             <Link
               href="/"
@@ -432,7 +433,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="fs-btn fs-btn-rust w-full"
+              className="btn-primary w-full"
             >
               <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

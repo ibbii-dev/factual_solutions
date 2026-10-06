@@ -85,18 +85,20 @@ export default function ServiceMatcherQuiz() {
     setRecommendedService(null);
   };
 
-  const rowBtn = "w-full flex items-center justify-between gap-4 py-4 border-b border-ink/10 dark:border-white/10 text-start text-[15px] text-ink dark:text-white hover:text-accent transition-colors group";
+  const rowBtn = "w-full flex items-center justify-between gap-4 rounded-xl border border-paper-line dark:border-white/10 bg-paper dark:bg-night-900/60 px-4 py-3.5 text-start text-[15px] font-medium text-ink dark:text-white hover:border-navy/30 hover:text-navy dark:hover:text-steel-light transition-colors group";
 
   return (
-    <section id="quiz" className="fs-rule scroll-mt-28 grid grid-cols-1 lg:grid-cols-12 gap-6 border-t border-ink/15 dark:border-white/15 pt-10">
-      <p className="lg:col-span-3 eyebrow pt-2">{labels.badge}</p>
-      <div data-reveal className="lg:col-span-9 max-w-3xl space-y-6">
-        <h2 className="text-3xl sm:text-[2.6rem] font-bold font-display leading-[1.1] text-ink dark:text-white">{labels.title}</h2>
+    <section id="quiz" className="scroll-mt-28 fs-card p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="lg:col-span-4 space-y-4">
+        <p className="fs-label">{labels.badge}</p>
+        <h2 className="text-3xl sm:text-[2.3rem] font-extrabold leading-[1.1] text-ink dark:text-white">{labels.title}</h2>
+      </div>
+      <div data-reveal className="lg:col-span-8 space-y-6">
 
         {step === 1 && (
           <div className="space-y-2">
             <p className="text-sm text-slate-600 dark:text-slate-400">{labels.step1Title}</p>
-            <div className="border-t border-ink/15 dark:border-white/15">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {labels.challenges.map((item) => (
                 <button key={item.id} onClick={() => handleSelectChallenge(item.id)} className={rowBtn}>
                   <span>{item.label}</span>
@@ -110,7 +112,7 @@ export default function ServiceMatcherQuiz() {
         {step === 2 && (
           <div className="space-y-2">
             <p className="text-sm text-slate-600 dark:text-slate-400">{labels.step2Title}</p>
-            <div className="border-t border-ink/15 dark:border-white/15">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {labels.timeframes.map((item) => (
                 <button key={item.id} onClick={() => handleSelectUrgency(item.id)} className={rowBtn}>
                   <span>{item.label}</span>
@@ -122,7 +124,7 @@ export default function ServiceMatcherQuiz() {
         )}
 
         {step === 3 && recommendedService && (
-          <div className="border-t border-ink/15 dark:border-white/15 pt-6 space-y-4">
+          <div className="rounded-2xl border border-paper-line dark:border-white/10 bg-paper dark:bg-night-900/60 p-6 space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-xs uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400">{labels.recTag}</p>
               <button onClick={handleReset} className="text-sm text-slate-500 hover:text-ink dark:hover:text-white inline-flex items-center gap-1.5">
@@ -134,7 +136,7 @@ export default function ServiceMatcherQuiz() {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
               <Link
                 href={`/contact?service=${encodeURIComponent(recommendedService.title)}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white text-sm font-semibold transition-colors"
+                className="btn-primary"
               >
                 {labels.bookBtn}
                 <ArrowRight className="w-4 h-4 rtl:rotate-180" />

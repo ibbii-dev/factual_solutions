@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { 
-  Mail, 
+  Mail, MessageSquare, 
   Phone, 
   MapPin, 
   CheckCircle2, 
@@ -147,7 +147,7 @@ function ContactContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <PageHeader eyebrow={language === "ar" ? "تواصل معنا" : "Contact us"} title={c.headline} lede={c.subheadline}>
-          <div className="flex flex-wrap gap-x-8 gap-y-2 pt-2" role="tablist">
+          <div className="inline-flex flex-wrap justify-center gap-1 rounded-2xl bg-white dark:bg-night-800 border border-paper-line dark:border-white/10 shadow-card p-1.5" role="tablist">
             {([["inquiry", language === "ar" ? "أرسل رسالة" : "Send a message"], ["calendar", language === "ar" ? "احجز نقاشاً" : "Book a discussion"]] as const).map(([mode, label]) => (
               <button
                 key={mode}
@@ -155,10 +155,10 @@ function ContactContent() {
                 role="tab"
                 aria-selected={activeMode === mode}
                 onClick={() => setActiveMode(mode)}
-                className={`py-1 text-[15px] border-b transition-colors ${
+                className={`min-h-[42px] px-5 rounded-xl text-[14px] font-semibold transition-colors ${
                   activeMode === mode
-                    ? "border-white text-white font-semibold"
-                    : "border-transparent text-slate-300 hover:text-white"
+                    ? "bg-rust text-white shadow-cta"
+                    : "text-slate-600 hover:text-navy hover:bg-paper-deep dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                 }`}
               >
                 {label}
@@ -168,15 +168,15 @@ function ContactContent() {
         </PageHeader>
 
         {activeMode === "calendar" ? (
-          <div className="max-w-4xl mb-16">
+          <div className="max-w-4xl mx-auto mb-16">
             <PartnerBookingWidget />
           </div>
         ) : (
           /* Form and Hub Details Grid */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mb-16">
             
             {/* Left: Consultation Form (7 cols) */}
-            <div className="lg:col-span-7 text-ink dark:text-white">
+            <div className="lg:col-span-7 fs-card p-6 sm:p-8 text-ink dark:text-white">
               {submitted ? (
               <div className="py-6 space-y-6 text-left">
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300">
@@ -255,9 +255,9 @@ function ContactContent() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-7">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white mb-2 font-display">
+                  <h2 className="text-2xl font-bold text-ink dark:text-white mb-1.5 font-display">
                     {c.formTitle}
                   </h2>
                   <p className="text-[15px] text-slate-600 dark:text-slate-400">
@@ -266,9 +266,9 @@ function ContactContent() {
                 </div>
 
                 {/* Name & Work Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
-                  <div className="space-y-1">
-                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-[13px] font-semibold text-ink dark:text-slate-200">
                       {c.fullNameLabel}
                     </label>
                     <input
@@ -277,12 +277,12 @@ function ContactContent() {
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder={language === "ar" ? "الاسم الكريم" : "Your Name"}
-                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
+                      className="fs-input"
                     />
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                  <div className="space-y-1.5">
+                    <label className="text-[13px] font-semibold text-ink dark:text-slate-200">
                       {c.emailLabel}
                     </label>
                     <input
@@ -291,15 +291,15 @@ function ContactContent() {
                       value={formData.workEmail}
                       onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
                       placeholder="name@company.com"
-                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
+                      className="fs-input"
                     />
                   </div>
                 </div>
 
                 {/* Company & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
-                  <div className="space-y-1">
-                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-[13px] font-semibold text-ink dark:text-slate-200">
                       {c.companyLabel}
                     </label>
                     <input
@@ -307,12 +307,12 @@ function ContactContent() {
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       placeholder="Company / Enterprise"
-                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
+                      className="fs-input"
                     />
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                  <div className="space-y-1.5">
+                    <label className="text-[13px] font-semibold text-ink dark:text-slate-200">
                       {c.phoneLabel}
                     </label>
                     <input
@@ -320,20 +320,20 @@ function ContactContent() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+92 300 000 0000"
-                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
+                      className="fs-input"
                     />
                   </div>
                 </div>
 
                 {/* Service of Interest Dropdown */}
-                <div className="space-y-1 relative" ref={dropdownRef}>
-                  <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                <div className="space-y-1.5 relative" ref={dropdownRef}>
+                  <label className="text-[13px] font-semibold text-ink dark:text-slate-200">
                     {c.serviceLabel}
                   </label>
                   
                   <div
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full py-2.5 bg-transparent border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white cursor-pointer flex items-center justify-between"
+                    className="fs-input cursor-pointer flex items-center justify-between"
                   >
                     <span className={formData.serviceOfInterest ? "text-ink dark:text-white font-medium" : "text-slate-500 dark:text-slate-300"}>
                       {formData.serviceOfInterest || (language === "ar" ? "اختر الخدمة المطلوبة" : "Select Service Area")}
@@ -342,12 +342,12 @@ function ContactContent() {
                   </div>
 
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-canvas dark:bg-night-900 border border-ink/10 dark:border-white/15 shadow-lg p-1 z-50 max-h-72 overflow-y-auto">
+                    <div className="absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-night-850 border border-paper-line dark:border-white/15 shadow-lift p-1.5 z-50 max-h-72 overflow-y-auto">
                       {allServices.map((srv) => (
                         <div
                           key={srv.id}
                           onClick={() => selectService(srv.title)}
-                          className={`px-3 py-2 text-sm flex items-center justify-between cursor-pointer transition-colors ${
+                          className={`px-3 py-2 rounded-lg text-sm flex items-center justify-between cursor-pointer transition-colors ${
                             formData.serviceOfInterest === srv.title
                               ? "bg-slate-200 dark:bg-white/20 text-ink dark:text-white font-bold"
                               : "hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200"
@@ -362,8 +362,8 @@ function ContactContent() {
                 </div>
 
                 {/* Message */}
-                <div className="space-y-1">
-                  <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                <div className="space-y-1.5">
+                  <label className="text-[13px] font-semibold text-ink dark:text-slate-200">
                     {c.messageLabel}
                   </label>
                   <textarea
@@ -372,7 +372,7 @@ function ContactContent() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder={language === "ar" ? "اشرح احتياجات مشروعك وأهداف العمل..." : "Briefly describe your requirements or strategic objectives..."}
-                    className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors resize-none"
+                    className="fs-input resize-none"
                   />
                 </div>
 
@@ -404,7 +404,7 @@ function ContactContent() {
                 <button
                   type="submit"
                   disabled={isSubmitting || (RECAPTCHA_ENABLED && !recaptchaToken)}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white text-sm font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-primary w-full group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span>{isSubmitting ? (language === "ar" ? "جارٍ الإرسال والتحليل الذكي..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:group-hover:-translate-x-1 rtl:rotate-180" />
@@ -418,45 +418,42 @@ function ContactContent() {
             )}
           </div>
 
-          {/* Right: direct details, set as a simple list */}
-          <aside className="lg:col-span-4 lg:col-start-9 space-y-10 text-ink dark:text-white">
-            <div className="space-y-4">
-              <h3 className="font-sans text-[11px] uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400">{c.directContactTitle}</h3>
-              <dl className="border-t border-ink/15 dark:border-white/15">
-                <div className="py-4 border-b border-ink/10 dark:border-white/10">
-                  <dt className="text-[13px] text-slate-500 dark:text-slate-400">{c.corporateEmail}</dt>
-                  <dd><a href={`mailto:${contactDetails.email}`} className="text-[17px] font-semibold hover:underline underline-offset-4 break-all">{contactDetails.email}</a></dd>
-                </div>
-                <div className="py-4 border-b border-ink/10 dark:border-white/10">
-                  <dt className="text-[13px] text-slate-500 dark:text-slate-400">{c.directPhone}</dt>
-                  <dd><a href={`tel:${contactDetails.phone.replace(/\s+/g, "")}`} dir="ltr" className="text-[17px] font-semibold hover:underline underline-offset-4">{contactDetails.phone}</a></dd>
-                </div>
-                <div className="py-4 border-b border-ink/10 dark:border-white/10">
-                  <dt className="text-[13px] text-slate-500 dark:text-slate-400">{language === "ar" ? "واتساب" : "WhatsApp"}</dt>
-                  <dd>
-                    <a
-                      href={`https://wa.me/${contactDetails.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(language === "ar" ? "مرحباً فاكتشوال سوليوشنز، أود الاستفسار عن استشارات الأعمال." : "Hello Factual Solutions, I would like to inquire about your business consulting services.")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      dir="ltr"
-                      className="text-[17px] font-semibold hover:underline underline-offset-4"
-                    >
-                      {contactDetails.phone}
-                    </a>
-                  </dd>
-                </div>
-              </dl>
+          {/* Right: direct contact cards */}
+          <aside className="lg:col-span-5 space-y-5 text-ink dark:text-white">
+            <div className="fs-card p-6 space-y-3">
+              <h3 className="text-lg font-bold">{c.directContactTitle}</h3>
+              <a href={`mailto:${contactDetails.email}`} className="flex items-center gap-3 rounded-xl border border-paper-line dark:border-white/10 bg-paper dark:bg-night-900/60 p-3.5 hover:border-navy/30 transition-colors">
+                <span className="fs-icon !w-10 !h-10 bg-rust/10 !text-rust dark:bg-rust/20 dark:!text-rust-light"><Mail className="w-4 h-4" aria-hidden="true" /></span>
+                <span className="min-w-0">
+                  <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{c.corporateEmail}</span>
+                  <span className="block text-[15px] font-semibold break-all">{contactDetails.email}</span>
+                </span>
+              </a>
+              <a href={`tel:${contactDetails.phone.replace(/\s+/g, "")}`} className="flex items-center gap-3 rounded-xl border border-paper-line dark:border-white/10 bg-paper dark:bg-night-900/60 p-3.5 hover:border-navy/30 transition-colors">
+                <span className="fs-icon !w-10 !h-10 bg-navy/10 !text-navy dark:bg-steel/15 dark:!text-steel"><Phone className="w-4 h-4" aria-hidden="true" /></span>
+                <span>
+                  <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{c.directPhone}</span>
+                  <span className="block text-[15px] font-semibold" dir="ltr">{contactDetails.phone}</span>
+                </span>
+              </a>
+              <a href={`https://wa.me/${contactDetails.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(language === "ar" ? "مرحباً فاكتشوال سوليوشنز، أود الاستفسار عن استشارات الأعمال." : "Hello Factual Solutions, I would like to inquire about your business consulting services.")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-3.5 hover:border-emerald-400 transition-colors">
+                <span className="fs-icon !w-10 !h-10 bg-emerald-600"><MessageSquare className="w-4 h-4" aria-hidden="true" /></span>
+                <span>
+                  <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-300">{language === "ar" ? "واتساب" : "WhatsApp"}</span>
+                  <span className="block text-[15px] font-semibold" dir="ltr">{contactDetails.phone}</span>
+                </span>
+              </a>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="font-sans text-[11px] uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400">{c.headOfficeTitle}</h3>
+            <div className="fs-card p-6 space-y-3">
+              <h3 className="text-lg font-bold">{c.headOfficeTitle}</h3>
               {officeLocations.map((loc) => (
-                <address key={loc.city} className="not-italic border-t border-ink/15 dark:border-white/15 pt-4 space-y-1">
-                  <p className="text-[17px] font-semibold flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-slate-400 shrink-0" aria-hidden="true" />
-                    {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
-                  </p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 ps-6">{loc.address}</p>
+                <address key={loc.city} className="not-italic flex items-start gap-3 rounded-xl border border-paper-line dark:border-white/10 bg-paper dark:bg-night-900/60 p-3.5">
+                  <MapPin className="w-4 h-4 mt-1 text-rust dark:text-rust-light shrink-0" aria-hidden="true" />
+                  <span>
+                    <span className="block text-[15px] font-semibold">{language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}</span>
+                    <span className="block text-[13px] text-slate-500 dark:text-slate-400">{loc.address}</span>
+                  </span>
                 </address>
               ))}
             </div>

@@ -5,7 +5,7 @@ import type { Config } from "tailwindcss";
  *   Navy  #25346B  (top puzzle piece)
  *   Steel #9BB3D9  (left puzzle piece)
  *   Rust  #9B391E  (right puzzle piece)
- *   Ink   #0A0A0A  (wordmark lettering)
+ *   Ink   #0E1A38  (text)
  * Theme-aware tokens (accent, focus, surface…) read RGB channels from CSS
  * variables defined in globals.css so they adapt between light and dark.
  */
@@ -43,21 +43,21 @@ const config: Config = {
         },
         rust: {
           DEFAULT: "#9B391E",
-          light: "#F2A68E",
+          light: "#E07856",
           dark: "#7E2E18",
         },
-        ink: "#0A0A0A",
-        // secondary text: 8.2:1 on white
-        slate: { 500: "#4A4F5C" },
-        paper: { DEFAULT: "#FFFFFF", deep: "#F2F5FB", line: "#E3E8F2" },
-        // Dark mode is built on the logo navy itself (#25346B), with one deeper and one lighter step
+        ink: "#0E1A38",
+        // secondary text tuned to stay above 4.5:1 on the light canvas
+        slate: { 500: "#56627A" },
+        paper: { DEFAULT: "#F6F8FC", deep: "#EEF2FA", line: "#E4E9F2" },
+        // Dark theme: deep midnight navy surfaces
         night: {
-          950: "#1A2550",
-          900: "#25346B",
-          850: "#2C3C79",
-          800: "#1F2C5C",
-          700: "#34468A",
-          600: "#3E52A0",
+          950: "#050B1C",
+          900: "#081229",
+          850: "#0B1733",
+          800: "#0F1D3F",
+          700: "#16284F",
+          600: "#1F3563",
         },
         // Theme-aware semantic tokens
         accent: v("--fs-accent"),
@@ -72,50 +72,27 @@ const config: Config = {
           "navy-light": "#3C4C87",
           rust: "#9B391E",
           "rust-dark": "#7E2E18",
-          "rust-light": "#F2A68E",
+          "rust-light": "#E07856",
           steel: "#9BB3D9",
           "steel-light": "#C7D4EA",
           "steel-dark": "#7690BE",
           slate: "#F2F5FB",
           card: "#FFFFFF",
-          "card-dark": "#1F2C5C",
+          "card-dark": "#0F1D3F",
         },
       },
-      // Only 400 and 600 are loaded; map "bold" to 600 so nothing is faux-bolded.
-      fontWeight: { bold: "600", extrabold: "600", black: "600" },
       fontFamily: {
-        brand: ["var(--font-brand)", "'Segoe UI'", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display)", "'Century Gothic'", "Futura", "-apple-system", "'Segoe UI'", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "'Segoe UI'", "system-ui", "-apple-system", "sans-serif"],
         body: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
         sans: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
       },
-      // Editorial system: almost no elevation. Surfaces are separated by
-      // hairline rules, not shadows; only floating menus keep a soft shadow.
       boxShadow: {
-        card: "none",
-        lift: "none",
-        cta: "none",
-        xs: "none",
-        sm: "none",
-        DEFAULT: "none",
-        md: "none",
-        lg: "0 18px 40px -24px rgba(37,52,107,0.28)",
-        xl: "0 18px 40px -24px rgba(37,52,107,0.28)",
-        "2xl": "0 24px 48px -24px rgba(37,52,107,0.32)",
-      },
-      // Tight, print-like corners everywhere (pills stay round via rounded-full).
-      borderRadius: {
-        sm: "2px",
-        DEFAULT: "3px",
-        md: "3px",
-        lg: "3px",
-        xl: "4px",
-        "2xl": "4px",
-        "3xl": "6px",
+        card: "0 1px 2px rgba(14,26,56,0.04), 0 8px 24px -12px rgba(14,26,56,0.12)",
+        lift: "0 2px 4px rgba(14,26,56,0.05), 0 22px 44px -18px rgba(37,52,107,0.30)",
+        cta: "0 10px 24px -10px rgba(155,57,30,0.55)",
       },
       backgroundImage: {
-        // kept for compatibility; renders as a quiet single hairline now
-        "brand-tri": "linear-gradient(90deg, currentColor, currentColor)",
+        "brand-tri": "linear-gradient(90deg, #25346B 0 33.33%, #9BB3D9 33.33% 66.66%, #9B391E 66.66% 100%)",
       },
     },
   },

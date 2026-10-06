@@ -191,7 +191,7 @@ export default function PartnerBookingWidget({
   }
 
   return (
-    <div className={`border-t-2 border-ink dark:border-white ${compact ? 'pt-4' : 'pt-6'}`}>
+    <div className={`fs-card ${compact ? 'p-4' : 'p-6 sm:p-8'}`}>
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">
@@ -271,7 +271,7 @@ export default function PartnerBookingWidget({
                 }}
                 className={`p-2.5 rounded-xl border text-center transition-all ${
                   selectedDateIndex === idx
-                    ? "bg-ink text-white border-ink dark:bg-white dark:text-ink"
+                    ? "bg-navy text-white border-navy dark:bg-steel dark:text-ink dark:border-steel"
                     : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                 }`}
               >
@@ -300,7 +300,7 @@ export default function PartnerBookingWidget({
                 onClick={() => setSelectedTime(slot)}
                 className={`py-2 px-1 rounded-xl text-xs font-semibold border transition-all text-center ${
                   selectedTime === slot
-                    ? "bg-ink text-white border-ink dark:bg-white dark:text-ink"
+                    ? "bg-navy text-white border-navy dark:bg-steel dark:text-ink dark:border-steel"
                     : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-emerald-500"
                 }`}
               >
@@ -323,7 +323,7 @@ export default function PartnerBookingWidget({
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               placeholder="Your Full Name"
-              className="px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
+              className="fs-input"
             />
             <input
               type="email"
@@ -331,14 +331,14 @@ export default function PartnerBookingWidget({
               value={clientEmail}
               onChange={(e) => setClientEmail(e.target.value)}
               placeholder="Corporate Work Email"
-              className="px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
+              className="fs-input"
             />
             <input
               type="text"
               value={clientCompany}
               onChange={(e) => setClientCompany(e.target.value)}
               placeholder="Company / Enterprise"
-              className="px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
+              className="fs-input"
             />
           </div>
         </div>
@@ -369,7 +369,7 @@ export default function PartnerBookingWidget({
           <button
             type="submit"
             disabled={isSubmitting || !selectedTime || !clientName || !clientEmail || (RECAPTCHA_ENABLED && !recaptchaToken)}
-            className="w-full py-3.5 px-6 bg-ink hover:bg-navy dark:bg-white dark:text-ink disabled:opacity-50 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2 group cursor-pointer"
+            className="btn-primary w-full group disabled:opacity-50"
           >
             <span>
               {isSubmitting

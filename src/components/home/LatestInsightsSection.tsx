@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 import { IBlogPost } from "@/models";
 import { DEFAULT_BLOG_COVER, categoryLabel } from "@/data/blogCategories";
 import { useLanguage } from "@/context/LanguageContext";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 /** Local images go through next/image (resized + WebP/AVIF); external URLs fall back to a lazy <img>. */
 function PostImage({ src, sizes, className = "" }: { src?: string; sizes: string; className?: string }) {
@@ -48,54 +49,59 @@ export default function LatestInsightsSection() {
   const cards = featured ? [featured, ...recent].slice(0, 3) : [];
 
   return (
-    <section aria-labelledby="insights-heading" className="py-20 sm:py-28">
+    <section aria-labelledby="insights-heading" className="py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div data-reveal className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10 sm:mb-14">
-          <div className="space-y-4 max-w-3xl">
-            <p className="fs-label">{isAr ? "المدونة" : "Insights"}</p>
-            <h2 id="insights-heading" className="text-[2rem] sm:text-[2.75rem] font-semibold font-display leading-[1.1] text-navy dark:text-white">
-              {isAr ? "رؤى من واقع الممارسة" : "Insights from practice"}
-            </h2>
-            <p className="text-slate-500 dark:text-slate-300 leading-relaxed">
-              {isAr
-                ? "رؤى عملية وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية ولين ستة سيجما والجودة وERP والتحول الرقمي والتحسين المستمر."
-                : "Practical insights, tools, and real-world perspectives on operational excellence, strategy, Lean Six Sigma, quality, ERP, digital transformation, and continuous improvement."}
-            </p>
-          </div>
-          <Link href="/blog" className="link-arrow text-[15px] text-navy dark:text-white shrink-0">
-            {isAr ? "كل المقالات" : "All articles"}
-            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-          </Link>
-        </div>
+        <SectionHeading
+          id="insights-heading"
+          label={isAr ? "المدونة" : "Insights"}
+          title={isAr ? "رؤى من" : "Insights from"}
+          highlight={isAr ? "واقع الممارسة" : "practice"}
+          lede={
+            <div className="space-y-4">
+              <p>
+                {isAr
+                  ? "رؤى عملية وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية ولين ستة سيجما والجودة وERP والتحول الرقمي والتحسين المستمر."
+                  : "Practical insights, tools, and real-world perspectives on operational excellence, strategy, Lean Six Sigma, quality, ERP, digital transformation, and continuous improvement."}
+              </p>
+              <Link href="/blog" className="link-arrow text-[15px] text-navy dark:text-steel-light">
+                {isAr ? "كل المقالات" : "All articles"}
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+              </Link>
+            </div>
+          }
+          className="mb-12"
+        />
 
-        {loading && <div className="h-64 bg-paper-deep dark:bg-night-800" aria-busy="true" />}
+        {loading && <div className="h-72 fs-card animate-pulse" aria-busy="true" />}
 
         {!loading && cards.length === 0 && (
-          <p className="border-t border-paper-line dark:border-white/15 pt-6 text-slate-500 dark:text-slate-400">
+          <div className="fs-card p-8 text-center text-slate-600 dark:text-slate-300">
             {isAr
               ? "مقالاتنا الأولى قيد الإعداد. اشترك في النشرة أسفل الصفحة لتصلك عند نشرها."
               : "Our first articles are being prepared. Subscribe at the bottom of the page and we'll let you know when they go live."}
-          </p>
+          </div>
         )}
 
         {!loading && cards.length > 0 && (
-          <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
             {cards.map((post, i) => (
               <li key={post.id} data-reveal style={{ "--d": `${i * 110}ms` } as React.CSSProperties}>
-                <Link href={`/blog/${post.slug}`} className="fs-post group flex flex-col gap-4">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-paper-deep dark:bg-night-800">
-                    <div className="fs-post-img absolute inset-0">
+                <Link href={`/blog/${post.slug}`} className="group fs-card fs-card-hover h-full flex flex-col overflow-hidden">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-paper-deep dark:bg-night-700">
+                    <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105">
                       <PostImage src={post.coverImage} sizes="(max-width: 768px) 100vw, 400px" className="object-cover" />
                     </div>
-                    <span aria-hidden="true" className="absolute start-0 bottom-0 h-1.5 w-1/3 transition-[width] duration-700 ease-out group-hover:w-full" style={{ background: ["#25346B", "#9BB3D9", "#9B391E"][i % 3] }} />
+                    <span className="absolute top-3 start-3 rounded-full bg-white/95 dark:bg-night-900/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-navy dark:text-steel-light">
+                      {categoryLabel(post.category, language)}
+                    </span>
                   </div>
-                  <p className="text-xs uppercase tracking-[0.14em] text-accent font-semibold">{categoryLabel(post.category, language)}</p>
-                  <h3 className="text-xl sm:text-[1.4rem] font-semibold font-display leading-snug text-ink dark:text-white transition-colors group-hover:text-rust dark:group-hover:text-rust-light">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    <time dateTime={post.publishedAt}>{formatDate(post.publishedAt, language)}</time> · {post.readTime}
-                  </p>
+                  <div className="flex flex-col gap-3 p-5 sm:p-6 flex-1">
+                    <h3 className="text-lg font-bold leading-snug text-ink dark:text-white transition-colors group-hover:text-navy dark:group-hover:text-steel-light">{post.title}</h3>
+                    {post.excerpt && <p className="text-[14px] text-slate-600 dark:text-slate-300 line-clamp-2">{post.excerpt}</p>}
+                    <p className="mt-auto pt-2 text-[13px] text-slate-500 dark:text-slate-400">
+                      <time dateTime={post.publishedAt}>{formatDate(post.publishedAt, language)}</time> · {post.readTime}
+                    </p>
+                  </div>
                 </Link>
               </li>
             ))}

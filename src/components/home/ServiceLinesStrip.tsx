@@ -2,15 +2,16 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Compass, GraduationCap, MonitorCog } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { getServicePillars, getServicesByCategory } from "@/data/servicesData";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 /** Each service line is one piece of the logo cube, in that piece's exact color. */
-const PIECES: Record<string, { color: string; text: string }> = {
-  consulting: { color: "#25346B", text: "text-navy dark:text-steel" },
-  training: { color: "#9BB3D9", text: "text-navy dark:text-steel" },
-  digital: { color: "#9B391E", text: "text-rust dark:text-rust-light" },
+const PIECES: Record<string, { color: string; tile: string; Icon: typeof Compass }> = {
+  consulting: { color: "#25346B", tile: "bg-navy", Icon: Compass },
+  training: { color: "#9BB3D9", tile: "bg-steel text-navy", Icon: GraduationCap },
+  digital: { color: "#9B391E", tile: "bg-rust", Icon: MonitorCog },
 };
 
 export default function ServiceLinesStrip() {
@@ -19,40 +20,54 @@ export default function ServiceLinesStrip() {
   const pillars = getServicePillars(language);
 
   return (
-    <section aria-labelledby="what-we-do-heading" className="py-20 sm:py-28">
+    <section aria-labelledby="what-we-do-heading" className="py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div data-reveal className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-end mb-12 sm:mb-16">
-          <div className="space-y-4">
-            <p className="fs-label">{isAr ? "ما نقوم به" : "What we do"}</p>
-            <h2 id="what-we-do-heading" className="text-[2rem] sm:text-5xl font-semibold font-display leading-[1.08] text-navy dark:text-white">
-              {isAr ? "ثلاث طرق نساعد بها المؤسسات على التحسين." : "Three ways we help organizations improve."}
-            </h2>
-          </div>
-          <p className="lede text-slate-500 dark:text-slate-300 max-w-xl">
-            {isAr
-              ? "كل خط خدمة قطعة من المكعب. ومعاً تنقل التغيير من التشخيص إلى الممارسة اليومية."
-              : "Each service line is one piece of the cube. Used together, they take a change from diagnosis to daily practice."}
-          </p>
-        </div>
+        <SectionHeading
+          id="what-we-do-heading"
+          label={isAr ? "ما نقوم به" : "What we do"}
+          title={isAr ? "ثلاث طرق نساعد بها" : "Three ways we help"}
+          highlight={isAr ? "المؤسسات على التحسين" : "organizations improve"}
+          lede={
+            isAr
+              ? "تحدد الاستشارات ما يجب تغييره. ويبني التدريب القدرة على تغييره. ويساعد التطبيق الرقمي على جعل التحسين جزءاً من العمل اليومي."
+              : "Consulting identifies what needs to change. Training builds the capability to change it. Digital implementation helps make the improvement part of everyday work."
+          }
+          className="mb-12"
+        />
 
         <ul className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
           {pillars.map((p, i) => {
             const piece = PIECES[p.id] || PIECES.consulting;
             const items = getServicesByCategory(p.id, language);
+            const Icon = piece.Icon;
             return (
-              <li key={p.id} data-reveal style={{ "--d": `${i * 120}ms` } as React.CSSProperties}>
+              <li key={p.id} data-reveal style={{ "--d": `${i * 110}ms` } as React.CSSProperties}>
                 <Link
                   href={`/services?line=${p.id}#${p.id}`}
-                  className="fs-card group h-full flex flex-col gap-4 p-7 sm:p-8 pt-9 bg-white dark:bg-night-800 border border-paper-line dark:border-white/10"
+                  className="group fs-card fs-card-hover fs-topbar h-full flex flex-col gap-4 p-6 sm:p-7"
                   style={{ "--piece": piece.color } as React.CSSProperties}
                 >
-                  <span className={`fs-card-no font-display text-sm font-semibold ${piece.text}`}>{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="text-2xl sm:text-[1.75rem] font-semibold font-display leading-tight text-ink dark:text-white">{p.title}</h3>
-                  <p className="text-[17px] text-slate-500 dark:text-slate-300">{p.tagline}</p>
-                  <p className="text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">{items.map((it) => it.title).join(" · ")}</p>
-                  <span className={`fs-card-more mt-auto pt-3 inline-flex items-center gap-2 text-[15px] font-semibold ${piece.text}`}>
-                    {isAr ? "استكشف" : "Explore"} {p.title}
-                    <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
+                  <div className="flex items-center justify-between">
+                    <span className={`fs-icon ${piece.tile}`}><Icon className="w-5 h-5" aria-hidden="true" /></span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+                      {isAr ? "خط الخدمة" : "Service line"} {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="text-xl sm:text-[1.4rem] font-bold leading-snug text-ink dark:text-white">{p.title}</h3>
+                  <p className="text-[15px] text-slate-600 dark:text-slate-300">{p.tagline}</p>
+                  <ul className="pt-4 border-t border-paper-line dark:border-white/10 space-y-2">
+                    {items.map((it) => (
+                      <li key={it.id} className="flex items-start gap-2.5 text-[14px] text-slate-600 dark:text-slate-300">
+                        <span className="fs-check mt-0.5"><svg viewBox="0 0 12 12" className="w-2.5 h-2.5" aria-hidden="true"><path d="M2.5 6.2 5 8.5 9.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+                        {it.title}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto pt-3 flex items-center justify-between text-[14px] font-semibold text-navy dark:text-steel-light">
+                    {isAr ? "استكشف الخدمات" : "Explore services"}
+                    <span className="w-9 h-9 rounded-full border border-paper-line dark:border-white/15 flex items-center justify-center transition-colors group-hover:bg-navy group-hover:border-navy group-hover:text-white">
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" aria-hidden="true" />
+                    </span>
                   </span>
                 </Link>
               </li>

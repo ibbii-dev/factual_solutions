@@ -102,36 +102,34 @@ function BlogContent() {
         <PageHeader eyebrow={L.badge} title={L.title} lede={L.lead} />
 
         {/* Search + categories */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
-          <div className="lg:col-span-3">
-            <div className="relative">
-              <Search className="absolute start-0 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={L.search}
-                aria-label={L.searchLabel}
-                className="w-full ps-7 pe-12 py-2.5 bg-transparent border-b border-ink/25 dark:border-white/25 text-sm text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
-              />
-              {searchQuery && (
-                <button onClick={() => setSearchQuery("")} className="absolute end-0 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-500 hover:text-ink dark:hover:text-white">
-                  {L.clear}
-                </button>
-              )}
-            </div>
+        <div className="fs-card p-3 sm:p-4 flex flex-col lg:flex-row lg:items-center gap-3 mb-10">
+          <div className="relative w-full lg:w-80 shrink-0">
+            <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={L.search}
+              aria-label={L.searchLabel}
+              className="fs-input !py-2.5 !ps-10 !pe-14"
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery("")} className="absolute end-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-500 hover:text-ink dark:hover:text-white">
+                {L.clear}
+              </button>
+            )}
           </div>
-          <div className="lg:col-span-9 flex flex-wrap gap-x-5 gap-y-2 lg:pt-2" role="group" aria-label="Filter by category">
+          <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter by category">
             {["All", ...BLOG_CATEGORIES].map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
                 aria-pressed={activeCategory === cat}
-                className={`py-1 text-sm border-b transition-colors ${
+                className={`min-h-[36px] px-3.5 rounded-lg text-[13px] font-semibold transition-colors ${
                   activeCategory === cat
-                    ? "border-ink text-ink dark:border-white dark:text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-ink dark:text-slate-400 dark:hover:text-white"
+                    ? "bg-navy text-white dark:bg-steel dark:text-ink"
+                    : "text-slate-600 hover:bg-paper-deep hover:text-navy dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
                 }`}
               >
                 {categoryLabel(cat, language)}
@@ -140,14 +138,14 @@ function BlogContent() {
           </div>
         </div>
 
-        {isLoading && <p className="py-16 text-slate-500 border-t border-ink/15 dark:border-white/15">{L.loading}</p>}
+        {isLoading && <div className="h-72 fs-card animate-pulse" aria-busy="true"><span className="sr-only">{L.loading}</span></div>}
 
         {!isLoading && filteredPosts.length === 0 && (
-          <div className="py-12 border-t border-ink/15 dark:border-white/15 max-w-xl space-y-3">
-            <h2 className="text-2xl font-bold font-display">{searchQuery || activeCategory !== "All" ? L.noneTitle : L.soonTitle}</h2>
+          <div className="fs-card p-10 max-w-xl mx-auto text-center space-y-3">
+            <h2 className="text-2xl font-bold">{searchQuery || activeCategory !== "All" ? L.noneTitle : L.soonTitle}</h2>
             <p className="text-slate-600 dark:text-slate-400">{searchQuery || activeCategory !== "All" ? L.noneText : L.soonText}</p>
             {(searchQuery || activeCategory !== "All") && (
-              <button onClick={() => { setSearchQuery(""); setActiveCategory("All"); }} className="link-arrow text-sm text-ink dark:text-white">
+              <button onClick={() => { setSearchQuery(""); setActiveCategory("All"); }} className="btn-secondary mt-2">
                 {L.clearFilters}
               </button>
             )}
@@ -155,45 +153,44 @@ function BlogContent() {
         )}
 
         {!isLoading && filteredPosts.length > 0 && (
-          <div className="border-t border-ink/15 dark:border-white/15">
+          <div className="space-y-6">
             {featuredPost && (
-              <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 py-10 border-b border-ink/15 dark:border-white/15">
-                <Link href={`/blog/${featuredPost.slug}`} className="lg:col-span-7 relative block aspect-[16/10] overflow-hidden bg-paper-deep" tabIndex={-1} aria-hidden="true">
-                  <Image sizes="(max-width: 1024px) 100vw, 720px" src={featuredPost.coverImage || "/images/consulting-meeting.webp"} alt="" fill priority className="object-cover" />
+              <article className="group fs-card fs-card-hover overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+                <Link href={`/blog/${featuredPost.slug}`} className="lg:col-span-7 relative block aspect-[16/10] lg:aspect-auto lg:min-h-[340px] overflow-hidden bg-paper-deep" tabIndex={-1} aria-hidden="true">
+                  <Image sizes="(max-width: 1024px) 100vw, 720px" src={featuredPost.coverImage || "/images/consulting-meeting.webp"} alt="" fill priority className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
                 </Link>
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  <p className="text-xs uppercase tracking-[0.14em] text-accent font-semibold">{L.featured} · {categoryLabel(featuredPost.category, language)}</p>
-                  <h2 className="text-3xl sm:text-4xl font-bold font-display leading-tight">
-                    <Link href={`/blog/${featuredPost.slug}`} className="hover:underline underline-offset-4 decoration-1">{featuredPost.title}</Link>
+                <div className="lg:col-span-5 flex flex-col gap-4 p-6 sm:p-8">
+                  <p className="inline-flex self-start rounded-full bg-rust/10 dark:bg-rust/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-rust dark:text-rust-light">{L.featured} · {categoryLabel(featuredPost.category, language)}</p>
+                  <h2 className="text-2xl sm:text-3xl font-bold leading-tight">
+                    <Link href={`/blog/${featuredPost.slug}`} className="hover:text-navy dark:hover:text-steel-light transition-colors">{featuredPost.title}</Link>
                   </h2>
-                  {featuredPost.excerpt && <p className="lede text-slate-700 dark:text-slate-300">{featuredPost.excerpt}</p>}
+                  {featuredPost.excerpt && <p className="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed">{featuredPost.excerpt}</p>}
                   <p className="text-sm text-slate-500 dark:text-slate-400">
                     {featuredPost.author.name} · <time dateTime={featuredPost.publishedAt}>{fmt(featuredPost.publishedAt)}</time> · {featuredPost.readTime}
                   </p>
-                  {featuredPost.tags?.length > 0 && <p className="text-sm text-slate-500 dark:text-slate-400">{featuredPost.tags.slice(0, 4).join(" · ")}</p>}
-                  <Link href={`/blog/${featuredPost.slug}`} className="link-arrow text-sm text-ink dark:text-white mt-auto">
+                  <Link href={`/blog/${featuredPost.slug}`} className="btn-primary self-start mt-auto">
                     {L.read}
-                    <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                    <ArrowRight className="fs-arrow w-4 h-4 rtl:rotate-180" />
                   </Link>
                 </div>
               </article>
             )}
 
             {gridPosts.length > 0 && (
-              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8">
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
                 {gridPosts.map((post) => (
-                  <li key={post.id} className="py-8 border-b border-ink/10 dark:border-white/10">
-                    <article className="space-y-3">
-                      <Link href={`/blog/${post.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-paper-deep" tabIndex={-1} aria-hidden="true">
-                        <Image sizes="(max-width: 640px) 100vw, 400px" src={post.coverImage || "/images/consulting-meeting.webp"} alt="" fill className="object-cover" />
-                      </Link>
-                      <p className="text-xs uppercase tracking-[0.14em] text-accent font-semibold">{categoryLabel(post.category, language)}</p>
-                      <h3 className="text-xl font-bold font-display leading-snug">
-                        <Link href={`/blog/${post.slug}`} className="hover:underline underline-offset-4 decoration-1">{post.title}</Link>
-                      </h3>
-                      {post.excerpt && <p className="text-[15px] text-slate-700 dark:text-slate-300 line-clamp-3">{post.excerpt}</p>}
-                      <p className="text-sm text-slate-500 dark:text-slate-400"><time dateTime={post.publishedAt}>{fmt(post.publishedAt)}</time> · {post.readTime}</p>
-                    </article>
+                  <li key={post.id}>
+                    <Link href={`/blog/${post.slug}`} className="group fs-card fs-card-hover h-full flex flex-col overflow-hidden">
+                      <div className="relative aspect-[16/10] overflow-hidden bg-paper-deep">
+                        <Image sizes="(max-width: 640px) 100vw, 400px" src={post.coverImage || "/images/consulting-meeting.webp"} alt="" fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                        <span className="absolute top-3 start-3 rounded-full bg-white/95 dark:bg-night-900/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-navy dark:text-steel-light">{categoryLabel(post.category, language)}</span>
+                      </div>
+                      <div className="flex flex-col gap-3 p-5 sm:p-6 flex-1">
+                        <h3 className="text-lg font-bold leading-snug transition-colors group-hover:text-navy dark:group-hover:text-steel-light">{post.title}</h3>
+                        {post.excerpt && <p className="text-[14px] text-slate-600 dark:text-slate-300 line-clamp-3">{post.excerpt}</p>}
+                        <p className="mt-auto pt-2 text-[13px] text-slate-500 dark:text-slate-400"><time dateTime={post.publishedAt}>{fmt(post.publishedAt)}</time> · {post.readTime}</p>
+                      </div>
+                    </Link>
                   </li>
                 ))}
               </ul>

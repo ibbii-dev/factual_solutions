@@ -157,7 +157,7 @@ export default function CustomLanguageSelector() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 py-1.5 text-[13px] font-medium transition-colors text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white shrink-0 select-none"
+        className="inline-flex items-center gap-1.5 min-h-[36px] px-3 rounded-full border border-paper-line bg-white text-[13px] font-medium transition-colors text-slate-700 hover:border-navy/30 dark:bg-white/5 dark:border-white/15 dark:text-slate-200 dark:hover:text-white shrink-0 select-none"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         translate="no"
@@ -170,7 +170,7 @@ export default function CustomLanguageSelector() {
 
       {/* Modern Luxury Dropdown Menu */}
       {isOpen && (
-        <div translate="no" className="absolute right-0 rtl:right-auto rtl:left-0 mt-3 w-52 bg-canvas dark:bg-night-900 border border-ink/10 dark:border-white/15 shadow-lg p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-slate-100 dark:divide-white/10 text-ink dark:text-white">
+        <div translate="no" className="absolute right-0 rtl:right-auto rtl:left-0 mt-3 w-52 rounded-2xl shadow-lift bg-white dark:bg-night-850 border border-ink/10 dark:border-white/15 shadow-lg p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-slate-100 dark:divide-white/10 text-ink dark:text-white">
           <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 flex items-center gap-1.5">
             <Globe className="w-3 h-3 text-accent" />
             <span>Select Language / اختر اللغة</span>

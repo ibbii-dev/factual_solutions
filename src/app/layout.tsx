@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Jost, Outfit, Source_Sans_3, Tajawal } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -28,34 +28,21 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
-// Typography: Jost (a geometric sans close to the logo lettering) for headings and
-// Source Sans 3 for reading text. next/font self-hosts every face as compressed
-// .woff2 on our own domain, uses font-display: swap, and generates a size-matched
-// system-font fallback so text shows instantly and nothing jumps when the web
-// font arrives. Two weights per family: 400 and 600.
-const sourceSans = Source_Sans_3({
+// Typography: Plus Jakarta Sans (friendly, rounded geometric) for headings and
+// Inter (built for screen reading) for text. Both are variable fonts, so each is a
+// single self-hosted .woff2 file covering every weight; font-display: swap plus a
+// size-matched system fallback means text shows instantly with no layout jump.
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "600"],
   variable: "--font-body",
   display: "swap",
   fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "system-ui", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
   adjustFontFallback: true,
 });
 
-const jost = Jost({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "600"],
   variable: "--font-display",
-  display: "swap",
-  fallback: ["Century Gothic", "Futura", "-apple-system", "Segoe UI", "system-ui", "sans-serif"],
-  adjustFontFallback: true,
-});
-
-// Wordmark face: one weight, used only for "Factual Solutions" in the header and footer.
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["600"],
-  variable: "--font-brand",
   display: "swap",
   fallback: ["Segoe UI", "system-ui", "-apple-system", "sans-serif"],
   adjustFontFallback: true,
@@ -75,7 +62,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#25346B" }, { media: "(prefers-color-scheme: dark)", color: "#25346B" }],
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F6F8FC" }, { media: "(prefers-color-scheme: dark)", color: "#081229" }],
 };
 
 export const metadata: Metadata = {
@@ -108,7 +95,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${sourceSans.variable} ${jost.variable} ${outfit.variable} ${tajawal.variable}`} 
+      className={`scroll-smooth ${inter.variable} ${jakarta.variable} ${tajawal.variable}`} 
       suppressHydrationWarning
     >
       <head>

@@ -7,6 +7,7 @@ import { MapPin, ArrowRight } from "lucide-react";
 import { principalConsultant, officeLocations } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeader from "@/components/ui/PageHeader";
+import BrandMark from "@/components/ui/BrandMark";
 
 const content = {
   en: {
@@ -109,91 +110,113 @@ export default function AboutPage() {
   const { language } = useLanguage();
   const isAr = language === "ar";
   const c = isAr ? content.ar : content.en;
-  const label = "text-[11px] uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400";
-  const row = "fs-rule grid grid-cols-1 lg:grid-cols-12 gap-6 border-t border-ink/15 dark:border-white/15 pt-10";
+  const label = "text-[11px] uppercase font-bold tracking-[0.14em] text-slate-500 dark:text-slate-400";
+  const check = (
+    <span className="fs-check mt-0.5"><svg viewBox="0 0 12 12" className="w-2.5 h-2.5" aria-hidden="true"><path d="M2.5 6.2 5 8.5 9.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+  );
 
   return (
     <div className="pb-20 sm:pb-24 min-h-screen text-ink dark:text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <PageHeader eyebrow={c.badge} title={c.headline} lede={c.intro[0]} />
 
-        {/* Perspective */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-20 sm:mb-28">
-          <div data-reveal className="lg:col-span-9 lg:col-start-4 space-y-5 max-w-3xl">
+        {/* Perspective, with the puzzle mark */}
+        <section data-reveal className="group fs-card p-8 sm:p-12 mb-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-7 space-y-5">
             <p className="text-xl sm:text-2xl font-display font-bold leading-snug text-ink dark:text-white">{c.intro[1]}</p>
-            <p className="text-[15px] sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">{c.intro[2]}</p>
+            <p className="text-[15px] sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">{c.intro[2]}</p>
+          </div>
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="dark:bg-white/95 dark:rounded-3xl dark:p-6">
+              <BrandMark className="w-48 h-48 sm:w-60 sm:h-60 overflow-visible transition-transform duration-700 ease-out group-hover:rotate-[-4deg] group-hover:scale-105" />
+            </div>
           </div>
         </section>
 
         {/* Lead consultant */}
-        <section className={`${row} mb-20 sm:mb-28`}>
-          <p className="lg:col-span-3 eyebrow pt-2">{c.leadBadge}</p>
-          <div data-reveal className="lg:col-span-9 space-y-12">
-            <div className="grid grid-cols-1 md:grid-cols-9 gap-8">
-              <div className="md:col-span-3">
-                <div className="relative w-full max-w-[260px] aspect-[4/5] overflow-hidden bg-paper-deep">
-                  <Image src={principalConsultant.image} alt={c.leadName} fill priority sizes="260px" className="object-cover grayscale-[15%]" />
-                </div>
+        <section className="mb-16">
+          <div data-reveal className="text-center flex flex-col items-center gap-3 mb-8">
+            <p className="fs-pill">{c.leadBadge}</p>
+          </div>
+          <div data-reveal className="fs-card p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+            <div className="md:col-span-4 flex flex-col items-center text-center gap-3">
+              <div className="relative w-full max-w-[260px] aspect-[4/5] overflow-hidden rounded-2xl border border-paper-line dark:border-white/10 shadow-card bg-paper-deep">
+                <Image src={principalConsultant.image} alt={c.leadName} fill priority sizes="260px" className="object-cover" />
               </div>
-              <div className="md:col-span-6 space-y-4">
-                <div>
-                  <h2 className="text-3xl sm:text-4xl font-bold font-display text-ink dark:text-white">{c.leadName}</h2>
-                  <p className="mt-1 text-[15px] text-slate-600 dark:text-slate-400">{c.leadRole}</p>
-                </div>
-                {c.leadBio.map((para, i) => (
-                  <p key={i} className="text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed">{para}</p>
-                ))}
+              <div>
+                <h2 className="text-2xl font-bold text-ink dark:text-white">{c.leadName}</h2>
+                <p className="mt-1 text-[14px] font-semibold text-rust dark:text-rust-light">{c.leadRole}</p>
               </div>
             </div>
-
-            <dl className="grid grid-cols-1 md:grid-cols-9 gap-x-8 gap-y-8 border-t border-ink/10 dark:border-white/10 pt-8">
-              <dt className={`md:col-span-3 ${label}`}>{c.countriesTitle}</dt>
-              <dd className="md:col-span-6 text-[15px] text-ink dark:text-white leading-relaxed">{c.countries.join(isAr ? "، " : ", ")}</dd>
-
-              <dt className={`md:col-span-3 ${label}`}>{c.expertiseTitle}</dt>
-              <dd className="md:col-span-6 text-[15px] text-ink dark:text-white leading-relaxed">{c.expertise.join(" · ")}</dd>
-
-              <dt className={`md:col-span-3 ${label}`}>{c.qualTitle}</dt>
-              <dd className="md:col-span-6">
-                <ul className="border-t border-ink/10 dark:border-white/10">
-                  {c.quals.map((q) => (
-                    <li key={q.name} className="py-3 border-b border-ink/10 dark:border-white/10 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-6">
-                      <span className="text-[15px] font-semibold text-ink dark:text-white">{q.name}</span>
-                      {q.by && <span className="text-sm text-slate-500 dark:text-slate-400 sm:text-end">{q.by}</span>}
-                    </li>
+            <div className="md:col-span-8 space-y-6">
+              <div className="space-y-4">
+                {c.leadBio.map((para, i) => (
+                  <p key={i} className="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed">{para}</p>
+                ))}
+              </div>
+              <div className="space-y-2">
+                <p className={label}>{c.expertiseTitle}</p>
+                <ul className="flex flex-wrap gap-2">
+                  {c.expertise.map((x) => (
+                    <li key={x} className="inline-flex items-center gap-1.5 rounded-lg bg-paper-deep dark:bg-white/5 border border-paper-line dark:border-white/10 px-3 py-1.5 text-[13px] font-medium text-ink dark:text-slate-200">{check}{x}</li>
                   ))}
                 </ul>
-              </dd>
-            </dl>
+              </div>
+              <div className="space-y-2">
+                <p className={label}>{c.countriesTitle}</p>
+                <p className="text-[15px] text-ink dark:text-white leading-relaxed">{c.countries.join(isAr ? "، " : ", ")}</p>
+              </div>
+            </div>
+          </div>
+
+          <div data-reveal className="mt-5 fs-card p-6 sm:p-8">
+            <p className={`${label} mb-4`}>{c.qualTitle}</p>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {c.quals.map((q) => (
+                <li key={q.name} className="flex items-start gap-3 rounded-xl bg-paper dark:bg-night-900/60 border border-paper-line dark:border-white/10 p-4">
+                  {check}
+                  <span>
+                    <span className="block text-[15px] font-semibold text-ink dark:text-white">{q.name}</span>
+                    {q.by && <span className="block text-[13px] text-slate-500 dark:text-slate-400">{q.by}</span>}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
         {/* Industries */}
-        <section className={`${row} mb-20 sm:mb-28`}>
-          <p className="lg:col-span-3 eyebrow pt-2">{c.industriesBadge}</p>
-          <div data-reveal className="lg:col-span-9 max-w-3xl space-y-4">
-            <p className="text-[15px] text-slate-700 dark:text-slate-300">{c.industriesText}</p>
-            <p className="text-xl sm:text-2xl font-display font-bold leading-snug text-ink dark:text-white">{c.industries.join(" · ")}</p>
-          </div>
+        <section data-reveal className="fs-card p-8 sm:p-10 mb-16 text-center">
+          <p className="fs-pill mb-5">{c.industriesBadge}</p>
+          <p className="text-[15px] text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">{c.industriesText}</p>
+          <ul className="mt-6 flex flex-wrap justify-center gap-2">
+            {c.industries.map((ind, i) => (
+              <li key={ind} className="inline-flex items-center gap-2 rounded-full border border-paper-line dark:border-white/15 bg-white dark:bg-white/5 px-4 py-2 text-[14px] font-semibold text-ink dark:text-white">
+                <i className="w-2 h-2 rounded-full" style={{ background: ["#25346B", "#9BB3D9", "#9B391E"][i % 3] }} aria-hidden="true" />
+                {ind}
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Closing */}
-        <section className={row}>
-          <p className="lg:col-span-3 eyebrow pt-2">{isAr ? "نهجنا" : "Our approach"}</p>
-          <div data-reveal className="lg:col-span-9 space-y-6 max-w-3xl">
-            <h2 className="text-3xl sm:text-[2.6rem] font-bold font-display leading-[1.1] text-ink dark:text-white">{c.closingTitle}</h2>
-            <p className="lede text-slate-700 dark:text-slate-300">{c.closingText}</p>
-            <p className="text-[15px] text-slate-700 dark:text-slate-300">
-              <Link href="/blog" className="link-arrow text-ink dark:text-white">{c.blogCta}</Link> {c.blogText}
+        <section data-reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0E1A38] via-[#1A2756] to-navy text-white p-8 sm:p-12 shadow-lift">
+          <div aria-hidden="true" className="absolute top-0 inset-x-0 h-1 bg-brand-tri" />
+          <div className="max-w-3xl space-y-6">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-steel-light">{isAr ? "نهجنا" : "Our approach"}</p>
+            <h2 className="text-3xl sm:text-[2.4rem] font-extrabold leading-[1.1]">{c.closingTitle}</h2>
+            <p className="lede text-slate-200">{c.closingText}</p>
+            <p className="text-[15px] text-slate-200">
+              <Link href="/blog" className="link-arrow text-white">{c.blogCta}</Link> {c.blogText}
             </p>
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
-              <Link href="/contact" className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white text-sm font-semibold transition-colors">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-2">
+              <Link href="/contact" className="btn-primary">
                 {c.contactCta}
-                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                <ArrowRight className="fs-arrow w-4 h-4 rtl:rotate-180" />
               </Link>
               {officeLocations.map((loc) => (
-                <p key={loc.city} className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
-                  <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
+                <p key={loc.city} className="text-sm text-slate-200 flex items-center gap-2">
+                  <MapPin className="w-4 h-4 shrink-0 text-rust-light" aria-hidden="true" />
                   <span>{isAr ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}</span>
                   <span aria-hidden="true">·</span>
                   <span>{c.direct} <span dir="ltr">{loc.phone}</span></span>
