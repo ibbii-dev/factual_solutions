@@ -1,7 +1,10 @@
+import { requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { seedDatabase } from "@/lib/seedDatabase";
 
 export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const result = await seedDatabase();
     return NextResponse.json(result);
@@ -14,6 +17,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const result = await seedDatabase();
     return NextResponse.json(result);

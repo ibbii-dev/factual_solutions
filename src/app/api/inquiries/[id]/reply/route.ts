@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { dbAddInquiryReply, dbGetInquiryById } from "@/lib/mongodb";
 import { IInquiryReply } from "@/models";
@@ -7,6 +8,8 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = params;
     const body = await request.json();

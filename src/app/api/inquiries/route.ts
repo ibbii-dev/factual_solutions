@@ -3,13 +3,24 @@ import { sendLeadNotification } from "@/lib/emailService";
 import { generateAiAutoReply } from "@/lib/aiAgentService";
 import { dbSaveInquiry, dbGetInquiries, DatabaseInquiry } from "@/lib/mongodb";
 import { verifyRecaptcha } from "@/lib/recaptcha";
+import { clientEmail, isAdmin } from "@/lib/session";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status") || undefined;
     const search = searchParams.get("q") || undefined;
-    const email = searchParams.get("email") || undefined;
+    const requestedEmail = searchParams.get("email")?.toLowerCase().trim() || undefined;
+
+    // Staff see everything. A signed-in client sees only their own enquiries.
+    let email = requestedEmail;
+    if (!isAdmin(request)) {
+      const own = clientEmail(request);
+      if (!own || (requestedEmail && requestedEmail !== own)) {
+        return NextResponse.json({ success: false, message: "Not authorised." }, { status: 401 });
+      }
+      email = own;
+    }
 
     const inquiries = await dbGetInquiries({ status, search, email });
 

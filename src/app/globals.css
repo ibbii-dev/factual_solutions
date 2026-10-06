@@ -315,3 +315,14 @@ html.fs-motion .fs-rule.is-in::before { transform: scaleX(1); animation: none; }
 
 @keyframes fsMenuIn { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: none; } }
 .fs-menu-in { animation: fsMenuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Line-drawn puzzle cube in the hero */
+@keyframes fsLineDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes fsDotIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fsCubeDrift { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -10px, 0); } }
+.fs-cube { animation: fsCubeDrift 9s ease-in-out 2.4s infinite; will-change: transform; }
+.fs-cube .fs-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: fsLineDraw 1.3s cubic-bezier(0.65, 0, 0.35, 1) forwards; animation-delay: calc(0.25s + var(--i) * 0.09s); }
+.fs-cube .fs-dot { opacity: 0; animation: fsDotIn 0.6s ease forwards; animation-delay: calc(1.6s + var(--i) * 0.05s); }
+@media (prefers-reduced-motion: reduce) {
+  .fs-cube, .fs-cube .fs-line, .fs-cube .fs-dot { animation: none; stroke-dashoffset: 0; opacity: 1; }
+}

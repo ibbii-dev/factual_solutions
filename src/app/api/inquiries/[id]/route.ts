@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { dbUpdateInquiryStatus, dbDeleteInquiry, dbGetInquiryById } from "@/lib/mongodb";
 
@@ -5,6 +6,8 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = params;
     const inquiry = await dbGetInquiryById(id);
@@ -32,6 +35,8 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = params;
     const body = await request.json();
@@ -70,6 +75,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = params;
     const deleted = await dbDeleteInquiry(id);

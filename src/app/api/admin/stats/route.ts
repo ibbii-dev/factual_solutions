@@ -1,7 +1,10 @@
-import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/session";
+import { NextRequest, NextResponse } from "next/server";
 import { dbGetDashboardStats, dbTestConnection } from "@/lib/mongodb";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const stats = await dbGetDashboardStats();
     const dbStatus = await dbTestConnection();

@@ -22,7 +22,6 @@ import {
   RefreshCw, 
   Lock, 
   LogOut, 
-  KeyRound, 
   ExternalLink, 
   Database,
   Send,
@@ -173,10 +172,10 @@ export default function AdminPage() {
 
   // Check login session on mount
   useEffect(() => {
-    const session = sessionStorage.getItem("factual_admin_logged_in");
-    if (session === "true") {
-      setIsAuthenticated(true);
-    }
+    fetch("/api/auth/login", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => d?.authenticated && setIsAuthenticated(true))
+      .catch(() => {});
   }, []);
 
   // Fetch live inquiries from MongoDB Atlas
@@ -470,44 +469,32 @@ Invite the reader to get in touch or explore a related service.`;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError("");
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: authEmail, password: authPassword })
       });
-      const data = await res.json();
-      if (data.success) {
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
         setIsAuthenticated(true);
-        sessionStorage.setItem("factual_admin_logged_in", "true");
-        setAuthError("");
+        setAuthPassword("");
         return;
       }
+      setAuthError(data.message || "Invalid email or password.");
     } catch (err) {
-      console.error("Auth API error:", err);
-    }
-
-    if (
-      (authEmail.toLowerCase().trim() === "admin@factual-solutions.com" || authEmail.toLowerCase().trim() === "admin") &&
-      (authPassword === "admin123" || authPassword === "factual2026" || authPassword === "admin")
-    ) {
-      setIsAuthenticated(true);
-      sessionStorage.setItem("factual_admin_logged_in", "true");
-      setAuthError("");
-    } else {
-      setAuthError("Invalid credentials. Use admin@factual-solutions.com / admin123");
+      setAuthError("Could not reach the sign-in service. Try again.");
     }
   };
 
-  const handleDemoLogin = () => {
-    setIsAuthenticated(true);
-    sessionStorage.setItem("factual_admin_logged_in", "true");
-    setAuthError("");
-  };
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem("factual_admin_logged_in");
+    try {
+      await fetch("/api/auth/login", { method: "DELETE" });
+    } catch {
+      /* cookie expires on its own */
+    }
   };
 
   // Status Change handler
@@ -892,7 +879,8 @@ Invite the reader to get in touch or explore a related service.`;
                 Administrator Email
               </label>
               <input
-                type="text"
+                type="email"
+                autoComplete="username"
                 required
                 value={authEmail}
                 onChange={(e) => setAuthEmail(e.target.value)}
@@ -903,10 +891,11 @@ Invite the reader to get in touch or explore a related service.`;
 
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                Security Password / PIN
+                Password
               </label>
               <input
                 type="password"
+                autoComplete="current-password"
                 required
                 value={authPassword}
                 onChange={(e) => setAuthPassword(e.target.value)}
@@ -923,14 +912,6 @@ Invite the reader to get in touch or explore a related service.`;
               <span>Sign In to Executive Portal</span>
             </button>
 
-            <button
-              type="button"
-              onClick={handleDemoLogin}
-              className="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all border border-slate-700 flex items-center justify-center gap-2"
-            >
-              <KeyRound className="w-3.5 h-3.5 text-brand-steel-light" />
-              <span>1-Click Partner Demo Access</span>
-            </button>
           </form>
 
           <div className="pt-3 text-center border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500">

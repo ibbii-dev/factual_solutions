@@ -1,7 +1,10 @@
-import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/session";
+import { NextRequest, NextResponse } from "next/server";
 import { dbGetChatLogs } from "@/lib/mongodb";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const logs = await dbGetChatLogs(100);
 

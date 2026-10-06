@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
+import { CLIENT_COOKIE, clearSession, setClientSession } from "@/lib/session";
 
 interface GoogleTokenInfo {
   iss: string;
@@ -134,11 +135,14 @@ export async function POST(request: NextRequest) {
       console.warn("MongoDB connection warning in Google Auth (proceeding with session):", dbError);
     }
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       message: "Google authentication verified successfully",
       user: finalUserData,
     });
+    // Only a Google-verified token earns a portal session (unverified profile syncs do not).
+    if (credential) setClientSession(res, verifiedEmail);
+    return res;
   } catch (error: any) {
     console.error("Google auth route fatal error:", error);
     return NextResponse.json(
@@ -146,4 +150,11 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+/** Portal sign-out: clears the client session cookie. */
+export async function DELETE() {
+  const res = NextResponse.json({ success: true });
+  clearSession(res, CLIENT_COOKIE);
+  return res;
 }

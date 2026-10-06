@@ -1,7 +1,10 @@
+import { requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { dbSaveSubscriber, dbGetSubscribers } from "@/lib/mongodb";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const subscribers = await dbGetSubscribers();
     return NextResponse.json({

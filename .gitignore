@@ -40,3 +40,6 @@ process_*.ps1
 
 .vercel
 .env*
+
+# Local video experiments (not used by the site)
+public/videos/

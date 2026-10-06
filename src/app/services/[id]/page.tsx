@@ -193,26 +193,31 @@ export default function ServiceDetailPage() {
   return (
     <div className="pb-20 sm:pb-28 min-h-screen text-ink dark:text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="pt-32 sm:pt-40 pb-12 border-b border-ink/15 dark:border-white/15 mb-12 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <nav aria-label="Breadcrumb" className="lg:col-span-3 text-sm text-slate-500 dark:text-slate-400 pt-3 space-x-2 rtl:space-x-reverse">
-            <Link href="/" className="hover:text-ink dark:hover:text-white">{labels.breadcrumbHome}</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/services" className="hover:text-ink dark:hover:text-white">{labels.breadcrumbServices}</Link>
-          </nav>
-          <div className="lg:col-span-9 space-y-6">
-            <p className="eyebrow">{pillar?.title}</p>
-            <h1 className="text-[2.4rem] sm:text-6xl font-bold font-display tracking-[-0.02em] leading-[1.05] max-w-4xl">{service.title}</h1>
-            <p className="lede text-slate-700 dark:text-slate-300 max-w-2xl">{service.shortDescription}</p>
-            <dl className="flex flex-wrap gap-x-10 gap-y-3 pt-2 text-sm">
-              <div>
-                <dt className="text-slate-500 dark:text-slate-400">{labels.statsTimeline}</dt>
-                <dd className="font-semibold">{service.duration}</dd>
-              </div>
-              <div>
-                <dt className="text-slate-500 dark:text-slate-400">{labels.statsDeliverables}</dt>
-                <dd className="font-semibold">{service.deliverables.length} {language === "ar" ? "مجالات" : "focus areas"}</dd>
-              </div>
-            </dl>
+        <header className="relative w-screen left-1/2 -translate-x-1/2 bg-navy dark:bg-night-900 text-white mb-14 sm:mb-20 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-14 sm:pb-20 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <nav aria-label="Breadcrumb" className="lg:col-span-3 self-start text-sm text-slate-300 pt-4 space-x-2 rtl:space-x-reverse">
+              <Link href="/" className="hover:text-white">{labels.breadcrumbHome}</Link>
+              <span aria-hidden="true">/</span>
+              <Link href="/services" className="hover:text-white">{labels.breadcrumbServices}</Link>
+            </nav>
+            <div className="lg:col-span-9 space-y-6">
+              <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel-light">
+                <span className="h-px w-8 bg-rust-light" aria-hidden="true" />
+                {pillar?.title}
+              </p>
+              <h1 className="fs-page-in text-[2.4rem] sm:text-6xl font-bold font-display tracking-[-0.02em] leading-[1.05] max-w-4xl">{service.title}</h1>
+              <p className="lede text-slate-200/90 max-w-2xl">{service.shortDescription}</p>
+              <dl className="flex flex-wrap gap-x-10 gap-y-3 pt-4 text-sm border-t border-white/20">
+                <div className="pt-4">
+                  <dt className="text-slate-300">{labels.statsTimeline}</dt>
+                  <dd className="font-semibold">{service.duration}</dd>
+                </div>
+                <div className="pt-4">
+                  <dt className="text-slate-300">{labels.statsDeliverables}</dt>
+                  <dd className="font-semibold">{service.deliverables.length} {language === "ar" ? "مجالات" : "focus areas"}</dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </header>
 

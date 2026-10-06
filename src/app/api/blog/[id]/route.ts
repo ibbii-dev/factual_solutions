@@ -1,3 +1,4 @@
+import { isAdmin, requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import {
   dbGetBlogPostById,
@@ -33,7 +34,7 @@ export async function GET(
       post = await dbGetBlogPostBySlug(id);
     }
 
-    if (!post) {
+    if (!post || (post.status !== "published" && !isAdmin(request))) {
       return NextResponse.json(
         { success: false, message: "Blog post not found." },
         { status: 404 }
@@ -57,6 +58,8 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = params;
     const body = await request.json();
@@ -128,6 +131,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const { id } = params;
     const ok = await dbDeleteBlogPost(id);

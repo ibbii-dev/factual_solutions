@@ -182,6 +182,7 @@ export function UserAuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem(USER_STORAGE_KEY);
+    fetch("/api/auth/google", { method: "DELETE" }).catch(() => {});
   };
 
   return (

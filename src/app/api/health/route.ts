@@ -1,11 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbTestConnection } from "@/lib/mongodb";
+import { isAdmin } from "@/lib/session";
 
-export async function GET() {
+export const dynamic = "force-dynamic";
+
+export async function GET(request: NextRequest) {
   const dbStatus = await dbTestConnection();
+  const status = dbStatus.connected ? "healthy" : "degraded";
+
+  // Public callers only get the overall status; database details are for staff.
+  if (!isAdmin(request)) {
+    return NextResponse.json({ status, timestamp: new Date().toISOString() });
+  }
 
   return NextResponse.json({
-    status: dbStatus.connected ? "healthy" : "degraded",
+    status,
     mongodb: {
       status: dbStatus.connected
         ? "Live & Connected to MongoDB Atlas Cluster0"

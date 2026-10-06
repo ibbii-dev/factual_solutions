@@ -1,7 +1,10 @@
+import { requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { getMailingSystemStatus, sendTestEmail } from "@/lib/emailService";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const status = getMailingSystemStatus();
     return NextResponse.json({
@@ -17,6 +20,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const body = await request.json();
     const { targetEmail } = body;

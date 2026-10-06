@@ -157,8 +157,8 @@ function ContactContent() {
                 onClick={() => setActiveMode(mode)}
                 className={`py-1 text-[15px] border-b transition-colors ${
                   activeMode === mode
-                    ? "border-ink text-ink dark:border-white dark:text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-ink dark:text-slate-400 dark:hover:text-white"
+                    ? "border-white text-white font-semibold"
+                    : "border-transparent text-slate-300 hover:text-white"
                 }`}
               >
                 {label}

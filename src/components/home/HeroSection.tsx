@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import PuzzleCubeLines from "@/components/ui/PuzzleCubeLines";
 
 
 /** Counts a numeric prefix up from 0 once it scrolls into view (e.g. "60+"). No animation library. */
@@ -79,64 +80,72 @@ export default function HeroSection() {
   const d = (s: string) => ({ "--fs-delay": s } as React.CSSProperties);
 
   return (
-    <section className="relative pt-32 sm:pt-40 lg:pt-44 pb-14 sm:pb-20 text-ink dark:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="fs-hero-in eyebrow mb-6 sm:mb-8" style={d("0s")}>
-          {isAr ? "استشارات وتدريب وتحول رقمي" : "Management consulting · Training · ERP & digital"}
-        </p>
+    <section className="relative overflow-hidden bg-navy dark:bg-night-900 text-white pt-32 sm:pt-40 lg:pt-44 pb-14 sm:pb-20">
+      {/* faint drafting grid, only behind the cube */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 end-0 w-1/2 hidden lg:block opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,.9)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.9)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(closest-side,black,transparent)]" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-          <h1 className="lg:col-span-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] font-bold tracking-[-0.02em] leading-[1.02] font-display">
-            {isAr ? (
-              <>
-                <RevealWords text="تمكين المؤسسات" delay={0} />
-                <br />
-                <RevealWords text="لتنمية أعمالها بنجاح." className="text-navy dark:text-steel" delay={0.12} />
-              </>
-            ) : (
-              <>
-                <RevealWords text="Consulting people" delay={0} />
-                <br />
-                <RevealWords text="to grow their" delay={0.1} />{" "}
-                <RevealWords text="business." className="text-navy dark:text-steel" delay={0.2} />
-              </>
-            )}
-          </h1>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="lg:col-span-7 space-y-8">
+            <p className="fs-hero-in flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel-light" style={d("0s")}>
+              <span className="h-px w-8 bg-rust-light" aria-hidden="true" />
+              {isAr ? "استشارات وتدريب وتحول رقمي" : "Management consulting · Training · ERP & digital"}
+            </p>
 
-          <div className="lg:col-span-4 space-y-6 lg:pb-3">
-            <p className="fs-hero-in lede text-slate-700 dark:text-slate-300" style={d("0.25s")}>
+            <h1 className="text-[2.6rem] sm:text-[4rem] lg:text-[4.75rem] font-bold tracking-[-0.02em] leading-[1.03] font-display">
+              {isAr ? (
+                <>
+                  <RevealWords text="تمكين المؤسسات" delay={0} />
+                  <br />
+                  <RevealWords text="لتنمية أعمالها بنجاح." className="text-steel-light" delay={0.12} />
+                </>
+              ) : (
+                <>
+                  <RevealWords text="Consulting people" delay={0} />
+                  <br />
+                  <RevealWords text="to grow their" delay={0.1} />{" "}
+                  <RevealWords text="business." className="text-steel-light" delay={0.2} />
+                </>
+              )}
+            </h1>
+
+            <p className="fs-hero-in lede text-slate-200/90 max-w-xl" style={d("0.25s")}>
               {isAr
                 ? "نجمع بين الاستشارات والتدريب والتطبيق الرقمي لمساعدة المؤسسات على تصميم أساليب عمل أفضل، وبناء القدرات اللازمة لاستدامتها، وترسيخ التحسين في العمليات اليومية."
                 : "We combine consulting, training, and digital implementation to help organizations design better ways of working, build the capabilities to sustain them, and embed improvement into daily operations."}
             </p>
-            <div className="fs-hero-in flex flex-wrap items-center gap-x-6 gap-y-4" style={d("0.35s")}>
+            <div className="fs-hero-in flex flex-wrap items-center gap-x-8 gap-y-4" style={d("0.35s")}>
               <Link
                 href="/contact"
-                className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink dark:hover:bg-steel-light text-white text-sm font-semibold transition-colors"
+                className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 bg-white text-ink hover:bg-steel-light text-sm font-semibold"
               >
                 {isAr ? "طلب استشارة" : "Request a consultation"}
                 <ArrowRight className="w-4 h-4 rtl:rotate-180" />
               </Link>
-              <Link href="/services" className="link-arrow text-sm text-ink dark:text-white">
+              <Link href="/services" className="link-arrow text-sm text-white">
                 {isAr ? "ما نقوم به" : "What we do"}
                 <ArrowRight className="w-4 h-4 rtl:rotate-180" />
               </Link>
             </div>
           </div>
+
+          <div className="hidden lg:flex lg:col-span-5 justify-center">
+            <PuzzleCubeLines className="w-full max-w-[400px] h-auto" />
+          </div>
         </div>
 
         {/* Key figures, set like a report's fact box */}
-        <dl className="fs-hero-in fs-rule mt-16 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 border-t border-ink/15 dark:border-white/15" style={{ ...d("0.45s"), "--d": "500ms" } as React.CSSProperties}>
+        <dl className="fs-hero-in mt-16 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 border-t border-white/20" style={d("0.45s")}>
           {stats.map((st, idx) => (
             <div
               key={idx}
-              className={`pt-6 pb-2 pe-6 ${idx > 0 ? "lg:border-s lg:ps-6 border-ink/15 dark:border-white/15" : ""} ${idx % 2 === 1 ? "border-s ps-6 lg:ps-6 border-ink/15 dark:border-white/15" : ""} ${idx >= 2 ? "border-t lg:border-t-0 border-ink/15 dark:border-white/15" : ""}`}
+              className={`pt-6 pb-2 pe-6 ${idx > 0 ? "lg:border-s lg:ps-6 border-white/15" : ""} ${idx % 2 === 1 ? "border-s ps-6 lg:ps-6 border-white/15" : ""} ${idx >= 2 ? "border-t lg:border-t-0 border-white/15" : ""}`}
             >
               <dt className="sr-only">{st.label}</dt>
               <dd className="text-4xl sm:text-5xl font-bold font-display tracking-tight">
                 <CountUp value={st.value} />
               </dd>
-              <dd className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-[16rem]">{st.label}</dd>
+              <dd className="mt-2 text-sm text-slate-300 max-w-[16rem]">{st.label}</dd>
             </div>
           ))}
         </dl>

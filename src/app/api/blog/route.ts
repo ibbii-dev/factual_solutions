@@ -1,3 +1,4 @@
+import { isAdmin, requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { dbGetBlogPosts, dbSaveBlogPost, DatabaseBlogPost } from "@/lib/mongodb";
 import { DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER } from "@/data/blogCategories";
@@ -29,6 +30,10 @@ export async function GET(request: NextRequest) {
 
     // By default, public API only returns published posts unless explicitly asking for all/specific status
     const status = all ? undefined : statusParam || "published";
+    // Drafts and other unpublished posts are for staff only.
+    if (status !== "published" && !isAdmin(request)) {
+      return NextResponse.json({ success: false, message: "Not authorised." }, { status: 401 });
+    }
     const featured = featuredParam !== null ? featuredParam === "true" : undefined;
 
     const posts = await dbGetBlogPosts({
@@ -54,6 +59,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     const body = await request.json();
     const {
