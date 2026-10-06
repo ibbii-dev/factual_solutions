@@ -36,7 +36,7 @@ export interface ServicePillar {
 /* ------------------------------------------------------------------ */
 /* Shared phases per service line                                      */
 /* ------------------------------------------------------------------ */
-const PHASES_EN = {
+export const PHASES_EN = {
   consulting: [
     { phase: "01", title: "Understand & Measure", desc: "We map the current process and measure performance first—analyzing rigorously and recommending based on evidence, not assumptions." },
     { phase: "02", title: "Improve & Implement", desc: "We apply the method that fits the problem and work with your teams to put the improvement into practice where the work happens." },
@@ -54,7 +54,7 @@ const PHASES_EN = {
   ],
 };
 
-const PHASES_AR = {
+export const PHASES_AR = {
   consulting: [
     { phase: "01", title: "الفهم والقياس", desc: "نرسم العملية الحالية ونقيس الأداء أولاً، ثم نحلل بدقة ونقدّم توصياتنا بناءً على الأدلة لا الافتراضات." },
     { phase: "02", title: "التحسين والتنفيذ", desc: "نطبّق المنهجية المناسبة للمشكلة ونعمل مع فرقكم لتحويل التحسين إلى واقع في موقع العمل." },

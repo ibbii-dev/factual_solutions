@@ -1,11 +1,11 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Factual Solutions design tokens — derived directly from the logo:
- *   Navy  #1F3A7D  (top puzzle face)
- *   Steel #82A9E2  (left puzzle face)
- *   Rust  #A2351E  (right puzzle face)
- *   Ink   #0E1A38  (wordmark, deepened toward the logo navy)
+ * Factual Solutions design tokens: the exact colors of the logo.
+ *   Navy  #25346B  (top puzzle piece)
+ *   Steel #9BB3D9  (left puzzle piece)
+ *   Rust  #9B391E  (right puzzle piece)
+ *   Ink   #0A0A0A  (wordmark lettering)
  * Theme-aware tokens (accent, focus, surface…) read RGB channels from CSS
  * variables defined in globals.css so they adapt between light and dark.
  */
@@ -21,43 +21,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Fixed logo colors
+        // Exact logo colors (sampled from the original logo file)
         navy: {
-          DEFAULT: "#1F3A7D",
-          50: "#EEF2FA",
-          100: "#DCE4F4",
-          200: "#B9C8E8",
-          300: "#8EA6D6",
-          400: "#5C7BBE",
-          500: "#3A5BA3",
-          600: "#2A4A92",
-          700: "#1F3A7D",
-          800: "#182E63",
-          900: "#12234B",
-          950: "#0B1631",
+          DEFAULT: "#25346B",
+          50: "#EEF1F8",
+          100: "#DADFEE",
+          200: "#B5BEDC",
+          300: "#8A97C3",
+          400: "#5D6CA3",
+          500: "#3C4C87",
+          600: "#2D3D78",
+          700: "#25346B",
+          800: "#1D2954",
+          900: "#161F40",
+          950: "#0E142A",
         },
         steel: {
-          DEFAULT: "#82A9E2",
-          light: "#B4CDF0",
-          dark: "#5E86C4",
+          DEFAULT: "#9BB3D9",
+          light: "#C7D4EA",
+          dark: "#7690BE",
         },
         rust: {
-          DEFAULT: "#A2351E",
-          light: "#C2482C",
-          dark: "#872A17",
+          DEFAULT: "#9B391E",
+          light: "#D0694C",
+          dark: "#7E2E18",
         },
-        ink: "#0E1A38",
-        // slate-500 tuned darker so muted text stays above 4.5:1 on the warm paper background
-        slate: { 500: "#566173" },
-        paper: { DEFAULT: "#F7F5F0", deep: "#EFECE4", line: "#DDD8CC" },
-        // Navy-tinted dark surfaces (dark mode)
+        ink: "#0A0A0A",
+        // secondary text: 8.2:1 on white
+        slate: { 500: "#4A4F5C" },
+        paper: { DEFAULT: "#FFFFFF", deep: "#F2F5FB", line: "#E3E8F2" },
+        // Dark mode surfaces, tinted from the logo navy
         night: {
-          950: "#050B1C",
-          900: "#081229",
-          850: "#0B1733",
-          800: "#0F1D3F",
-          700: "#16284F",
-          600: "#1F3563",
+          950: "#070B17",
+          900: "#0B1124",
+          850: "#0F1730",
+          800: "#141D3B",
+          700: "#1B2650",
+          600: "#25346B",
         },
         // Theme-aware semantic tokens
         accent: v("--fs-accent"),
@@ -67,22 +67,24 @@ const config: Config = {
 
         // Legacy aliases (kept so existing class names keep working)
         brand: {
-          navy: "#1F3A7D",
-          "navy-dark": "#12234B",
-          "navy-light": "#3A5BA3",
-          rust: "#A2351E",
-          "rust-dark": "#872A17",
-          "rust-light": "#DA6A4F",
-          steel: "#82A9E2",
-          "steel-light": "#B4CDF0",
-          "steel-dark": "#5E86C4",
-          slate: "#F4F6FB",
+          navy: "#25346B",
+          "navy-dark": "#161F40",
+          "navy-light": "#3C4C87",
+          rust: "#9B391E",
+          "rust-dark": "#7E2E18",
+          "rust-light": "#D0694C",
+          steel: "#9BB3D9",
+          "steel-light": "#C7D4EA",
+          "steel-dark": "#7690BE",
+          slate: "#F2F5FB",
           card: "#FFFFFF",
-          "card-dark": "#0F1D3F",
+          "card-dark": "#141D3B",
         },
       },
+      // Only 400 and 600 are loaded; map "bold" to 600 so nothing is faux-bolded.
+      fontWeight: { bold: "600", extrabold: "600", black: "600" },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "Cambria", "'Times New Roman'", "serif"],
+        display: ["var(--font-display)", "'Century Gothic'", "Futura", "-apple-system", "'Segoe UI'", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
         sans: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
       },
@@ -96,9 +98,9 @@ const config: Config = {
         sm: "none",
         DEFAULT: "none",
         md: "none",
-        lg: "0 18px 40px -24px rgba(14,26,56,0.28)",
-        xl: "0 18px 40px -24px rgba(14,26,56,0.28)",
-        "2xl": "0 24px 48px -24px rgba(14,26,56,0.32)",
+        lg: "0 18px 40px -24px rgba(37,52,107,0.28)",
+        xl: "0 18px 40px -24px rgba(37,52,107,0.28)",
+        "2xl": "0 24px 48px -24px rgba(37,52,107,0.32)",
       },
       // Tight, print-like corners everywhere (pills stay round via rounded-full).
       borderRadius: {

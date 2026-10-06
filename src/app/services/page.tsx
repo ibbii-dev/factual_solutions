@@ -37,6 +37,7 @@ function ServicesContent() {
     0
   );
 
+  const PIECE: Record<string, string> = { consulting: "#25346B", training: "#9BB3D9", digital: "#9B391E", all: "#0A0A0A" };
   const tabs: { id: ServiceCategory | "all"; label: string }[] = [
     { id: "all", label: isAr ? "جميع الخدمات" : "All Services" },
     ...pillars.map((p) => ({ id: p.id, label: p.title })),
@@ -49,19 +50,20 @@ function ServicesContent() {
 
         {/* Filter: plain text tabs + underline search */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
-          <div className="flex flex-wrap gap-x-6 gap-y-2" role="tablist">
+          <div className="flex flex-wrap gap-2.5" role="tablist">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 role="tab"
                 aria-selected={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-1 text-[15px] border-b transition-colors ${
+                className={`fs-chip inline-flex items-center gap-2.5 min-h-[44px] px-4 text-[15px] border transition-colors ${
                   activeTab === tab.id
-                    ? "border-ink text-ink dark:border-white dark:text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-ink dark:text-slate-400 dark:hover:text-white"
+                    ? "border-ink bg-ink text-white dark:bg-white dark:text-ink dark:border-white font-semibold"
+                    : "border-paper-line dark:border-white/15 text-ink dark:text-white hover:border-ink dark:hover:border-white"
                 }`}
               >
+                {tab.id !== "all" && <i className="w-2.5 h-2.5 shrink-0" style={{ background: PIECE[tab.id] }} aria-hidden="true" />}
                 {tab.label}
               </button>
             ))}
@@ -96,11 +98,12 @@ function ServicesContent() {
               if (items.length === 0) return null;
               const pIdx = pillars.findIndex((p) => p.id === pillar.id);
               return (
-                <section key={pillar.id} id={pillar.id} className="fs-rule scroll-mt-28 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 border-t border-ink/15 dark:border-white/15 pt-8">
+                <section key={pillar.id} id={pillar.id} className="scroll-mt-28 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10" style={{ "--piece": PIECE[pillar.id] } as React.CSSProperties}>
                   <div className="lg:col-span-3">
                     <div data-reveal className="lg:sticky lg:top-28 space-y-3">
-                      <p className="section-no text-lg">{String(pIdx + 1).padStart(2, "0")}</p>
-                      <h2 className="text-3xl font-bold font-display text-ink dark:text-white">{pillar.title}</h2>
+                      <span aria-hidden="true" className="block h-1.5 w-16" style={{ background: PIECE[pillar.id] }} />
+                      <p className="font-display text-7xl font-semibold leading-none pt-2" style={{ color: pillar.id === "training" ? "#25346B" : PIECE[pillar.id] }}>{String(pIdx + 1).padStart(2, "0")}</p>
+                      <h2 className="text-3xl font-semibold font-display text-navy dark:text-white">{pillar.title}</h2>
                       {pillar.id === "digital" && (
                         <p className="text-[15px] font-semibold text-navy dark:text-steel-light">{pillar.tagline}</p>
                       )}
@@ -111,11 +114,11 @@ function ServicesContent() {
                   <div className="lg:col-span-9">
                     <ul>
                       {items.map((service) => (
-                        <li key={service.id} data-reveal className="py-8 first:pt-0 border-b border-ink/10 dark:border-white/10 last:border-b-0">
+                        <li key={service.id} data-reveal className="fs-prow fs-svcrow py-8 px-1 border-t border-paper-line dark:border-white/10">
                           <div className="grid grid-cols-1 md:grid-cols-9 gap-6">
                             <div className="md:col-span-4 space-y-3">
-                              <h3 className="text-2xl font-bold font-display leading-snug text-ink dark:text-white">
-                                <Link href={`/services/${service.id}`} className="hover:underline underline-offset-4 decoration-1">
+                              <h3 className="text-2xl font-semibold font-display leading-snug text-ink dark:text-white">
+                                <Link href={`/services/${service.id}`} className="fs-row-title hover:text-rust dark:hover:text-rust-light transition-colors">
                                   {service.title}
                                 </Link>
                               </h3>
@@ -133,7 +136,7 @@ function ServicesContent() {
                             <ul className="md:col-span-5 grid grid-cols-1 gap-y-2 text-[15px] text-slate-700 dark:text-slate-300">
                               {service.deliverables.map((del, dIdx) => (
                                 <li key={dIdx} className="flex gap-3">
-                                  <span className="mt-[0.7em] h-px w-3 shrink-0 bg-rust" aria-hidden="true" />
+                                  <span className="mt-[0.7em] h-0.5 w-3 shrink-0" style={{ background: PIECE[pillar.id] }} aria-hidden="true" />
                                   <span>{del}</span>
                                 </li>
                               ))}
@@ -177,10 +180,12 @@ function ServicesContent() {
         )}
 
         {/* From Knowledge to Results */}
-        <section className="fs-rule grid grid-cols-1 lg:grid-cols-12 gap-6 border-t border-ink/15 dark:border-white/15 pt-10 mb-24">
-          <p className="lg:col-span-3 eyebrow pt-2">{isAr ? "النهج" : "Approach"}</p>
-          <div data-reveal className="lg:col-span-9 space-y-5 max-w-3xl">
-            <h2 className="text-3xl sm:text-[2.6rem] font-bold font-display leading-[1.1] text-ink dark:text-white">
+        <section className="relative w-screen left-1/2 -translate-x-1/2 bg-navy dark:bg-night-900 text-white mb-24 overflow-hidden">
+          <div aria-hidden="true" className="grid grid-cols-3 h-1.5"><span className="bg-navy-400" /><span className="bg-steel" /><span className="bg-rust" /></div>
+          <div data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <p className="lg:col-span-3 fs-label fs-label-light self-start pt-2">{isAr ? "النهج" : "Approach"}</p>
+          <div className="lg:col-span-9 space-y-5 max-w-3xl [&_.lede]:text-[#E4E9F3] [&_p]:text-[#E4E9F3] [&_a]:!text-white">
+            <h2 className="text-3xl sm:text-[2.6rem] font-semibold font-display leading-[1.1] text-white">
               {isAr ? "من المعرفة إلى النتائج" : "From Knowledge to Results"}
             </h2>
             <p className="lede text-slate-700 dark:text-slate-300">
@@ -194,6 +199,7 @@ function ServicesContent() {
                 ? "للاطلاع على رؤى وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية والجودة والتحسين المستدام."
                 : "for practical insights, tools, and real-world perspectives on operational excellence, strategy, quality, and sustainable improvement."}
             </p>
+          </div>
           </div>
         </section>
 

@@ -81,7 +81,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       consultingTab: "Management Consulting",
       searchPlaceholder: "Search services...",
       deliverableLabel: "Practical Deliverable",
-      viewDetails: "View Details →",
+      viewDetails: "View Details",
       noResultsTitle: "No Matching Services Found",
       noResultsDesc: "Try a different keyword or show all services.",
       resetFilters: "Clear Search"
@@ -122,7 +122,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       consultingTab: "الاستشارات الإدارية",
       searchPlaceholder: "ابحث في الخدمات...",
       deliverableLabel: "مخرجات العمل الرئيسية",
-      viewDetails: "عرض التفاصيل الكاملة ←",
+      viewDetails: "عرض التفاصيل الكاملة",
       noResultsTitle: "لم يتم العثور على خدمات مطابقة",
       noResultsDesc: "يرجى تجربة كلمات بحث أخرى للوصول إلى الممارسات المطلوبة.",
       resetFilters: "مسح البحث"

@@ -31,7 +31,7 @@ export default function ScrollProgress() {
       ref={ref}
       aria-hidden="true"
       style={{ transform: "scaleX(0)" }}
-      className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left rtl:origin-right bg-rust pointer-events-none transition-transform duration-150 ease-out"
+      className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left rtl:origin-right bg-[linear-gradient(90deg,#25346B,#9BB3D9,#9B391E)] pointer-events-none transition-transform duration-150 ease-out"
     />
   );
 }

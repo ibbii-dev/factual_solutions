@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Source_Serif_4, Tajawal } from "next/font/google";
+import { Jost, Source_Sans_3, Tajawal } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -28,12 +28,12 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
-// Typography: a serif for headings + a sans-serif for reading text.
-// next/font self-hosts every face as compressed .woff2 on our own domain (no extra
-// DNS lookup to Google), uses font-display: swap, and generates a size-matched
+// Typography: Jost (a geometric sans close to the logo lettering) for headings and
+// Source Sans 3 for reading text. next/font self-hosts every face as compressed
+// .woff2 on our own domain, uses font-display: swap, and generates a size-matched
 // system-font fallback so text shows instantly and nothing jumps when the web
-// font arrives. Weights are kept to the minimum: body 400/600, headings 700.
-const inter = Inter({
+// font arrives. Two weights per family: 400 and 600.
+const sourceSans = Source_Sans_3({
   subsets: ["latin"],
   weight: ["400", "600"],
   variable: "--font-body",
@@ -42,12 +42,12 @@ const inter = Inter({
   adjustFontFallback: true,
 });
 
-const sourceSerif = Source_Serif_4({
+const jost = Jost({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["400", "600"],
   variable: "--font-display",
   display: "swap",
-  fallback: ["Georgia", "Cambria", "Times New Roman", "Times", "serif"],
+  fallback: ["Century Gothic", "Futura", "-apple-system", "Segoe UI", "system-ui", "sans-serif"],
   adjustFontFallback: true,
 });
 
@@ -65,7 +65,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F6F8FC" }, { media: "(prefers-color-scheme: dark)", color: "#081229" }],
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#25346B" }, { media: "(prefers-color-scheme: dark)", color: "#0B1124" }],
 };
 
 export const metadata: Metadata = {
@@ -98,7 +98,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${inter.variable} ${sourceSerif.variable} ${tajawal.variable}`} 
+      className={`scroll-smooth ${sourceSans.variable} ${jost.variable} ${tajawal.variable}`} 
       suppressHydrationWarning
     >
       <head>

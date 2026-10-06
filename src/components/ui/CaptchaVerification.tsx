@@ -83,7 +83,7 @@ export default function CaptchaVerification({
 
     // Draw each character with random rotation & scale
     const charSpacing = width / (text.length + 1);
-    const colors = ["#A2351E", "#0E1A38", "#1F3A7D", "#872A17", "#5E86C4"];
+    const colors = ["#9B391E", "#0A0A0A", "#25346B", "#7E2E18", "#7690BE"];
 
     for (let i = 0; i < text.length; i++) {
       const char = text[i];

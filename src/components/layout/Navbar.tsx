@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import BrandMark from "@/components/ui/BrandMark";
 import { usePathname } from "next/navigation";
 import { 
   Menu, 
@@ -130,23 +131,14 @@ export default function Navbar() {
           <div className="flex items-center justify-between gap-2">
             
             {/* Brand Logo */}
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
-              <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 dark:bg-white dark:rounded-sm dark:ring-2 dark:ring-white">
-                <Image sizes="56px"
-                  src="/images/logo-symbol.png"
-                  alt="Factual Solutions Symbol"
-                  fill
-                  priority
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex flex-col leading-tight min-w-0">
-                <div className="flex items-baseline gap-1 font-display" translate="no" dir="ltr">
-                  <span className="text-base sm:text-lg lg:text-[1.35rem] font-bold tracking-[-0.01em] text-ink dark:text-white truncate">
-                    Factual Solutions
-                  </span>
-                </div>
-              </div>
+            <Link href="/" aria-label="Factual Solutions home" className="flex items-center gap-2.5 sm:gap-3 group select-none shrink min-w-0">
+              <span className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 dark:bg-white dark:p-1 dark:rounded-sm">
+                <BrandMark className="w-full h-full overflow-visible" />
+              </span>
+              <span className="fs-wordmark font-display text-[1.15rem] sm:text-[1.3rem] lg:text-[1.4rem] leading-none tracking-[-0.01em] text-ink dark:text-white truncate" translate="no" dir="ltr">
+                <span className="font-normal">Factual </span>
+                <span className="font-semibold">Solutions</span>
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -166,10 +158,9 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        className={`relative px-3 py-2 text-[14px] font-medium transition-colors duration-200 flex items-center gap-1.5 ${
-                          isActive
-                            ? "text-ink dark:text-white after:absolute after:left-3 after:right-3 after:bottom-0.5 after:h-px after:bg-ink dark:after:bg-white"
-                            : "text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white"
+                        aria-current={isActive ? "page" : undefined}
+                        className={`fs-navlink relative px-3 py-2 text-[15px] transition-colors duration-200 flex items-center gap-1.5 ${
+                          isActive ? "text-ink dark:text-white font-semibold" : "text-slate-500 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                         }`}
                       >
                         <span>{link.name}</span>
@@ -242,10 +233,9 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`relative px-3 py-2 text-[14px] font-medium transition-colors duration-200 ${
-                      isActive
-                        ? "text-ink dark:text-white after:absolute after:left-3 after:right-3 after:bottom-0.5 after:h-px after:bg-ink dark:after:bg-white"
-                        : "text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white"
+                    aria-current={isActive ? "page" : undefined}
+                    className={`fs-navlink relative px-3 py-2 text-[15px] transition-colors duration-200 ${
+                      isActive ? "text-ink dark:text-white font-semibold" : "text-slate-500 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                     }`}
                   >
                     {link.name}
@@ -272,7 +262,7 @@ export default function Navbar() {
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink dark:hover:bg-steel-light text-white text-[13px] font-semibold transition-colors"
+                className="fs-btn fs-btn-navy !min-h-[44px] !px-5 !text-[14px]"
               >
                 <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -438,7 +428,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white font-semibold text-sm"
+              className="fs-btn fs-btn-navy w-full"
             >
               <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

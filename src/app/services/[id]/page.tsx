@@ -201,8 +201,7 @@ export default function ServiceDetailPage() {
               <Link href="/services" className="hover:text-white">{labels.breadcrumbServices}</Link>
             </nav>
             <div className="lg:col-span-9 space-y-6">
-              <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-steel-light">
-                <span className="h-px w-8 bg-rust-light" aria-hidden="true" />
+              <p className="fs-label fs-label-light">
                 {pillar?.title}
               </p>
               <h1 className="fs-page-in text-[2.4rem] sm:text-6xl font-bold font-display tracking-[-0.02em] leading-[1.05] max-w-4xl">{service.title}</h1>

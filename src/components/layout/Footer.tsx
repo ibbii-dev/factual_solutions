@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import BrandMark from "@/components/ui/BrandMark";
 import { contactDetails, officeLocations } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 import { 
@@ -107,6 +107,12 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-ink dark:bg-night-950 text-slate-300">
+      {/* the three logo pieces as a signature band */}
+      <div aria-hidden="true" className="grid grid-cols-3 h-1.5 mt-1.5">
+        <span className="bg-navy" />
+        <span className="bg-steel" />
+        <span className="bg-rust" />
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end py-14 sm:py-16 border-b border-white/10">
@@ -145,13 +151,9 @@ export default function Footer() {
         {/* Columns */}
         <div className="grid grid-cols-2 lg:grid-cols-12 gap-10 py-14">
           <div className="col-span-2 lg:col-span-4 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-3" translate="no" dir="ltr">
-              <span className="relative w-9 h-9 shrink-0 bg-white rounded-sm p-1">
-                <span className="relative block w-full h-full">
-                  <Image sizes="40px" src="/images/logo-symbol.png" alt="" fill className="object-contain" />
-                </span>
-              </span>
-              <span className="text-xl font-bold text-white font-display">Factual Solutions</span>
+            <Link href="/" className="group inline-flex items-center gap-3" translate="no" dir="ltr">
+              <BrandMark className="w-10 h-10 shrink-0 overflow-visible" />
+              <span className="fs-wordmark text-xl text-white font-display"><span className="font-normal">Factual </span><span className="font-semibold">Solutions</span></span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">{c.about}</p>
           </div>

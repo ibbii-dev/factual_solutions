@@ -45,83 +45,62 @@ export default function LatestInsightsSection() {
   const featured = sorted.find((p) => p.featured) || sorted[0];
   const recent = sorted.filter((p) => p.id !== featured?.id).slice(0, 4);
 
+  const cards = featured ? [featured, ...recent].slice(0, 3) : [];
+
   return (
-    <section aria-labelledby="insights-heading" className="py-16 sm:py-24 border-t border-ink/10 dark:border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6">
-        <div className="lg:col-span-3">
-          <p className="eyebrow">{isAr ? "المدونة" : "Insights"}</p>
-        </div>
-
-        <div className="lg:col-span-9 space-y-10">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <div data-reveal className="space-y-4 max-w-2xl">
-              <h2 id="insights-heading" className="text-3xl sm:text-[2.6rem] font-bold font-display leading-[1.1] text-ink dark:text-white">
-                {isAr ? "رؤى من واقع الممارسة" : "Insights from practice"}
-              </h2>
-              <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed">
-                {isAr
-                  ? "رؤى عملية وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية ولين ستة سيجما والجودة وERP والتحول الرقمي والتحسين المستمر."
-                  : "Practical insights, tools, and real-world perspectives on operational excellence, strategy, Lean Six Sigma, quality, ERP, digital transformation, and continuous improvement."}
-              </p>
-            </div>
-            <Link href="/blog" className="link-arrow text-sm text-ink dark:text-white shrink-0">
-              {isAr ? "كل المقالات" : "All articles"}
-              <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-            </Link>
-          </div>
-
-          {loading && <div className="h-40 border-t border-ink/15 dark:border-white/15" aria-busy="true" />}
-
-          {!loading && !featured && (
-            <p className="border-t border-ink/15 dark:border-white/15 pt-6 text-slate-600 dark:text-slate-400">
+    <section aria-labelledby="insights-heading" className="py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div data-reveal className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10 sm:mb-14">
+          <div className="space-y-4 max-w-3xl">
+            <p className="fs-label">{isAr ? "المدونة" : "Insights"}</p>
+            <h2 id="insights-heading" className="text-[2rem] sm:text-[2.75rem] font-semibold font-display leading-[1.1] text-navy dark:text-white">
+              {isAr ? "رؤى من واقع الممارسة" : "Insights from practice"}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-300 leading-relaxed">
               {isAr
-                ? "مقالاتنا الأولى قيد الإعداد. اشترك في النشرة أسفل الصفحة لتصلك عند نشرها."
-                : "Our first articles are being prepared. Subscribe at the bottom of the page and we'll let you know when they go live."}
+                ? "رؤى عملية وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية ولين ستة سيجما والجودة وERP والتحول الرقمي والتحسين المستمر."
+                : "Practical insights, tools, and real-world perspectives on operational excellence, strategy, Lean Six Sigma, quality, ERP, digital transformation, and continuous improvement."}
             </p>
-          )}
-
-          {!loading && featured && (
-            <div className="fs-rule border-t border-ink/15 dark:border-white/15">
-              <article data-reveal className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 py-8">
-                <Link href={`/blog/${featured.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-paper-deep" tabIndex={-1} aria-hidden="true">
-                  <PostImage src={featured.coverImage} sizes="(max-width: 768px) 100vw, 440px" className="object-cover" />
-                </Link>
-                <div className="flex flex-col gap-4">
-                  <p className="text-xs uppercase tracking-[0.14em] text-accent font-semibold">{categoryLabel(featured.category, language)}</p>
-                  <h3 className="text-2xl sm:text-3xl font-bold font-display leading-tight text-ink dark:text-white">
-                    <Link href={`/blog/${featured.slug}`} className="hover:underline underline-offset-4 decoration-1">
-                      {featured.title}
-                    </Link>
-                  </h3>
-                  {featured.excerpt && <p className="text-slate-700 dark:text-slate-300 leading-relaxed line-clamp-4">{featured.excerpt}</p>}
-                  <p className="mt-auto text-sm text-slate-500 dark:text-slate-400">
-                    {featured.author.name} · <time dateTime={featured.publishedAt}>{formatDate(featured.publishedAt, language)}</time> · {featured.readTime}
-                  </p>
-                </div>
-              </article>
-
-              {recent.length > 0 && (
-                <ul className="border-t border-ink/15 dark:border-white/15">
-                  {recent.map((post) => (
-                    <li key={post.id} className="border-b border-ink/10 dark:border-white/10">
-                      <Link href={`/blog/${post.slug}`} className="group grid grid-cols-12 gap-4 py-5 items-baseline">
-                        <time dateTime={post.publishedAt} className="col-span-12 sm:col-span-3 text-sm text-slate-500 dark:text-slate-400">
-                          {formatDate(post.publishedAt, language)}
-                        </time>
-                        <span className="col-span-12 sm:col-span-6 text-lg font-display font-bold text-ink dark:text-white group-hover:underline underline-offset-4 decoration-1">
-                          {post.title}
-                        </span>
-                        <span className="col-span-12 sm:col-span-3 text-sm text-slate-500 dark:text-slate-400 sm:text-end">
-                          {categoryLabel(post.category, language)}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
+          </div>
+          <Link href="/blog" className="link-arrow text-[15px] text-navy dark:text-white shrink-0">
+            {isAr ? "كل المقالات" : "All articles"}
+            <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+          </Link>
         </div>
+
+        {loading && <div className="h-64 bg-paper-deep dark:bg-night-800" aria-busy="true" />}
+
+        {!loading && cards.length === 0 && (
+          <p className="border-t border-paper-line dark:border-white/15 pt-6 text-slate-500 dark:text-slate-400">
+            {isAr
+              ? "مقالاتنا الأولى قيد الإعداد. اشترك في النشرة أسفل الصفحة لتصلك عند نشرها."
+              : "Our first articles are being prepared. Subscribe at the bottom of the page and we'll let you know when they go live."}
+          </p>
+        )}
+
+        {!loading && cards.length > 0 && (
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+            {cards.map((post, i) => (
+              <li key={post.id} data-reveal style={{ "--d": `${i * 110}ms` } as React.CSSProperties}>
+                <Link href={`/blog/${post.slug}`} className="fs-post group flex flex-col gap-4">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-paper-deep dark:bg-night-800">
+                    <div className="fs-post-img absolute inset-0">
+                      <PostImage src={post.coverImage} sizes="(max-width: 768px) 100vw, 400px" className="object-cover" />
+                    </div>
+                    <span aria-hidden="true" className="absolute start-0 bottom-0 h-1.5 w-1/3 transition-[width] duration-700 ease-out group-hover:w-full" style={{ background: ["#25346B", "#9BB3D9", "#9B391E"][i % 3] }} />
+                  </div>
+                  <p className="text-xs uppercase tracking-[0.14em] text-accent font-semibold">{categoryLabel(post.category, language)}</p>
+                  <h3 className="text-xl sm:text-[1.4rem] font-semibold font-display leading-snug text-ink dark:text-white transition-colors group-hover:text-rust dark:group-hover:text-rust-light">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    <time dateTime={post.publishedAt}>{formatDate(post.publishedAt, language)}</time> · {post.readTime}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );
