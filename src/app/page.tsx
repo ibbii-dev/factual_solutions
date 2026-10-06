@@ -5,7 +5,6 @@ import HeroSection from "@/components/home/HeroSection";
 import ServiceLinesStrip from "@/components/home/ServiceLinesStrip";
 import ApproachSection from "@/components/home/ApproachSection";
 import PrinciplesSection from "@/components/home/PrinciplesSection";
-import AboutTeaser from "@/components/home/AboutTeaser";
 import IndustrySectorsSection from "@/components/home/IndustrySectorsSection";
 import LatestInsightsSection from "@/components/home/LatestInsightsSection";
 import ConsultationBanner from "@/components/home/ConsultationBanner";
@@ -17,7 +16,6 @@ export default function HomePage() {
       <ServiceLinesStrip />
       <ApproachSection />
       <PrinciplesSection />
-      <AboutTeaser />
       <IndustrySectorsSection />
       <LatestInsightsSection />
       <ConsultationBanner />

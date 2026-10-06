@@ -106,7 +106,7 @@ export default function Footer() {
   const isAr = language === "ar";
 
   return (
-    <footer className="relative bg-ink dark:bg-night-950 text-slate-300">
+    <footer className="relative bg-ink text-slate-300">
       {/* the three logo pieces as a signature band */}
       <div aria-hidden="true" className="grid grid-cols-3 h-1.5 mt-1.5">
         <span className="bg-navy" />
@@ -152,8 +152,11 @@ export default function Footer() {
         <div className="grid grid-cols-2 lg:grid-cols-12 gap-10 py-14">
           <div className="col-span-2 lg:col-span-4 space-y-4">
             <Link href="/" className="group inline-flex items-center gap-3" translate="no" dir="ltr">
-              <BrandMark className="w-10 h-10 shrink-0 overflow-visible" />
-              <span className="fs-wordmark text-xl text-white font-display"><span className="font-normal">Factual </span><span className="font-semibold">Solutions</span></span>
+              <span className="shrink-0 w-11 h-11 bg-white rounded-md p-1"><BrandMark className="w-full h-full overflow-visible" /></span>
+              <span className="flex flex-col">
+                <span className="fs-wordmark font-brand text-[1.35rem] leading-none tracking-[-0.02em] text-white">Factual<span className="text-steel"> Solutions</span></span>
+                <span className="fs-tagline mt-1.5 text-[12px] leading-none font-semibold tracking-[0.03em] text-slate-400">Your Business Excellence Partners.</span>
+              </span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">{c.about}</p>
           </div>

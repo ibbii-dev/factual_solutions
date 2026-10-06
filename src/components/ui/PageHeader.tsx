@@ -17,9 +17,6 @@ export default function PageHeader({
 }) {
   return (
     <header className="relative w-screen left-1/2 -translate-x-1/2 bg-navy dark:bg-night-900 text-white mb-14 sm:mb-20 overflow-hidden">
-      <div aria-hidden="true" className="fs-grid-mask">
-        <div className="fs-grid" />
-      </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-14 sm:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <p className="fs-hero-in fs-label fs-label-light lg:col-span-3 self-start pt-4">{eyebrow}</p>

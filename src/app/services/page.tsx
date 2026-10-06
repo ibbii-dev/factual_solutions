@@ -180,7 +180,7 @@ function ServicesContent() {
         )}
 
         {/* From Knowledge to Results */}
-        <section className="relative w-screen left-1/2 -translate-x-1/2 bg-navy dark:bg-night-900 text-white mb-24 overflow-hidden">
+        <section className="relative w-screen left-1/2 -translate-x-1/2 bg-navy dark:bg-night-950 text-white mb-24 overflow-hidden">
           <div aria-hidden="true" className="grid grid-cols-3 h-1.5"><span className="bg-navy-400" /><span className="bg-steel" /><span className="bg-rust" /></div>
           <div data-reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-12 gap-6">
           <p className="lg:col-span-3 fs-label fs-label-light self-start pt-2">{isAr ? "النهج" : "Approach"}</p>

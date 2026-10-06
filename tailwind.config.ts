@@ -43,21 +43,21 @@ const config: Config = {
         },
         rust: {
           DEFAULT: "#9B391E",
-          light: "#D0694C",
+          light: "#F2A68E",
           dark: "#7E2E18",
         },
         ink: "#0A0A0A",
         // secondary text: 8.2:1 on white
         slate: { 500: "#4A4F5C" },
         paper: { DEFAULT: "#FFFFFF", deep: "#F2F5FB", line: "#E3E8F2" },
-        // Dark mode surfaces, tinted from the logo navy
+        // Dark mode is built on the logo navy itself (#25346B), with one deeper and one lighter step
         night: {
-          950: "#070B17",
-          900: "#0B1124",
-          850: "#0F1730",
-          800: "#141D3B",
-          700: "#1B2650",
-          600: "#25346B",
+          950: "#1A2550",
+          900: "#25346B",
+          850: "#2C3C79",
+          800: "#1F2C5C",
+          700: "#34468A",
+          600: "#3E52A0",
         },
         // Theme-aware semantic tokens
         accent: v("--fs-accent"),
@@ -72,18 +72,19 @@ const config: Config = {
           "navy-light": "#3C4C87",
           rust: "#9B391E",
           "rust-dark": "#7E2E18",
-          "rust-light": "#D0694C",
+          "rust-light": "#F2A68E",
           steel: "#9BB3D9",
           "steel-light": "#C7D4EA",
           "steel-dark": "#7690BE",
           slate: "#F2F5FB",
           card: "#FFFFFF",
-          "card-dark": "#141D3B",
+          "card-dark": "#1F2C5C",
         },
       },
       // Only 400 and 600 are loaded; map "bold" to 600 so nothing is faux-bolded.
       fontWeight: { bold: "600", extrabold: "600", black: "600" },
       fontFamily: {
+        brand: ["var(--font-brand)", "'Segoe UI'", "system-ui", "-apple-system", "sans-serif"],
         display: ["var(--font-display)", "'Century Gothic'", "Futura", "-apple-system", "'Segoe UI'", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
         sans: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],

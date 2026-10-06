@@ -24,20 +24,21 @@
 }
 
 html.dark {
-  --fs-accent: 208 105 76;     /* lifted rust for legible text on dark */
+  /* Dark mode sits on the logo's own navy */
+  --fs-accent: 242 166 142;    /* light rust: 5.3:1 on the navy */
   --fs-focus: 155 179 217;     /* steel focus ring */
-  --fs-surface: 20 29 59;
-  --fs-canvas: 11 17 36;
+  --fs-surface: 31 44 92;
+  --fs-canvas: 37 52 107;
 
-  --bg-primary: #0B1124;
-  --bg-secondary: #070B17;
-  --bg-card: #141D3B;
-  --text-primary: #F4F6FB;
-  --text-secondary: #B7C2D8;
-  --border-color: rgba(199, 212, 234, 0.14);
+  --bg-primary: #25346B;
+  --bg-secondary: #1A2550;
+  --bg-card: #1F2C5C;
+  --text-primary: #FFFFFF;
+  --text-secondary: #C9D3E6;
+  --border-color: rgba(199, 212, 234, 0.18);
 
   --color-rust: #9B391E;
-  --color-rust-hover: #D0694C;
+  --color-rust-hover: #F2A68E;
   --color-steel: #9BB3D9;
   --color-navy: #25346B;
 }
@@ -129,7 +130,7 @@ select option, select optgroup {
 }
 
 html.dark select option, html.dark select optgroup {
-  background-color: #141D3B !important;
+  background-color: #1F2C5C !important;
   color: #FFFFFF !important;
 }
 
@@ -468,4 +469,15 @@ html.fs-motion .fs-step.is-in::before { transform: scaleX(1); }
 }
 
 /* The wordmark keeps its Latin geometric face in Arabic too. */
-[dir="rtl"] .fs-wordmark { font-family: var(--font-display), 'Century Gothic', Futura, system-ui, sans-serif !important; line-height: 1 !important; }
+[dir="rtl"] .fs-wordmark, [dir="rtl"] .fs-tagline { font-family: var(--font-brand), 'Segoe UI', system-ui, sans-serif !important; line-height: 1 !important; letter-spacing: normal; }
+[dir="rtl"] .fs-tagline { font-family: var(--font-body), 'Segoe UI', system-ui, sans-serif !important; }
+
+/* Muted text on the navy dark theme: lift Tailwind's slate-400 so it stays above 4.5:1 on every navy surface. */
+.dark .dark\:text-slate-400 { color: #B7C2D8; }
+
+/* Hero figures: a piece-colored corner tick draws in, and grows on hover */
+.fs-stat::before { content: ""; position: absolute; inset-inline-start: -1px; top: -1px; width: 28px; height: 3px; background: var(--piece); transform-origin: left center; animation: fsTickIn 0.8s var(--ease-out) 0.9s both; transition: width 0.5s var(--ease-out); }
+[dir="rtl"] .fs-stat::before { transform-origin: right center; }
+.fs-stat:hover::before { width: 64px; }
+@keyframes fsTickIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .fs-stat::before { animation: none; } }

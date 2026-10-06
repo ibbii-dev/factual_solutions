@@ -118,26 +118,30 @@ export default function Navbar() {
   const isDark = theme === "dark";
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHidden && !mobileMenuOpen && !servicesDropdownOpen ? "-translate-y-full" : "translate-y-0"}`}>
+    <header className={`dark fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHidden && !mobileMenuOpen && !servicesDropdownOpen ? "-translate-y-full" : "translate-y-0"}`}>
       {/* Main Navbar */}
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-canvas/95 backdrop-blur-sm border-b border-ink/10 dark:border-white/10 py-2 sm:py-2.5"
-            : "bg-canvas border-b border-ink/10 dark:border-white/10 py-3 sm:py-4"
+            ? "bg-navy/95 backdrop-blur-sm border-b border-white/10 py-2 sm:py-2.5 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.6)]"
+            : "bg-navy border-b border-white/10 py-3 sm:py-4"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-2">
             
             {/* Brand Logo */}
-            <Link href="/" aria-label="Factual Solutions home" className="flex items-center gap-2.5 sm:gap-3 group select-none shrink min-w-0">
-              <span className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 dark:bg-white dark:p-1 dark:rounded-sm">
+            <Link href="/" aria-label="Factual Solutions home" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
+              <span className="shrink-0 w-9 h-9 sm:w-11 sm:h-11 bg-white rounded-md p-1 shadow-[0_6px_18px_-8px_rgba(0,0,0,0.5)]">
                 <BrandMark className="w-full h-full overflow-visible" />
               </span>
-              <span className="fs-wordmark font-display text-[1.15rem] sm:text-[1.3rem] lg:text-[1.4rem] leading-none tracking-[-0.01em] text-ink dark:text-white truncate" translate="no" dir="ltr">
-                <span className="font-normal">Factual </span>
-                <span className="font-semibold">Solutions</span>
+              <span className="flex flex-col min-w-0" translate="no" dir="ltr">
+                <span className="fs-wordmark font-brand text-[1.2rem] sm:text-[1.35rem] lg:text-[1.45rem] leading-none tracking-[-0.02em] text-white truncate">
+                  Factual<span className="text-steel"> Solutions</span>
+                </span>
+                <span className="fs-tagline mt-1 text-[10.5px] sm:text-[12px] leading-none font-semibold tracking-[0.01em] sm:tracking-[0.03em] text-[#C9D3E6] whitespace-nowrap">
+                  Your Business Excellence Partners.
+                </span>
               </span>
             </Link>
 
@@ -262,7 +266,7 @@ export default function Navbar() {
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="fs-btn fs-btn-navy !min-h-[44px] !px-5 !text-[14px]"
+                className="fs-btn fs-btn-rust !min-h-[44px] !px-5 !text-[14px]"
               >
                 <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -428,7 +432,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="fs-btn fs-btn-navy w-full"
+              className="fs-btn fs-btn-rust w-full"
             >
               <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />

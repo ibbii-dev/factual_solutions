@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Jost, Source_Sans_3, Tajawal } from "next/font/google";
+import { Jost, Outfit, Source_Sans_3, Tajawal } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -51,6 +51,16 @@ const jost = Jost({
   adjustFontFallback: true,
 });
 
+// Wordmark face: one weight, used only for "Factual Solutions" in the header and footer.
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-brand",
+  display: "swap",
+  fallback: ["Segoe UI", "system-ui", "-apple-system", "sans-serif"],
+  adjustFontFallback: true,
+});
+
 // Arabic face: only downloaded when Arabic text is actually rendered (not preloaded).
 const tajawal = Tajawal({
   subsets: ["arabic"],
@@ -65,7 +75,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#25346B" }, { media: "(prefers-color-scheme: dark)", color: "#0B1124" }],
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#25346B" }, { media: "(prefers-color-scheme: dark)", color: "#25346B" }],
 };
 
 export const metadata: Metadata = {
@@ -98,7 +108,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${sourceSans.variable} ${jost.variable} ${tajawal.variable}`} 
+      className={`scroll-smooth ${sourceSans.variable} ${jost.variable} ${outfit.variable} ${tajawal.variable}`} 
       suppressHydrationWarning
     >
       <head>

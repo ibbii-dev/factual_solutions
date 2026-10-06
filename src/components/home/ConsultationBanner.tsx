@@ -11,7 +11,7 @@ export default function ConsultationBanner() {
   const isAr = language === "ar";
 
   return (
-    <section className="relative overflow-hidden bg-navy dark:bg-night-900 text-white">
+    <section className="relative overflow-hidden bg-navy dark:bg-night-950 text-white">
       <div aria-hidden="true" className="pointer-events-none absolute -end-16 -top-16 w-72 h-72 sm:w-96 sm:h-96">
         <div className="fs-spin absolute inset-0 border-2 border-steel/40" />
       </div>

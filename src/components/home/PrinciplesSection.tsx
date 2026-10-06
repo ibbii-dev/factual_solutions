@@ -13,7 +13,7 @@ export default function PrinciplesSection() {
   const c = content[isAr ? "ar" : "en"];
 
   return (
-    <section aria-labelledby="think-heading" className="py-20 sm:py-28 bg-navy dark:bg-night-900 text-white">
+    <section aria-labelledby="think-heading" className="py-20 sm:py-28 bg-navy dark:bg-night-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div data-reveal className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-end mb-10 sm:mb-14">
           <div className="space-y-4">
