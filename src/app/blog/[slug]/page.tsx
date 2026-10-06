@@ -194,236 +194,104 @@ export default async function BlogPostPage({
     ]),
   ];
 
+  const fmt = (v: string) => {
+    const d = new Date(v);
+    return Number.isNaN(d.getTime()) ? v : d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  };
+
   return (
-    <article className="min-h-screen bg-transparent text-ink dark:text-white transition-colors pt-24 sm:pt-32 pb-20">
+    <article className="min-h-screen text-ink dark:text-white pb-20">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
-      
-      {/* 1. Article Hero & Header */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-300">
-          <Link href="/" className="hover:text-brand-rust transition-colors text-slate-500 dark:text-slate-300">Home</Link>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/blog" className="hover:text-brand-rust transition-colors text-slate-500 dark:text-slate-300">Blog</Link>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-slate-900 dark:text-slate-200 font-semibold truncate max-w-[180px] sm:max-w-xs">
-            Strategic Article
-          </span>
-        </div>
 
-        {/* Category & Meta */}
-        <div className="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
-          <span className="px-3 py-1 rounded-full bg-brand-rust/20 text-accent font-bold text-[11px] sm:text-xs uppercase tracking-wider border border-brand-rust/30">
-            Strategic Intelligence
-          </span>
-          <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-300">
-            <Clock className="w-4 h-4" />
-            {post.readTime}
-          </span>
-          <span className="text-slate-400">•</span>
-          <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-300">
-            <Calendar className="w-4 h-4" />
-            {post.publishedAt}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink dark:text-white font-display leading-tight sm:leading-[1.15]">
-          {post.title}
-        </h1>
-
-        {/* Excerpt Lead */}
-        {post.excerpt && (
-          <p className="text-lg sm:text-xl text-slate-700 dark:text-slate-100 font-normal leading-relaxed border-l-2 border-brand-rust/60 pl-4 py-1 italic">
-            {post.excerpt}
-          </p>
-        )}
-
-        {/* Author Bio Bar & Share Actions */}
-        <div className="pt-4 pb-6 border-y border-slate-200/80 dark:border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-full overflow-hidden bg-brand-rust/20 relative shrink-0 border border-brand-rust/30">
-              <Image sizes="64px"
-                src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
-                alt={post.author.name}
-                fill
-                className="object-cover"
-              />
+      <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <nav aria-label="Breadcrumb" className="lg:col-span-3 text-sm text-slate-500 dark:text-slate-400 pt-2 space-x-2">
+          <Link href="/" className="hover:text-ink dark:hover:text-white">Home</Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/blog" className="hover:text-ink dark:hover:text-white">Blog</Link>
+        </nav>
+        <div className="lg:col-span-9 max-w-3xl space-y-6">
+          <p className="eyebrow">{post.category}</p>
+          <h1 className="text-[2.2rem] sm:text-5xl lg:text-[3.4rem] font-bold font-display tracking-[-0.015em] leading-[1.08]">{post.title}</h1>
+          {post.excerpt && <p className="lede text-slate-700 dark:text-slate-300">{post.excerpt}</p>}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-ink/15 dark:border-white/15">
+            <div className="flex items-center gap-3">
+              <span className="relative w-10 h-10 rounded-full overflow-hidden bg-paper-deep shrink-0">
+                <Image sizes="40px" src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"} alt="" fill className="object-cover" />
+              </span>
+              <p className="text-sm">
+                <span className="font-semibold">{post.author.name}</span>
+                <span className="text-slate-500 dark:text-slate-400"> · <time dateTime={post.publishedAt}>{fmt(post.publishedAt)}</time> · {post.readTime}</span>
+              </p>
             </div>
-            <div>
-              <div className="text-sm font-bold text-ink dark:text-white">
-                {post.author.name}
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-300">
-                {post.author.role}
-              </div>
-            </div>
+            <BlogArticleClientActions title={post.title} />
           </div>
-
-          <BlogArticleClientActions title={post.title} />
         </div>
+      </header>
 
-      </div>
-
-      {/* 2. Cover Image Banner */}
       {post.coverImage && (
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-          <div className="relative h-72 sm:h-96 lg:h-[480px] w-full rounded-3xl overflow-hidden shadow-lift border border-slate-200 dark:border-slate-800 bg-slate-900">
-            <Image sizes="(max-width: 1024px) 100vw, 1024px"
-              src={post.coverImage}
-              alt={post.coverImageAlt || post.title}
-              fill
-              priority
-              className="object-cover"
-            />
+        <figure className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+          <div className="relative aspect-[16/8] w-full overflow-hidden bg-paper-deep">
+            <Image sizes="(max-width: 1280px) 100vw, 1280px" src={post.coverImage} alt={post.coverImageAlt || post.title} fill priority className="object-cover" />
           </div>
-        </div>
+          {post.coverImageAlt && <figcaption className="mt-2 text-sm text-slate-500 dark:text-slate-400">{post.coverImageAlt}</figcaption>}
+        </figure>
       )}
 
-      {/* 3. Main Article Body */}
-      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10 space-y-6 bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-lift my-8 text-ink dark:text-white">
-        <div className="space-y-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-9 lg:col-start-4 max-w-3xl space-y-6 text-[17px] leading-[1.75]">
           {renderFormattedContent(post.content)}
-        </div>
 
-        {/* Tags */}
-        {post.tags && post.tags.length > 0 && (
-          <div className="pt-8 mt-10 border-t border-slate-200/80 dark:border-white/10 space-y-3">
-            <div className="text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-              <Tag className="w-3.5 h-3.5" />
-              <span>Related Strategic Disciplines</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/blog?tag=${encodeURIComponent(tag)}`}
-                  className="px-3 py-1 rounded-xl bg-navy-50 dark:bg-white/10 hover:bg-brand-rust/20 hover:text-accent text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/15 transition-colors"
-                >
-                  #{tag}
-                </Link>
+          {post.tags && post.tags.length > 0 && (
+            <p className="pt-8 mt-10 border-t border-ink/15 dark:border-white/15 text-sm text-slate-500 dark:text-slate-400">
+              {post.tags.map((tag, i) => (
+                <React.Fragment key={tag}>
+                  {i > 0 && " · "}
+                  <Link href={`/blog?q=${encodeURIComponent(tag)}`} className="hover:text-ink dark:hover:text-white hover:underline underline-offset-4">{tag}</Link>
+                </React.Fragment>
               ))}
-            </div>
-          </div>
-        )}
-
-        {/* Author Executive Card */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-night-800/60 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left text-ink dark:text-white">
-          <div className="w-16 h-16 rounded-2xl overflow-hidden bg-brand-rust/20 relative shrink-0 border-2 border-brand-rust/40 shadow-md">
-            <Image sizes="64px"
-              src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"}
-              alt={post.author.name}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="space-y-2">
-            <div className="text-base font-bold text-ink dark:text-white">
-              {post.author.name}
-            </div>
-            <div className="text-xs font-semibold text-accent">
-              {post.author.role}
-            </div>
-            <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed">
-              {post.author.bio || "Practitioner at Factual Solutions, sharing practical insights on operational excellence, Lean Six Sigma, strategy, and digital transformation."}
             </p>
-          </div>
-        </div>
+          )}
 
-      </div>
-
-      {/* 4. Consultation CTA Banner */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-        <div className="rounded-3xl p-8 sm:p-10 bg-gradient-to-r from-brand-rust via-rust to-rust text-white shadow-lift relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/20">
-          <div className="space-y-2 max-w-xl text-center sm:text-left">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
-              <Building2 className="w-3.5 h-3.5" />
-              <span>Direct Partner Consultation</span>
+          <aside className="mt-10 flex gap-5 pt-8 border-t border-ink/15 dark:border-white/15">
+            <span className="relative w-16 h-16 rounded-full overflow-hidden bg-paper-deep shrink-0">
+              <Image sizes="64px" src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"} alt="" fill className="object-cover" />
+            </span>
+            <div className="space-y-1">
+              <p className="font-display text-lg font-bold">{post.author.name}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{post.author.role}</p>
+              <p className="text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed pt-1">
+                {post.author.bio || "Practitioner at Factual Solutions, sharing practical insights on operational excellence, Lean Six Sigma, strategy, and digital transformation."}
+              </p>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-display">
-              Apply These Strategies to Your Enterprise
-            </h3>
-            <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
-              Schedule a confidential 45-minute working session with our practice partners to review your strategic challenges and financial projections.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="px-6 py-3.5 rounded-xl bg-white text-brand-rust font-bold text-xs sm:text-sm shadow-card hover:bg-slate-100 transition-all shrink-0 flex items-center gap-2"
-          >
-            <span>Book Consultation</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
+          </aside>
 
-      {/* 5. Related Articles Grid */}
-      {relatedPosts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-16 border-t border-slate-200/80 dark:border-white/15 space-y-8">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-ink dark:text-white font-display">
-              Further Executive Blog Posts
-            </h3>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:underline"
-            >
-              <span>View All Blogs</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+          <div className="mt-12 p-8 bg-navy text-white space-y-4">
+            <p className="font-display text-2xl font-bold leading-snug">Want to apply this in your organization?</p>
+            <p className="text-[15px] text-slate-200/90">Talk to us about consulting, training, or ERP &amp; digital transformation.</p>
+            <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-ink hover:bg-steel-light text-sm font-semibold transition-colors">
+              Request a consultation
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {relatedPosts.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 grid grid-cols-1 lg:grid-cols-12 gap-6 border-t border-ink/15 dark:border-white/15 pt-10">
+          <p className="lg:col-span-3 eyebrow pt-1">More articles</p>
+          <ul className="lg:col-span-9">
             {relatedPosts.map((related) => (
-              <article
-                key={related.id}
-                className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl overflow-hidden shadow-card hover:shadow-lift transition-all group flex flex-col justify-between text-ink dark:text-white"
-              >
-                <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
-                  <Image sizes="(max-width: 640px) 100vw, 400px"
-                    src={related.coverImage || "/images/consulting-meeting.jpg"}
-                    alt={related.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute top-2.5 left-2.5">
-                    <span className="px-2.5 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-white text-[10px] font-bold uppercase border border-white/20">
-                      {related.category}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-5 flex flex-col flex-grow justify-between space-y-3">
-                  <div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
-                      <Clock className="w-3 h-3" />
-                      {related.readTime}
-                    </div>
-                    <Link href={`/blog/${related.slug}`}>
-                      <h4 className="text-sm font-bold text-ink dark:text-white group-hover:text-accent transition-colors line-clamp-2 leading-snug">
-                        {related.title}
-                      </h4>
-                    </Link>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between mt-auto">
-                    <span className="text-[11px] text-slate-500 dark:text-slate-300">{related.publishedAt}</span>
-                    <Link
-                      href={`/blog/${related.slug}`}
-                      className="text-xs font-bold text-accent flex items-center gap-1 hover:underline"
-                    >
-                      <span>Read</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </div>
-              </article>
+              <li key={related.id} className="border-b border-ink/10 dark:border-white/10">
+                <Link href={`/blog/${related.slug}`} className="group grid grid-cols-12 gap-4 py-5 items-baseline">
+                  <time dateTime={related.publishedAt} className="col-span-12 sm:col-span-3 text-sm text-slate-500 dark:text-slate-400">{fmt(related.publishedAt)}</time>
+                  <span className="col-span-12 sm:col-span-7 text-lg font-display font-bold group-hover:underline underline-offset-4 decoration-1">{related.title}</span>
+                  <span className="col-span-12 sm:col-span-2 text-sm text-slate-500 dark:text-slate-400 sm:text-end">{related.readTime}</span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       )}
-
     </article>
   );
 }

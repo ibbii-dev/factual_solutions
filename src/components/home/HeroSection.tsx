@@ -2,36 +2,44 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useInView, animate, useReducedMotion } from "framer-motion";
-import { ArrowRight, Layers, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import HeroFilm from "@/components/ui/HeroFilm";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** Counts a numeric prefix up from 0 when scrolled into view (e.g. "91.4%", "18+"). */
+/** Counts a numeric prefix up from 0 once it scrolls into view (e.g. "60+"). No animation library. */
 function CountUp({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduce = useReducedMotion();
   const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
-  const [display, setDisplay] = useState(match && !reduce ? "0" + match[2] : value);
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (!match || !inView || reduce) {
-      if (!match || reduce) setDisplay(value);
-      return;
-    }
+    const el = ref.current;
+    if (!el || !match) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") return;
     const target = parseFloat(match[1]);
-    const decimals = match[1].includes(".") ? match[1].split(".")[1].length : 0;
-    const controls = animate(0, target, {
-      duration: 1.6,
-      ease: EASE,
-      onUpdate: (v) => setDisplay(v.toFixed(decimals) + match[2]),
-    });
-    return () => controls.stop();
+    const suffix = match[2];
+    let raf = 0;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const dur = 1400;
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 4);
+        setDisplay(Math.round(target * eased) + suffix);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      setDisplay("0" + suffix);
+      raf = requestAnimationFrame(tick);
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, value, reduce]);
+  }, [value]);
 
   return <span ref={ref}>{display}</span>;
 }
@@ -62,110 +70,76 @@ export default function HeroSection() {
   const isAr = language === "ar";
 
   const stats = [
-    { value: "60+", label: isAr ? "سنة من الخبرة المشتركة" : "Years of Combined Experience", bar: "bg-navy" },
-    { value: "13", label: isAr ? "قطاعاً نخدمه" : "Industries Served", bar: "bg-rust" },
-    { value: "11", label: isAr ? "دولة شملتها مهامنا" : "Countries of Professional Experience", bar: "bg-steel" },
-    { value: "3", label: isAr ? "خطوط خدمة: استشارات · تدريب · رقمي" : "Service Lines: Consulting · Training · Digital", bar: "bg-ink dark:bg-white" },
+    { value: "60+", label: isAr ? "سنة من الخبرة المشتركة" : "Years of combined experience" },
+    { value: "13", label: isAr ? "قطاعاً نخدمه" : "Industries served" },
+    { value: "11", label: isAr ? "دولة شملتها مهامنا" : "Countries of professional experience" },
+    { value: "3", label: isAr ? "خطوط خدمة: استشارات · تدريب · رقمي" : "Service lines: consulting, training, digital" },
   ];
 
+  const d = (s: string) => ({ "--fs-delay": s } as React.CSSProperties);
+
   return (
-    <section className="dark relative pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24 overflow-hidden text-ink dark:text-white bg-night-950 min-h-[92vh] flex flex-col justify-center">
-      {/* Cinematic 3D puzzle-cube film (dark stage in both themes) */}
-      <HeroFilm />
+    <section className="relative pt-32 sm:pt-40 lg:pt-44 pb-14 sm:pb-20 text-ink dark:text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="fs-hero-in eyebrow mb-6 sm:mb-8" style={d("0s")}>
+          {isAr ? "استشارات وتدريب وتحول رقمي" : "Management consulting · Training · ERP & digital"}
+        </p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+          <h1 className="lg:col-span-8 text-[2.6rem] sm:text-[4rem] lg:text-[5.25rem] font-bold tracking-[-0.02em] leading-[1.02] font-display">
+            {isAr ? (
+              <>
+                <RevealWords text="تمكين المؤسسات" delay={0} />
+                <br />
+                <RevealWords text="لتنمية أعمالها بنجاح." className="text-navy dark:text-steel" delay={0.12} />
+              </>
+            ) : (
+              <>
+                <RevealWords text="Consulting people" delay={0} />
+                <br />
+                <RevealWords text="to grow their" delay={0.1} />{" "}
+                <RevealWords text="business." className="text-navy dark:text-steel" delay={0.2} />
+              </>
+            )}
+          </h1>
 
-          {/* Copy column */}
-          <div className="lg:col-span-7 space-y-7 text-center lg:text-start">
-
-            <h1 className="text-[2.25rem] sm:text-[3.4rem] lg:text-[3.75rem] font-extrabold tracking-tight text-ink dark:text-white leading-[1.06] font-display">
-              {isAr ? (
-                <>
-                  <RevealWords text="تمكين المؤسسات" delay={0} />
-                  <br />
-                  <RevealWords text="لتنمية أعمالها بنجاح." className="text-navy dark:text-steel" delay={0.12} />
-                </>
-              ) : (
-                <>
-                  <RevealWords text="Consulting People to" delay={0} />
-                  <br />
-                  <span className="relative inline-block">
-                    <RevealWords text="Grow Their Business." className="text-navy dark:text-steel" delay={0.15} />
-                    <svg className="absolute -bottom-1 left-0 w-[96%] h-3 text-rust" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true">
-                      <path
-                        className="fs-draw"
-                        d="M2 9 C 80 2, 220 2, 298 7"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                </>
-              )}
-            </h1>
-
-            <div className="fs-hero-in" style={{ "--fs-delay": "0.25s" } as React.CSSProperties}>
-              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                {isAr
-                  ? "نجمع بين الاستشارات والتدريب والتطبيق الرقمي لمساعدة المؤسسات على تصميم أساليب عمل أفضل، وبناء القدرات اللازمة لاستدامتها، وترسيخ التحسين في العمليات اليومية."
-                  : "We combine consulting, training, and digital implementation to help organizations design better ways of working, build the capabilities to sustain them, and embed improvement into daily operations."}
-              </p>
-            </div>
-
-            <div className="fs-hero-in" style={{ "--fs-delay": "0.32s" } as React.CSSProperties}>
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1">
-                <Link
-                  href="/contact"
-                  className="btn-sheen group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-rust hover:bg-rust-dark text-white text-sm font-bold transition-all duration-300 shadow-cta hover:-translate-y-0.5"
-                >
-                  <span>{isAr ? "طلب استشارة تنفيذية" : "Request a Consultation"}</span>
-                  <ArrowRight className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
-                </Link>
-
-                <Link
-                  href="/services"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white hover:bg-navy-50 dark:bg-white/5 dark:hover:bg-white/10 text-navy dark:text-white text-sm font-semibold border border-navy/15 dark:border-white/15 transition-all duration-300 hover:-translate-y-0.5"
-                >
-                  <Layers className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
-                  <span>{isAr ? "ما نقوم به" : "What We Do"}</span>
-                </Link>
-              </div>
-            </div>
-
-            <div className="fs-hero-in" style={{ "--fs-delay": "0.4s" } as React.CSSProperties}>
-              <ul className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "الاستشارات" : "Consulting"}</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "التدريب" : "Training"}</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-navy dark:text-steel" />{isAr ? "ERP والتحول الرقمي" : "ERP & Digital Transformation"}</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Right side left open: the film is the visual */}
-          <div className="hidden lg:block lg:col-span-5" aria-hidden="true" />
-        </div>
-
-        {/* Metric strip with count-up numbers */}
-        <div className="fs-hero-in pt-14 sm:pt-20" style={{ "--fs-delay": "0.45s" } as React.CSSProperties}>
-          <div className="grid grid-cols-2 md:grid-cols-4 rounded-2xl bg-white dark:bg-night-900/80 border border-slate-200/80 dark:border-white/10 shadow-card overflow-hidden">
-            {stats.map((st, idx) => (
-              <div
-                key={idx}
-                className={`group relative p-5 sm:p-6 text-center md:text-start transition-colors duration-300 hover:bg-navy-50/50 dark:hover:bg-white/[0.03] ${idx % 2 === 1 ? "border-s border-slate-200/80 dark:border-white/10" : ""} ${idx >= 2 ? "border-t md:border-t-0 border-slate-200/80 dark:border-white/10" : ""} ${idx === 2 ? "md:border-s" : ""}`}
+          <div className="lg:col-span-4 space-y-6 lg:pb-3">
+            <p className="fs-hero-in lede text-slate-700 dark:text-slate-300" style={d("0.25s")}>
+              {isAr
+                ? "نجمع بين الاستشارات والتدريب والتطبيق الرقمي لمساعدة المؤسسات على تصميم أساليب عمل أفضل، وبناء القدرات اللازمة لاستدامتها، وترسيخ التحسين في العمليات اليومية."
+                : "We combine consulting, training, and digital implementation to help organizations design better ways of working, build the capabilities to sustain them, and embed improvement into daily operations."}
+            </p>
+            <div className="fs-hero-in flex flex-wrap items-center gap-x-6 gap-y-4" style={d("0.35s")}>
+              <Link
+                href="/contact"
+                className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink dark:hover:bg-steel-light text-white text-sm font-semibold transition-colors"
               >
-                <span className={`absolute top-0 inset-x-6 h-[3px] rounded-b-full origin-left transition-transform duration-500 group-hover:scale-x-110 ${st.bar}`} aria-hidden="true" />
-                <div className="text-2xl sm:text-3xl font-extrabold text-ink dark:text-white font-display tracking-tight">
-                  <CountUp value={st.value} />
-                </div>
-                <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{st.label}</div>
-              </div>
-            ))}
+                {isAr ? "طلب استشارة" : "Request a consultation"}
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+              </Link>
+              <Link href="/services" className="link-arrow text-sm text-ink dark:text-white">
+                {isAr ? "ما نقوم به" : "What we do"}
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+              </Link>
+            </div>
           </div>
         </div>
 
+        {/* Key figures, set like a report's fact box */}
+        <dl className="fs-hero-in fs-rule mt-16 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 border-t border-ink/15 dark:border-white/15" style={{ ...d("0.45s"), "--d": "500ms" } as React.CSSProperties}>
+          {stats.map((st, idx) => (
+            <div
+              key={idx}
+              className={`pt-6 pb-2 pe-6 ${idx > 0 ? "lg:border-s lg:ps-6 border-ink/15 dark:border-white/15" : ""} ${idx % 2 === 1 ? "border-s ps-6 lg:ps-6 border-ink/15 dark:border-white/15" : ""} ${idx >= 2 ? "border-t lg:border-t-0 border-ink/15 dark:border-white/15" : ""}`}
+            >
+              <dt className="sr-only">{st.label}</dt>
+              <dd className="text-4xl sm:text-5xl font-bold font-display tracking-tight">
+                <CountUp value={st.value} />
+              </dd>
+              <dd className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-[16rem]">{st.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

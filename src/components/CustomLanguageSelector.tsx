@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Globe, ChevronDown, Check } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface LanguageOption {
   code: string;
@@ -119,122 +120,47 @@ function FlagIcon({ code, className = "w-4 h-3 rounded-[2px] shadow-xs inline-bl
 }
 
 export default function CustomLanguageSelector() {
-  const [currentLang, setCurrentLang] = useState<string>("en");
+  const { activeLanguage, selectLanguage } = useLanguage();
+  const currentLang = activeLanguage;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Helper to read cookies
-  const getCookie = (name: string) => {
-    if (typeof document === "undefined") return null;
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift();
-    return null;
-  };
-
+  // Close dropdown on outside click / Escape
   useEffect(() => {
-    // Check saved language
-    const googTransCookie = getCookie("googtrans");
-    let activeLang = "en";
-    if (googTransCookie) {
-      const parts = googTransCookie.split("/");
-      const lang = parts[parts.length - 1];
-      if (lang) {
-        activeLang = lang;
-        setCurrentLang(lang);
-      }
-    }
-
-    // Apply RTL if Arabic or Urdu
-    if (activeLang === "ar" || activeLang === "ur") {
-      document.documentElement.dir = "rtl";
-      document.documentElement.lang = activeLang;
-    } else {
-      document.documentElement.dir = "ltr";
-      document.documentElement.lang = activeLang;
-    }
-
-    // Initialize Google Translate Script silently in background
-    (window as any).googleTranslateElementInit = () => {
-      try {
-        if ((window as any).google && (window as any).google.translate) {
-          new (window as any).google.translate.TranslateElement(
-            {
-              pageLanguage: "en",
-              autoDisplay: false
-            },
-            "google_translate_hidden_element"
-          );
-        }
-      } catch (e) {
-        console.error("Translate init error:", e);
-      }
-    };
-
-    // Only download Google Translate (~200 KB) when a translated language is active.
-    // English visitors never load it; choosing a language sets the cookie and reloads.
-    if (activeLang !== "en" && !document.getElementById("google-translate-hidden-script")) {
-      const script = document.createElement("script");
-      script.id = "google-translate-hidden-script";
-      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-
-  // Close dropdown on outside click
-  useEffect(() => {
+    if (!isOpen) return;
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     }
+    function handleKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setIsOpen(false);
+    }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [isOpen]);
 
   const changeLanguage = (langCode: string) => {
-    setCurrentLang(langCode);
     setIsOpen(false);
-
-    // Apply RTL/LTR immediately
-    if (langCode === "ar" || langCode === "ur") {
-      document.documentElement.dir = "rtl";
-      document.documentElement.lang = langCode;
-    } else {
-      document.documentElement.dir = "ltr";
-      document.documentElement.lang = langCode;
-    }
-
-    // Set cookie across domains and paths
-    const domain = window.location.hostname;
-    document.cookie = `googtrans=/en/${langCode}; path=/;`;
-    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${domain};`;
-    document.cookie = `googtrans=/en/${langCode}; path=/; domain=.${domain};`;
-
-    // Trigger select element in Google Translate hidden DOM if present
-    const selectElem = document.querySelector("#google_translate_hidden_element select") as HTMLSelectElement | null;
-    if (selectElem) {
-      selectElem.value = langCode;
-      selectElem.dispatchEvent(new Event("change"));
-    } else {
-      window.location.reload();
-    }
+    if (langCode !== currentLang) selectLanguage(langCode);
   };
 
   const selectedLanguage = languages.find((l) => l.code === currentLang) || languages[0];
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
-      {/* Hidden container for Google Translate engine */}
-      <div id="google_translate_hidden_element" className="hidden" aria-hidden="true" />
-
       {/* Modern Luxury Language Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-bold transition-all duration-200 text-ink dark:text-white bg-slate-100/90 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/10 shadow-xs shrink-0 select-none"
+        className="inline-flex items-center gap-1.5 py-1.5 text-[13px] font-medium transition-colors text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white shrink-0 select-none"
         aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        translate="no"
       >
         <FlagIcon code={selectedLanguage.code} className="w-4 h-3 rounded-[2px] shadow-xs shrink-0" />
         <span className="font-semibold hidden sm:inline">{selectedLanguage.native}</span>
@@ -244,7 +170,7 @@ export default function CustomLanguageSelector() {
 
       {/* Modern Luxury Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white/95 dark:bg-night-900/95 backdrop-blur-2xl border border-slate-200 dark:border-white/10 shadow-lift p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-slate-100 dark:divide-white/10 text-ink dark:text-white">
+        <div translate="no" className="absolute right-0 rtl:right-auto rtl:left-0 mt-3 w-52 bg-canvas dark:bg-night-900 border border-ink/10 dark:border-white/15 shadow-lg p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 divide-y divide-slate-100 dark:divide-white/10 text-ink dark:text-white">
           <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 flex items-center gap-1.5">
             <Globe className="w-3 h-3 text-accent" />
             <span>Select Language / اختر اللغة</span>

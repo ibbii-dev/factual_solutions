@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -48,9 +49,19 @@ export default function ServiceDetailPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [formError, setFormError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const recaptchaRef = useRef<GoogleRecaptchaHandle>(null);
 
   const handleQuickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const isAr = language === "ar";
+    if (RECAPTCHA_ENABLED && !recaptchaToken) {
+      setFormError(isAr ? "يرجى تأكيد التحقق الأمني (أنا لست روبوتاً) قبل الإرسال." : "Please tick \"I'm not a robot\" before sending.");
+      return;
+    }
+    setFormError("");
     setIsSubmitting(true);
 
     const payload = {
@@ -62,22 +73,32 @@ export default function ServiceDetailPage() {
       message: formData.message || `Direct consultation request for ${service?.title}`
     };
 
-    saveInquiry(payload);
-
     try {
-      await fetch("/api/inquiries", {
+      const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ ...payload, recaptchaToken, website: honeypot })
       });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        recaptchaRef.current?.reset();
+        setRecaptchaToken(null);
+        setFormError(data.message || (isAr ? "تعذر إرسال الطلب. حاول مرة أخرى." : "We couldn't send your request. Please try again."));
+        setIsSubmitting(false);
+        return;
+      }
+      saveInquiry(payload);
     } catch (err) {
       console.error("API error:", err);
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+      setFormError(isAr ? "تعذر الاتصال. حاول مرة أخرى." : "Connection problem. Please try again.");
+      setIsSubmitting(false);
+      return;
     }
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 400);
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   if (!service) {
@@ -166,213 +187,96 @@ export default function ServiceDetailPage() {
     viewService: "Explore Service",
   };
 
+  const h2 = "text-2xl sm:text-3xl font-bold font-display text-ink dark:text-white";
+  const sectionCls = "border-t border-ink/15 dark:border-white/15 pt-8 space-y-5";
+
   return (
-    <div className="pt-24 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-transparent text-ink dark:text-white transition-colors duration-300">
+    <div className="pb-20 sm:pb-28 min-h-screen text-ink dark:text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-300 mb-6">
-          <Link href="/" className="hover:text-accent transition-colors">
-            {labels.breadcrumbHome}
-          </Link>
-          <span>/</span>
-          <Link href="/services" className="hover:text-accent transition-colors">
-            {labels.breadcrumbServices}
-          </Link>
-          <span>/</span>
-          <span className="text-ink dark:text-white font-bold truncate max-w-xs sm:max-w-md">
-            {service.title}
-          </span>
-        </nav>
-
-        {/* Hero Section of the Service */}
-        <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-6 sm:p-10 lg:p-12 shadow-lift border border-slate-200/80 dark:border-white/10 mb-10 sm:mb-12 text-ink dark:text-white transition-colors">
-          <div className="max-w-4xl space-y-4">
-            
-            {/* Practice Indicator & Deliverable Tag */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="px-3 py-1 rounded-md bg-navy-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/15 text-accent text-[11px] font-bold uppercase tracking-wider">
-                {pillar?.title}
-              </span>
-
-            </div>
-
-            {/* Main Title */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
-              {service.title}
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-100 leading-relaxed font-medium">
-              {service.shortDescription}
-            </p>
-
-            {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-slate-200/80 dark:border-white/15">
-              <div className="bg-slate-50 dark:bg-night-800/60 backdrop-blur-xl p-3.5 rounded-xl border border-slate-200/80 dark:border-white/10 shadow-xs">
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-accent uppercase">
-                  <Clock className="w-3.5 h-3.5 text-accent" /> {labels.statsTimeline}
-                </div>
-                <div className="text-xs sm:text-sm font-bold text-ink dark:text-white mt-1">
-                  {service.duration}
-                </div>
-              </div>
-
-              <div className="bg-slate-50 dark:bg-night-800/60 backdrop-blur-xl p-3.5 rounded-xl border border-slate-200/80 dark:border-white/10 shadow-xs">
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase">
-                  <Layers className="w-3.5 h-3.5 text-slate-400 dark:text-slate-300" /> {labels.statsDeliverables}
-                </div>
-                <div className="text-xs sm:text-sm font-bold text-ink dark:text-white mt-1">
-                  {service.deliverables.length} {language === "ar" ? "مجالات" : "Focus Areas"}
-                </div>
-              </div>
-
-              <div className="bg-slate-50 dark:bg-night-800/60 backdrop-blur-xl p-3.5 rounded-xl border border-slate-200/80 dark:border-white/10 shadow-xs col-span-2 sm:col-span-2">
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-navy dark:text-steel uppercase">
-                  <ShieldCheck className="w-3.5 h-3.5 text-navy dark:text-steel" /> {labels.statsLead}
-                </div>
-                <div className="text-xs sm:text-sm font-bold text-ink dark:text-white mt-1">
-                  {labels.statsLeadVal}
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Main Content Layout (8 cols left + 4 cols right sidebar) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          
-          {/* Left Content Area (8 cols) */}
-          <div className="lg:col-span-8 space-y-8">
-            
-            {/* 1. In-Depth Strategic Overview */}
-            <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 space-y-4 text-ink dark:text-white">
-              <h2 className="text-lg sm:text-xl font-bold text-ink dark:text-white font-display flex items-center gap-2">
-                <Compass className="w-5 h-5 text-accent" />
-                <span>{labels.overviewTitle}</span>
-              </h2>
-              
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-100 leading-relaxed font-medium">
-                {service.fullDescription}
-              </p>
-
-              {/* Service Tags */}
-              <div className="flex flex-wrap gap-2 pt-2">
-                {service.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 rounded-md bg-navy-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/15 text-[11px] font-semibold text-slate-700 dark:text-slate-200"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* 2. Core Strategic Deliverables Framework */}
-            <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 space-y-6 text-ink dark:text-white">
+        <header className="pt-32 sm:pt-40 pb-12 border-b border-ink/15 dark:border-white/15 mb-12 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <nav aria-label="Breadcrumb" className="lg:col-span-3 text-sm text-slate-500 dark:text-slate-400 pt-3 space-x-2 rtl:space-x-reverse">
+            <Link href="/" className="hover:text-ink dark:hover:text-white">{labels.breadcrumbHome}</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/services" className="hover:text-ink dark:hover:text-white">{labels.breadcrumbServices}</Link>
+          </nav>
+          <div className="lg:col-span-9 space-y-6">
+            <p className="eyebrow">{pillar?.title}</p>
+            <h1 className="text-[2.4rem] sm:text-6xl font-bold font-display tracking-[-0.02em] leading-[1.05] max-w-4xl">{service.title}</h1>
+            <p className="lede text-slate-700 dark:text-slate-300 max-w-2xl">{service.shortDescription}</p>
+            <dl className="flex flex-wrap gap-x-10 gap-y-3 pt-2 text-sm">
               <div>
-                <h2 className="text-lg sm:text-xl font-bold text-ink dark:text-white font-display flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-accent" />
-                  <span>{labels.deliverablesTitle}</span>
-                </h2>
-                <p className="text-xs text-slate-600 dark:text-slate-200 mt-1">
-                  {language === "ar" 
-                    ? "المجالات التي تغطيها هذه الخدمة:" 
-                    : "The areas this service covers:"}
-                </p>
+                <dt className="text-slate-500 dark:text-slate-400">{labels.statsTimeline}</dt>
+                <dd className="font-semibold">{service.duration}</dd>
               </div>
+              <div>
+                <dt className="text-slate-500 dark:text-slate-400">{labels.statsDeliverables}</dt>
+                <dd className="font-semibold">{service.deliverables.length} {language === "ar" ? "مجالات" : "focus areas"}</dd>
+              </div>
+            </dl>
+          </div>
+        </header>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
+          <div className="lg:col-span-8 space-y-14">
+            <section className={sectionCls}>
+              <h2 className={h2}>{labels.overviewTitle}</h2>
+              <p className="text-base sm:text-[17px] text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl">{service.fullDescription}</p>
+              {service.tags.length > 0 && (
+                <p className="text-sm text-slate-500 dark:text-slate-400">{service.tags.join(" · ")}</p>
+              )}
+            </section>
+
+            <section className={sectionCls}>
+              <h2 className={h2}>{labels.deliverablesTitle}</h2>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 border-t border-ink/10 dark:border-white/10">
                 {service.deliverables.map((del, dIdx) => (
-                  <div
-                    key={dIdx}
-                    className="p-4 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/15 shadow-xs flex items-start gap-3"
-                  >
-                    <div className="w-6 h-6 rounded-md bg-navy text-white dark:bg-steel dark:text-ink border border-transparent flex items-center justify-center shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs sm:text-sm font-bold text-ink dark:text-white leading-snug">
-                        {del}
-                      </div>
-                    </div>
-                  </div>
+                  <li key={dIdx} className="flex gap-4 py-3.5 border-b border-ink/10 dark:border-white/10 text-[15px] text-ink dark:text-white">
+                    <span className="section-no text-xs w-6 shrink-0 pt-0.5">{String(dIdx + 1).padStart(2, "0")}</span>
+                    <span>{del}</span>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
 
-            {/* 3. Structured 3-Phase Execution Roadmap */}
             {service.executionPhases && service.executionPhases.length > 0 && (
-              <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 space-y-6 text-ink dark:text-white">
-                <div>
-                  <h2 className="text-lg sm:text-xl font-bold text-ink dark:text-white font-display flex items-center gap-2">
-                    <Target className="w-5 h-5 text-accent" />
-                    <span>{labels.phasesTitle}</span>
-                  </h2>
-                  <p className="text-xs text-slate-600 dark:text-slate-200 mt-1">
-                    {language === "ar"
-                      ? "نهجنا العملي من البداية إلى النهاية:"
-                      : "Our practical approach, from start to finish:"}
-                  </p>
-                </div>
-
-                <div className="space-y-3.5">
+              <section className={sectionCls}>
+                <h2 className={h2}>{labels.phasesTitle}</h2>
+                <ol className="space-y-6">
                   {service.executionPhases.map((phase, pIdx) => (
-                    <div
-                      key={pIdx}
-                      className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/15 shadow-xs flex flex-col sm:flex-row items-start sm:items-center gap-4"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-rust text-white font-extrabold flex items-center justify-center text-xs shrink-0 font-display">
-                        {phase.phase}
+                    <li key={pIdx} className="grid grid-cols-12 gap-4">
+                      <span className="col-span-2 sm:col-span-1 section-no text-xl">{phase.phase}</span>
+                      <div className="col-span-10 sm:col-span-11 space-y-1">
+                        <h3 className="text-lg font-bold font-display text-ink dark:text-white">{phase.title}</h3>
+                        <p className="text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed">{phase.desc}</p>
                       </div>
-                      <div className="space-y-0.5 flex-1">
-                        <h3 className="text-sm font-bold text-ink dark:text-white">
-                          {phase.title}
-                        </h3>
-                        <p className="text-xs text-slate-600 dark:text-slate-100 leading-relaxed font-normal">
-                          {phase.desc}
-                        </p>
-                      </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ol>
+              </section>
             )}
 
-            {/* 4. Ideal Organization Profile */}
-            <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-card border border-slate-200/80 dark:border-white/10 space-y-3 text-ink dark:text-white">
-              <h2 className="text-base sm:text-lg font-bold text-ink dark:text-white font-display flex items-center gap-2">
-                <Target className="w-4 h-4 text-accent" />
-                <span>{labels.idealForTitle}</span>
-              </h2>
-              <p className="text-xs text-slate-600 dark:text-slate-200">
-                {labels.idealForSubtitle}
-              </p>
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/15 shadow-xs text-xs text-slate-700 dark:text-slate-100 font-medium leading-relaxed">
-                {service.idealFor}
-              </div>
-            </div>
-
+            <section className={sectionCls}>
+              <h2 className={h2}>{labels.idealForTitle}</h2>
+              <p className="text-base sm:text-[17px] text-slate-700 dark:text-slate-300 leading-relaxed max-w-3xl">{service.idealFor}</p>
+            </section>
           </div>
 
           {/* Right Sidebar: Direct Consultation Form (4 cols) */}
-          <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
+          <aside className="lg:col-span-4 space-y-12 lg:sticky lg:top-28">
             
-            <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-6 sm:p-7 shadow-card border border-slate-200/80 dark:border-white/10 space-y-4 text-ink dark:text-white">
+            <div className="border-t-2 border-ink dark:border-white pt-6 space-y-5 text-ink dark:text-white">
               <div>
-                <h3 className="text-base font-bold text-ink dark:text-white font-display">
+                <h3 className="text-xl font-bold text-ink dark:text-white font-display">
                   {labels.sidebarTitle}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-200 mt-1">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
                   {labels.sidebarDesc}
                 </p>
               </div>
 
               {submitted ? (
-                <div className="py-6 text-center space-y-2 bg-emerald-500/20 rounded-xl p-4 border border-emerald-500/30">
-                  <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+                <div className="py-4 space-y-2" role="status">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-600" />
                   <h4 className="text-xs font-bold text-ink dark:text-white">
                     {labels.successTitle}
                   </h4>
@@ -381,9 +285,9 @@ export default function ServiceDetailPage() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleQuickSubmit} className="space-y-3">
+                <form onSubmit={handleQuickSubmit} className="space-y-5">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase text-slate-600 dark:text-slate-300">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {labels.inputName}
                     </label>
                     <input
@@ -392,12 +296,12 @@ export default function ServiceDetailPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder={language === "ar" ? "الاسم" : "Your Name"}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust"
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase text-slate-600 dark:text-slate-300">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {labels.inputEmail}
                     </label>
                     <input
@@ -406,12 +310,12 @@ export default function ServiceDetailPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="name@company.com"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust"
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase text-slate-600 dark:text-slate-300">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {labels.inputPhone}
                     </label>
                     <input
@@ -419,12 +323,12 @@ export default function ServiceDetailPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+92 345 0000000"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust"
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase text-slate-600 dark:text-slate-300">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {labels.inputCompany}
                     </label>
                     <input
@@ -432,14 +336,34 @@ export default function ServiceDetailPage() {
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder={language === "ar" ? "اسم الشركة" : "Company / Firm"}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust"
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
                     />
                   </div>
 
+                  <div aria-hidden="true" className="absolute left-0 top-0 opacity-0 pointer-events-none -z-10 w-px h-px overflow-hidden">
+                    <label>
+                      Website
+                      <input type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                    </label>
+                  </div>
+                  <GoogleRecaptcha
+                    ref={recaptchaRef}
+                    language={language}
+                    onVerify={(token) => {
+                      setRecaptchaToken(token);
+                      if (token) setFormError("");
+                    }}
+                  />
+                  {formError && (
+                    <p role="alert" className="text-[11px] text-rose-700 dark:text-rose-300 font-semibold">
+                      {formError}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-2.5 px-4 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all shadow-cta flex items-center justify-center gap-2 mt-2"
+                    disabled={isSubmitting || (RECAPTCHA_ENABLED && !recaptchaToken)}
+                    className="w-full py-3.5 px-4 bg-ink hover:bg-navy dark:bg-white dark:text-ink disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <span>{labels.submittingBtn}</span>
@@ -451,7 +375,7 @@ export default function ServiceDetailPage() {
                     )}
                   </button>
 
-                  <div className="text-[10px] text-slate-500 dark:text-slate-300 text-center flex items-center justify-center gap-1.5 pt-1">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-accent shrink-0" />
                     <span>{labels.confidential}</span>
                   </div>
@@ -459,33 +383,22 @@ export default function ServiceDetailPage() {
               )}
             </div>
 
-            {/* Related Capabilities */}
-            <div className="bg-white/90 dark:bg-night-800/60 backdrop-blur-xl rounded-2xl p-5 shadow-card border border-slate-200/80 dark:border-white/10 space-y-3 text-ink dark:text-white">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-200 font-display">
-                {labels.relatedTitle}
-              </h4>
-              <div className="space-y-2">
+            {/* Related */}
+            <div className="space-y-3">
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{labels.relatedTitle}</h4>
+              <ul className="border-t border-ink/15 dark:border-white/15">
                 {relatedServices.map((rel) => (
-                  <Link
-                    key={rel.id}
-                    href={`/services/${rel.id}`}
-                    className="p-3 rounded-xl bg-slate-50 dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/15 transition-colors flex items-center justify-between group block text-ink dark:text-white"
-                  >
-                    <div className="truncate pr-2">
-                      <div className="text-xs font-bold text-ink dark:text-white truncate">
-                        {rel.title}
-                      </div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-300 truncate">
-                        {rel.metrics}
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-accent group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform shrink-0" />
-                  </Link>
+                  <li key={rel.id} className="border-b border-ink/10 dark:border-white/10">
+                    <Link href={`/services/${rel.id}`} className="group flex items-center justify-between gap-3 py-3 text-[15px] text-ink dark:text-white hover:text-accent">
+                      <span>{rel.title}</span>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-accent rtl:rotate-180 shrink-0" />
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
-          </div>
+          </aside>
 
         </div>
 

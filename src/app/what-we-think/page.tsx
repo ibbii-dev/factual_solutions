@@ -2,9 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Workflow, BarChart3, Users, Puzzle, GraduationCap, Lightbulb } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
+import PageHeader from "@/components/ui/PageHeader";
 
 const content = {
   en: {
@@ -43,74 +43,45 @@ const content = {
   },
 };
 
-const icons = [Workflow, BarChart3, Users, Puzzle, GraduationCap];
-const tones = ["bg-navy text-white", "bg-steel text-ink", "bg-rust text-white", "bg-navy text-white", "bg-steel text-ink"];
-
 export default function WhatWeThinkPage() {
   const { language } = useLanguage();
   const c = language === "ar" ? content.ar : content.en;
 
   return (
-    <div className="pt-24 sm:pt-32 pb-20 sm:pb-28 min-h-screen bg-transparent text-ink dark:text-white transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pb-20 sm:pb-28 min-h-screen text-ink dark:text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <PageHeader eyebrow={c.badge} title={c.headline} lede={<><p className="font-semibold text-ink dark:text-white">{c.lead}</p><p className="mt-3">{c.sub}</p></>} />
 
-        {/* Page Hero */}
-        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[11px] font-bold uppercase tracking-widest shadow-xs">
-            <Lightbulb className="w-3.5 h-3.5" />
-            <span>{c.badge}</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
-            {c.headline}
-          </h1>
-          <p className="text-base sm:text-xl font-bold text-navy dark:text-steel-light">{c.lead}</p>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">{c.sub}</p>
-        </ScrollReveal>
-
-        {/* Principles */}
-        <StaggerContainer delayChildren={0.05} staggerChildren={0.08} className="space-y-4 sm:space-y-5 mb-16 sm:mb-20">
-          {c.principles.map((p, i) => {
-            const Icon = icons[i];
-            return (
-              <StaggerItem
-                key={p.title}
-                className="group relative overflow-hidden grid grid-cols-[auto,1fr] gap-4 sm:gap-6 items-start bg-white dark:bg-night-800/80 rounded-2xl p-5 sm:p-7 border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-lift hover:border-navy/25 dark:hover:border-steel/30 transition-all"
-              >
-                <span className="absolute top-0 inset-x-0 h-[3px] bg-brand-tri scale-x-0 origin-left rtl:origin-right group-hover:scale-x-100 transition-transform duration-500" aria-hidden="true" />
-                <div className="flex flex-col items-center gap-2">
-                  <span className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${tones[i]}`}>
-                    <Icon className="w-5 h-5" />
-                  </span>
-                  <span className="text-[11px] font-bold tracking-[0.14em] text-slate-500 dark:text-slate-400">0{i + 1}</span>
-                </div>
-                <div className="space-y-1.5">
-                  <h2 className="text-lg sm:text-xl font-bold font-display text-ink dark:text-white">{p.title}</h2>
-                  <p className="text-sm sm:text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed">{p.desc}</p>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
+        {/* Principles as a numbered essay */}
+        <ol className="mb-20 sm:mb-28">
+          {c.principles.map((p, i) => (
+            <li key={p.title} data-reveal className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 py-10 border-b border-ink/15 dark:border-white/15 first:pt-0">
+              <span className="lg:col-span-3 section-no text-3xl sm:text-4xl">{String(i + 1).padStart(2, "0")}</span>
+              <div className="lg:col-span-9 max-w-3xl space-y-3">
+                <h2 className="text-2xl sm:text-3xl font-bold font-display leading-snug text-ink dark:text-white">{p.title}</h2>
+                <p className="text-base sm:text-[17px] text-slate-700 dark:text-slate-300 leading-relaxed">{p.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
 
         {/* Go deeper */}
-        <ScrollReveal variant="fade-up" className="rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 dark:from-night-800 dark:via-night-850 dark:to-night-950 text-white p-7 sm:p-12 border border-navy-700 dark:border-white/10 shadow-lift relative overflow-hidden">
-          <div className="absolute top-0 left-0 h-1 w-full bg-brand-tri" aria-hidden="true" />
-          <div className="max-w-2xl space-y-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">{c.deeperTitle}</h2>
-            <p className="text-sm sm:text-base text-slate-200/90 leading-relaxed">{c.deeperText}</p>
-            <div className="flex flex-col sm:flex-row gap-3 pt-1">
-              <Link href="/blog" className="btn-sheen inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-rust hover:bg-rust-light text-white text-sm font-bold shadow-cta">
-                <span>{c.blogCta}</span>
+        <section className="fs-rule grid grid-cols-1 lg:grid-cols-12 gap-6 border-t border-ink/15 dark:border-white/15 pt-10">
+          <div data-reveal className="lg:col-span-9 lg:col-start-4 max-w-3xl space-y-5">
+            <h2 className="text-3xl sm:text-[2.6rem] font-bold font-display leading-[1.1] text-ink dark:text-white">{c.deeperTitle}</h2>
+            <p className="lede text-slate-700 dark:text-slate-300">{c.deeperText}</p>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
+              <Link href="/blog" className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white text-sm font-semibold transition-colors">
+                {c.blogCta}
                 <ArrowRight className="w-4 h-4 rtl:rotate-180" />
               </Link>
-              <Link href="/services" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white text-sm font-semibold">
-                <span>{c.servicesCta}</span>
+              <Link href="/services" className="link-arrow text-sm text-ink dark:text-white">
+                {c.servicesCta}
                 <ArrowRight className="w-4 h-4 rtl:rotate-180" />
               </Link>
             </div>
           </div>
-        </ScrollReveal>
-
+        </section>
       </div>
     </div>
   );

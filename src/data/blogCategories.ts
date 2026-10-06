@@ -13,6 +13,21 @@ export const BLOG_CATEGORIES = [
 
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
 
+export const BLOG_CATEGORY_AR: Record<string, string> = {
+  All: "الكل",
+  "Operational Excellence": "التميز التشغيلي",
+  "Strategy & Performance": "الاستراتيجية والأداء",
+  "Lean Six Sigma": "لين ستة سيجما",
+  "Quality & Risk": "الجودة والمخاطر",
+  "ERP & Digital Transformation": "ERP والتحول الرقمي",
+  "People & Change": "الأفراد والتغيير",
+  "Training & Capability": "التدريب وبناء القدرات",
+};
+
+export function categoryLabel(cat: string, lang: string) {
+  return lang === "ar" ? BLOG_CATEGORY_AR[cat] || cat : cat;
+}
+
 export const DEFAULT_BLOG_CATEGORY: BlogCategory = "Operational Excellence";
 
 export const DEFAULT_BLOG_AUTHOR = {

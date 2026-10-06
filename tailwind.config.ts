@@ -47,6 +47,9 @@ const config: Config = {
           dark: "#872A17",
         },
         ink: "#0E1A38",
+        // slate-500 tuned darker so muted text stays above 4.5:1 on the warm paper background
+        slate: { 500: "#566173" },
+        paper: { DEFAULT: "#F7F5F0", deep: "#EFECE4", line: "#DDD8CC" },
         // Navy-tinted dark surfaces (dark mode)
         night: {
           950: "#050B1C",
@@ -83,13 +86,33 @@ const config: Config = {
         body: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
         sans: ["var(--font-body)", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "system-ui", "Roboto", "Arial", "sans-serif"],
       },
+      // Editorial system: almost no elevation. Surfaces are separated by
+      // hairline rules, not shadows; only floating menus keep a soft shadow.
       boxShadow: {
-        card: "0 1px 2px rgba(14,26,56,0.04), 0 8px 24px -12px rgba(14,26,56,0.12)",
-        lift: "0 2px 4px rgba(14,26,56,0.05), 0 22px 44px -18px rgba(31,58,125,0.28)",
-        cta: "0 10px 24px -10px rgba(162,53,30,0.55)",
+        card: "none",
+        lift: "none",
+        cta: "none",
+        xs: "none",
+        sm: "none",
+        DEFAULT: "none",
+        md: "none",
+        lg: "0 18px 40px -24px rgba(14,26,56,0.28)",
+        xl: "0 18px 40px -24px rgba(14,26,56,0.28)",
+        "2xl": "0 24px 48px -24px rgba(14,26,56,0.32)",
+      },
+      // Tight, print-like corners everywhere (pills stay round via rounded-full).
+      borderRadius: {
+        sm: "2px",
+        DEFAULT: "3px",
+        md: "3px",
+        lg: "3px",
+        xl: "4px",
+        "2xl": "4px",
+        "3xl": "6px",
       },
       backgroundImage: {
-        "brand-tri": "linear-gradient(90deg, #1F3A7D 0 33.33%, #82A9E2 33.33% 66.66%, #A2351E 66.66% 100%)",
+        // kept for compatibility; renders as a quiet single hairline now
+        "brand-tri": "linear-gradient(90deg, currentColor, currentColor)",
       },
     },
   },

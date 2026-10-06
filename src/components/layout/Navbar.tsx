@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { 
   Menu, 
   X, 
@@ -45,11 +44,25 @@ export default function Navbar() {
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
+  // Header steps out of the way while reading down, returns as soon as you scroll up.
+  const [isHidden, setIsHidden] = useState(false);
   useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        setIsScrolled(y > 20);
+        if (Math.abs(y - lastY) > 6) {
+          setIsHidden(y > lastY && y > 160);
+          lastY = y;
+        }
+        ticking = false;
+      });
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -100,21 +113,17 @@ export default function Navbar() {
 
   const servicePillars = getServicePillars(language);
   const allServiceItems = getServices(language);
-  const pillarIcons = { consulting: Briefcase, training: Compass, digital: Cpu } as const;
-  const pillarColors = { consulting: "#1F3A7D", training: "#5E86C4", digital: "#A2351E" } as const;
 
   const isDark = theme === "dark";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      {/* Logo tri-color hairline */}
-      <div className="h-[3px] w-full bg-brand-tri" aria-hidden="true" />
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHidden && !mobileMenuOpen && !servicesDropdownOpen ? "-translate-y-full" : "translate-y-0"}`}>
       {/* Main Navbar */}
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white/90 dark:bg-night-900/90 backdrop-blur-xl shadow-[0_8px_30px_-12px_rgba(14,26,56,0.18)] border-b border-slate-200/80 dark:border-white/10 py-2 sm:py-2.5"
-            : "bg-white/60 dark:bg-night-900/50 backdrop-blur-md border-b border-transparent py-3 sm:py-4"
+            ? "bg-canvas/95 backdrop-blur-sm border-b border-ink/10 dark:border-white/10 py-2 sm:py-2.5"
+            : "bg-canvas border-b border-ink/10 dark:border-white/10 py-3 sm:py-4"
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -122,7 +131,7 @@ export default function Navbar() {
             
             {/* Brand Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-105 shrink-0 dark:bg-white dark:rounded-lg dark:ring-4 dark:ring-white">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 shrink-0 dark:bg-white dark:rounded-sm dark:ring-2 dark:ring-white">
                 <Image sizes="56px"
                   src="/images/logo-symbol.png"
                   alt="Factual Solutions Symbol"
@@ -132,17 +141,11 @@ export default function Navbar() {
                 />
               </div>
               <div className="flex flex-col leading-tight min-w-0">
-                <div className="flex items-baseline gap-1 font-display">
-                  <span className="text-sm sm:text-base lg:text-lg font-medium tracking-tight text-ink dark:text-slate-200 truncate">
-                    Factual
-                  </span>
-                  <span className="text-sm sm:text-base lg:text-lg font-extrabold tracking-tight text-navy dark:text-white truncate">
-                    Solutions
+                <div className="flex items-baseline gap-1 font-display" translate="no" dir="ltr">
+                  <span className="text-base sm:text-lg lg:text-[1.35rem] font-bold tracking-[-0.01em] text-ink dark:text-white truncate">
+                    Factual Solutions
                   </span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.14em] text-slate-500 dark:text-steel-light/80 uppercase mt-0.5 truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
-                  {language === "ar" ? "شركاؤكم في التميز المؤسسي" : "Your Business Excellence Partners"}
-                </span>
               </div>
             </Link>
 
@@ -163,10 +166,10 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        className={`relative px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                        className={`relative px-3 py-2 text-[14px] font-medium transition-colors duration-200 flex items-center gap-1.5 ${
                           isActive
-                            ? "text-navy dark:text-white bg-navy/[0.06] dark:bg-white/10 font-bold after:absolute after:left-3.5 after:right-3.5 after:-bottom-[5px] after:h-[2px] after:rounded-full after:bg-rust"
-                            : "text-slate-600 hover:text-navy hover:bg-navy/[0.04] dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
+                            ? "text-ink dark:text-white after:absolute after:left-3 after:right-3 after:bottom-0.5 after:h-px after:bg-ink dark:after:bg-white"
+                            : "text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                         }`}
                       >
                         <span>{link.name}</span>
@@ -174,39 +177,31 @@ export default function Navbar() {
                       </Link>
 
                       {/* SERVICES DROPDOWN */}
-                      <AnimatePresence>
-                        {servicesDropdownOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                            transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="absolute top-full left-0 rtl:left-auto rtl:right-0 mt-2 w-[min(400px,calc(100vw-48px))] max-h-[calc(100vh-110px)] overflow-y-auto rounded-2xl shadow-lift p-3 border bg-white dark:bg-night-850 border-slate-200 dark:border-white/20 text-slate-900 dark:text-white z-[100]"
+                      {servicesDropdownOpen && (
+                          <div
+                            className="fs-menu-in absolute top-full left-0 rtl:left-auto rtl:right-0 mt-3 w-[min(420px,calc(100vw-48px))] max-h-[calc(100vh-110px)] overflow-y-auto shadow-lg p-5 border bg-canvas dark:bg-night-850 border-ink/10 dark:border-white/15 text-slate-900 dark:text-white z-[100]"
                           >
                             <div className="flex flex-col divide-y divide-slate-100 dark:divide-white/10">
                               {servicePillars.map((pillar) => {
-                                const IconComp = pillarIcons[pillar.id];
                                 return (
                                   <div key={pillar.id} className="py-2.5 first:pt-1">
                                     <Link
                                       href={`/services?line=${pillar.id}#${pillar.id}`}
                                       onClick={() => setServicesDropdownOpen(false)}
-                                      className="group/head flex items-center gap-2.5 mb-1.5 px-2"
+                                      className="group/head flex items-baseline gap-2.5 mb-2"
                                     >
-                                      <span className="w-8 h-8 rounded-lg text-white flex items-center justify-center shrink-0 shadow-sm" style={{ backgroundColor: pillarColors[pillar.id] }}>
-                                        <IconComp className="w-4 h-4" />
-                                      </span>
-                                      <span className="font-extrabold text-[13px] text-ink dark:text-white group-hover/head:text-accent transition-colors leading-tight">
+                                      <span className="section-no text-xs">{String(servicePillars.indexOf(pillar) + 1).padStart(2, "0")}</span>
+                                      <span className="font-display font-bold text-[15px] text-ink dark:text-white group-hover/head:text-accent transition-colors leading-tight">
                                         {pillar.title}
                                       </span>
                                     </Link>
-                                    <ul className="flex flex-col ps-10">
+                                    <ul className="flex flex-col ps-7">
                                       {allServiceItems.filter((s) => s.category === pillar.id).map((srv) => (
                                         <li key={srv.id}>
                                           <Link
                                             href={`/services/${srv.id}`}
                                             onClick={() => setServicesDropdownOpen(false)}
-                                            className="block px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white hover:bg-navy-50 dark:hover:bg-white/10 transition-colors"
+                                            className="block py-1 text-[13px] text-slate-600 dark:text-slate-300 hover:text-ink dark:hover:text-white hover:underline underline-offset-4 transition-colors"
                                           >
                                             {srv.title}
                                           </Link>
@@ -231,15 +226,14 @@ export default function Navbar() {
                               <Link
                                 href="/services#quiz"
                                 onClick={() => setServicesDropdownOpen(false)}
-                                className="font-bold text-xs text-slate-800 dark:text-white bg-slate-100 hover:bg-rust hover:text-white dark:bg-white/15 dark:hover:bg-rust px-3 py-1 rounded-full transition-colors flex items-center gap-1 shadow-xs border border-slate-200 dark:border-white/20"
+                                className="link-arrow text-xs text-ink dark:text-white"
                               >
                                 <span>{language === "ar" ? "ساعدني في الاختيار" : "Help Me Choose"}</span>
                                 <ArrowRight className="w-3 h-3 rtl:rotate-180" />
                               </Link>
                             </div>
-                          </motion.div>
+                          </div>
                         )}
-                      </AnimatePresence>
                     </div>
                   );
                 }
@@ -248,10 +242,10 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`relative px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-all duration-200 ${
+                    className={`relative px-3 py-2 text-[14px] font-medium transition-colors duration-200 ${
                       isActive
-                        ? "text-navy dark:text-white bg-navy/[0.06] dark:bg-white/10 font-bold after:absolute after:left-3.5 after:right-3.5 after:-bottom-[5px] after:h-[2px] after:rounded-full after:bg-rust"
-                        : "text-slate-600 hover:text-navy hover:bg-navy/[0.04] dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
+                        ? "text-ink dark:text-white after:absolute after:left-3 after:right-3 after:bottom-0.5 after:h-px after:bg-ink dark:after:bg-white"
+                        : "text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                     }`}
                   >
                     {link.name}
@@ -269,18 +263,18 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors text-slate-700 dark:text-white bg-white hover:bg-navy-50 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15"
+                className="w-8 h-8 flex items-center justify-center transition-colors text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white"
                 title={`Switch to ${isDark ? "Light Mode" : "Dark Mode"}`}
               >
-                {isDark ? <Sun className="w-3.5 h-3.5 text-steel-light" /> : <Moon className="w-3.5 h-3.5 text-navy" />}
+                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
 
               {/* Rust Consultation CTA */}
               <Link
                 href="/contact"
-                className="btn-sheen inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all duration-200 shadow-cta hover:-translate-y-px active:translate-y-0"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink dark:hover:bg-steel-light text-white text-[13px] font-semibold transition-colors"
               >
-                <span>Request Consultation</span>
+                <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
               </Link>
 
@@ -305,11 +299,10 @@ export default function Navbar() {
                 ) : (
                   <button
                     onClick={() => openAuthModal("login")}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-white/5 hover:bg-navy-50 dark:hover:bg-white/10 text-xs font-bold text-ink dark:text-white border border-slate-200 dark:border-white/15 transition-colors"
-                    title="Sign In"
+                    className="inline-flex items-center gap-1.5 py-1.5 text-[13px] font-medium text-slate-600 hover:text-ink dark:text-slate-300 dark:hover:text-white transition-colors"
+                    title={language === "ar" ? "تسجيل الدخول" : "Sign In"}
                   >
-                    <User className="w-3.5 h-3.5 text-navy dark:text-steel" />
-                    <span>Sign In</span>
+                    <span>{language === "ar" ? "تسجيل الدخول" : "Sign in"}</span>
                   </button>
                 )}
 
@@ -329,7 +322,7 @@ export default function Navbar() {
                       >
                         <div className="flex items-center gap-2">
                           <Plus className="w-4 h-4 text-accent" />
-                          <span>Request Consultation</span>
+                          <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
                         </div>
                         <ArrowRight className="w-3 h-3 text-slate-400 dark:text-slate-300" />
                       </Link>
@@ -344,7 +337,7 @@ export default function Navbar() {
                         className="w-full flex items-center gap-2 p-2 rounded-xl text-xs font-semibold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
-                        <span>Sign Out</span>
+                        <span>{language === "ar" ? "تسجيل الخروج" : "Sign Out"}</span>
                       </button>
                     </div>
                   </div>
@@ -360,15 +353,15 @@ export default function Navbar() {
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle Theme"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-slate-700 dark:text-white bg-white hover:bg-navy-50 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 shrink-0"
+                className="w-8 h-8 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0"
               >
-                {isDark ? <Sun className="w-3.5 h-3.5 text-steel-light" /> : <Moon className="w-3.5 h-3.5 text-navy" />}
+                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 rounded-lg text-slate-800 dark:text-white bg-slate-100/90 dark:bg-white/10 border border-slate-200/80 dark:border-white/20 shadow-xs shrink-0"
-                aria-label="Toggle Menu"
+                className="p-1.5 text-ink dark:text-white shrink-0"
+                aria-label={language === "ar" ? "القائمة" : "Toggle Menu"}
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -380,15 +373,15 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b shadow-lift p-5 space-y-3 bg-white dark:bg-night-900 backdrop-blur-2xl border-slate-200 dark:border-white/20 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
-          <div className="flex flex-col space-y-1.5">
+        <div className="lg:hidden border-b p-5 space-y-3 bg-canvas dark:bg-night-900 border-ink/10 dark:border-white/15 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
+          <div className="flex flex-col divide-y divide-ink/10 dark:divide-white/10">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+              className={`py-3 font-display text-lg font-bold transition-colors ${
                 pathname === "/"
-                  ? "bg-navy/[0.06] text-navy dark:bg-white/10 dark:text-white font-bold border-s-[3px] border-rust"
-                  : "text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/10"
+                  ? "text-accent"
+                  : "text-ink dark:text-white hover:text-accent"
               }`}
             >
               {language === "ar" ? "الرئيسية" : "Home"}
@@ -400,10 +393,10 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                  className={`py-3 font-display text-lg font-bold transition-colors ${
                     isActive
-                      ? "bg-navy/[0.06] text-navy dark:bg-white/10 dark:text-white font-bold border-s-[3px] border-rust"
-                      : "text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/10"
+                      ? "text-accent"
+                      : "text-ink dark:text-white hover:text-accent"
                   }`}
                 >
                   {link.name}
@@ -438,16 +431,16 @@ export default function Navbar() {
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-200 dark:border-white/20 text-slate-800 dark:text-white font-bold text-xs shadow-xs"
               >
                 <User className="w-3.5 h-3.5 text-accent" />
-                <span>Client Sign In</span>
+                <span>{language === "ar" ? "دخول العملاء" : "Client Sign In"}</span>
               </button>
             )}
 
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-rust hover:bg-rust-dark text-white font-bold text-sm shadow-cta"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white font-semibold text-sm"
             >
-              <span>Request Consultation</span>
+              <span>{language === "ar" ? "طلب استشارة" : "Request Consultation"}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             </Link>
           </div>

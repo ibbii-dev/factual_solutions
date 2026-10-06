@@ -1,18 +1,37 @@
 "use client";
 
-import React from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import React, { useEffect, useRef } from "react";
 
-/** Thin brand-colored reading-progress bar pinned to the top of the viewport. */
+/** Thin rust reading-progress line pinned to the top of the viewport (rAF, no animation library). */
 export default function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.3 });
-
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const el = ref.current;
+      if (!el) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      el.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
   return (
-    <motion.div
+    <div
+      ref={ref}
       aria-hidden="true"
-      style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 h-[3px] z-[60] origin-left rtl:origin-right bg-gradient-to-r from-navy via-steel to-rust pointer-events-none"
+      style={{ transform: "scaleX(0)" }}
+      className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left rtl:origin-right bg-rust pointer-events-none transition-transform duration-150 ease-out"
     />
   );
 }

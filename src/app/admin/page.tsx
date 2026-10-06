@@ -48,6 +48,7 @@ import {
   Quote
 } from "lucide-react";
 import { IInquiry, IInquiryReply, IBlogPost } from "@/models";
+import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER, calculateReadTime } from "@/data/blogCategories";
 
 interface Subscriber {
@@ -109,6 +110,9 @@ export default function AdminPage() {
     focusKeyword: ""
   };
   const pendingStatusRef = useRef<"published" | "draft" | null>(null);
+  const addInquiryCaptchaRef = useRef<GoogleRecaptchaHandle>(null);
+  const [addInquiryToken, setAddInquiryToken] = useState<string | null>(null);
+  const [addInquiryError, setAddInquiryError] = useState("");
 
   const [blogFormData, setBlogFormData] = useState(initialBlogForm);
 
@@ -546,14 +550,25 @@ Invite the reader to get in touch or explore a related service.`;
   const handleAddInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newInquiryData.fullName || !newInquiryData.workEmail) return;
+    if (RECAPTCHA_ENABLED && !addInquiryToken) {
+      setAddInquiryError("Please tick \"I'm not a robot\" first.");
+      return;
+    }
+    setAddInquiryError("");
 
     try {
       const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newInquiryData)
+        body: JSON.stringify({ ...newInquiryData, recaptchaToken: addInquiryToken })
       });
       const data = await res.json();
+      addInquiryCaptchaRef.current?.reset();
+      setAddInquiryToken(null);
+      if (!res.ok || !data.success) {
+        setAddInquiryError(data.message || "Could not save the inquiry.");
+        return;
+      }
       if (data.success && data.data) {
         setInquiries((prev) => [data.data, ...prev]);
         setShowAddModal(false);
@@ -2433,6 +2448,16 @@ Invite the reader to get in touch or explore a related service.`;
                   className="w-full px-3.5 py-2.5 rounded-xl bg-night-950 border border-slate-700 text-white"
                 />
               </div>
+
+              <GoogleRecaptcha
+                ref={addInquiryCaptchaRef}
+                theme="dark"
+                onVerify={(token) => {
+                  setAddInquiryToken(token);
+                  if (token) setAddInquiryError("");
+                }}
+              />
+              {addInquiryError && <p role="alert" className="text-[11px] text-rose-300 font-semibold">{addInquiryError}</p>}
 
               <div className="pt-2 flex justify-end gap-2">
                 <button

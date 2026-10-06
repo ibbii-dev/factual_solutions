@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, CheckCircle2, RotateCcw } from "lucide-react";
+import { ArrowRight, RotateCcw } from "lucide-react";
 import { getServices, ServiceItem } from "@/data/servicesData";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -86,125 +85,67 @@ export default function ServiceMatcherQuiz() {
     setRecommendedService(null);
   };
 
+  const rowBtn = "w-full flex items-center justify-between gap-4 py-4 border-b border-ink/10 dark:border-white/10 text-start text-[15px] text-ink dark:text-white hover:text-accent transition-colors group";
+
   return (
-    <div id="quiz" className="bg-white dark:bg-night-800/80 text-ink dark:text-white rounded-3xl p-8 sm:p-12 shadow-lift border border-slate-200/80 dark:border-white/10 relative overflow-hidden transition-colors">
-      {/* Background Decorators */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-steel/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-rust/15 rounded-full blur-3xl pointer-events-none" />
+    <section id="quiz" className="fs-rule scroll-mt-28 grid grid-cols-1 lg:grid-cols-12 gap-6 border-t border-ink/15 dark:border-white/15 pt-10">
+      <p className="lg:col-span-3 eyebrow pt-2">{labels.badge}</p>
+      <div data-reveal className="lg:col-span-9 max-w-3xl space-y-6">
+        <h2 className="text-3xl sm:text-[2.6rem] font-bold font-display leading-[1.1] text-ink dark:text-white">{labels.title}</h2>
 
-      <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
-        
-        {/* Header */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 text-ink dark:text-white text-xs font-bold uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5 text-accent" />
-          <span>{labels.badge}</span>
-        </div>
-
-        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-ink dark:text-white">
-          {labels.title}
-        </h3>
-
-        {/* Step 1: Bottleneck */}
         {step === 1 && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4 pt-2"
-          >
-            <p className="text-sm text-slate-600 dark:text-slate-200 font-medium">
-              {labels.step1Title}
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-start">
+          <div className="space-y-2">
+            <p className="text-sm text-slate-600 dark:text-slate-400">{labels.step1Title}</p>
+            <div className="border-t border-ink/15 dark:border-white/15">
               {labels.challenges.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleSelectChallenge(item.id)}
-                  className="p-4 rounded-2xl bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/40 text-xs font-semibold text-ink dark:text-white transition-all text-start flex items-center justify-between group shadow-xs"
-                >
+                <button key={item.id} onClick={() => handleSelectChallenge(item.id)} className={rowBtn}>
                   <span>{item.label}</span>
-                  <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-accent rtl:rotate-180 shrink-0" />
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
         )}
 
-        {/* Step 2: Urgency */}
         {step === 2 && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4 pt-2"
-          >
-            <p className="text-sm text-slate-600 dark:text-slate-200 font-medium">
-              {labels.step2Title}
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="space-y-2">
+            <p className="text-sm text-slate-600 dark:text-slate-400">{labels.step2Title}</p>
+            <div className="border-t border-ink/15 dark:border-white/15">
               {labels.timeframes.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleSelectUrgency(item.id)}
-                  className="p-4 rounded-2xl bg-slate-100/90 dark:bg-white/10 hover:bg-rust/20 border border-slate-200/80 dark:border-white/10 hover:border-accent/60 text-xs font-semibold text-ink dark:text-white transition-all text-center shadow-xs"
-                >
-                  {item.label}
+                <button key={item.id} onClick={() => handleSelectUrgency(item.id)} className={rowBtn}>
+                  <span>{item.label}</span>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-accent rtl:rotate-180 shrink-0" />
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
         )}
 
-        {/* Step 3: Recommendation Result */}
         {step === 3 && recommendedService && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-slate-50 dark:bg-night-900/85 backdrop-blur-md text-ink dark:text-white rounded-2xl p-6 sm:p-8 text-start space-y-4 shadow-lift border border-slate-200 dark:border-white/10"
-          >
+          <div className="border-t border-ink/15 dark:border-white/15 pt-6 space-y-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />
-                <span className="text-xs uppercase font-bold text-slate-600 dark:text-slate-300 tracking-wider">
-                  {labels.recTag}
-                </span>
-              </div>
-              <button
-                onClick={handleReset}
-                className="text-xs text-slate-500 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1 font-medium transition-colors"
-              >
+              <p className="text-xs uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400">{labels.recTag}</p>
+              <button onClick={handleReset} className="text-sm text-slate-500 hover:text-ink dark:hover:text-white inline-flex items-center gap-1.5">
                 <RotateCcw className="w-3.5 h-3.5" /> {labels.retake}
               </button>
             </div>
-
-            <div>
-              <div className="inline-block px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-white/15 text-ink dark:text-white font-bold text-[11px] uppercase mb-2 border border-slate-300 dark:border-white/10">
-                {language === "ar" ? "ممارسة استشارية متخصصة" : "Advisory Practice"}
-              </div>
-              <h4 className="text-xl font-extrabold text-ink dark:text-white font-display">
-                {recommendedService.title}
-              </h4>
-              <p className="text-xs text-slate-600 dark:text-slate-100 mt-1.5 leading-relaxed font-medium">
-                {recommendedService.shortDescription}
-              </p>
-            </div>
-
-            <div className="p-3 bg-white dark:bg-white/10 rounded-xl border border-slate-200 dark:border-white/15 flex items-center justify-between text-xs">
-              <span className="font-medium text-slate-600 dark:text-slate-200">{labels.roiLabel}</span>
-              <span className="font-bold text-navy dark:text-steel-light">{recommendedService.metrics}</span>
-            </div>
-
-            <div className="pt-2 flex flex-col sm:flex-row gap-3">
+            <h3 className="text-2xl font-bold font-display text-ink dark:text-white">{recommendedService.title}</h3>
+            <p className="text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed">{recommendedService.shortDescription}</p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
               <Link
                 href={`/contact?service=${encodeURIComponent(recommendedService.title)}`}
-                className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-colors shadow-cta"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white text-sm font-semibold transition-colors"
               >
-                <span>{labels.bookBtn}</span>
-                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+                {labels.bookBtn}
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+              </Link>
+              <Link href={`/services/${recommendedService.id}`} className="link-arrow text-sm text-ink dark:text-white">
+                {language === "ar" ? "تفاصيل الخدمة" : "View details"}
               </Link>
             </div>
-          </motion.div>
+          </div>
         )}
-
       </div>
-    </div>
+    </section>
   );
 }

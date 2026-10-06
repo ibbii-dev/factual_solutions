@@ -5,9 +5,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { UserAuthProvider } from "@/context/UserAuthContext";
-import AuthModal from "@/components/auth/AuthModal";
+import AuthModal from "@/components/auth/AuthModalLazy";
 import SiteShell from "@/components/layout/SiteShell";
 import { contactDetails } from "@/data/companyData";
+import { LANG_BOOT_SCRIPT } from "@/lib/i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://factual-solutions.vercel.app";
 
@@ -101,6 +102,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: LANG_BOOT_SCRIPT }} />
         <script
           dangerouslySetInnerHTML={{
             __html: `

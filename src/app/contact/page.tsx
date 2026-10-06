@@ -21,9 +21,9 @@ import { officeLocations, contactDetails } from "@/data/companyData";
 import { allServices } from "@/data/servicesData";
 import { saveInquiry } from "@/data/inquiriesStore";
 import { useLanguage } from "@/context/LanguageContext";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import PageHeader from "@/components/ui/PageHeader";
 import PartnerBookingWidget from "@/components/calendar/PartnerBookingWidget";
-import GoogleRecaptcha from "@/components/ui/GoogleRecaptcha";
+import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 
 interface AiAssessmentData {
   clientName: string;
@@ -57,6 +57,8 @@ function ContactContent() {
   const [activeMode, setActiveMode] = useState<"inquiry" | "calendar">("inquiry");
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const recaptchaRef = useRef<GoogleRecaptchaHandle>(null);
 
   useEffect(() => {
     if (prefilledService) {
@@ -78,11 +80,11 @@ function ContactContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!recaptchaToken) {
+    if (RECAPTCHA_ENABLED && !recaptchaToken) {
       setCaptchaError(
         language === "ar"
-          ? "يرجى تأكيد التحقق الأمني عبر Google reCAPTCHA أدناه قبل الإرسال."
-          : "Please complete the Google reCAPTCHA verification below before submitting."
+          ? "يرجى تأكيد التحقق الأمني (أنا لست روبوتاً) قبل الإرسال."
+          : "Please tick \"I'm not a robot\" before sending."
       );
       return;
     }
@@ -99,26 +101,40 @@ function ContactContent() {
       message: formData.message,
     };
 
-    saveInquiry(payload);
-
     try {
       const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ ...payload, recaptchaToken, website: honeypot }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        recaptchaRef.current?.reset();
+        setRecaptchaToken(null);
+        setCaptchaError(
+          data.message ||
+            (language === "ar" ? "تعذر إرسال الرسالة. حاول مرة أخرى." : "We couldn't send your message. Please try again.")
+        );
+        setIsSubmitting(false);
+        return;
+      }
+      saveInquiry(payload);
       if (data.aiAssessment) {
         setAiAssessment(data.aiAssessment);
       }
     } catch (err) {
       console.error("API error:", err);
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+      setCaptchaError(
+        language === "ar" ? "تعذر الاتصال. تحقق من الإنترنت وحاول مرة أخرى." : "Connection problem. Please check your internet and try again."
+      );
+      setIsSubmitting(false);
+      return;
     }
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 400);
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   const selectService = (serviceTitle: string) => {
@@ -127,64 +143,40 @@ function ContactContent() {
   };
 
   return (
-    <div className="pt-24 sm:pt-32 pb-20 sm:pb-24 min-h-screen bg-transparent text-ink dark:text-white transition-colors duration-300">
+    <div className="pb-20 sm:pb-24 min-h-screen text-ink dark:text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Page Hero */}
-        {/* Page Hero */}
-        <ScrollReveal variant="fade-up" className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/5 text-navy dark:text-steel-light border border-navy/10 dark:border-white/10 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest shadow-xs">
-            <span>CONTACT US</span>
-          </div>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-ink dark:text-white leading-tight font-display">
-            {c.headline}
-          </h1>
-          <p className="text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-100 max-w-2xl mx-auto leading-relaxed font-medium">
-            {c.subheadline}
-          </p>
-
-          {/* Mode Switcher Tabs */}
-          <div className="pt-4 flex items-center justify-center">
-            <div className="inline-flex p-1 rounded-2xl bg-slate-100/90 dark:bg-night-800/75 backdrop-blur-md border border-slate-200/80 dark:border-white/10 shadow-md">
+        <PageHeader eyebrow={language === "ar" ? "تواصل معنا" : "Contact us"} title={c.headline} lede={c.subheadline}>
+          <div className="flex flex-wrap gap-x-8 gap-y-2 pt-2" role="tablist">
+            {([["inquiry", language === "ar" ? "أرسل رسالة" : "Send a message"], ["calendar", language === "ar" ? "احجز نقاشاً" : "Book a discussion"]] as const).map(([mode, label]) => (
               <button
+                key={mode}
                 type="button"
-                onClick={() => setActiveMode("inquiry")}
-                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                  activeMode === "inquiry"
-                    ? "bg-rust text-white shadow-xs"
-                    : "text-slate-600 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white"
+                role="tab"
+                aria-selected={activeMode === mode}
+                onClick={() => setActiveMode(mode)}
+                className={`py-1 text-[15px] border-b transition-colors ${
+                  activeMode === mode
+                    ? "border-ink text-ink dark:border-white dark:text-white font-semibold"
+                    : "border-transparent text-slate-500 hover:text-ink dark:text-slate-400 dark:hover:text-white"
                 }`}
               >
-                <Bot className="w-3.5 h-3.5 text-accent" />
-                <span>Send a Message</span>
+                {label}
               </button>
-
-              <button
-                type="button"
-                onClick={() => setActiveMode("calendar")}
-                className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                  activeMode === "calendar"
-                    ? "bg-rust text-white shadow-xs"
-                    : "text-slate-600 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white"
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Book a Discussion</span>
-              </button>
-            </div>
+            ))}
           </div>
-        </ScrollReveal>
+        </PageHeader>
 
         {activeMode === "calendar" ? (
-          <div className="max-w-4xl mx-auto mb-16">
+          <div className="max-w-4xl mb-16">
             <PartnerBookingWidget />
           </div>
         ) : (
           /* Form and Hub Details Grid */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start mb-16">
             
             {/* Left: Consultation Form (7 cols) */}
-            <ScrollReveal variant="fade-up" delay={0.1} duration={0.65} className="lg:col-span-7 bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-card border border-slate-200/80 dark:border-white/10 text-ink dark:text-white">
+            <div className="lg:col-span-7 text-ink dark:text-white">
               {submitted ? (
               <div className="py-6 space-y-6 text-left">
                 <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300">
@@ -263,20 +255,20 @@ function ContactContent() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-7">
                 <div>
-                  <h2 className="text-lg font-bold text-ink dark:text-white mb-0.5 font-display">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white mb-2 font-display">
                     {c.formTitle}
                   </h2>
-                  <p className="text-xs text-slate-600 dark:text-slate-200">
+                  <p className="text-[15px] text-slate-600 dark:text-slate-400">
                     {c.formSubtitle}
                   </p>
                 </div>
 
                 {/* Name & Work Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {c.fullNameLabel}
                     </label>
                     <input
@@ -285,12 +277,12 @@ function ContactContent() {
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder={language === "ar" ? "الاسم الكريم" : "Your Name"}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust transition-all"
+                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {c.emailLabel}
                     </label>
                     <input
@@ -299,15 +291,15 @@ function ContactContent() {
                       value={formData.workEmail}
                       onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
                       placeholder="name@company.com"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust transition-all"
+                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Company & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {c.companyLabel}
                     </label>
                     <input
@@ -315,12 +307,12 @@ function ContactContent() {
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       placeholder="Company / Enterprise"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust transition-all"
+                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                    <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                       {c.phoneLabel}
                     </label>
                     <input
@@ -328,20 +320,20 @@ function ContactContent() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+92 300 000 0000"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust transition-all"
+                      className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Service of Interest Dropdown */}
                 <div className="space-y-1 relative" ref={dropdownRef}>
-                  <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                  <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                     {c.serviceLabel}
                   </label>
                   
                   <div
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white cursor-pointer flex items-center justify-between"
+                    className="w-full py-2.5 bg-transparent border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white cursor-pointer flex items-center justify-between"
                   >
                     <span className={formData.serviceOfInterest ? "text-ink dark:text-white font-medium" : "text-slate-500 dark:text-slate-300"}>
                       {formData.serviceOfInterest || (language === "ar" ? "اختر الخدمة المطلوبة" : "Select Service Area")}
@@ -350,12 +342,12 @@ function ContactContent() {
                   </div>
 
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-1.5 rounded-xl bg-white dark:bg-night-900/95 backdrop-blur-2xl border border-slate-200 dark:border-white/10 shadow-lift p-2 z-50 max-h-72 overflow-y-auto space-y-0.5">
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-canvas dark:bg-night-900 border border-ink/10 dark:border-white/15 shadow-lg p-1 z-50 max-h-72 overflow-y-auto">
                       {allServices.map((srv) => (
                         <div
                           key={srv.id}
                           onClick={() => selectService(srv.title)}
-                          className={`px-3 py-2 rounded-lg text-xs flex items-center justify-between cursor-pointer transition-colors ${
+                          className={`px-3 py-2 text-sm flex items-center justify-between cursor-pointer transition-colors ${
                             formData.serviceOfInterest === srv.title
                               ? "bg-slate-200 dark:bg-white/20 text-ink dark:text-white font-bold"
                               : "hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200"
@@ -371,7 +363,7 @@ function ContactContent() {
 
                 {/* Message */}
                 <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                  <label className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
                     {c.messageLabel}
                   </label>
                   <textarea
@@ -380,13 +372,21 @@ function ContactContent() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder={language === "ar" ? "اشرح احتياجات مشروعك وأهداف العمل..." : "Briefly describe your requirements or strategic objectives..."}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-300 focus:outline-none focus:border-rust transition-all resize-none"
+                    className="w-full px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white transition-colors resize-none"
                   />
                 </div>
 
                 {/* Google reCAPTCHA Security Verification */}
                 <div className="pt-1">
+                  {/* Honeypot: hidden from people, bots fill it in */}
+                  <div aria-hidden="true" className="absolute left-0 top-0 opacity-0 pointer-events-none -z-10 w-px h-px overflow-hidden">
+                    <label>
+                      Website
+                      <input type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                    </label>
+                  </div>
                   <GoogleRecaptcha
+                    ref={recaptchaRef}
                     language={language}
                     onVerify={(token) => {
                       setRecaptchaToken(token);
@@ -403,119 +403,64 @@ function ContactContent() {
                 {/* Submit CTA */}
                 <button
                   type="submit"
-                  disabled={isSubmitting || !recaptchaToken}
-                  className="w-full py-3 rounded-full bg-rust hover:bg-rust-dark text-white text-xs font-bold transition-all duration-200 shadow-lg flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting || (RECAPTCHA_ENABLED && !recaptchaToken)}
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-ink hover:bg-navy dark:bg-white dark:text-ink text-white text-sm font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span>{isSubmitting ? (language === "ar" ? "جارٍ الإرسال والتحليل الذكي..." : "Submitting & Generating Assessment...") : c.submitButton}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:group-hover:-translate-x-1 rtl:rotate-180" />
                 </button>
 
-                <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                   <ShieldCheck className="w-3.5 h-3.5 text-accent" />
                   <span>{c.confidentialNote}</span>
                 </div>
               </form>
             )}
-          </ScrollReveal>
+          </div>
 
-          {/* Right: Contact Details (5 cols) */}
-          <ScrollReveal variant="fade-up" delay={0.2} duration={0.65} className="lg:col-span-5 space-y-6">
-            
-            {/* Direct Contact Card */}
-            <div className="bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-7 shadow-card border border-slate-200/80 dark:border-white/10 space-y-4 text-ink dark:text-white">
-              <h3 className="text-base font-bold text-ink dark:text-white font-display">
-                {c.directContactTitle}
-              </h3>
-              
-              <div className="space-y-3">
-                <a
-                  href={`mailto:${contactDetails.email}`}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/40 transition-colors shadow-xs group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-rust/20 text-accent flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-300 uppercase font-semibold">
-                      {c.corporateEmail}
-                    </div>
-                    <div className="text-xs font-bold text-ink dark:text-white group-hover:text-accent transition-colors">
-                      {contactDetails.email}
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href={`tel:${contactDetails.phone.replace(/\s+/g, '')}`}
-                  className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/40 transition-colors shadow-xs group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-slate-200 dark:bg-white/15 text-ink dark:text-white flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-300 uppercase font-semibold">
-                      {c.directPhone}
-                    </div>
-                    <div className="text-xs font-bold text-ink dark:text-white group-hover:text-accent transition-colors">
+          {/* Right: direct details, set as a simple list */}
+          <aside className="lg:col-span-4 lg:col-start-9 space-y-10 text-ink dark:text-white">
+            <div className="space-y-4">
+              <h3 className="font-sans text-[11px] uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400">{c.directContactTitle}</h3>
+              <dl className="border-t border-ink/15 dark:border-white/15">
+                <div className="py-4 border-b border-ink/10 dark:border-white/10">
+                  <dt className="text-[13px] text-slate-500 dark:text-slate-400">{c.corporateEmail}</dt>
+                  <dd><a href={`mailto:${contactDetails.email}`} className="text-[17px] font-semibold hover:underline underline-offset-4 break-all">{contactDetails.email}</a></dd>
+                </div>
+                <div className="py-4 border-b border-ink/10 dark:border-white/10">
+                  <dt className="text-[13px] text-slate-500 dark:text-slate-400">{c.directPhone}</dt>
+                  <dd><a href={`tel:${contactDetails.phone.replace(/\s+/g, "")}`} dir="ltr" className="text-[17px] font-semibold hover:underline underline-offset-4">{contactDetails.phone}</a></dd>
+                </div>
+                <div className="py-4 border-b border-ink/10 dark:border-white/10">
+                  <dt className="text-[13px] text-slate-500 dark:text-slate-400">{language === "ar" ? "واتساب" : "WhatsApp"}</dt>
+                  <dd>
+                    <a
+                      href={`https://wa.me/${contactDetails.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(language === "ar" ? "مرحباً فاكتشوال سوليوشنز، أود الاستفسار عن استشارات الأعمال." : "Hello Factual Solutions, I would like to inquire about your business consulting services.")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      dir="ltr"
+                      className="text-[17px] font-semibold hover:underline underline-offset-4"
+                    >
                       {contactDetails.phone}
-                    </div>
-                  </div>
-                </a>
-
-                {/* WhatsApp Quick Direct Connect */}
-                <a
-                  href={`https://wa.me/${contactDetails.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(language === "ar" ? "مرحباً فاكتشوال سوليوشنز، أود الاستفسار عن استشارات الأعمال." : "Hello Factual Solutions, I would like to inquire about your business consulting services.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-3 p-3 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/30 hover:border-emerald-400 transition-colors group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.301-.15-1.781-.879-2.057-.98-.276-.1-.477-.15-.678.15-.201.3-.778.98-.954 1.18-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.495-.896-.799-1.501-1.787-1.677-2.088-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.201-.301.301-.502.1-.201.05-.376-.025-.527-.075-.15-.678-1.634-.929-2.237-.245-.588-.494-.508-.678-.517l-.578-.01c-.201 0-.527.075-.803.376s-1.054 1.03-1.054 2.511c0 1.482 1.079 2.912 1.23 3.113.15.201 2.123 3.242 5.143 4.547.718.31 1.279.496 1.716.635.722.23 1.379.197 1.898.12.578-.087 1.781-.728 2.032-1.431.251-.703.251-1.305.175-1.431-.075-.125-.276-.201-.577-.351zM12.042 21.996h-.008a9.93 9.93 0 0 1-5.068-1.391l-.364-.216-3.766.988 1.005-3.67-.237-.378a9.92 9.92 0 0 1-1.523-5.275c0-5.485 4.464-9.95 9.955-9.95 2.657 0 5.155 1.036 7.032 2.915a9.88 9.88 0 0 1 2.913 7.034c0 5.487-4.465 9.953-9.957 9.953z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-emerald-600 dark:text-emerald-300 uppercase font-semibold">
-                      {language === "ar" ? "واتساب المباشر" : "WhatsApp Quick Chat"}
-                    </div>
-                    <div className="text-xs font-bold text-ink dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                      {contactDetails.phone}
-                    </div>
-                  </div>
-                </a>
-              </div>
+                    </a>
+                  </dd>
+                </div>
+              </dl>
             </div>
 
-            {/* Office Locations */}
-            <div className="bg-white dark:bg-night-800/80 rounded-2xl p-6 sm:p-7 shadow-card border border-slate-200/80 dark:border-white/10 space-y-4 text-ink dark:text-white">
-              <h3 className="text-base font-bold text-ink dark:text-white font-display">
-                {c.headOfficeTitle}
-              </h3>
-              
-              <div className="space-y-2.5">
-                {officeLocations.map((loc) => (
-                  <div
-                    key={loc.city}
-                    className="p-3 rounded-xl bg-slate-50 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 shadow-xs space-y-1"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="font-bold text-xs text-ink dark:text-white flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-accent shrink-0" />
-                        <span>{language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}</span>
-                      </div>
-                      <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-rust/20 text-accent border border-accent/30">
-                        {language === "ar" ? "المقر الرئيسي" : loc.tag}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-slate-600 dark:text-slate-200 pl-5 font-medium">
-                      {loc.address}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="space-y-4">
+              <h3 className="font-sans text-[11px] uppercase font-semibold tracking-[0.14em] text-slate-500 dark:text-slate-400">{c.headOfficeTitle}</h3>
+              {officeLocations.map((loc) => (
+                <address key={loc.city} className="not-italic border-t border-ink/15 dark:border-white/15 pt-4 space-y-1">
+                  <p className="text-[17px] font-semibold flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-slate-400 shrink-0" aria-hidden="true" />
+                    {language === "ar" ? "لاهور، باكستان" : `${loc.city}, ${loc.country}`}
+                  </p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 ps-6">{loc.address}</p>
+                </address>
+              ))}
             </div>
-
-          </ScrollReveal>
+          </aside>
 
         </div>
       )}

@@ -9,20 +9,11 @@ import ConsultationBanner from "@/components/home/ConsultationBanner";
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen text-ink dark:text-white overflow-hidden bg-transparent">
-      {/* 1. Hero: who we are + primary CTA */}
+    <div className="relative text-ink dark:text-white">
       <HeroSection />
-
-      {/* 2. Clear navigation into the three service lines */}
       <ServiceLinesStrip />
-
-      {/* 3. Blog: featured post, recent posts, sidebar (search, categories, newsletter, author) */}
-      <LatestInsightsSection />
-
-      {/* 4. Industries served */}
       <IndustrySectorsSection />
-
-      {/* 5. Closing call to action */}
+      <LatestInsightsSection />
       <ConsultationBanner />
     </div>
   );

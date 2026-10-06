@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendLeadNotification } from "@/lib/emailService";
 import { generateAiAutoReply } from "@/lib/aiAgentService";
 import { dbSaveInquiry, dbGetInquiries, DatabaseInquiry } from "@/lib/mongodb";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 export async function GET(request: NextRequest) {
   try {
@@ -28,9 +29,23 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fullName, workEmail, companyName, phone, serviceOfInterest, message, priority } = body;
+    const { fullName, workEmail, companyName, phone, serviceOfInterest, message, priority, recaptchaToken, website } = body;
 
-    if (!fullName || !workEmail) {
+    // Honeypot: real visitors never see or fill this field.
+    if (typeof website === "string" && website.trim() !== "") {
+      return NextResponse.json({ success: true, message: "Thank you." });
+    }
+
+    const captcha = await verifyRecaptcha(recaptchaToken, request.headers);
+    if (!captcha.ok) {
+      return NextResponse.json(
+        { success: false, code: "RECAPTCHA_FAILED", message: captcha.message },
+        { status: captcha.status }
+      );
+    }
+
+    const emailOk = typeof workEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(workEmail.trim());
+    if (!fullName || !workEmail || !emailOk || String(fullName).length > 120 || String(message || "").length > 5000) {
       return NextResponse.json(
         { success: false, message: "Full Name and Work Email are required." },
         { status: 400 }

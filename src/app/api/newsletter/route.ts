@@ -20,7 +20,12 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, source } = body;
+    const { email, source, website } = body;
+
+    // Honeypot: silently accept and drop bot submissions.
+    if (typeof website === "string" && website.trim() !== "") {
+      return NextResponse.json({ success: true, message: "Subscribed." });
+    }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !emailRegex.test(email.trim())) {

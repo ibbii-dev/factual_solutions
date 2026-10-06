@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
+import { useLanguage } from "@/context/LanguageContext";
 import { 
   Calendar as CalendarIcon, 
   Clock, 
@@ -66,6 +68,12 @@ export default function PartnerBookingWidget({
     return dates;
   }, []);
 
+  const { language } = useLanguage();
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [bookingError, setBookingError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const recaptchaRef = useRef<GoogleRecaptchaHandle>(null);
+
   const handleConfirmBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedTime || !clientName || !clientEmail) return;
@@ -85,29 +93,49 @@ export default function PartnerBookingWidget({
       id: `FS-CAL-${Math.floor(100000 + Math.random() * 900000)}`
     };
 
+    if (RECAPTCHA_ENABLED && !recaptchaToken) {
+      setBookingError("Please tick \"I'm not a robot\" to confirm the booking.");
+      setIsSubmitting(false);
+      return;
+    }
+    setBookingError("");
+
     try {
-      // Record inquiry in backend
-      await fetch("/api/inquiries", {
+      // Record the booking as an inquiry (verified on the server)
+      const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: clientName,
           workEmail: clientEmail,
-          companyName: clientCompany || "Enterprise Client",
+          companyName: clientCompany || "",
           serviceOfInterest: `Reserved: ${selectedMeetingType} (${bookingDetails.date} at ${selectedTime})`,
-          message: `Client reserved a 30-minute discovery consultation on ${bookingDetails.date} at ${selectedTime} (${selectedTimezone}). Ref: ${bookingDetails.id}`
+          message: `Client reserved a 30-minute discovery consultation on ${bookingDetails.date} at ${selectedTime} (${selectedTimezone}). Ref: ${bookingDetails.id}`,
+          recaptchaToken,
+          website: honeypot,
         })
       });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        recaptchaRef.current?.reset();
+        setRecaptchaToken(null);
+        setBookingError(data.message || "We couldn't confirm the booking. Please try again.");
+        setIsSubmitting(false);
+        return;
+      }
     } catch (e) {
       console.error("Booking sync error:", e);
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+      setBookingError("Connection problem. Please check your internet and try again.");
+      setIsSubmitting(false);
+      return;
     }
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsBooked(true);
-      setBookingConfirmation(bookingDetails);
-      if (onBookingComplete) onBookingComplete(bookingDetails);
-    }, 600);
+    setIsSubmitting(false);
+    setIsBooked(true);
+    setBookingConfirmation(bookingDetails);
+    if (onBookingComplete) onBookingComplete(bookingDetails);
   };
 
   if (isBooked && bookingConfirmation) {
@@ -163,16 +191,12 @@ export default function PartnerBookingWidget({
   }
 
   return (
-    <div className={`bg-white dark:bg-transparent backdrop-blur-md rounded-3xl border border-slate-200/90 dark:border-white/15 shadow-card overflow-hidden ${compact ? 'p-4 sm:p-5' : 'p-6 sm:p-8'}`}>
+    <div className={`border-t-2 border-ink dark:border-white ${compact ? 'pt-4' : 'pt-6'}`}>
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100 dark:border-slate-800">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-xl bg-rust/10 text-accent text-[10px] font-bold uppercase tracking-wider">
-            <Sparkles className="w-3 h-3" />
-            <span>DIRECT PARTNER CALENDAR</span>
-          </div>
-          <h3 className="text-lg sm:text-xl font-bold font-display text-ink dark:text-white">
+          <h3 className="text-2xl sm:text-3xl font-bold font-display text-ink dark:text-white">
             Schedule a Confidential Consultation
           </h3>
           <p className="text-xs text-slate-500">
@@ -201,7 +225,7 @@ export default function PartnerBookingWidget({
         
         {/* Step 1: Meeting Type */}
         <div className="space-y-2">
-          <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
+          <label className="text-[11px] uppercase font-semibold text-slate-500 dark:text-slate-400 tracking-[0.14em] flex items-center gap-1.5">
             <Video className="w-3.5 h-3.5 text-accent" />
             <span>1. Select a Topic</span>
           </label>
@@ -232,7 +256,7 @@ export default function PartnerBookingWidget({
 
         {/* Step 2: Date Selector */}
         <div className="space-y-2">
-          <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
+          <label className="text-[11px] uppercase font-semibold text-slate-500 dark:text-slate-400 tracking-[0.14em] flex items-center gap-1.5">
             <CalendarIcon className="w-3.5 h-3.5 text-accent" />
             <span>2. Choose Meeting Date</span>
           </label>
@@ -247,7 +271,7 @@ export default function PartnerBookingWidget({
                 }}
                 className={`p-2.5 rounded-xl border text-center transition-all ${
                   selectedDateIndex === idx
-                    ? "bg-rust text-white border-rust shadow-sm scale-102"
+                    ? "bg-ink text-white border-ink dark:bg-white dark:text-ink"
                     : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                 }`}
               >
@@ -264,7 +288,7 @@ export default function PartnerBookingWidget({
 
         {/* Step 3: Time Slot Selector */}
         <div className="space-y-2">
-          <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
+          <label className="text-[11px] uppercase font-semibold text-slate-500 dark:text-slate-400 tracking-[0.14em] flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-accent" />
             <span>3. Available Time Slots</span>
           </label>
@@ -276,7 +300,7 @@ export default function PartnerBookingWidget({
                 onClick={() => setSelectedTime(slot)}
                 className={`py-2 px-1 rounded-xl text-xs font-semibold border transition-all text-center ${
                   selectedTime === slot
-                    ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                    ? "bg-ink text-white border-ink dark:bg-white dark:text-ink"
                     : "bg-white dark:bg-white/5 border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-emerald-500"
                 }`}
               >
@@ -288,7 +312,7 @@ export default function PartnerBookingWidget({
 
         {/* Step 4: Executive Details */}
         <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-white/10">
-          <label className="text-[11px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5">
+          <label className="text-[11px] uppercase font-semibold text-slate-500 dark:text-slate-400 tracking-[0.14em] flex items-center gap-1.5">
             <User className="w-3.5 h-3.5 text-accent" />
             <span>4. Attendee Details</span>
           </label>
@@ -299,7 +323,7 @@ export default function PartnerBookingWidget({
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               placeholder="Your Full Name"
-              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
+              className="px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
             />
             <input
               type="email"
@@ -307,24 +331,45 @@ export default function PartnerBookingWidget({
               value={clientEmail}
               onChange={(e) => setClientEmail(e.target.value)}
               placeholder="Corporate Work Email"
-              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
+              className="px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
             />
             <input
               type="text"
               value={clientCompany}
               onChange={(e) => setClientCompany(e.target.value)}
               placeholder="Company / Enterprise"
-              className="px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rust"
+              className="px-0 py-2.5 bg-transparent border-0 border-b border-ink/25 dark:border-white/25 text-[15px] text-ink dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-ink dark:focus:border-white"
             />
           </div>
         </div>
+
+        {/* Spam protection */}
+        <div aria-hidden="true" className="absolute left-0 top-0 opacity-0 pointer-events-none -z-10 w-px h-px overflow-hidden">
+          <label>
+            Website
+            <input type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+          </label>
+        </div>
+        <GoogleRecaptcha
+          ref={recaptchaRef}
+          language={language}
+          onVerify={(token) => {
+            setRecaptchaToken(token);
+            if (token) setBookingError("");
+          }}
+        />
+        {bookingError && (
+          <p role="alert" className="text-[11px] text-rose-700 dark:text-rose-300 font-semibold">
+            {bookingError}
+          </p>
+        )}
 
         {/* Submit Button */}
         <div className="pt-2">
           <button
             type="submit"
-            disabled={isSubmitting || !selectedTime || !clientName || !clientEmail}
-            className="w-full py-3.5 px-6 rounded-xl bg-rust hover:bg-rust-dark disabled:opacity-50 text-white font-bold text-xs transition-all shadow-cta flex items-center justify-center gap-2 group cursor-pointer"
+            disabled={isSubmitting || !selectedTime || !clientName || !clientEmail || (RECAPTCHA_ENABLED && !recaptchaToken)}
+            className="w-full py-3.5 px-6 bg-ink hover:bg-navy dark:bg-white dark:text-ink disabled:opacity-50 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2 group cursor-pointer"
           >
             <span>
               {isSubmitting
