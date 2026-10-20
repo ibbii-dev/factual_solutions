@@ -610,12 +610,12 @@ Invite the reader to get in touch or explore a related service.`;
       });
       const data = await res.json();
       if (data.success) {
-        setTestEmailFeedback(`✅ ${data.message}`);
+        setTestEmailFeedback(`Success: ${data.message}`);
       } else {
-        setTestEmailFeedback(`⚠️ ${data.message || "Failed to dispatch test email."}`);
+        setTestEmailFeedback(`Warning: ${data.message || "Failed to dispatch test email."}`);
       }
     } catch (err: any) {
-      setTestEmailFeedback(`❌ Error: ${err.message}`);
+      setTestEmailFeedback(`Error: ${err.message}`);
     } finally {
       setIsSendingTestEmail(false);
       setTimeout(() => setTestEmailFeedback(""), 8000);
@@ -646,7 +646,7 @@ Invite the reader to get in touch or explore a related service.`;
       const data = await res.json();
 
       if (data.success) {
-        setReplyFeedback(data.message || `✅ Reply dispatched successfully.`);
+        setReplyFeedback(`Success: ${data.message || "Reply sent."}`);
         
         // Append reply locally in selected inquiry
         const updatedReplies = [...(selectedInquiry.replies || []), data.reply];
@@ -661,10 +661,10 @@ Invite the reader to get in touch or explore a related service.`;
           window.open(data.whatsappUrl, "_blank");
         }
       } else {
-        setReplyFeedback(`⚠️ ${data.message}`);
+        setReplyFeedback(`Warning: ${data.message}`);
       }
     } catch (err: any) {
-      setReplyFeedback(`❌ Error: ${err.message}`);
+      setReplyFeedback(`Error: ${err.message}`);
     } finally {
       setIsSendingReply(false);
       setTimeout(() => setReplyFeedback(""), 9000);
@@ -687,14 +687,14 @@ Invite the reader to get in touch or explore a related service.`;
       const res = await fetch("/api/admin/seed", { method: "POST" });
       const data = await res.json();
       if (data.success) {
-        setSyncMessage(`✅ Atlas Synced: ${JSON.stringify(data.collectionsCreated)}`);
+        setSyncMessage(`Success: database synced (${JSON.stringify(data.collectionsCreated)})`);
         loadInquiries();
         checkHealth();
       } else {
-        setSyncMessage(`⚠️ ${data.message}`);
+        setSyncMessage(`Warning: ${data.message}`);
       }
     } catch (err: any) {
-      setSyncMessage(`❌ Error: ${err.message}`);
+      setSyncMessage(`Error: ${err.message}`);
     } finally {
       setSyncing(false);
       setTimeout(() => setSyncMessage(""), 6000);
@@ -882,7 +882,7 @@ Invite the reader to get in touch or explore a related service.`;
                 required
                 value={authEmail}
                 onChange={(e) => setAuthEmail(e.target.value)}
-                placeholder="admin@factual-solutions.com"
+                placeholder="you@company.com"
                 className="w-full px-4 py-3 rounded-xl bg-bg border border-line text-sm text-heading placeholder:text-muted focus:outline-none focus:border-primary transition-all"
               />
             </div>
@@ -1632,7 +1632,7 @@ Invite the reader to get in touch or explore a related service.`;
                 </div>
 
                 <div className="p-3 rounded-xl bg-bg border border-line text-[11px] text-muted leading-relaxed">
-                  💡 When responding to client inquiries in the <strong>Inquiries tab</strong>, choosing <span className="text-heading font-semibold">Email</span> will automatically format an executive branded advisory email and dispatch it directly to the client's work email address.
+                  Tip: when responding to client inquiries in the <strong>Inquiries tab</strong>, choosing <span className="text-heading font-semibold">Email</span> will automatically format an executive branded advisory email and dispatch it directly to the client's work email address.
                 </div>
               </div>
 
@@ -1673,7 +1673,7 @@ Invite the reader to get in touch or explore a related service.`;
 
                   {testEmailFeedback && (
                     <div className={`text-xs p-2.5 rounded-xl border ${
-                      testEmailFeedback.startsWith("✅")
+                      testEmailFeedback.startsWith("Success")
                         ? "bg-success/10 text-success border-success/20"
                         : "bg-warning/10 text-warning border-warning/20"
                     }`}>
@@ -2279,7 +2279,7 @@ Invite the reader to get in touch or explore a related service.`;
                             : "bg-band text-muted hover:text-heading"
                         }`}
                       >
-                        {ch === "Email" ? "✉️ Official Email" : ch === "WhatsApp" ? "💬 WhatsApp" : "📝 Note"}
+                        {ch === "Email" ? "Email" : ch === "WhatsApp" ? "WhatsApp" : "Internal note"}
                       </button>
                     ))}
                   </div>
@@ -2319,7 +2319,7 @@ Invite the reader to get in touch or explore a related service.`;
 
                 {replyFeedback && (
                   <div className={`text-xs font-medium text-center p-2 rounded-lg ${
-                    replyFeedback.startsWith("✅")
+                    replyFeedback.startsWith("Success")
                       ? "bg-success/10 text-success border border-success/20"
                       : "bg-warning/10 text-warning border border-warning/20"
                   }`}>

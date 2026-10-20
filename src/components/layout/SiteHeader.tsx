@@ -112,7 +112,9 @@ export default function SiteHeader() {
       <header className="sticky top-0 z-40 bg-bg border-b border-line">
         <div className="max-w-7xl mx-auto h-16 lg:h-20 px-4 sm:px-6 lg:px-8 flex items-center gap-4 lg:gap-8">
           <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Factual Solutions home">
-            <Image src="/images/logo-symbol.png" alt="" width={42} height={42} priority className="w-9 h-9 lg:w-[42px] lg:h-[42px]" />
+            <span className="fs-logo-tile shrink-0">
+              <Image src="/images/logo-symbol.png" alt="" width={42} height={42} priority className="w-9 h-9 lg:w-[42px] lg:h-[42px]" />
+            </span>
             <span className="flex flex-col">
               <span className="font-display text-lg leading-tight text-heading">Factual Solutions</span>
               <span className="hidden sm:block text-xs font-semibold uppercase tracking-[0.08em] text-muted">

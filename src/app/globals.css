@@ -81,6 +81,10 @@ select option, select optgroup {
 .fs-page-in { animation: fsPageIn 0.5s var(--ease-out) both; }
 .fs-hero-in { animation: fsPageIn 0.7s var(--ease-out) both; animation-delay: var(--fs-delay, 0s); }
 
+/* Logo symbol: in dark mode it sits on a light tile so the navy piece stays visible. */
+.fs-logo-tile { display: inline-flex; border-radius: 10px; }
+[data-theme="dark"] .fs-logo-tile { background: rgb(var(--c-ink)); padding: 3px; }
+
 /* Header menus */
 @keyframes fsMenuIn { from { opacity: 0; transform: translate3d(0, -6px, 0); } to { opacity: 1; transform: none; } }
 @keyframes fsDrawerIn { from { transform: translate3d(100%, 0, 0); } to { transform: none; } }

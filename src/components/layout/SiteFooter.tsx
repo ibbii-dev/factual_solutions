@@ -23,7 +23,9 @@ export default function SiteFooter() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-small text-muted">
           <div className="col-span-2 lg:col-span-1 flex flex-col gap-3.5">
             <Link href="/" className="flex items-center gap-2.5 self-start">
-              <Image src="/images/logo-symbol.png" alt="" width={34} height={34} className="w-[34px] h-[34px]" />
+              <span className="fs-logo-tile shrink-0">
+                <Image src="/images/logo-symbol.png" alt="" width={34} height={34} className="w-[34px] h-[34px]" />
+              </span>
               <span className="font-display text-lg text-heading">Factual Solutions</span>
             </Link>
             <p className="max-w-xs">Consulting, training and ERP &amp; digital transformation that help organisations perform better.</p>

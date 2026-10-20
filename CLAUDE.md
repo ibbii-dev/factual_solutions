@@ -49,6 +49,11 @@ From the logo only: navy `#1E2E59`, sky `#8EAAD4`, brick `#A33F2E`, ink `#0B1320
 - `/services` overview, `/services/consulting|training|digital` (line pages: cards + How we work), `/services/<service-id>` (12 service pages; ids match the old site so indexed addresses keep working). One route, `services/[slug]`, serves both line and service pages.
 - All content comes from `src/data/servicesData.ts` (English entries; Arabic entries are unused). Lookups and related-service matching live in `src/data/servicePages.ts`. Shared parts: `components/services/ServiceParts.tsx`.
 
+## Security
+
+- The GitHub repo is public. Never commit passwords, keys or `.env*` files, and never hardcode credentials or defaults for them (an old `admin123` default is visible in history; the password was rotated on 2026-10-20).
+- Admin credentials come only from `ADMIN_EMAIL` / `ADMIN_PASSWORD` (env vars, set per environment on Vercel).
+
 ## Stack
 
 Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS 3, MongoDB, Vercel.
