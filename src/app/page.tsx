@@ -1,24 +1,15 @@
-"use client";
+import Link from "next/link";
 
-import React from "react";
-import HeroSection from "@/components/home/HeroSection";
-import ServiceLinesStrip from "@/components/home/ServiceLinesStrip";
-import ApproachSection from "@/components/home/ApproachSection";
-import PrinciplesSection from "@/components/home/PrinciplesSection";
-import IndustrySectorsSection from "@/components/home/IndustrySectorsSection";
-import LatestInsightsSection from "@/components/home/LatestInsightsSection";
-import ConsultationBanner from "@/components/home/ConsultationBanner";
-
+// Placeholder while the site is rebuilt from a new design system.
+// Only the blog and the admin panel are live during the rebuild.
 export default function HomePage() {
   return (
-    <div className="relative text-ink dark:text-white">
-      <HeroSection />
-      <ServiceLinesStrip />
-      <ApproachSection />
-      <PrinciplesSection />
-      <IndustrySectorsSection />
-      <LatestInsightsSection />
-      <ConsultationBanner />
-    </div>
+    <main className="min-h-screen flex flex-col items-center justify-center gap-6 px-4 text-center">
+      <h1 className="text-3xl font-semibold">Factual Solutions</h1>
+      <p className="max-w-md opacity-70">Our new website is on the way.</p>
+      <Link href="/blog" className="underline underline-offset-4">
+        Read the blog
+      </Link>
+    </main>
   );
 }

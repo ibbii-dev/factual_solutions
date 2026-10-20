@@ -1,4 +1,4 @@
-import { Language } from "./translations";
+type Language = "en" | "ar";
 
 /**
  * Factual Solutions — "What We Do"

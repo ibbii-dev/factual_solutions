@@ -6,11 +6,9 @@ import Image from "next/image";
 import { Search, ArrowRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { IBlogPost } from "@/models";
-import { BLOG_CATEGORIES, categoryLabel } from "@/data/blogCategories";
-import { useLanguage } from "@/context/LanguageContext";
+import { BLOG_CATEGORIES } from "@/data/blogCategories";
 import PageHeader from "@/components/ui/PageHeader";
-const BLOG_COPY = {
-  en: {
+const L = {
     badge: "Blog",
     title: "Insights from Practice",
     lead: "Practical insights, tools, and real-world perspectives on operational excellence, strategy, Lean Six Sigma, quality, ERP, digital transformation, and continuous improvement.",
@@ -26,29 +24,9 @@ const BLOG_COPY = {
     featured: "Featured Analysis",
     read: "Read Article",
     readFull: "Read Full Article",
-  },
-  ar: {
-    badge: "المدونة",
-    title: "رؤى من واقع الممارسة",
-    lead: "رؤى عملية وأدوات ووجهات نظر واقعية حول التميز التشغيلي والاستراتيجية ولين ستة سيجما والجودة وERP والتحول الرقمي والتحسين المستمر.",
-    search: "ابحث في المقالات بالعنوان أو الموضوع أو الكلمة المفتاحية...",
-    searchLabel: "البحث في المقالات",
-    clear: "مسح",
-    loading: "جارٍ تحميل المقالات...",
-    noneTitle: "لا توجد مقالات",
-    soonTitle: "المقالات قادمة قريباً",
-    noneText: "لا توجد مقالات منشورة تطابق هذا البحث أو التصنيف.",
-    soonText: "مقالات جديدة في الطريق. عُد قريباً.",
-    clearFilters: "مسح عوامل التصفية",
-    featured: "تحليل مميز",
-    read: "اقرأ المقال",
-    readFull: "اقرأ المقال كاملاً",
-  },
 };
 
 function BlogContent() {
-  const { language } = useLanguage();
-  const L = BLOG_COPY[language === "ar" ? "ar" : "en"];
   const [posts, setPosts] = useState<IBlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -93,7 +71,7 @@ function BlogContent() {
 
   const fmt = (v: string) => {
     const d = new Date(v);
-    return Number.isNaN(d.getTime()) ? v : d.toLocaleDateString(language === "ar" ? "ar" : "en-GB", { day: "numeric", month: "short", year: "numeric" });
+    return Number.isNaN(d.getTime()) ? v : d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
   };
 
   return (
@@ -132,7 +110,7 @@ function BlogContent() {
                     : "text-slate-600 hover:bg-paper-deep hover:text-navy dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
                 }`}
               >
-                {categoryLabel(cat, language)}
+                {cat}
               </button>
             ))}
           </div>
@@ -160,7 +138,7 @@ function BlogContent() {
                   <Image sizes="(max-width: 1024px) 100vw, 720px" src={featuredPost.coverImage || "/images/consulting-meeting.webp"} alt="" fill priority className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
                 </Link>
                 <div className="lg:col-span-5 flex flex-col gap-4 p-6 sm:p-8">
-                  <p className="inline-flex self-start rounded-full bg-rust/10 dark:bg-rust/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-rust dark:text-rust-light">{L.featured} · {categoryLabel(featuredPost.category, language)}</p>
+                  <p className="inline-flex self-start rounded-full bg-rust/10 dark:bg-rust/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-rust dark:text-rust-light">{L.featured} · {featuredPost.category}</p>
                   <h2 className="text-2xl sm:text-3xl font-bold leading-tight">
                     <Link href={`/blog/${featuredPost.slug}`} className="hover:text-navy dark:hover:text-steel-light transition-colors">{featuredPost.title}</Link>
                   </h2>
@@ -183,7 +161,7 @@ function BlogContent() {
                     <Link href={`/blog/${post.slug}`} className="group fs-card fs-card-hover h-full flex flex-col overflow-hidden">
                       <div className="relative aspect-[16/10] overflow-hidden bg-paper-deep">
                         <Image sizes="(max-width: 640px) 100vw, 400px" src={post.coverImage || "/images/consulting-meeting.webp"} alt="" fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-                        <span className="absolute top-3 start-3 rounded-full bg-white/95 dark:bg-night-900/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-navy dark:text-steel-light">{categoryLabel(post.category, language)}</span>
+                        <span className="absolute top-3 start-3 rounded-full bg-white/95 dark:bg-night-900/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-navy dark:text-steel-light">{post.category}</span>
                       </div>
                       <div className="flex flex-col gap-3 p-5 sm:p-6 flex-1">
                         <h3 className="text-lg font-bold leading-snug transition-colors group-hover:text-navy dark:group-hover:text-steel-light">{post.title}</h3>

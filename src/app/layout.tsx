@@ -1,14 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeContext";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { UserAuthProvider } from "@/context/UserAuthContext";
-import AuthModal from "@/components/auth/AuthModalLazy";
-import SiteShell from "@/components/layout/SiteShell";
 import { contactDetails } from "@/data/companyData";
-import { LANG_BOOT_SCRIPT } from "@/lib/i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://factual-solutions.vercel.app";
 
@@ -28,10 +22,7 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
-// Typography: Plus Jakarta Sans (friendly, rounded geometric) for headings and
-// Inter (built for screen reading) for text. Both are variable fonts, so each is a
-// single self-hosted .woff2 file covering every weight; font-display: swap plus a
-// size-matched system fallback means text shows instantly with no layout jump.
+// Interim fonts, kept so the admin panel and blog render while the new design system is chosen.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
@@ -46,16 +37,6 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
   fallback: ["Segoe UI", "system-ui", "-apple-system", "sans-serif"],
   adjustFontFallback: true,
-});
-
-// Arabic face: only downloaded when Arabic text is actually rendered (not preloaded).
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  weight: ["400", "700"],
-  variable: "--font-arabic",
-  display: "swap",
-  preload: false,
-  fallback: ["Segoe UI", "Tahoma", "Geeza Pro", "Arial", "sans-serif"],
 });
 
 export const viewport: Viewport = {
@@ -95,44 +76,11 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${inter.variable} ${jakarta.variable} ${tajawal.variable}`} 
+      className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} 
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: LANG_BOOT_SCRIPT }} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  // Purge previous stale dark defaults from older versions
-                  if (localStorage.getItem('factual_theme_pref') === null) {
-                    localStorage.removeItem('factual_theme');
-                    localStorage.setItem('factual_theme_pref', 'light');
-                  }
-                  var saved = localStorage.getItem('factual_theme_pref');
-                  if (saved === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {
-                  document.documentElement.classList.remove('dark');
-                }
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className="font-sans antialiased bg-canvas text-ink dark:text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
-        <ThemeProvider>
-          <LanguageProvider>
-            <UserAuthProvider>
-              <SiteShell>{children}</SiteShell>
-              <AuthModal />
-            </UserAuthProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+      <body className="font-sans antialiased bg-canvas text-ink min-h-screen">
+        {children}
         <SpeedInsights />
         <script
           type="application/ld+json"
