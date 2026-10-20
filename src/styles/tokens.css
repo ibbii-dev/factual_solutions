@@ -42,6 +42,15 @@
   --c-piece-navy: 30 46 89;     /* #1E2E59 */
   --c-piece-sky: 142 170 212;   /* #8EAAD4 */
   --c-piece-brick: 163 63 46;   /* #A33F2E */
+
+  /* Deep navy sections (heroes, "How we work", CTA). Dark in BOTH themes. */
+  --c-deep: 11 20 36;           /* #0B1424 */
+  --c-deep-surface: 23 37 64;   /* #172540 */
+  --c-on-deep: 238 243 250;     /* #EEF3FA text on deep */
+  --c-on-deep-muted: 169 186 211; /* #A9BAD3 secondary text on deep (8:1) */
+  --c-on-deep-accent: 240 164 147; /* #F0A493 small labels on deep */
+  --c-deep-action: 184 74 53;   /* #B84A35 brick button on deep (white text 5.2:1) */
+  --c-glow-navy: 56 84 160;     /* #3854A0 navy glow on deep sections (decoration) */
 }
 
 /* Set before first paint by the inline script in app/layout.tsx. */

@@ -28,7 +28,7 @@ From the logo only: navy `#1E2E59`, sky `#8EAAD4`, brick `#A33F2E`, ink `#0B1320
   - `accent`: brick as text for small labels; `tint`: sky, decoration only (too light for text on white)
   - `success`, `warning`, `danger`: status; use `/10`–`/15` opacity for soft backgrounds
   - `on-action` text on brick; `on-solid` text on primary/status fills; `scrim` behind dialogs
-- No gradients or glow blobs. Exceptions: `themeColor` in `app/layout.tsx` (meta tags cannot read CSS variables) and the Google result preview in the admin blog editor, which copies Google's own colours.
+- Modern layer (approved 2026-10-20): deep navy sections use `fs-deep` (+ `fs-dots`) with `deep`/`on-deep` tokens, which stay dark in both themes. Glows (`fs-glow fs-glow-navy|sky|brick`), glass (`fs-glass`) and gradients exist only as classes in `globals.css`; never add ad-hoc gradients. Other exceptions: `themeColor` in `app/layout.tsx` (meta tags cannot read CSS variables) and the Google result preview in the admin blog editor, which copies Google's own colours.
 - Theme: `<html data-theme="light|dark">`, set before paint by the inline script in `app/layout.tsx` (saved choice in `localStorage` key `fs-theme`, otherwise the device setting).
 
 ## Typography: Manrope + Inter (locked 2026-10-20)
@@ -37,7 +37,14 @@ From the logo only: navy `#1E2E59`, sky `#8EAAD4`, brick `#A33F2E`, ink `#0B1320
 - Use the type scale in `tailwind.config.ts`: `text-display`, `text-h1`, `text-h2`, `text-h3` (fluid from phone to desktop), `text-lede` 19px, `text-body` 17px, `text-small` 14px, `text-label` 12px caps. The admin panel may keep Tailwind's small sizes (`text-xs`, `text-sm`) for dense tables.
 - No arbitrary sizes like `text-[3.4rem]` in new code.
 
-## Header and footer: Option B "Contact strip" (locked 2026-10-20)
+## Header, footer and page heroes (modern layer, 2026-10-20)
+
+- No contact strip. Menu: What we do (Services dropdown, `/services`), What we think (`/what-we-think`), Who we are (`/about`), Case studies (`/case-studies`), Blog. No Contact item; "Book a consultation" goes to `/contact`. Labels live in `src/data/navigation.ts`; addresses did not change.
+- The header is fixed and transparent over the deep hero, solid after scrolling. So EVERY public page must start with `components/layout/PageHero.tsx`.
+- Scroll reveal: add `data-reveal` (optional `--d` delay); `RevealObserver` in the site layout does the rest and respects reduced motion.
+- Case studies come from `src/data/caseStudies.ts` (empty = "coming soon"); never invent results.
+
+## Header and footer: original Option B notes
 
 - Public pages live in `src/app/(site)/` and share `(site)/layout.tsx` (header, `<main id="main">`, footer). The admin panel stays outside this group.
 - `components/layout/SiteHeader.tsx`: contact strip (large screens), sticky bar, Services menu, phone slide-in menu with call button, `ThemeToggle`. `SiteFooter.tsx`: call-to-action band, then links.

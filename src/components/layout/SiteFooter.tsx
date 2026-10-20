@@ -1,20 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { bookingHref, contactLinks, mainNav, serviceLines } from "@/data/navigation";
+import { bookingHref, contactLinks, mainNav, serviceLines, servicesLabel } from "@/data/navigation";
 
-/** Footer "Option B" (approved 2026-10-20): a call-to-action band, then links. */
+/** Footer (modern layer): deep navy call-to-action panel, then links and contact details. */
 export default function SiteFooter() {
   return (
     <footer className="bg-surface border-t border-line">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 flex flex-col gap-12">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-6 rounded-2xl bg-band px-6 py-8 sm:px-9">
-          <h2 className="flex-1 text-h2 text-heading">Ready to improve how your organisation works?</h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-8 flex flex-col gap-14">
+        <div data-reveal className="fs-deep rounded-[2rem] px-6 py-12 sm:px-12 sm:py-16 flex flex-col lg:flex-row lg:items-center gap-8">
+          <div aria-hidden="true" className="fs-glow fs-glow-sky w-[36rem] h-[36rem] -right-40 -top-64" />
+          <div aria-hidden="true" className="fs-glow fs-glow-brick w-[28rem] h-[28rem] -left-40 -bottom-72" />
+          <h2 className="flex-1 text-h1 text-on-deep">Ready to improve how your organisation works?</h2>
           <div className="flex flex-col sm:flex-row gap-3">
-            <a href={contactLinks.phoneHref} className="btn-secondary">
+            <a href={contactLinks.phoneHref} className="inline-flex items-center justify-center min-h-[52px] px-6 rounded-full border border-on-deep/40 text-on-deep font-semibold hover:border-on-deep transition-colors">
               Call {contactLinks.phone}
             </a>
-            <Link href={bookingHref} className="btn-primary">
+            <Link href={bookingHref} className="btn-primary !bg-deep-action min-h-[52px]">
               Book a consultation
             </Link>
           </div>
@@ -31,8 +33,8 @@ export default function SiteFooter() {
             <p className="max-w-xs">Consulting, training and ERP &amp; digital transformation that help organisations perform better.</p>
           </div>
 
-          <nav aria-label="Services" className="flex flex-col gap-2.5">
-            <h2 className="text-label uppercase text-heading">Services</h2>
+          <nav aria-label={servicesLabel} className="flex flex-col gap-2.5">
+            <h2 className="text-label uppercase text-heading">{servicesLabel}</h2>
             {serviceLines.map((line) => (
               <Link key={line.id} href={line.href} className="hover:text-heading">
                 {line.title}
@@ -47,6 +49,7 @@ export default function SiteFooter() {
                 {item.label}
               </Link>
             ))}
+            <Link href="/contact" className="hover:text-heading">Contact</Link>
           </nav>
 
           <div className="col-span-2 lg:col-span-1 flex flex-col gap-2.5">

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SITE_NAME, SITE_URL, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
-import { Breadcrumbs, HowWeWork, PageBand, ServiceCard } from "@/components/services/ServiceParts";
+import { HowWeWork, ServiceCard } from "@/components/services/ServiceParts";
+import PageHero from "@/components/layout/PageHero";
 import {
   allServices,
   lineById,
@@ -53,19 +54,18 @@ function LinePage({ line }: { line: ServicePillar }) {
   const otherLines = lines.filter((l) => l.id !== line.id);
   const crumbs = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
+    { name: "What we do", href: "/services" },
     { name: lineShortName(line.id), href: `/services/${line.id}` },
   ];
 
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs.map((c) => ({ name: c.name, path: c.href })))} />
-      <PageBand>
-        <Breadcrumbs items={crumbs} />
-        <p className="eyebrow">{line.title}</p>
-        <h1 className="text-display text-heading">{line.tagline}</h1>
-        <p className="text-lede text-muted max-w-2xl">{line.intro}</p>
-      </PageBand>
+      <PageHero crumbs={crumbs} eyebrow={line.title} title={line.tagline} lede={line.intro}>
+        <Link href={`/contact?topic=${line.id}`} className="btn-primary !bg-deep-action">
+          Discuss your needs
+        </Link>
+      </PageHero>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 flex flex-col gap-14">
         <section aria-label={`${line.title} services`}>
@@ -75,10 +75,10 @@ function LinePage({ line }: { line: ServicePillar }) {
                 <ServiceCard service={s} />
               </li>
             ))}
-            <li className="rounded-2xl bg-surface p-6 flex flex-col justify-center gap-3">
+            <li className="rounded-[1.75rem] bg-band p-7 flex flex-col justify-center gap-3">
               <h2 className="text-lg font-display text-heading">Not sure which fits?</h2>
               <p className="text-small text-muted">Tell us what you want to improve and we&apos;ll point you to the right service.</p>
-              <Link href={`/contact?topic=${line.id}`} className="btn-primary self-start min-h-[44px] text-small">
+              <Link href={`/contact?topic=${line.id}`} className="btn-secondary self-start min-h-[44px] text-small">
                 Discuss your needs
               </Link>
             </li>
@@ -105,7 +105,7 @@ function ServicePage({ service }: { service: ServiceItem }) {
   const related = relatedServices(service);
   const crumbs = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
+    { name: "What we do", href: "/services" },
     { name: lineShortName(line.id), href: `/services/${line.id}` },
     { name: service.title, href: `/services/${service.id}` },
   ];
@@ -124,22 +124,23 @@ function ServicePage({ service }: { service: ServiceItem }) {
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs.map((c) => ({ name: c.name, path: c.href })))} />
       <JsonLd data={serviceJsonLd} />
-      <PageBand
+      <PageHero
+        crumbs={crumbs}
+        eyebrow={lineShortName(line.id)}
+        title={service.title}
+        lede={service.fullDescription}
         aside={
-          <div className="rounded-2xl bg-bg p-6 flex flex-col gap-2.5">
-            <p className="eyebrow">Ideal for</p>
-            <p className="text-ink">{service.idealFor}</p>
-            <p className="text-small text-muted">{service.duration}</p>
+          <div className="fs-glass rounded-3xl p-6 sm:p-7 flex flex-col gap-3">
+            <p className="text-label uppercase text-on-deep-accent">Ideal for</p>
+            <p className="text-body text-on-deep">{service.idealFor}</p>
+            <p className="text-small text-on-deep-muted">{service.duration}</p>
           </div>
         }
       >
-        <Breadcrumbs items={crumbs} />
-        <h1 className="text-display text-heading">{service.title}</h1>
-        <p className="text-lede text-ink">{service.fullDescription}</p>
-        <Link href={`/contact?topic=${line.id}`} className="btn-primary self-start mt-1">
+        <Link href={`/contact?topic=${line.id}`} className="btn-primary !bg-deep-action">
           Discuss this service
         </Link>
-      </PageBand>
+      </PageHero>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 flex flex-col gap-14">
         <section aria-labelledby="included" className="flex flex-col gap-5">

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { dbGetBlogPostBySlug, dbGetBlogPosts } from "@/lib/mongodb";
 import BlogArticleClientActions from "./BlogArticleClientActions";
+import PageHero from "@/components/layout/PageHero";
 import { SITE_URL, SITE_NAME, breadcrumbJsonLd } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -203,17 +204,15 @@ export default async function BlogPostPage({
     <article className="min-h-screen text-ink pb-20">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
 
-      <header className="relative overflow-hidden">
-        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-10 flex flex-col items-center text-center gap-5">
-          <nav aria-label="Breadcrumb" className="text-sm text-muted space-x-2 rtl:space-x-reverse">
-            <Link href="/" className="hover:text-heading">Home</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/blog" className="hover:text-heading">Blog</Link>
-          </nav>
-          <p className="fs-pill">{post.category}</p>
-          <h1 className="text-h1 text-heading">{post.title}</h1>
-          {post.excerpt && <p className="lede text-muted">{post.excerpt}</p>}
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 mt-2 fs-card px-4 py-3">
+      <PageHero
+        crumbs={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }, { name: post.title, href: `/blog/${post.slug}` }]}
+        eyebrow={post.category}
+        title={post.title}
+        lede={post.excerpt || undefined}
+      />
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-10">
+          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 fs-card px-4 py-3">
             <div className="flex items-center gap-3">
               <span className="relative w-10 h-10 rounded-full overflow-hidden bg-band shrink-0">
                 <Image sizes="40px" src={post.author.avatar || "/images/qadeer-ahmad-bhatti.jpg"} alt="" fill className="object-cover" />
@@ -225,8 +224,7 @@ export default async function BlogPostPage({
             </div>
             <BlogArticleClientActions title={post.title} />
           </div>
-        </div>
-      </header>
+      </div>
 
       {post.coverImage && (
         <figure className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
