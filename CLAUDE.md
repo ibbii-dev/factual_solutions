@@ -7,7 +7,9 @@ Read this before every task.
 - The site is being rebuilt from zero on branch `rebuild`. `main` is the live site; do not push `rebuild` to it until the owner says so.
 - Built: admin panel (`/admin`), blog (`/blog`), contact (`/contact`, form saves to `/api/inquiries`), site header and footer. The home page is a placeholder; services and about pages are next (header links to them already).
 - `/contact?topic=consulting|training|digital` preselects a service on the form.
-- reCAPTCHA keys (`NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY`) are not set yet, so the form relies on the honeypot only. MongoDB env vars exist only for Vercel Production, so preview deployments keep inquiries in memory.
+- Form spam protection: honeypot, link filter and a send limit (3 per 10 min, 10 per day per hashed IP, `lib/formGuard.ts`). reCAPTCHA adds the checkbox once `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY` are set (not set yet).
+- Inquiry ids come from the `counters` collection (`dbNextInquiryId`), never from counting inquiries.
+- Vercel Preview has its own database (`factual_solutions_preview`) plus `ADMIN_PASSWORD` and `NOTIFICATION_EMAIL`, so previews can be tested end to end without touching live data. Production has only `MONGODB_URI` and `MONGODB_DB_NAME` so far.
 - Done so far: colour scheme, typography, header and footer, contact page. Next: the remaining pages, one step at a time with the owner's approval.
 - Deploys: push `rebuild` to GitHub and make a Vercel preview (`npx vercel deploy --yes`, never `--prod`) until the owner says go live.
 - Content sources for the rebuild: `src/data/servicesData.ts`, `src/data/companyData.ts`.
