@@ -37,6 +37,11 @@
   --c-danger: 180 35 24;        /* #B42318 */
 
   --c-scrim: 11 19 32;          /* overlays behind dialogs, same in both themes */
+
+  /* The three logo pieces, for small decorative marks only (never text). */
+  --c-piece-navy: 30 46 89;     /* #1E2E59 */
+  --c-piece-sky: 142 170 212;   /* #8EAAD4 */
+  --c-piece-brick: 163 63 46;   /* #A33F2E */
 }
 
 /* Set before first paint by the inline script in app/layout.tsx. */
@@ -63,4 +68,8 @@
   --c-success: 111 207 151;     /* #6FCF97 */
   --c-warning: 242 196 107;     /* #F2C46B */
   --c-danger: 245 154 143;      /* #F59A8F */
+
+  --c-piece-navy: 92 116 176;   /* #5C74B0, lifted so it shows on dark */
+  --c-piece-sky: 142 170 212;
+  --c-piece-brick: 201 96 74;   /* #C9604A */
 }

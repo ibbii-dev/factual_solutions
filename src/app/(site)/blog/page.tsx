@@ -182,7 +182,7 @@ function BlogContent() {
 
 export default function BlogPage() {
   return (
-    <Suspense fallback={<div className="pt-32 text-center text-muted">Loading blog directory...</div>}>
+    <Suspense fallback={<div className="py-24 text-center text-muted">Loading blog directory...</div>}>
       <BlogContent />
     </Suspense>
   );

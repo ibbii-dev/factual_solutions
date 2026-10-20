@@ -36,6 +36,7 @@ const config: Config = {
       warning: token("warning"),
       danger: token("danger"),
       scrim: token("scrim"),
+      piece: { navy: token("piece-navy"), sky: token("piece-sky"), brick: token("piece-brick") },
     },
     extend: {
       // Plain `border`, `divide-*` and `ring` without a colour use these.

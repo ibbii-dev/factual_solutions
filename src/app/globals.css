@@ -60,10 +60,10 @@ select option, select optgroup {
   }
 
   /* Main action: brick. Use once per screen. */
-  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-action px-6 min-h-[48px] text-[15px] font-semibold text-on-action; transition: background-color 0.3s ease, transform 0.35s var(--ease-out); }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-action px-6 min-h-[48px] text-[15px] font-semibold text-on-action; transition: background-color 0.3s ease, transform 0.35s var(--ease-out); }
   .btn-primary:hover { @apply bg-action-hover; transform: translate3d(0, -2px, 0); }
   /* Everything else: navy outline. */
-  .btn-secondary { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-bg border border-primary/40 px-6 min-h-[48px] text-[15px] font-semibold text-primary; transition: border-color 0.3s ease, transform 0.35s var(--ease-out); }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-bg border border-primary/40 px-6 min-h-[48px] text-[15px] font-semibold text-primary; transition: border-color 0.3s ease, transform 0.35s var(--ease-out); }
   .btn-secondary:hover { @apply border-primary; transform: translate3d(0, -2px, 0); }
   .btn-primary svg, .btn-secondary svg { transition: transform 0.4s var(--ease-out); }
   .btn-primary:hover svg.fs-arrow, .btn-secondary:hover svg.fs-arrow { transform: translateX(4px); }
@@ -81,7 +81,13 @@ select option, select optgroup {
 .fs-page-in { animation: fsPageIn 0.5s var(--ease-out) both; }
 .fs-hero-in { animation: fsPageIn 0.7s var(--ease-out) both; animation-delay: var(--fs-delay, 0s); }
 
+/* Header menus */
+@keyframes fsMenuIn { from { opacity: 0; transform: translate3d(0, -6px, 0); } to { opacity: 1; transform: none; } }
+@keyframes fsDrawerIn { from { transform: translate3d(100%, 0, 0); } to { transform: none; } }
+.fs-menu-in { animation: fsMenuIn 0.22s var(--ease-out) both; }
+.fs-drawer-in { animation: fsDrawerIn 0.3s var(--ease-out) both; }
+
 @media (prefers-reduced-motion: reduce) {
-  .fs-page-in, .fs-hero-in { animation: none; }
+  .fs-page-in, .fs-hero-in, .fs-menu-in, .fs-drawer-in { animation: none; }
   .fs-card-hover:hover, .btn-primary:hover, .btn-secondary:hover { transform: none; }
 }

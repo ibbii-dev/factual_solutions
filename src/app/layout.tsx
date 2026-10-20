@@ -43,7 +43,7 @@ const manrope = Manrope({
 
 // Sets data-theme before first paint so there is no flash of the wrong theme.
 // A saved choice ("fs-theme") wins; otherwise follow the device setting.
-const THEME_BOOT_SCRIPT = `(function(){try{var d=document.documentElement,s=localStorage.getItem("fs-theme"),m=window.matchMedia("(prefers-color-scheme: dark)");function a(){d.dataset.theme=(s==="dark"||s==="light")?s:(m.matches?"dark":"light")}a();m.addEventListener("change",a)}catch(e){}})();`;
+const THEME_BOOT_SCRIPT = `(function(){try{var d=document.documentElement,m=window.matchMedia("(prefers-color-scheme: dark)");function a(){var s=null;try{s=localStorage.getItem("fs-theme")}catch(e){}d.dataset.theme=(s==="dark"||s==="light")?s:(m.matches?"dark":"light")}a();m.addEventListener("change",a)}catch(e){}})();`;
 
 export const viewport: Viewport = {
   width: "device-width",

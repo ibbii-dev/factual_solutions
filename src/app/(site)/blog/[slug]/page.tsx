@@ -204,7 +204,7 @@ export default async function BlogPostPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
 
       <header className="relative overflow-hidden">
-        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-32 sm:pt-40 pb-10 flex flex-col items-center text-center gap-5">
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-10 flex flex-col items-center text-center gap-5">
           <nav aria-label="Breadcrumb" className="text-sm text-muted space-x-2 rtl:space-x-reverse">
             <Link href="/" className="hover:text-heading">Home</Link>
             <span aria-hidden="true">/</span>
