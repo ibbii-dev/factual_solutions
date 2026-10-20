@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendLeadNotification } from "@/lib/emailService";
 import { generateAiAutoReply } from "@/lib/aiAgentService";
-import { dbSaveInquiry, dbGetInquiries, DatabaseInquiry } from "@/lib/mongodb";
+import { dbSaveInquiry, dbGetInquiries, dbNextInquiryId, DatabaseInquiry } from "@/lib/mongodb";
 import { verifyRecaptcha } from "@/lib/recaptcha";
 import { linkSpamReason, withinSendLimit } from "@/lib/formGuard";
 import { clientEmail, isAdmin } from "@/lib/session";
@@ -77,8 +77,7 @@ export async function POST(request: NextRequest) {
     }
 
     const now = new Date();
-    const currentInquiries = await dbGetInquiries();
-    const newId = `INQ-${now.getFullYear()}-${String(currentInquiries.length + 1).padStart(3, "0")}`;
+    const newId = await dbNextInquiryId(now.getFullYear());
     const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
     // Generate AI Agent Diagnostic & Auto-Reply
