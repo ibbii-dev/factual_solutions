@@ -9,7 +9,7 @@ Read this before every task.
 - `/contact?topic=consulting|training|digital` preselects a service on the form.
 - Form spam protection: honeypot, link filter and a send limit (3 per 10 min, 10 per day per hashed IP, `lib/formGuard.ts`). reCAPTCHA adds the checkbox once `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY` are set (not set yet).
 - Inquiry ids come from the `counters` collection (`dbNextInquiryId`), never from counting inquiries.
-- Vercel Preview has its own database (`factual_solutions_preview`) plus `ADMIN_PASSWORD` and `NOTIFICATION_EMAIL`, so previews can be tested end to end without touching live data. Production has only `MONGODB_URI` and `MONGODB_DB_NAME` so far.
+- Vercel Preview has its own database (`factual_solutions_preview`) plus `ADMIN_PASSWORD` and `NOTIFICATION_EMAIL`, so previews can be tested end to end without touching live data. Production has `MONGODB_URI`, `MONGODB_DB_NAME`, `ADMIN_PASSWORD`, `NOTIFICATION_EMAIL` (no `RESEND_API_KEY` yet, so lead emails are not sent).
 - Done so far: colour scheme, typography, header and footer, contact page. Next: the remaining pages, one step at a time with the owner's approval.
 - Deploys: push `rebuild` to GitHub and make a Vercel preview (`npx vercel deploy --yes`, never `--prod`) until the owner says go live.
 - Content sources for the rebuild: `src/data/servicesData.ts`, `src/data/companyData.ts`.
