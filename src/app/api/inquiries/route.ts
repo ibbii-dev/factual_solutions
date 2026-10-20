@@ -3,6 +3,7 @@ import { sendLeadNotification } from "@/lib/emailService";
 import { generateAiAutoReply } from "@/lib/aiAgentService";
 import { dbSaveInquiry, dbGetInquiries, DatabaseInquiry } from "@/lib/mongodb";
 import { verifyRecaptcha } from "@/lib/recaptcha";
+import { linkSpamReason, withinSendLimit } from "@/lib/formGuard";
 import { clientEmail, isAdmin } from "@/lib/session";
 
 export async function GET(request: NextRequest) {
@@ -47,6 +48,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, message: "Thank you." });
     }
 
+    const emailOk = typeof workEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(workEmail.trim());
+    if (!fullName || !workEmail || !emailOk || String(fullName).length > 120 || String(message || "").length > 5000) {
+      return NextResponse.json(
+        { success: false, message: "Full Name and Work Email are required." },
+        { status: 400 }
+      );
+    }
+
+    const spam = linkSpamReason({ name: fullName, company: companyName, message });
+    if (spam) {
+      return NextResponse.json({ success: false, code: "LINK_SPAM", message: spam }, { status: 400 });
+    }
+
     const captcha = await verifyRecaptcha(recaptchaToken, request.headers);
     if (!captcha.ok) {
       return NextResponse.json(
@@ -55,11 +69,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const emailOk = typeof workEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(workEmail.trim());
-    if (!fullName || !workEmail || !emailOk || String(fullName).length > 120 || String(message || "").length > 5000) {
+    if (!(await withinSendLimit("inquiry", request.headers))) {
       return NextResponse.json(
-        { success: false, message: "Full Name and Work Email are required." },
-        { status: 400 }
+        { success: false, code: "RATE_LIMITED", message: "You have sent several messages in a short time. Please wait a few minutes." },
+        { status: 429 }
       );
     }
 
