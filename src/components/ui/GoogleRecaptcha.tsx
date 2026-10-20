@@ -121,7 +121,7 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
     host.innerHTML = "";
     const slot = document.createElement("div");
     host.appendChild(slot);
-    const dark = theme ? theme === "dark" : document.documentElement.classList.contains("dark");
+    const dark = theme ? theme === "dark" : document.documentElement.dataset.theme === "dark";
     try {
       widgetIdRef.current = g.render(slot, {
         sitekey: RECAPTCHA_SITE_KEY,
