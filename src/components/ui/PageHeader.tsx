@@ -20,7 +20,7 @@ export default function PageHeader({
     <header className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mb-10 sm:mb-14">
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 pt-32 sm:pt-40 pb-6 sm:pb-8 flex flex-col items-center text-center gap-5">
         <p className="fs-hero-in fs-pill">{eyebrow}</p>
-        <h1 className="fs-page-in text-[2.4rem] sm:text-[3.4rem] lg:text-[3.9rem] font-extrabold tracking-[-0.03em] leading-[1.06] text-heading">
+        <h1 className="fs-page-in text-display text-heading">
           {title}
         </h1>
         {lede && (

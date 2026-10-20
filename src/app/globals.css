@@ -22,10 +22,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Headings: Manrope 700. Sizes come from the type scale (text-display, text-h1…). */
 h1, h2, h3, h4, h5, h6, .font-display {
   font-family: var(--font-display), 'Segoe UI', system-ui, -apple-system, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 p { text-wrap: pretty; }
@@ -38,8 +39,8 @@ select option, select optgroup {
 ::selection { background: rgb(var(--c-tint) / 0.4); color: rgb(var(--c-ink)); }
 :focus-visible { outline: 2px solid rgb(var(--c-primary)); outline-offset: 2px; }
 
-.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--c-accent)); }
-.lede { font-size: clamp(1.05rem, 1.35vw, 1.2rem); line-height: 1.65; }
+.eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(var(--c-accent)); }
+.lede { font-size: 1.1875rem; line-height: 1.6; }
 
 /* ------------------------------------------------------------------ */
 /* Shared components. Colours come only from tokens.                   */

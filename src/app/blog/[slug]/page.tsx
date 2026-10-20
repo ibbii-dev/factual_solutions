@@ -121,7 +121,7 @@ export default async function BlogPostPage({
         elements.push(
           <div
             key={`quote-${index}`}
-            className="my-6 p-5 sm:p-6 rounded-2xl bg-surface/90 backdrop-blur-md border-l-4 border-action text-ink italic font-serif text-lg sm:text-xl shadow-xs"
+            className="my-6 p-5 sm:p-6 rounded-2xl bg-surface/90 backdrop-blur-md border-l-4 border-action text-ink italic text-lede shadow-xs"
           >
             <div className="flex items-start gap-3">
               <Sparkles className="w-5 h-5 text-accent shrink-0 mt-0.5" />
@@ -211,7 +211,7 @@ export default async function BlogPostPage({
             <Link href="/blog" className="hover:text-heading">Blog</Link>
           </nav>
           <p className="fs-pill">{post.category}</p>
-          <h1 className="text-[2.2rem] sm:text-5xl lg:text-[3.2rem] font-extrabold tracking-[-0.025em] leading-[1.08]">{post.title}</h1>
+          <h1 className="text-h1 text-heading">{post.title}</h1>
           {post.excerpt && <p className="lede text-muted">{post.excerpt}</p>}
           <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 mt-2 fs-card px-4 py-3">
             <div className="flex items-center gap-3">

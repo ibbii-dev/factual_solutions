@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { contactDetails } from "@/data/companyData";
@@ -22,7 +22,9 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
-// Interim fonts, kept so the admin panel and blog render while the new design system is chosen.
+// Fonts (approved 2026-10-20): Manrope for headings, Inter for all text. next/font
+// downloads them at build time and serves them from this site, with size-matched
+// fallbacks so text shows instantly without layout shift.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
@@ -31,7 +33,7 @@ const inter = Inter({
   adjustFontFallback: true,
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -81,7 +83,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} 
+      className={`scroll-smooth ${inter.variable} ${manrope.variable}`} 
       suppressHydrationWarning
     >
       <head>
