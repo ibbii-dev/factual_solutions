@@ -10,8 +10,8 @@ import { loadScript } from "@/lib/loadScript";
  * - Uses the real site key from NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
  * - Google's public test key is used only in local development.
  * - The ~150 KB Google script is downloaded only when the widget is about to
- *   scroll into view, so pages without a form (and visitors who never reach
- *   it) pay nothing.
+ * scroll into view, so pages without a form (and visitors who never reach
+ * it) pay nothing.
  * - The token is verified on the server (src/lib/recaptcha.ts).
  */
 
@@ -168,14 +168,14 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
 
   return (
     <div className={`space-y-2 ${className}`}>
-      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-ink">
         <ShieldCheck className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
         <span>{isAr ? "تحقق أمني" : "Security check"}</span>
       </div>
 
       <div className="min-h-[78px] flex items-center">
         {loadError ? (
-          <div role="alert" className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
+          <div role="alert" className="p-3 rounded-lg bg-danger/10 border border-danger/20 text-danger text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>
               {isAr
@@ -187,7 +187,7 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
           <div className="relative">
             {!rendered && (
               <div
-                className="w-[304px] max-w-full h-[78px] rounded-md border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 animate-pulse"
+                className="w-[304px] max-w-full h-[78px] rounded-md border border-line bg-surface animate-pulse"
                 aria-hidden="true"
               />
             )}
@@ -196,13 +196,13 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
         )}
       </div>
 
-      <p className="text-[10px] leading-snug text-slate-500 dark:text-slate-400">
+      <p className="text-[10px] leading-snug text-muted">
         {isAr ? "هذا الموقع محمي بواسطة reCAPTCHA وتنطبق " : "Protected by reCAPTCHA. Google "}
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700 dark:hover:text-slate-200">
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">
           {isAr ? "سياسة الخصوصية" : "Privacy Policy"}
         </a>
         {isAr ? " و" : " and "}
-        <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700 dark:hover:text-slate-200">
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">
           {isAr ? "شروط الخدمة" : "Terms of Service"}
         </a>
         {isAr ? " الخاصة بـ Google." : " apply."}

@@ -39,11 +39,16 @@ const jakarta = Plus_Jakarta_Sans({
   adjustFontFallback: true,
 });
 
+// Sets data-theme before first paint so there is no flash of the wrong theme.
+// A saved choice ("fs-theme") wins; otherwise follow the device setting.
+const THEME_BOOT_SCRIPT = `(function(){try{var d=document.documentElement,s=localStorage.getItem("fs-theme"),m=window.matchMedia("(prefers-color-scheme: dark)");function a(){d.dataset.theme=(s==="dark"||s==="light")?s:(m.matches?"dark":"light")}a();m.addEventListener("change",a)}catch(e){}})();`;
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F6F8FC" }, { media: "(prefers-color-scheme: dark)", color: "#081229" }],
+  // Browser bar colours: the --c-bg token values (meta tags cannot read CSS variables).
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FFFFFF" }, { media: "(prefers-color-scheme: dark)", color: "#0F1A2E" }],
 };
 
 export const metadata: Metadata = {
@@ -79,7 +84,10 @@ export default function RootLayout({
       className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} 
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased bg-canvas text-ink min-h-screen">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+      </head>
+      <body className="font-sans antialiased bg-bg text-ink min-h-screen">
         {children}
         <SpeedInsights />
         <script
