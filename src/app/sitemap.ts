@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { dbGetBlogPosts } from "@/lib/mongodb";
+import { allServices, lines } from "@/data/servicePages";
 
 // Rebuild hourly so newly published posts appear without a redeploy.
 export const revalidate = 3600;
@@ -13,6 +14,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   ];
 
+  const serviceRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    ...lines.map((l) => ({ url: `${baseUrl}/services/${l.id}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 })),
+    ...allServices.map((sv) => ({ url: `${baseUrl}/services/${sv.id}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 })),
+  ];
+
   const posts = await dbGetBlogPosts({ status: "published" });
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -21,5 +28,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...postRoutes];
 }
