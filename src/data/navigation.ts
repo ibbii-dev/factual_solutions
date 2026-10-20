@@ -35,10 +35,15 @@ export const serviceLines: ServiceLine[] = [
   },
 ];
 
+/** Label of the Services menu ("What we do" opens the service lines). */
+export const servicesLabel = "What we do";
+
+/** Top-level menu after "What we do" (approved 2026-10-20). Contact is reached via "Book a consultation". */
 export const mainNav = [
-  { label: "Insights", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "What we think", href: "/what-we-think" },
+  { label: "Who we are", href: "/about" },
+  { label: "Case studies", href: "/case-studies" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const bookingHref = "/contact";

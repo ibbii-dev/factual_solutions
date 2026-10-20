@@ -95,3 +95,47 @@ select option, select optgroup {
   .fs-page-in, .fs-hero-in, .fs-menu-in, .fs-drawer-in { animation: none; }
   .fs-card-hover:hover, .btn-primary:hover, .btn-secondary:hover { transform: none; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Modern layer (approved 2026-10-20): deep sections, glows, motion.   */
+/* Glows use only the logo colours and live only here.                 */
+/* ------------------------------------------------------------------ */
+.fs-deep { background-color: rgb(var(--c-deep)); color: rgb(var(--c-on-deep)); position: relative; isolation: isolate; overflow: hidden; }
+.fs-dots::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(rgb(var(--c-on-deep) / 0.07) 1px, transparent 1px); background-size: 28px 28px; }
+.fs-glow { position: absolute; z-index: -1; pointer-events: none; border-radius: 9999px; }
+.fs-glow-navy { background: radial-gradient(closest-side, rgb(var(--c-glow-navy) / 0.55), transparent); }
+.fs-glow-sky { background: radial-gradient(closest-side, rgb(var(--c-piece-sky) / 0.35), transparent); }
+.fs-glow-brick { background: radial-gradient(closest-side, rgb(var(--c-piece-brick) / 0.32), transparent); }
+
+/* Glass panels on deep backgrounds */
+.fs-glass { background: rgb(var(--c-on-deep) / 0.07); border: 1px solid rgb(var(--c-on-deep) / 0.16); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+/* Cards that lift on hover */
+.fs-lift { transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.3s ease; }
+.fs-lift:hover { transform: translate3d(0, -6px, 0); box-shadow: 0 28px 60px -28px rgb(var(--c-scrim) / 0.45); }
+
+/* Scroll reveal: elements with data-reveal rise in once visible (see components/ui/Reveal.tsx).
+   Only active after JS adds .fs-motion to <html>, so content is never hidden without JS. */
+html.fs-motion [data-reveal] { opacity: 0; transform: translate3d(0, 24px, 0);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); transition-delay: var(--d, 0ms); }
+html.fs-motion [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Industries ticker */
+@keyframes fsMarquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+.fs-marquee { display: flex; width: max-content; animation: fsMarquee 45s linear infinite; }
+.fs-marquee-box:hover .fs-marquee { animation-play-state: paused; }
+
+/* Small live dot and the travelling dot on the "How we work" line */
+@keyframes fsPulse { 0% { box-shadow: 0 0 0 0 rgb(var(--c-piece-sky) / 0.6); } 100% { box-shadow: 0 0 0 10px rgb(var(--c-piece-sky) / 0); } }
+.fs-pulse { animation: fsPulse 2s ease-out infinite; }
+@keyframes fsTravel { from { left: 0%; } to { left: 100%; } }
+.fs-travel { animation: fsTravel 5s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate; }
+@keyframes fsBar { 0%, 100% { transform: scaleY(0.45); } 50% { transform: scaleY(1); } }
+.fs-bar { transform-origin: bottom; animation: fsBar 3.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.fs-motion [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .fs-marquee, .fs-pulse, .fs-travel, .fs-bar { animation: none; }
+  .fs-lift:hover { transform: none; }
+}

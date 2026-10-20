@@ -1,45 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import type { ServiceItem } from "@/data/servicesData";
+import { SectionLabel } from "@/components/layout/PageHero";
 
-/** Breadcrumb trail; the last item is the current page. */
-export function Breadcrumbs({ items }: { items: { name: string; href: string }[] }) {
-  return (
-    <nav aria-label="Breadcrumb" className="text-small text-muted">
-      <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-        {items.map((item, i) => {
-          const last = i === items.length - 1;
-          return (
-            <li key={item.href} className="flex items-center gap-1.5">
-              {last ? (
-                <span aria-current="page" className="text-ink">{item.name}</span>
-              ) : (
-                <>
-                  <Link href={item.href} className="hover:text-heading underline-offset-4 hover:underline">{item.name}</Link>
-                  <span aria-hidden="true">/</span>
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
-  );
-}
-
-/** Soft-blue intro band used at the top of the services pages. */
-export function PageBand({ children, aside }: { children: React.ReactNode; aside?: React.ReactNode }) {
-  return (
-    <section className="bg-band">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid lg:grid-cols-12 gap-8 lg:gap-10">
-        <div className={`flex flex-col gap-4 ${aside ? "lg:col-span-7" : "lg:col-span-9"}`}>{children}</div>
-        {aside && <div className="lg:col-span-5 lg:self-end">{aside}</div>}
-      </div>
-    </section>
-  );
-}
-
-// Each service line keeps its logo-piece colour (as in the Services menu).
+// Each service line keeps its logo-piece colour (as in the What we do menu).
 const LINE_MARK: Record<ServiceItem["category"], string> = {
   consulting: "bg-piece-navy",
   training: "bg-piece-sky",
@@ -49,8 +13,8 @@ const LINE_MARK: Record<ServiceItem["category"], string> = {
 /** One service as a card linking to its own page. */
 export function ServiceCard({ service }: { service: ServiceItem }) {
   return (
-    <Link href={`/services/${service.id}`} className="group fs-card fs-card-hover h-full flex flex-col gap-3 p-6">
-      <span aria-hidden="true" className={`w-7 h-1 rounded-full ${LINE_MARK[service.category]}`} />
+    <Link href={`/services/${service.id}`} className="fs-lift group h-full flex flex-col gap-3 rounded-[1.75rem] border border-line bg-bg p-7">
+      <span aria-hidden="true" className={`w-9 h-1.5 rounded-full ${LINE_MARK[service.category]}`} />
       <h3 className="text-h3 text-heading">{service.title}</h3>
       <p className="text-muted">{service.shortDescription}</p>
       <ul className="flex flex-wrap gap-1.5 pt-0.5" aria-label="Topics">
@@ -65,17 +29,23 @@ export function ServiceCard({ service }: { service: ServiceItem }) {
   );
 }
 
-/** The three-step way of working for a service line. */
+/** The three-step way of working for a service line, on deep navy. */
 export function HowWeWork({ phases }: { phases: { phase: string; title: string; desc: string }[] }) {
   return (
-    <section aria-labelledby="how-we-work" className="rounded-2xl border border-line p-6 sm:p-8 flex flex-col gap-6">
-      <h2 id="how-we-work" className="text-h2 text-heading">How we work</h2>
-      <ol className="grid md:grid-cols-3 gap-6">
+    <section aria-labelledby="how-we-work" data-reveal className="fs-deep fs-dots rounded-[2rem] p-8 sm:p-12 flex flex-col gap-10">
+      <div aria-hidden="true" className="fs-glow fs-glow-navy w-[34rem] h-[34rem] -right-40 -top-56" />
+      <div className="flex flex-col gap-3">
+        <SectionLabel onDeep>How we work</SectionLabel>
+        <h2 id="how-we-work" className="text-h2 text-on-deep">From diagnosis to daily practice</h2>
+      </div>
+      <ol className="grid md:grid-cols-3 gap-8">
         {phases.map((p) => (
-          <li key={p.phase} className="flex flex-col gap-2">
-            <span aria-hidden="true" className="font-display text-3xl leading-none text-primary/70">{p.phase}</span>
-            <h3 className="text-lg font-display text-heading">{p.title}</h3>
-            <p className="text-small text-muted">{p.desc}</p>
+          <li key={p.phase} className="flex flex-col gap-3">
+            <span aria-hidden="true" className="font-display w-14 h-14 rounded-full bg-deep-surface border border-on-deep/20 inline-flex items-center justify-center text-lg text-on-deep">
+              {p.phase}
+            </span>
+            <h3 className="text-h3 text-on-deep">{p.title}</h3>
+            <p className="text-small text-on-deep-muted">{p.desc}</p>
           </li>
         ))}
       </ol>

@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "@/components/layout/ThemeToggle";
-import { ChatIcon, ChevronDownIcon, ClockIcon, CloseIcon, MailIcon, MenuIcon, PhoneIcon } from "@/components/layout/Icons";
-import { bookingHref, contactLinks, mainNav, serviceLines, type ServiceLine } from "@/data/navigation";
+import { ChevronDownIcon, CloseIcon, MenuIcon, PhoneIcon } from "@/components/layout/Icons";
+import { bookingHref, contactLinks, mainNav, serviceLines, servicesLabel, type ServiceLine } from "@/data/navigation";
 
 // Full class names so Tailwind keeps them.
 const PIECE: Record<ServiceLine["piece"], { mark: string; soft: string }> = {
@@ -16,13 +16,16 @@ const PIECE: Record<ServiceLine["piece"], { mark: string; soft: string }> = {
 };
 
 /**
- * Header "Option B · Contact strip" (approved 2026-10-20): a contact strip on
- * large screens, a sticky bar with a Services menu, and a slide-in menu on phones.
+ * Site header (modern layer, approved 2026-10-20): fixed over the deep navy hero that
+ * starts every page (see components/layout/PageHero.tsx), transparent with light text at
+ * the top, solid once the page scrolls. Services menu on large screens; slide-in menu
+ * with a call button on phones.
  */
 export default function SiteHeader() {
   const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -32,6 +35,14 @@ export default function SiteHeader() {
     setServicesOpen(false);
     setDrawerOpen(false);
   }, [pathname]);
+
+  // Solid header once the page has scrolled a little.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Escape closes whichever menu is open; a click outside closes the Services menu.
   useEffect(() => {
@@ -72,6 +83,19 @@ export default function SiteHeader() {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   const servicesActive = servicesOpen || pathname.startsWith("/services");
+  // Light text over the deep hero until the page scrolls (or the Services menu opens).
+  const onDeep = !scrolled && !servicesOpen;
+
+  const navItem = (active: boolean) =>
+    `inline-flex items-center gap-1 min-h-[44px] px-3.5 rounded-full transition-colors ${
+      onDeep
+        ? active
+          ? "bg-on-deep/10 text-on-deep"
+          : "text-on-deep-muted hover:text-on-deep"
+        : active
+          ? "bg-band text-heading"
+          : "text-muted hover:text-heading"
+    }`;
 
   return (
     <>
@@ -82,42 +106,19 @@ export default function SiteHeader() {
         Skip to content
       </a>
 
-      {/* Contact strip: large screens only (phones get a call button instead). */}
-      <div className="hidden lg:block bg-surface border-b border-line text-small text-muted">
-        <div className="max-w-7xl mx-auto px-8 h-10 flex items-center gap-6">
-          <a href={contactLinks.phoneHref} className="inline-flex items-center gap-1.5 hover:text-heading">
-            <PhoneIcon />
-            {contactLinks.phone}
-          </a>
-          <a href={contactLinks.emailHref} className="inline-flex items-center gap-1.5 hover:text-heading">
-            <MailIcon />
-            {contactLinks.email}
-          </a>
-          <span className="inline-flex items-center gap-1.5">
-            <ClockIcon />
-            {contactLinks.hours}
-          </span>
-          <a
-            href={contactLinks.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ms-auto inline-flex items-center gap-1.5 font-semibold text-heading hover:text-primary"
-          >
-            <ChatIcon />
-            WhatsApp us
-          </a>
-        </div>
-      </div>
-
-      <header className="sticky top-0 z-40 bg-bg border-b border-line">
+      <header
+        className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,box-shadow,border-color] duration-300 ${
+          onDeep ? "bg-transparent border-on-deep/10" : "bg-bg border-line shadow-card"
+        }`}
+      >
         <div className="max-w-7xl mx-auto h-16 lg:h-20 px-4 sm:px-6 lg:px-8 flex items-center gap-4 lg:gap-8">
           <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Factual Solutions home">
-            <span className="fs-logo-tile shrink-0">
-              <Image src="/images/logo-symbol.png" alt="" width={42} height={42} priority className="w-9 h-9 lg:w-[42px] lg:h-[42px]" />
+            <span className={`shrink-0 inline-flex rounded-[10px] p-[3px] ${onDeep ? "bg-on-deep" : "fs-logo-tile"}`}>
+              <Image src="/images/logo-symbol.png" alt="" width={42} height={42} priority className="w-8 h-8 lg:w-9 lg:h-9" />
             </span>
             <span className="flex flex-col">
-              <span className="font-display text-lg leading-tight text-heading">Factual Solutions</span>
-              <span className="hidden sm:block text-xs font-semibold uppercase tracking-[0.08em] text-muted">
+              <span className={`font-display text-lg leading-tight ${onDeep ? "text-on-deep" : "text-heading"}`}>Factual Solutions</span>
+              <span className={`hidden sm:block text-xs font-semibold uppercase tracking-[0.08em] ${onDeep ? "text-on-deep-muted" : "text-muted"}`}>
                 Consulting · Training · ERP
               </span>
             </span>
@@ -133,11 +134,9 @@ export default function SiteHeader() {
                     aria-expanded={servicesOpen}
                     aria-controls="services-menu"
                     onClick={() => setServicesOpen((open) => !open)}
-                    className={`inline-flex items-center gap-1 min-h-[44px] px-3.5 rounded-full transition-colors ${
-                      servicesActive ? "bg-band text-heading" : "text-muted hover:text-heading"
-                    }`}
+                    className={navItem(servicesActive)}
                   >
-                    Services
+                    {servicesLabel}
                     <ChevronDownIcon className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
                   </button>
 
@@ -164,8 +163,8 @@ export default function SiteHeader() {
                           <span className="font-display text-lg leading-snug text-heading">
                             Tell us what you want to improve and we&apos;ll suggest the right fit.
                           </span>
-                          <Link href="/contact" className="btn-secondary mt-auto min-h-[44px] text-small">
-                            Contact us
+                          <Link href="/services" className="btn-secondary mt-auto min-h-[44px] text-small">
+                            All services
                           </Link>
                         </div>
                       </div>
@@ -175,13 +174,7 @@ export default function SiteHeader() {
               </li>
               {mainNav.map((item) => (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    className={`inline-flex items-center min-h-[44px] px-3.5 rounded-full transition-colors ${
-                      isActive(item.href) ? "bg-band text-heading" : "text-muted hover:text-heading"
-                    }`}
-                  >
+                  <Link href={item.href} aria-current={isActive(item.href) ? "page" : undefined} className={navItem(isActive(item.href))}>
                     {item.label}
                   </Link>
                 </li>
@@ -190,8 +183,8 @@ export default function SiteHeader() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
-            <ThemeToggle />
-            <Link href={bookingHref} className="btn-primary min-h-[46px] text-base">
+            <ThemeToggle onDeep={onDeep} />
+            <Link href={bookingHref} className={`btn-primary min-h-[46px] text-base ${onDeep ? "!bg-deep-action" : ""}`}>
               Book a consultation
             </Link>
           </div>
@@ -201,7 +194,7 @@ export default function SiteHeader() {
             <a
               href={contactLinks.phoneHref}
               aria-label={`Call ${contactLinks.phone}`}
-              className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-band text-heading"
+              className={`inline-flex items-center justify-center w-11 h-11 rounded-full ${onDeep ? "bg-on-deep/10 text-on-deep" : "bg-band text-heading"}`}
             >
               <PhoneIcon className="w-5 h-5" />
             </a>
@@ -212,7 +205,7 @@ export default function SiteHeader() {
               aria-expanded={drawerOpen}
               aria-controls="phone-menu"
               aria-label="Open menu"
-              className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-line bg-bg text-heading"
+              className={`inline-flex items-center justify-center w-11 h-11 rounded-full border ${onDeep ? "border-on-deep/25 text-on-deep" : "border-line bg-bg text-heading"}`}
             >
               <MenuIcon />
             </button>
@@ -243,13 +236,9 @@ export default function SiteHeader() {
               </button>
             </div>
             <nav aria-label="Main" className="flex flex-col">
-              <span className="pt-3 pb-1.5 text-label uppercase text-muted">Services</span>
+              <Link href="/services" className="pt-3 pb-1.5 text-label uppercase text-muted hover:text-heading">{servicesLabel}</Link>
               {serviceLines.map((line) => (
-                <Link
-                  key={line.id}
-                  href={line.href}
-                  className="flex items-center gap-2.5 min-h-[48px] text-body font-semibold text-heading"
-                >
+                <Link key={line.id} href={line.href} className="flex items-center gap-2.5 min-h-[48px] text-body font-semibold text-heading">
                   <span className={`w-2.5 h-2.5 rounded-[3px] ${PIECE[line.piece].mark}`} />
                   {line.title}
                 </Link>
@@ -267,11 +256,6 @@ export default function SiteHeader() {
               ))}
             </nav>
             <div className="mt-auto pt-6 flex flex-col gap-3">
-              <div className="flex flex-col gap-2 rounded-xl bg-surface p-3.5 text-small text-muted">
-                <a href={contactLinks.phoneHref}>{contactLinks.phone}</a>
-                <a href={contactLinks.emailHref} className="break-all">{contactLinks.email}</a>
-                <span>{contactLinks.hours}</span>
-              </div>
               <ThemeToggle withLabel className="self-start px-3" />
               <Link href={bookingHref} className="btn-primary">
                 Book a consultation

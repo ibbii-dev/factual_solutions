@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import { contactLinks } from "@/data/navigation";
 import { ChatIcon, ClockIcon, MailIcon, PhoneIcon } from "@/components/layout/Icons";
 import ContactForm, { type Topic } from "./ContactForm";
+import PageHero from "@/components/layout/PageHero";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
@@ -34,14 +35,14 @@ export default function ContactPage({ searchParams }: { searchParams: { topic?: 
   const initialTopic = searchParams.topic ? TOPIC_BY_PARAM[searchParams.topic] : undefined;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-20 pb-20 sm:pb-24 flex flex-col gap-10 lg:gap-12">
-      <header className="max-w-3xl flex flex-col gap-4">
-        <p className="eyebrow">Contact</p>
-        <h1 className="text-display text-heading">Let&apos;s talk about what you want to improve.</h1>
-        <p className="text-lede text-muted">
-          Tell us a little about your organisation and goals, and we&apos;ll get back to you to arrange a conversation.
-        </p>
-      </header>
+    <>
+    <PageHero
+      crumbs={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]}
+      eyebrow="Contact"
+      title="Let's talk about what you want to improve."
+      lede="Tell us a little about your organisation and goals, and we'll get back to you to arrange a conversation."
+    />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-20 sm:pb-24 flex flex-col gap-10 lg:gap-12">
 
       {/* Phones: the quickest routes first. */}
       <div className="grid grid-cols-2 gap-3 lg:hidden">
@@ -102,5 +103,6 @@ export default function ContactPage({ searchParams }: { searchParams: { topic?: 
         </aside>
       </div>
     </div>
+    </>
   );
 }

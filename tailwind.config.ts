@@ -37,6 +37,8 @@ const config: Config = {
       danger: token("danger"),
       scrim: token("scrim"),
       piece: { navy: token("piece-navy"), sky: token("piece-sky"), brick: token("piece-brick") },
+      deep: { DEFAULT: token("deep"), surface: token("deep-surface"), action: token("deep-action") },
+      "on-deep": { DEFAULT: token("on-deep"), muted: token("on-deep-muted"), accent: token("on-deep-accent") },
     },
     extend: {
       // Plain `border`, `divide-*` and `ring` without a colour use these.
