@@ -43,3 +43,9 @@ process_*.ps1
 
 # Local video experiments (not used by the site)
 public/videos/
+
+# Local helper scripts and design scratch files (not part of the site)
+push_*.bat
+publish_*.bat
+cleanup_videos.bat
+Claude outputs/

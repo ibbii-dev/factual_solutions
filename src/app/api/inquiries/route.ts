@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendLeadNotification } from "@/lib/emailService";
 import { generateAiAutoReply } from "@/lib/aiAgentService";
-import { dbSaveInquiry, dbGetInquiries, DatabaseInquiry } from "@/lib/mongodb";
+import { dbSaveInquiry, dbGetInquiries, dbNextInquiryId, DatabaseInquiry } from "@/lib/mongodb";
 import { verifyRecaptcha } from "@/lib/recaptcha";
+import { linkSpamReason, withinSendLimit } from "@/lib/formGuard";
 import { clientEmail, isAdmin } from "@/lib/session";
 
 export async function GET(request: NextRequest) {
@@ -47,14 +48,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, message: "Thank you." });
     }
 
-    const captcha = await verifyRecaptcha(recaptchaToken, request.headers);
-    if (!captcha.ok) {
-      return NextResponse.json(
-        { success: false, code: "RECAPTCHA_FAILED", message: captcha.message },
-        { status: captcha.status }
-      );
-    }
-
     const emailOk = typeof workEmail === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(workEmail.trim());
     if (!fullName || !workEmail || !emailOk || String(fullName).length > 120 || String(message || "").length > 5000) {
       return NextResponse.json(
@@ -63,9 +56,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const spam = linkSpamReason({ name: fullName, company: companyName, message });
+    if (spam) {
+      return NextResponse.json({ success: false, code: "LINK_SPAM", message: spam }, { status: 400 });
+    }
+
+    const captcha = await verifyRecaptcha(recaptchaToken, request.headers);
+    if (!captcha.ok) {
+      return NextResponse.json(
+        { success: false, code: "RECAPTCHA_FAILED", message: captcha.message },
+        { status: captcha.status }
+      );
+    }
+
+    if (!(await withinSendLimit("inquiry", request.headers))) {
+      return NextResponse.json(
+        { success: false, code: "RATE_LIMITED", message: "You have sent several messages in a short time. Please wait a few minutes." },
+        { status: 429 }
+      );
+    }
+
     const now = new Date();
-    const currentInquiries = await dbGetInquiries();
-    const newId = `INQ-${now.getFullYear()}-${String(currentInquiries.length + 1).padStart(3, "0")}`;
+    const newId = await dbNextInquiryId(now.getFullYear());
     const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
     // Generate AI Agent Diagnostic & Auto-Reply

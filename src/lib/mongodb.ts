@@ -174,6 +174,42 @@ export async function dbTestConnection(): Promise<{ connected: boolean; message:
 // INQUIRIES CRUD OPERATIONS
 // ==========================================
 
+function escapeRegex(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Next inquiry id for the year, e.g. INQ-2026-014, from an atomic counter so ids never
+ * repeat (counting existing inquiries repeated ids after deletions). The counter starts
+ * from the highest id already stored. Without a database, a time-based id is used.
+ */
+export async function dbNextInquiryId(year: number): Promise<string> {
+  const prefix = `INQ-${year}-`;
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const counters = db.collection("counters");
+      const counterId = `inquiry-${year}`;
+      if (!(await counters.findOne({ _id: counterId }))) {
+        const existing = await db
+          .collection("inquiries")
+          .find({ id: { $regex: `^${prefix}\\d+$` } }, { projection: { id: 1 } })
+          .toArray();
+        const highest = existing.reduce((max: number, d: any) => Math.max(max, Number(String(d.id).slice(prefix.length)) || 0), 0);
+        await counters.insertOne({ _id: counterId, seq: highest }).catch(() => {
+          /* another request created it first */
+        });
+      }
+      const next = await counters.findOneAndUpdate({ _id: counterId }, { $inc: { seq: 1 } }, { returnDocument: "after" });
+      const seq = (next as { seq?: number } | null)?.seq;
+      if (seq) return `${prefix}${String(seq).padStart(3, "0")}`;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbNextInquiryId failed, using a time-based id:", err);
+  }
+  return `${prefix}${Date.now().toString(36).toUpperCase()}`;
+}
+
 export async function dbGetInquiries(filter?: { status?: string; search?: string; email?: string }): Promise<DatabaseInquiry[]> {
   try {
     const db = await getDatabase();
@@ -186,11 +222,11 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
       }
 
       if (filter?.email) {
-        query.workEmail = { $regex: new RegExp(`^${filter.email.trim()}$`, "i") };
+        query.workEmail = { $regex: new RegExp(`^${escapeRegex(filter.email.trim())}$`, "i") };
       }
 
       if (filter?.search) {
-        const regex = new RegExp(filter.search, "i");
+        const regex = new RegExp(escapeRegex(filter.search), "i");
         query.$or = [
           { fullName: regex },
           { workEmail: regex },
@@ -200,10 +236,10 @@ export async function dbGetInquiries(filter?: { status?: string; search?: string
         ];
       }
 
+      // Connected: return what the database holds, even when that is nothing.
+      // (The sample inquiries below are only for running without a database.)
       const docs = await collection.find(query).sort({ createdAt: -1, date: -1 }).toArray();
-      if (docs && docs.length > 0) {
-        return docs.map((d: any) => ({ ...d, _id: d._id?.toString() }));
-      }
+      return docs.map((d: any) => ({ ...d, _id: d._id?.toString() }));
     }
   } catch (err) {
     console.error("[MongoDB] dbGetInquiries failed, using fallback:", err);

@@ -1,0 +1,75 @@
+/*
+ * Factual Solutions colour tokens: Option B "Sky Open" (approved 2026-10-20).
+ * Built only from the logo: navy #1E2E59, sky #8EAAD4, brick #A33F2E, ink #0B1320.
+ *
+ * Rules:
+ *  - Components use these tokens through Tailwind (bg-surface, text-muted…), never raw colours.
+ *  - Brick (`action`) is for the ONE main action on a screen, e.g. "Book a consultation".
+ *  - Sky (`tint`) is decoration only: it is too light for text on white.
+ *
+ * Values are RGB channels so Tailwind opacity works (bg-action/10).
+ * Light is the default; dark applies when <html data-theme="dark">, which follows
+ * the device setting until a theme toggle is added.
+ */
+
+:root {
+  color-scheme: light;
+
+  --c-bg: 255 255 255;          /* #FFFFFF page background */
+  --c-surface: 242 246 252;     /* #F2F6FC cards, inputs, table heads */
+  --c-band: 227 236 248;        /* #E3ECF8 hero band, raised and selected items */
+  --c-line: 216 226 240;        /* #D8E2F0 borders and dividers */
+
+  --c-ink: 11 19 32;            /* #0B1320 body text */
+  --c-heading: 30 46 89;        /* #1E2E59 headings */
+  --c-muted: 75 88 115;         /* #4B5873 secondary text (7:1 on white) */
+
+  --c-primary: 30 46 89;        /* #1E2E59 navy: secondary buttons, links, focus */
+  --c-action: 163 63 46;        /* #A33F2E brick: the main action */
+  --c-action-hover: 138 51 36;  /* #8A3324 */
+  --c-on-action: 255 255 255;   /* text on brick */
+  --c-on-solid: 255 255 255;    /* text on primary / success / warning / danger fills */
+  --c-accent: 163 63 46;        /* #A33F2E brick as text: small labels */
+  --c-tint: 142 170 212;        /* #8EAAD4 sky: decoration only */
+
+  --c-success: 31 122 77;       /* #1F7A4D */
+  --c-warning: 138 90 0;        /* #8A5A00 */
+  --c-danger: 180 35 24;        /* #B42318 */
+
+  --c-scrim: 11 19 32;          /* overlays behind dialogs, same in both themes */
+
+  /* The three logo pieces, for small decorative marks only (never text). */
+  --c-piece-navy: 30 46 89;     /* #1E2E59 */
+  --c-piece-sky: 142 170 212;   /* #8EAAD4 */
+  --c-piece-brick: 163 63 46;   /* #A33F2E */
+}
+
+/* Set before first paint by the inline script in app/layout.tsx. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --c-bg: 15 26 46;             /* #0F1A2E */
+  --c-surface: 23 37 64;        /* #172540 */
+  --c-band: 30 50 84;           /* #1E3254 */
+  --c-line: 42 58 92;           /* #2A3A5C */
+
+  --c-ink: 238 243 250;         /* #EEF3FA */
+  --c-heading: 238 243 250;     /* #EEF3FA */
+  --c-muted: 169 186 211;       /* #A9BAD3 */
+
+  --c-primary: 142 170 212;     /* #8EAAD4 sky */
+  --c-action: 184 74 53;        /* #B84A35 */
+  --c-action-hover: 163 63 46;  /* #A33F2E */
+  --c-on-action: 255 255 255;
+  --c-on-solid: 15 26 46;       /* dark text on light fills */
+  --c-accent: 240 164 147;      /* #F0A493 */
+  --c-tint: 142 170 212;
+
+  --c-success: 111 207 151;     /* #6FCF97 */
+  --c-warning: 242 196 107;     /* #F2C46B */
+  --c-danger: 245 154 143;      /* #F59A8F */
+
+  --c-piece-navy: 92 116 176;   /* #5C74B0, lifted so it shows on dark */
+  --c-piece-sky: 142 170 212;
+  --c-piece-brick: 201 96 74;   /* #C9604A */
+}

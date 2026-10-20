@@ -1,4 +1,4 @@
-import { Language } from "./translations";
+type Language = "en" | "ar";
 
 /**
  * Factual Solutions — "What We Do"
@@ -79,7 +79,7 @@ export const servicePillarsEN: ServicePillar[] = [
   {
     id: "consulting",
     title: "Consulting",
-    tagline: "Identify what needs to change—and make it work in practice.",
+    tagline: "Identify what needs to change, and make it work in practice.",
     intro: "Consulting identifies what needs to change. We combine proven management methods with practical implementation and measurable improvement.",
   },
   {

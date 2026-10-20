@@ -1,14 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeContext";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { UserAuthProvider } from "@/context/UserAuthContext";
-import AuthModal from "@/components/auth/AuthModalLazy";
-import SiteShell from "@/components/layout/SiteShell";
 import { contactDetails } from "@/data/companyData";
-import { LANG_BOOT_SCRIPT } from "@/lib/i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://factual-solutions.vercel.app";
 
@@ -28,10 +22,9 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
-// Typography: Plus Jakarta Sans (friendly, rounded geometric) for headings and
-// Inter (built for screen reading) for text. Both are variable fonts, so each is a
-// single self-hosted .woff2 file covering every weight; font-display: swap plus a
-// size-matched system fallback means text shows instantly with no layout jump.
+// Fonts (approved 2026-10-20): Manrope for headings, Inter for all text. next/font
+// downloads them at build time and serves them from this site, with size-matched
+// fallbacks so text shows instantly without layout shift.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
@@ -40,7 +33,7 @@ const inter = Inter({
   adjustFontFallback: true,
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -48,21 +41,16 @@ const jakarta = Plus_Jakarta_Sans({
   adjustFontFallback: true,
 });
 
-// Arabic face: only downloaded when Arabic text is actually rendered (not preloaded).
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  weight: ["400", "700"],
-  variable: "--font-arabic",
-  display: "swap",
-  preload: false,
-  fallback: ["Segoe UI", "Tahoma", "Geeza Pro", "Arial", "sans-serif"],
-});
+// Sets data-theme before first paint so there is no flash of the wrong theme.
+// A saved choice ("fs-theme") wins; otherwise follow the device setting.
+const THEME_BOOT_SCRIPT = `(function(){try{var d=document.documentElement,m=window.matchMedia("(prefers-color-scheme: dark)");function a(){var s=null;try{s=localStorage.getItem("fs-theme")}catch(e){}d.dataset.theme=(s==="dark"||s==="light")?s:(m.matches?"dark":"light")}a();m.addEventListener("change",a)}catch(e){}})();`;
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F6F8FC" }, { media: "(prefers-color-scheme: dark)", color: "#081229" }],
+  // Browser bar colours: the --c-bg token values (meta tags cannot read CSS variables).
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FFFFFF" }, { media: "(prefers-color-scheme: dark)", color: "#0F1A2E" }],
 };
 
 export const metadata: Metadata = {
@@ -95,44 +83,14 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${inter.variable} ${jakarta.variable} ${tajawal.variable}`} 
+      className={`scroll-smooth ${inter.variable} ${manrope.variable}`} 
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: LANG_BOOT_SCRIPT }} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  // Purge previous stale dark defaults from older versions
-                  if (localStorage.getItem('factual_theme_pref') === null) {
-                    localStorage.removeItem('factual_theme');
-                    localStorage.setItem('factual_theme_pref', 'light');
-                  }
-                  var saved = localStorage.getItem('factual_theme_pref');
-                  if (saved === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {
-                  document.documentElement.classList.remove('dark');
-                }
-              })();
-            `,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>
-      <body className="font-sans antialiased bg-canvas text-ink dark:text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300 relative">
-        <ThemeProvider>
-          <LanguageProvider>
-            <UserAuthProvider>
-              <SiteShell>{children}</SiteShell>
-              <AuthModal />
-            </UserAuthProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+      <body className="font-sans antialiased bg-bg text-ink min-h-screen">
+        {children}
         <SpeedInsights />
         <script
           type="application/ld+json"

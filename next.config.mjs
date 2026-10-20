@@ -67,6 +67,17 @@ const nextConfig = {
         destination: "/services",
         permanent: true,
       },
+      // Pages from the previous site whose content moved during the 2026 rebuild.
+      {
+        source: "/what-we-think",
+        destination: "/about#principles",
+        permanent: true,
+      },
+      {
+        source: "/case-studies",
+        destination: "/services",
+        permanent: true,
+      },
     ];
   },
 };
