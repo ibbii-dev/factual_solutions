@@ -33,7 +33,7 @@ Brand palette (exact logo colours) in `tailwind.config.ts`: navy `#25346B`, stee
 - Services: `components/services/ServiceCatalog.tsx` (tabs, search, cards; `only` for line pages), `ApproachPanel.tsx`, `ServiceMatcherQuiz.tsx` (`/services#quiz`). Content from `src/data/servicesData.ts` via `src/data/servicePages.ts`. Pages stay server-rendered with metadata and JSON-LD.
 - Scroll reveal: add `data-reveal` (optional `--d` delay).
 - Case studies are posted from the admin panel (Case Studies tab, `components/admin/CaseStudiesManager.tsx`), stored in MongoDB `case_studies`, served by `/api/case-studies` (staff-only writes, checked by `lib/caseStudyInput.ts`) and shown at `/case-studies` and `/case-studies/<slug>` ("coming soon" while none are published). Never invent results.
-- Blog articles have a sidebar (`components/blog/BlogSidebar.tsx`: search, categories, recent articles, newsletter). No comments section yet.
+- Blog articles have a sidebar (`components/blog/BlogSidebar.tsx`: search, categories, recent articles, newsletter) and comments (`components/blog/BlogComments.tsx`, `/api/blog-comments`, MongoDB `blog_comments`). Comments show straight away; links are refused, 3 per 10 minutes per visitor, emails never reach the page. Staff hide or delete them in the admin Comments tab.
 
 ## Extras
 

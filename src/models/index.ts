@@ -143,3 +143,20 @@ export interface ICaseStudy {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+/** A reader comment on a blog article. The email is kept private (never sent to the page). */
+export interface IBlogComment {
+  _id?: string;
+  id: string;
+  postSlug: string;
+  postTitle: string;
+  name: string;
+  email: string;
+  message: string;
+  /** "visible" shows on the article; staff can hide a comment without deleting it. */
+  status: "visible" | "hidden";
+  createdAt: string;
+}
+
+/** What the public page receives. */
+export type PublicBlogComment = Pick<IBlogComment, "id" | "name" | "message" | "createdAt">;

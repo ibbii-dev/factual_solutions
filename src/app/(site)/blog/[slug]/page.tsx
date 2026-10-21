@@ -19,10 +19,11 @@ import {
   Twitter,
   MessageCircle
 } from "lucide-react";
-import { dbGetBlogPostBySlug, dbGetBlogPosts } from "@/lib/mongodb";
+import { dbGetBlogPostBySlug, dbGetBlogPosts, dbGetComments } from "@/lib/mongodb";
 import BlogArticleClientActions from "./BlogArticleClientActions";
 import PageHeader from "@/components/ui/PageHeader";
 import BlogSidebar from "@/components/blog/BlogSidebar";
+import BlogComments from "@/components/blog/BlogComments";
 import { SITE_URL, SITE_NAME, breadcrumbJsonLd } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -68,6 +69,8 @@ export default async function BlogPostPage({
 
   // Fetch related posts in the same category or other published posts
   const allPosts = await dbGetBlogPosts({ status: "published" });
+  const comments = (await dbGetComments({ postSlug: post.slug, status: "visible" })).map(({ id, name, message, createdAt }) => ({ id, name, message, createdAt }));
+
   const others = allPosts.filter((p) => p.id !== post.id);
   const relatedPosts = [...others.filter((p) => p.category === post.category), ...others.filter((p) => p.category !== post.category)].slice(0, 3);
 
@@ -275,6 +278,7 @@ export default async function BlogPostPage({
             </Link>
           </div>
         </div>
+        <BlogComments slug={post.slug} initial={comments} />
       </div>
       <div className="lg:col-span-4 lg:sticky lg:top-28">
         <BlogSidebar posts={allPosts} currentId={post.id} />
