@@ -215,7 +215,7 @@ export default async function BlogPostPage({
 
       {post.coverImage && (
         <figure className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-          <div className="relative aspect-[16/8] w-full overflow-hidden rounded-3xl shadow-lift bg-band">
+          <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden rounded-3xl shadow-lift bg-band">
             <Image sizes="(max-width: 1280px) 100vw, 1280px" src={post.coverImage} alt={post.coverImageAlt || post.title} fill priority className="object-cover" />
           </div>
           {post.coverImageAlt && <figcaption className="mt-2 text-sm text-muted">{post.coverImageAlt}</figcaption>}
