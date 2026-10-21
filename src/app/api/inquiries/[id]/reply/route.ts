@@ -1,15 +1,50 @@
-import { requireAdmin } from "@/lib/session";
+import { clientEmail, isAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { dbAddInquiryReply, dbGetInquiryById } from "@/lib/mongodb";
 import { IInquiryReply } from "@/models";
 import { sendConsultantReplyEmail } from "@/lib/emailService";
+import { linkSpamReason, withinSendLimit } from "@/lib/formGuard";
+
+/** A signed-in client adds a follow-up to one of their own inquiries (client portal). */
+async function clientFollowUp(request: NextRequest, id: string) {
+  const email = clientEmail(request);
+  if (!email) return NextResponse.json({ success: false, message: "Not authorised." }, { status: 401 });
+
+  const body = await request.json().catch(() => ({}));
+  const message = String(body?.message ?? "").trim();
+  if (!message || message.length > 2000) {
+    return NextResponse.json({ success: false, message: "Please write a message of up to 2,000 characters." }, { status: 400 });
+  }
+  const spam = linkSpamReason({ message });
+  if (spam) return NextResponse.json({ success: false, message: spam }, { status: 400 });
+
+  const inquiry = await dbGetInquiryById(id);
+  // Same answer for "missing" and "someone else's" so ids cannot be probed.
+  if (!inquiry || inquiry.workEmail.toLowerCase().trim() !== email) {
+    return NextResponse.json({ success: false, message: "Inquiry not found." }, { status: 404 });
+  }
+  if (!(await withinSendLimit("client-reply", request.headers))) {
+    return NextResponse.json({ success: false, message: "You have sent several messages in a short time. Please wait a few minutes." }, { status: 429 });
+  }
+
+  const reply: IInquiryReply = {
+    id: `REP-${Date.now().toString().slice(-6)}`,
+    author: `${inquiry.fullName} (client)`,
+    content: message,
+    sentAt: new Date().toISOString().slice(0, 16).replace("T", " "),
+    channel: "Internal Note",
+    deliveryStatus: "Logged",
+  };
+  await dbAddInquiryReply(id, reply, "New");
+  return NextResponse.json({ success: true, message: "Message sent.", reply });
+}
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const denied = requireAdmin(request);
-  if (denied) return denied;
+  // Staff reply from the admin panel; anyone else is treated as a client follow-up.
+  if (!isAdmin(request)) return clientFollowUp(request, params.id);
   try {
     const { id } = params;
     const body = await request.json();
