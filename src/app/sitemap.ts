@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { dbGetBlogPosts } from "@/lib/mongodb";
+import { dbGetBlogPosts, dbGetCaseStudies } from "@/lib/mongodb";
 import { allServices, lines } from "@/data/servicePages";
 
 // Rebuild hourly so newly published posts appear without a redeploy.
@@ -31,5 +31,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...postRoutes];
+  const studies = await dbGetCaseStudies({ status: "published" });
+  const caseRoutes: MetadataRoute.Sitemap = studies.map((c) => ({
+    url: `${baseUrl}/case-studies/${c.slug}`,
+    lastModified: new Date(c.updatedAt || c.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...postRoutes, ...caseRoutes];
 }

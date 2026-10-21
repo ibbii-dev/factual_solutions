@@ -44,9 +44,11 @@ import {
   Italic,
   List,
   ListOrdered,
-  Quote
+  Quote,
+  Briefcase
 } from "lucide-react";
 import { IInquiry, IInquiryReply, IBlogPost } from "@/models";
+import CaseStudiesManager from "@/components/admin/CaseStudiesManager";
 import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER, calculateReadTime } from "@/data/blogCategories";
 
@@ -74,7 +76,8 @@ export default function AdminPage() {
   const [authError, setAuthError] = useState("");
 
   // Navigation Tabs
-  const [activeTab, setActiveTab] = useState<"inquiries" | "subscribers" | "chatlogs" | "blog" | "system">("inquiries");
+  const [activeTab, setActiveTab] = useState<"inquiries" | "subscribers" | "chatlogs" | "blog" | "cases" | "system">("inquiries");
+  const [caseCount, setCaseCount] = useState<number | null>(null);
 
   // Blog Management State
   const [blogPosts, setBlogPosts] = useState<IBlogPost[]>([]);
@@ -1047,6 +1050,18 @@ Invite the reader to get in touch or explore a related service.`;
           </button>
 
           <button
+            onClick={() => setActiveTab("cases")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              activeTab === "cases"
+                ? "bg-action text-on-action shadow-md"
+                : "text-muted hover:text-heading hover:bg-band/60"
+            }`}
+          >
+            <Briefcase className="w-3.5 h-3.5" />
+            <span>Case Studies{caseCount !== null ? ` (${caseCount})` : ""}</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab("system")}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeTab === "system"
@@ -1482,6 +1497,8 @@ Invite the reader to get in touch or explore a related service.`;
         {/* ============================================================== */}
         {/* TAB 4: SYSTEM & ATLAS CLUSTER DIAGNOSTICS */}
         {/* ============================================================== */}
+        {activeTab === "cases" && <CaseStudiesManager onCount={setCaseCount} />}
+
         {activeTab === "system" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -22,6 +22,7 @@ import {
 import { dbGetBlogPostBySlug, dbGetBlogPosts } from "@/lib/mongodb";
 import BlogArticleClientActions from "./BlogArticleClientActions";
 import PageHeader from "@/components/ui/PageHeader";
+import BlogSidebar from "@/components/blog/BlogSidebar";
 import { SITE_URL, SITE_NAME, breadcrumbJsonLd } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -67,9 +68,8 @@ export default async function BlogPostPage({
 
   // Fetch related posts in the same category or other published posts
   const allPosts = await dbGetBlogPosts({ status: "published" });
-  const relatedPosts = allPosts
-    .filter((p) => p.id !== post.id)
-    .slice(0, 3);
+  const others = allPosts.filter((p) => p.id !== post.id);
+  const relatedPosts = [...others.filter((p) => p.category === post.category), ...others.filter((p) => p.category !== post.category)].slice(0, 3);
 
   // Render markdown-like sections cleanly
   const renderFormattedContent = (content: string) => {
@@ -213,7 +213,18 @@ export default async function BlogPostPage({
       />
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-10">
+      {post.coverImage && (
+        <figure className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+          <div className="relative aspect-[16/8] w-full overflow-hidden rounded-3xl shadow-lift bg-band">
+            <Image sizes="(max-width: 1280px) 100vw, 1280px" src={post.coverImage} alt={post.coverImageAlt || post.title} fill priority className="object-cover" />
+          </div>
+          {post.coverImageAlt && <figcaption className="mt-2 text-sm text-muted">{post.coverImageAlt}</figcaption>}
+        </figure>
+      )}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div className="lg:col-span-8 min-w-0">
+      <div className="pb-8">
           <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 fs-card px-4 py-3">
             <div className="flex items-center gap-3">
               <span className="relative w-10 h-10 rounded-full overflow-hidden bg-band shrink-0">
@@ -228,16 +239,6 @@ export default async function BlogPostPage({
           </div>
       </div>
 
-      {post.coverImage && (
-        <figure className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <div className="relative aspect-[16/8] w-full overflow-hidden rounded-3xl shadow-lift bg-band">
-            <Image sizes="(max-width: 1280px) 100vw, 1280px" src={post.coverImage} alt={post.coverImageAlt || post.title} fill priority className="object-cover" />
-          </div>
-          {post.coverImageAlt && <figcaption className="mt-2 text-sm text-muted">{post.coverImageAlt}</figcaption>}
-        </figure>
-      )}
-
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="space-y-6 text-[17px] leading-[1.75]">
           {renderFormattedContent(post.content)}
 
@@ -274,6 +275,10 @@ export default async function BlogPostPage({
             </Link>
           </div>
         </div>
+      </div>
+      <div className="lg:col-span-4 lg:sticky lg:top-28">
+        <BlogSidebar posts={allPosts} currentId={post.id} />
+      </div>
       </div>
 
       {relatedPosts.length > 0 && (
