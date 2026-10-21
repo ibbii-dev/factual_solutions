@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 export type MongoDatabase = ReturnType<MongoClient["db"]>;
 import dns from "dns";
-import { IInquiryReply, IBlogPost, ICaseStudy } from "@/models";
+import { IInquiryReply, IBlogPost, ICaseStudy, IBlogComment } from "@/models";
 
 // Configure resilient DNS resolvers for MongoDB Atlas SRV lookups in Node.js
 try {
@@ -793,4 +793,87 @@ export async function dbDeleteCaseStudy(id: string): Promise<boolean> {
   const before = fallbackCaseStudies.length;
   fallbackCaseStudies = fallbackCaseStudies.filter((c) => c.id !== id);
   return fallbackCaseStudies.length < before;
+}
+
+// ==========================================
+// Blog comments
+// ==========================================
+let fallbackComments: IBlogComment[] = [];
+
+export async function dbGetComments(filter?: { postSlug?: string; status?: IBlogComment["status"] }): Promise<IBlogComment[]> {
+  const query: Record<string, string> = {};
+  if (filter?.postSlug) query.postSlug = filter.postSlug;
+  if (filter?.status) query.status = filter.status;
+  try {
+    const db = await getDatabase();
+    if (db) {
+      // Oldest first on an article reads like a conversation; the admin list reverses it.
+      const docs = await db.collection("blog_comments").find(query).sort({ createdAt: 1 }).limit(500).toArray();
+      return docs.map(({ _id, ...rest }: Record<string, unknown>) => rest as unknown as IBlogComment);
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetComments error:", err);
+  }
+  return fallbackComments.filter(
+    (c) => (!filter?.postSlug || c.postSlug === filter.postSlug) && (!filter?.status || c.status === filter.status)
+  );
+}
+
+export async function dbSaveComment(comment: IBlogComment): Promise<IBlogComment> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      await db.collection("blog_comments").insertOne({ ...comment });
+      return comment;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSaveComment failed, saving in memory:", err);
+  }
+  fallbackComments = [...fallbackComments, comment];
+  return comment;
+}
+
+export async function dbGetCommentById(id: string): Promise<IBlogComment | null> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const doc = await db.collection("blog_comments").findOne({ id });
+      if (!doc) return null;
+      const { _id, ...rest } = doc;
+      return rest as unknown as IBlogComment;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetCommentById error:", err);
+  }
+  return fallbackComments.find((c) => c.id === id) || null;
+}
+
+export async function dbSetCommentStatus(id: string, status: IBlogComment["status"]): Promise<boolean> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const res = await db.collection("blog_comments").updateOne({ id }, { $set: { status } });
+      return res.matchedCount > 0;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSetCommentStatus error:", err);
+  }
+  let found = false;
+  fallbackComments = fallbackComments.map((c) => (c.id === id ? ((found = true), { ...c, status }) : c));
+  return found;
+}
+
+export async function dbDeleteComment(id: string): Promise<boolean> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const res = await db.collection("blog_comments").deleteOne({ id });
+      return res.deletedCount > 0;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbDeleteComment error:", err);
+  }
+  const before = fallbackComments.length;
+  fallbackComments = fallbackComments.filter((c) => c.id !== id);
+  return fallbackComments.length < before;
 }

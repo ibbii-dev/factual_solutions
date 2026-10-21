@@ -49,6 +49,7 @@ import {
 } from "lucide-react";
 import { IInquiry, IInquiryReply, IBlogPost } from "@/models";
 import CaseStudiesManager from "@/components/admin/CaseStudiesManager";
+import CommentsManager from "@/components/admin/CommentsManager";
 import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER, calculateReadTime } from "@/data/blogCategories";
 
@@ -76,7 +77,8 @@ export default function AdminPage() {
   const [authError, setAuthError] = useState("");
 
   // Navigation Tabs
-  const [activeTab, setActiveTab] = useState<"inquiries" | "subscribers" | "chatlogs" | "blog" | "cases" | "system">("inquiries");
+  const [activeTab, setActiveTab] = useState<"inquiries" | "subscribers" | "chatlogs" | "blog" | "comments" | "cases" | "system">("inquiries");
+  const [commentCount, setCommentCount] = useState<number | null>(null);
   const [caseCount, setCaseCount] = useState<number | null>(null);
 
   // Blog Management State
@@ -1050,6 +1052,18 @@ Invite the reader to get in touch or explore a related service.`;
           </button>
 
           <button
+            onClick={() => setActiveTab("comments")}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              activeTab === "comments"
+                ? "bg-action text-on-action shadow-md"
+                : "text-muted hover:text-heading hover:bg-band/60"
+            }`}
+          >
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Comments{commentCount !== null ? ` (${commentCount})` : ""}</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab("cases")}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeTab === "cases"
@@ -1497,6 +1511,8 @@ Invite the reader to get in touch or explore a related service.`;
         {/* ============================================================== */}
         {/* TAB 4: SYSTEM & ATLAS CLUSTER DIAGNOSTICS */}
         {/* ============================================================== */}
+        {activeTab === "comments" && <CommentsManager onCount={setCommentCount} />}
+
         {activeTab === "cases" && <CaseStudiesManager onCount={setCaseCount} />}
 
         {activeTab === "system" && (
