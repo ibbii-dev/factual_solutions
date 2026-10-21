@@ -114,3 +114,32 @@ export interface IBlogPost {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+/** A client story posted from the admin panel and shown on /case-studies. */
+export interface ICaseStudy {
+  _id?: string;
+  id: string;
+  title: string;
+  slug: string;
+  /** Client name, or a description when the client stays anonymous ("A textile exporter in Faisalabad"). */
+  client: string;
+  industry: string;
+  serviceLine: "consulting" | "training" | "digital";
+  /** One or two sentences for the card and search results. */
+  summary: string;
+  challenge: string;
+  approach: string;
+  /** Outcomes the client agreed to share, one per line. */
+  results: string[];
+  /** Up to three headline numbers, e.g. { value: "32%", label: "shorter lead time" }. */
+  metrics: { value: string; label: string }[];
+  testimonial?: { quote: string; name: string; role: string };
+  coverImage?: string;
+  coverImageAlt?: string;
+  /** e.g. "8 weeks" */
+  duration?: string;
+  status: "published" | "draft";
+  publishedAt: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}

@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 export type MongoDatabase = ReturnType<MongoClient["db"]>;
 import dns from "dns";
-import { IInquiryReply, IBlogPost } from "@/models";
+import { IInquiryReply, IBlogPost, ICaseStudy } from "@/models";
 
 // Configure resilient DNS resolvers for MongoDB Atlas SRV lookups in Node.js
 try {
@@ -707,4 +707,90 @@ export async function dbDeleteBlogPost(id: string): Promise<boolean> {
 
   fallbackBlogPosts = fallbackBlogPosts.filter((p) => p.id !== id);
   return true;
+}
+
+// ==========================================
+// Case studies (posted from the admin panel)
+// ==========================================
+let fallbackCaseStudies: ICaseStudy[] = [];
+
+export async function dbGetCaseStudies(filter?: { status?: ICaseStudy["status"] }): Promise<ICaseStudy[]> {
+  const query = filter?.status ? { status: filter.status } : {};
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const docs = await db.collection("case_studies").find(query).sort({ publishedAt: -1, createdAt: -1 }).toArray();
+      return docs.map(({ _id, ...rest }: Record<string, unknown>) => rest as unknown as ICaseStudy);
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetCaseStudies error:", err);
+  }
+  return fallbackCaseStudies.filter((c) => !filter?.status || c.status === filter.status);
+}
+
+export async function dbGetCaseStudyBySlug(slug: string): Promise<ICaseStudy | null> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const doc = await db.collection("case_studies").findOne({ slug });
+      if (!doc) return null;
+      const { _id, ...rest } = doc;
+      return rest as unknown as ICaseStudy;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetCaseStudyBySlug error:", err);
+  }
+  return fallbackCaseStudies.find((c) => c.slug === slug) || null;
+}
+
+export async function dbCaseStudySlugTaken(slug: string, exceptId?: string): Promise<boolean> {
+  const all = await dbGetCaseStudies();
+  return all.some((c) => c.slug === slug && c.id !== exceptId);
+}
+
+export async function dbSaveCaseStudy(study: ICaseStudy): Promise<ICaseStudy> {
+  const record: ICaseStudy = { ...study, createdAt: new Date(), updatedAt: new Date() };
+  try {
+    const db = await getDatabase();
+    if (db) {
+      await db.collection("case_studies").insertOne({ ...record });
+      return record;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSaveCaseStudy failed, saving in memory:", err);
+  }
+  fallbackCaseStudies = [record, ...fallbackCaseStudies];
+  return record;
+}
+
+export async function dbUpdateCaseStudy(id: string, updates: Partial<ICaseStudy>): Promise<boolean> {
+  const { _id, id: _ignore, createdAt, ...rest } = updates;
+  const clean = { ...rest, updatedAt: new Date() };
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const res = await db.collection("case_studies").updateOne({ id }, { $set: clean });
+      return res.matchedCount > 0;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbUpdateCaseStudy error:", err);
+  }
+  let found = false;
+  fallbackCaseStudies = fallbackCaseStudies.map((c) => (c.id === id ? ((found = true), { ...c, ...clean }) : c));
+  return found;
+}
+
+export async function dbDeleteCaseStudy(id: string): Promise<boolean> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const res = await db.collection("case_studies").deleteOne({ id });
+      return res.deletedCount > 0;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbDeleteCaseStudy error:", err);
+  }
+  const before = fallbackCaseStudies.length;
+  fallbackCaseStudies = fallbackCaseStudies.filter((c) => c.id !== id);
+  return fallbackCaseStudies.length < before;
 }

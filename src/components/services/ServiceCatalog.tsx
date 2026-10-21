@@ -2,14 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Search, ArrowRight, Compass, GraduationCap, MonitorCog } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { getServicePillars, getServices, ServiceCategory, ServiceItem } from "@/data/servicesData";
+import { PIECE } from "./linePieces";
 
-export const PIECE: Record<ServiceCategory, { color: string; tile: string; Icon: typeof Compass }> = {
-  consulting: { color: "#25346B", tile: "bg-navy", Icon: Compass },
-  training: { color: "#9BB3D9", tile: "bg-steel text-navy", Icon: GraduationCap },
-  digital: { color: "#9B391E", tile: "bg-rust", Icon: MonitorCog },
-};
 
 const check = (
   <span className="fs-check mt-0.5">
