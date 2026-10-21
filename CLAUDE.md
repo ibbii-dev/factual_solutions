@@ -32,7 +32,8 @@ Brand palette (exact logo colours) in `tailwind.config.ts`: navy `#25346B`, stee
 - Menu: What we do (dropdown, `/services`), What we think, Who we are, Case studies, Blog. No Contact item; "Request Consultation" goes to `/contact`. Links and contact details come from `src/data/navigation.ts` (which reads `companyData.ts`).
 - Services: `components/services/ServiceCatalog.tsx` (tabs, search, cards; `only` for line pages), `ApproachPanel.tsx`, `ServiceMatcherQuiz.tsx` (`/services#quiz`). Content from `src/data/servicesData.ts` via `src/data/servicePages.ts`. Pages stay server-rendered with metadata and JSON-LD.
 - Scroll reveal: add `data-reveal` (optional `--d` delay).
-- Case studies come from `src/data/caseStudies.ts` (empty = "coming soon"); never invent results.
+- Case studies are posted from the admin panel (Case Studies tab, `components/admin/CaseStudiesManager.tsx`), stored in MongoDB `case_studies`, served by `/api/case-studies` (staff-only writes, checked by `lib/caseStudyInput.ts`) and shown at `/case-studies` and `/case-studies/<slug>` ("coming soon" while none are published). Never invent results.
+- Blog articles have a sidebar (`components/blog/BlogSidebar.tsx`: search, categories, recent articles, newsletter). No comments section yet.
 
 ## Extras
 
