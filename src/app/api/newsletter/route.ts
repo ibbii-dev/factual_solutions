@@ -1,6 +1,7 @@
 import { requireAdmin } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 import { dbSaveSubscriber, dbGetSubscribers } from "@/lib/mongodb";
+import { withinSendLimit } from "@/lib/formGuard";
 
 export async function GET(request: NextRequest) {
   const denied = requireAdmin(request);
@@ -38,7 +39,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await dbSaveSubscriber(email, source || "Website Footer");
+    if (!(await withinSendLimit("newsletter", request.headers))) {
+      return NextResponse.json(
+        { success: false, message: "Too many sign-ups from this connection. Please try again later." },
+        { status: 429 }
+      );
+    }
+
+    await dbSaveSubscriber(email.trim(), String(source || "Website Footer").slice(0, 60));
 
     return NextResponse.json({
       success: true,

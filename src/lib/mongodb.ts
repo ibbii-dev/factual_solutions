@@ -343,16 +343,21 @@ export async function dbDeleteInquiry(id: string): Promise<boolean> {
   return true;
 }
 
-export async function dbAddInquiryReply(id: string, reply: IInquiryReply): Promise<boolean> {
+/** Adds a reply. Staff replies mark the inquiry "Contacted"; client follow-ups set it back to "New". */
+export async function dbAddInquiryReply(
+  id: string,
+  reply: IInquiryReply,
+  status: DatabaseInquiry["status"] = "Contacted"
+): Promise<boolean> {
   try {
     const db = await getDatabase();
     if (db) {
       const collection = db.collection("inquiries");
       const res = await collection.updateOne(
         { id },
-        { 
+        {
           $push: { replies: reply } as any,
-          $set: { status: "Contacted", updatedAt: new Date() }
+          $set: { status, updatedAt: new Date() }
         }
       );
       if (res.matchedCount > 0) return true;
@@ -364,7 +369,7 @@ export async function dbAddInquiryReply(id: string, reply: IInquiryReply): Promi
   fallbackInquiries = fallbackInquiries.map((i) => {
     if (i.id === id) {
       const existingReplies = i.replies || [];
-      return { ...i, replies: [...existingReplies, reply], status: "Contacted", updatedAt: new Date() };
+      return { ...i, replies: [...existingReplies, reply], status, updatedAt: new Date() };
     }
     return i;
   });

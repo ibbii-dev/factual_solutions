@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Tajawal } from "next/font/google";
+import { LANG_BOOT_SCRIPT } from "@/lib/i18n";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { contactDetails } from "@/data/companyData";
@@ -22,9 +23,9 @@ const organizationJsonLd = {
   knowsAbout: ["Lean Six Sigma", "Operational Excellence", "Strategy", "Quality Management", "ERP Implementation", "Digital Transformation", "Training"],
 };
 
-// Fonts (approved 2026-10-20): Manrope for headings, Inter for all text. next/font
-// downloads them at build time and serves them from this site, with size-matched
-// fallbacks so text shows instantly without layout shift.
+// Fonts (classic design, restored 2026-10-21): Plus Jakarta Sans for headings, Inter for
+// text, Tajawal for right-to-left pages. next/font serves them from this site with
+// size-matched fallbacks, so text shows instantly without layout shift.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
@@ -33,12 +34,22 @@ const inter = Inter({
   adjustFontFallback: true,
 });
 
-const manrope = Manrope({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
   fallback: ["Segoe UI", "system-ui", "-apple-system", "sans-serif"],
   adjustFontFallback: true,
+});
+
+// Arabic face: only downloaded when right-to-left text is actually shown.
+const tajawal = Tajawal({
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  variable: "--font-arabic",
+  display: "swap",
+  preload: false,
+  fallback: ["Segoe UI", "Tahoma", "Geeza Pro", "Arial", "sans-serif"],
 });
 
 // Sets data-theme before first paint so there is no flash of the wrong theme.
@@ -50,7 +61,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   // Browser bar colours: the --c-bg token values (meta tags cannot read CSS variables).
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FFFFFF" }, { media: "(prefers-color-scheme: dark)", color: "#0F1A2E" }],
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F6F8FC" }, { media: "(prefers-color-scheme: dark)", color: "#081229" }],
 };
 
 export const metadata: Metadata = {
@@ -83,11 +94,12 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth ${inter.variable} ${manrope.variable}`} 
+      className={`scroll-smooth ${inter.variable} ${jakarta.variable} ${tajawal.variable}`} 
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: LANG_BOOT_SCRIPT }} />
       </head>
       <body className="font-sans antialiased bg-bg text-ink min-h-screen">
         {children}

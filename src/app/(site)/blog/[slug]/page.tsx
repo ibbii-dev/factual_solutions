@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { dbGetBlogPostBySlug, dbGetBlogPosts } from "@/lib/mongodb";
 import BlogArticleClientActions from "./BlogArticleClientActions";
-import PageHero from "@/components/layout/PageHero";
+import PageHeader from "@/components/ui/PageHeader";
 import { SITE_URL, SITE_NAME, breadcrumbJsonLd } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -204,14 +204,16 @@ export default async function BlogPostPage({
     <article className="min-h-screen text-ink pb-20">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
 
-      <PageHero
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PageHeader
         crumbs={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }, { name: post.title, href: `/blog/${post.slug}` }]}
         eyebrow={post.category}
         title={post.title}
         lede={post.excerpt || undefined}
       />
+      </div>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-10">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-10">
           <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 fs-card px-4 py-3">
             <div className="flex items-center gap-3">
               <span className="relative w-10 h-10 rounded-full overflow-hidden bg-band shrink-0">

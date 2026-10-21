@@ -13,6 +13,11 @@ export const BLOG_CATEGORIES = [
 
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
 
+/** Category label for display. Content is English; other languages are machine-translated. */
+export function categoryLabel(cat: string, _lang?: string): string {
+  return cat;
+}
+
 export const DEFAULT_BLOG_CATEGORY: BlogCategory = "Operational Excellence";
 
 export const DEFAULT_BLOG_AUTHOR = {
