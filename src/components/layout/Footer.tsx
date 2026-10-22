@@ -170,7 +170,11 @@ export default function Footer() {
         {/* Bottom line */}
         <div className="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           <p>&copy; {new Date().getFullYear()} <span translate="no">Factual Solutions</span>. {c.rights}</p>
-          <Link href="/admin" className="hover:text-white transition-colors">{c.admin}</Link>
+          <nav aria-label="Legal" className="flex items-center gap-5">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+            <Link href="/admin" className="hover:text-white transition-colors">{c.admin}</Link>
+          </nav>
         </div>
       </div>
     </footer>
