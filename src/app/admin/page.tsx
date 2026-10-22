@@ -684,20 +684,13 @@ Invite the reader to get in touch or explore a related service.`;
     }
   };
 
-  // Resync Atlas Database
+  // Re-check the database connection and reload inquiries (read-only; never writes demo data).
   const handleSyncAtlas = async () => {
     setSyncing(true);
     setSyncMessage("");
     try {
-      const res = await fetch("/api/admin/seed", { method: "POST" });
-      const data = await res.json();
-      if (data.success) {
-        setSyncMessage(`Success: database synced (${JSON.stringify(data.collectionsCreated)})`);
-        loadInquiries();
-        checkHealth();
-      } else {
-        setSyncMessage(`Warning: ${data.message}`);
-      }
+      await Promise.all([loadInquiries(), checkHealth()]);
+      setSyncMessage("Status refreshed.");
     } catch (err: any) {
       setSyncMessage(`Error: ${err.message}`);
     } finally {
@@ -1569,7 +1562,7 @@ Invite the reader to get in touch or explore a related service.`;
                     className="w-full py-3 rounded-xl bg-action hover:bg-action-hover text-on-action text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
-                    <span>{syncing ? "Seeding & Syncing Atlas Collections..." : "1-Click Atlas Re-Sync & Seed Default Practices"}</span>
+                    <span>{syncing ? "Checking connection..." : "Refresh database status"}</span>
                   </button>
                 </div>
               </div>

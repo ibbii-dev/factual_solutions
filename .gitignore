@@ -49,3 +49,6 @@ push_*.bat
 publish_*.bat
 cleanup_videos.bat
 Claude outputs/
+
+# local helper scripts (never commit; deploys go through GitHub)
+*.bat
