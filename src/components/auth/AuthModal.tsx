@@ -25,12 +25,23 @@ export default function AuthModal() {
     if (isAuthModalOpen) setError("");
   }, [isAuthModalOpen]);
 
-  // Escape closes the window.
+  // Escape closes the window, and the page behind stays still while it is open
+  // (the scrollbar's width is kept as padding so the page doesn't jump sideways).
   useEffect(() => {
     if (!isAuthModalOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeAuthModal();
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    // Lock <html>: it is the page's scroller (globals.css sets overflow-x on it, so a body lock wouldn't apply).
+    const root = document.documentElement;
+    const prev = { overflow: root.style.overflow, paddingRight: root.style.paddingRight };
+    const scrollbar = window.innerWidth - root.clientWidth;
+    root.style.overflow = "hidden";
+    if (scrollbar > 0) root.style.paddingRight = `${scrollbar}px`;
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      root.style.overflow = prev.overflow;
+      root.style.paddingRight = prev.paddingRight;
+    };
   }, [isAuthModalOpen, closeAuthModal]);
 
   // Google's script is only downloaded when this window opens.

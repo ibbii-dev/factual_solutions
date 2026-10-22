@@ -237,9 +237,11 @@ select option, select optgroup {
 @keyframes fsDraw {
   to { stroke-dashoffset: 0; }
 }
-.fs-page-in { animation: fsPageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.fs-hero-in { animation: fsPageIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--fs-delay, 0s); }
-.fs-word { display: inline-block; animation: fsWordUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--fs-delay, 0s); }
+/* "backwards", not "both": once finished the animation must let go of transform, or every
+   position:fixed element inside (pop-ups, header) is placed relative to the page, not the screen. */
+.fs-page-in { animation: fsPageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.fs-hero-in { animation: fsPageIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards; animation-delay: var(--fs-delay, 0s); }
+.fs-word { display: inline-block; animation: fsWordUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) backwards; animation-delay: var(--fs-delay, 0s); }
 .fs-draw { stroke-dasharray: 320; stroke-dashoffset: 320; animation: fsDraw 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
 @media (prefers-reduced-motion: reduce) {
   .fs-page-in, .fs-hero-in, .fs-word { animation: none; }
@@ -330,7 +332,7 @@ html.fs-motion .fs-rule.is-in::before { transform: scaleX(1); animation: none; }
 }
 
 @keyframes fsMenuIn { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: none; } }
-.fs-menu-in { animation: fsMenuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fs-menu-in { animation: fsMenuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
 
 /* Nav links: a rust underline slides in under the active/hovered item */
 .fs-navlink::after { content: ""; position: absolute; inset-inline: 0.875rem; bottom: -0.55rem; height: 2px; border-radius: 2px; background: #9B391E; transform: scaleX(0); transform-origin: left center; transition: transform 0.4s var(--ease-out); }
@@ -348,5 +350,5 @@ html.fs-motion .fs-rule.is-in::before { transform: scaleX(1); animation: none; }
 
 /* Phone menu slides in from the right */
 @keyframes fsDrawerIn { from { transform: translate3d(100%, 0, 0); } to { transform: none; } }
-.fs-drawer-in { animation: fsDrawerIn 0.3s var(--ease-out) both; }
+.fs-drawer-in { animation: fsDrawerIn 0.3s var(--ease-out) backwards; }
 @media (prefers-reduced-motion: reduce) { .fs-drawer-in, .fs-menu-in { animation: none; } }
