@@ -67,6 +67,17 @@ const nextConfig = {
         destination: "/services",
         permanent: true,
       },
+      // Email and hosting stay on the WebSouls server; keep the old cPanel shortcuts working.
+      {
+        source: "/webmail",
+        destination: "https://webmail.factual-solutions.com",
+        permanent: false,
+      },
+      {
+        source: "/cpanel",
+        destination: "https://mail.factual-solutions.com:2083",
+        permanent: false,
+      },
     ];
   },
 };
