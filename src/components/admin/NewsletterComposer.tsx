@@ -78,6 +78,12 @@ export default function NewsletterComposer() {
   };
 
   const ready = subject.trim().length > 0 && body.trim().length >= 20;
+  // Tell the admin why the send buttons are greyed out.
+  const blocker = !subject.trim()
+    ? "Add a subject to continue."
+    : body.trim().length < 20
+      ? `Write a little more: the message needs at least 20 characters (${body.trim().length}/20).`
+      : "";
 
   return (
     <section aria-labelledby="nl-title" className="rounded-3xl border border-line bg-surface p-5 sm:p-6 space-y-5">
@@ -128,10 +134,16 @@ export default function NewsletterComposer() {
         </div>
 
         <aside className="space-y-4">
+          {blocker && (
+            <p role="status" className="rounded-xl border border-warning/30 bg-warning/10 px-3.5 py-2.5 text-xs text-ink">
+              {blocker}
+            </p>
+          )}
           <div className="rounded-2xl border border-line bg-bg p-4 space-y-3">
             <p className="text-xs font-semibold text-heading flex items-center gap-1.5"><TestTube2 className="w-4 h-4 text-primary" aria-hidden="true" /> 1. Send yourself a test</p>
             <label htmlFor="nl-test" className="sr-only">Test email address</label>
             <input id="nl-test" type="email" className={input} value={testEmail} onChange={(e) => setTestEmail(e.target.value)} placeholder="you@factual-solutions.com" />
+            {ready && !testEmail && <p className="text-xs text-muted">Enter the address to send the test to.</p>}
             <button type="button" disabled={!ready || !testEmail || busy !== ""} onClick={sendTest} className="w-full rounded-xl border border-line py-2.5 text-sm font-semibold text-heading hover:bg-band disabled:opacity-50">
               {busy === "test" ? "Sending test…" : "Send test"}
             </button>
