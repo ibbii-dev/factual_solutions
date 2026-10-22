@@ -54,14 +54,15 @@ const tajawal = Tajawal({
 
 // Sets data-theme before first paint so there is no flash of the wrong theme.
 // A saved choice ("fs-theme") wins; otherwise follow the device setting.
-const THEME_BOOT_SCRIPT = `(function(){try{var d=document.documentElement,m=window.matchMedia("(prefers-color-scheme: dark)");function a(){var s=null;try{s=localStorage.getItem("fs-theme")}catch(e){}d.dataset.theme=(s==="dark"||s==="light")?s:(m.matches?"dark":"light")}a();m.addEventListener("change",a)}catch(e){}})();`;
+// Light by default; dark only when the visitor has chosen it with the theme switch (saved as "fs-theme").
+const THEME_BOOT_SCRIPT = `(function(){try{var s=null;try{s=localStorage.getItem("fs-theme")}catch(e){}document.documentElement.dataset.theme=s==="dark"?"dark":"light"}catch(e){}})();`;
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   // Browser bar colours: the --c-bg token values (meta tags cannot read CSS variables).
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#F6F8FC" }, { media: "(prefers-color-scheme: dark)", color: "#081229" }],
+  themeColor: "#F6F8FC",
 };
 
 export const metadata: Metadata = {

@@ -9,15 +9,16 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import RevealObserver from "@/components/ui/RevealObserver";
 import AuthModal from "@/components/auth/AuthModalLazy";
 import SubscribePopup from "@/components/layout/SubscribePopup";
+import CookieBanner from "@/components/layout/CookieBanner";
 import { NotifyProvider } from "@/components/ui/Notify";
 
 // Public pages: classic design shell (restored 2026-10-21). The admin panel is outside this group.
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
+      <NotifyProvider>
       <LanguageProvider>
         <UserAuthProvider>
-          <NotifyProvider>
           <div className="min-h-screen flex flex-col bg-canvas">
             <ScrollProgress />
             <Navbar />
@@ -29,10 +30,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </div>
           <AuthModal />
           <SubscribePopup />
+          <CookieBanner />
           <RevealObserver />
-          </NotifyProvider>
         </UserAuthProvider>
       </LanguageProvider>
+      </NotifyProvider>
     </ThemeProvider>
   );
 }

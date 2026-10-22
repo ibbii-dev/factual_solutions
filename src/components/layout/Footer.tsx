@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { markSubscribed } from "@/components/blog/NewsletterSignup";
+import { openCookieSettings } from "@/lib/consent";
 import Link from "next/link";
 import BrandMark from "@/components/ui/BrandMark";
 import { contactDetails, officeLocations } from "@/data/companyData";
@@ -175,6 +176,7 @@ export default function Footer() {
           <nav aria-label="Legal" className="flex items-center gap-5">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+            <button type="button" onClick={openCookieSettings} className="hover:text-white transition-colors">Cookie settings</button>
             <Link href="/admin" className="hover:text-white transition-colors">{c.admin}</Link>
           </nav>
         </div>

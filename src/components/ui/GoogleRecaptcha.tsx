@@ -3,6 +3,7 @@
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { ShieldCheck, AlertCircle } from "lucide-react";
 import { loadScript } from "@/lib/loadScript";
+import { setConsent, useConsent } from "@/lib/consent";
 
 /**
  * Google reCAPTCHA v2 ("I'm not a robot" checkbox).
@@ -72,6 +73,9 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
   const [loadError, setLoadError] = useState(false);
   const [rendered, setRendered] = useState(false);
 
+  // Google sets cookies, so the widget only loads once the visitor has accepted them (cookie banner or the button below).
+  const allowed = useConsent() === "all";
+
   const isAr = language === "ar";
   const hl = isAr ? "ar" : "en";
 
@@ -88,7 +92,7 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
 
   // 1) Wait until the widget is near the viewport before downloading anything.
   useEffect(() => {
-    if (!RECAPTCHA_ENABLED || !hostRef.current) return;
+    if (!RECAPTCHA_ENABLED || !allowed || !hostRef.current) return;
     if (typeof IntersectionObserver === "undefined") {
       setInView(true);
       return;
@@ -111,7 +115,7 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
       io.disconnect();
       form?.removeEventListener("focusin", onFocus);
     };
-  }, []);
+  }, [allowed]);
 
   const renderWidget = useCallback(() => {
     const host = hostRef.current;
@@ -174,7 +178,14 @@ const GoogleRecaptcha = forwardRef<GoogleRecaptchaHandle, GoogleRecaptchaProps>(
       </div>
 
       <div className="min-h-[78px] flex items-center">
-        {loadError ? (
+        {!allowed ? (
+          <div className="max-w-[360px] p-3 rounded-lg border border-line bg-surface text-xs text-ink space-y-2">
+            <p>This form is protected by Google reCAPTCHA, which uses Google cookies. Allow it to send your message.</p>
+            <button type="button" onClick={() => setConsent("all")} className="inline-flex items-center min-h-[36px] px-3 rounded-lg bg-primary text-on-solid font-semibold">
+              Allow and show the check
+            </button>
+          </div>
+        ) : loadError ? (
           <div role="alert" className="p-3 rounded-lg bg-danger/10 border border-danger/20 text-danger text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>

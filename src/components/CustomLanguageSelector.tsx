@@ -160,11 +160,12 @@ export default function CustomLanguageSelector() {
         className="inline-flex items-center gap-1.5 min-h-[36px] px-3 rounded-full border border-paper-line bg-white text-[13px] font-medium transition-colors text-slate-700 hover:border-navy/30 dark:bg-white/5 dark:border-white/15 dark:text-slate-200 dark:hover:text-white shrink-0 select-none"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        aria-label={`Language: ${selectedLanguage.label}`}
+        title={`Language: ${selectedLanguage.label}`}
         translate="no"
       >
         <FlagIcon code={selectedLanguage.code} className="w-4 h-3 rounded-[2px] shadow-xs shrink-0" />
-        <span className="font-semibold hidden sm:inline">{selectedLanguage.native}</span>
-        <span className="font-bold sm:hidden text-[10px] tracking-wider uppercase">{selectedLanguage.code.slice(0, 2)}</span>
+        <span className="font-bold text-[11px] tracking-wider uppercase">{selectedLanguage.code.slice(0, 2)}</span>
         <ChevronDown className={`w-3 sm:w-3.5 h-3 sm:h-3.5 text-slate-500 dark:text-slate-300 transition-transform duration-200 ${isOpen ? "rotate-180 text-accent" : ""}`} />
       </button>
 

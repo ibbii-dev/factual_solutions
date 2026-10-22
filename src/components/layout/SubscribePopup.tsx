@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { CheckCircle2, Mail, X } from "lucide-react";
 import NewsletterSignup, { SUBSCRIBE_KEY } from "@/components/blog/NewsletterSignup";
 import { useUserAuth } from "@/context/UserAuthContext";
+import { getConsent } from "@/lib/consent";
 
 const DELAY_MS = 3000;
 /** After "No thanks" the pop-up stays away this long; subscribers never see it again. */
@@ -39,12 +40,26 @@ export default function SubscribePopup() {
     // Count from when the visitor opened the site (page load time included), not from when this script started.
     const delay = firstPage ? Math.max(300, DELAY_MS - performance.now()) : DELAY_MS;
     firstPage = false;
-    const timer = window.setTimeout(() => {
+    let later: number | undefined;
+    const tryOpen = () => {
       // Skip signed-in clients, don't cover another open window (sign-in), and don't repeat for people who said no.
       if (signedIn.current || document.querySelector("[role=dialog],[role=alertdialog]")) return;
       if (shouldShow()) setOpen(true);
+    };
+    // Never on top of the cookie banner: if it is still waiting for an answer, show 1.5 s after the answer.
+    const onConsent = () => {
+      window.removeEventListener("fs-consent", onConsent);
+      later = window.setTimeout(tryOpen, 1500);
+    };
+    const timer = window.setTimeout(() => {
+      if (getConsent() === null) window.addEventListener("fs-consent", onConsent);
+      else tryOpen();
     }, delay);
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.clearTimeout(timer);
+      window.clearTimeout(later);
+      window.removeEventListener("fs-consent", onConsent);
+    };
   }, [pathname]);
 
   const close = useCallback(() => {

@@ -116,7 +116,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between gap-2">
             
             {/* Brand Logo */}
-            <Link href="/" aria-label="Factual Solutions home" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0">
+            <Link href="/" aria-label="Factual Solutions home" className="flex items-center gap-2 sm:gap-3 group select-none shrink min-w-0 xl:shrink-0">
               <span className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 dark:bg-white dark:rounded-lg dark:p-1">
                 <BrandMark className="w-full h-full overflow-visible" />
               </span>
@@ -124,15 +124,14 @@ export default function Navbar() {
                 <span className="fs-wordmark font-display text-[1.1rem] sm:text-[1.25rem] leading-tight tracking-[-0.01em] text-ink dark:text-white truncate">
                   <span className="font-medium">Factual </span><span className="font-bold text-navy dark:text-steel-light">Solutions</span>
                 </span>
-                {/* Hidden where the desktop menu leaves no room for it (lg to 2xl). */}
-                <span className="fs-tagline lg:hidden 2xl:block text-[9.5px] sm:text-[10px] leading-none font-semibold normal-case sm:uppercase tracking-normal sm:tracking-[0.14em] text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                <span className="fs-tagline text-[9.5px] sm:text-[10px] leading-none font-semibold normal-case sm:uppercase tracking-normal sm:tracking-[0.14em] text-slate-500 dark:text-slate-400 whitespace-nowrap">
                   Your Business Excellence Partners
                 </span>
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 shrink-0">
+            <nav aria-label="Main" className="fs-mainnav hidden xl:flex items-center justify-center gap-0.5 min-w-0">
               {navLinks.map((link) => {
                 const isActive = link.href === "/" 
                   ? pathname === "/" 
@@ -149,7 +148,7 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         aria-current={isActive ? "page" : undefined}
-                        className={`fs-navlink relative px-3 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
+                        className={`fs-navlink relative px-2.5 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 flex items-center gap-1.5 ${
                           isActive ? "bg-paper-deep text-navy dark:bg-white/10 dark:text-white" : "text-slate-600 hover:text-navy hover:bg-paper-deep/70 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                         }`}
                       >
@@ -224,7 +223,7 @@ export default function Navbar() {
                     key={link.name}
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
-                    className={`fs-navlink relative px-3 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 ${
+                    className={`fs-navlink relative px-2.5 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 ${
                       isActive ? "bg-paper-deep text-navy dark:bg-white/10 dark:text-white" : "text-slate-600 hover:text-navy hover:bg-paper-deep/70 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
                     }`}
                   >
@@ -235,7 +234,7 @@ export default function Navbar() {
             </nav>
 
             {/* Right Action Controls: Language + Theme + CTA + User Client Account */}
-            <div className="hidden lg:flex items-center gap-2 shrink-0">
+            <div className="fs-desk-controls hidden xl:flex items-center gap-2 shrink-0">
               {/* Language Selector */}
               <CustomLanguageSelector />
 
@@ -280,10 +279,10 @@ export default function Navbar() {
                   <button
                     onClick={() => openAuthModal("login")}
                     className="inline-flex items-center gap-1.5 whitespace-nowrap min-h-[40px] px-3.5 rounded-full border border-paper-line bg-white text-[13px] font-semibold text-ink hover:border-navy/30 dark:bg-white/5 dark:border-white/15 dark:text-white transition-colors"
-                    title={language === "ar" ? "تسجيل الدخول" : "Sign In"}
+                    title="Client sign in"
+                    aria-label="Client sign in"
                   >
                     <User className="w-3.5 h-3.5" aria-hidden="true" />
-                    <span>{language === "ar" ? "تسجيل الدخول" : "Sign in"}</span>
                   </button>
                 )}
 
@@ -328,7 +327,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu & Controls */}
-            <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden shrink-0">
+            <div className="fs-mobile-controls flex items-center gap-1.5 sm:gap-2 xl:hidden shrink-0">
               <CustomLanguageSelector />
 
               <button
@@ -353,8 +352,8 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-b p-5 space-y-3 bg-white dark:bg-night-900 border-paper-line dark:border-white/15 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
+      {/* Always in the page (hidden when closed) so Google Translate translates it along with everything else. */}
+        <div data-open={mobileMenuOpen ? "true" : "false"} hidden={!mobileMenuOpen} className="fs-mobile-drawer xl:hidden border-b p-5 space-y-3 bg-white dark:bg-night-900 border-paper-line dark:border-white/15 text-slate-900 dark:text-white max-h-[calc(100vh-70px)] overflow-y-auto">
           <div className="flex flex-col divide-y divide-ink/10 dark:divide-white/10">
             <Link
               href="/"
@@ -426,7 +425,7 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-      )}
+
     </header>
   );
 }

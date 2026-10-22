@@ -50,6 +50,7 @@ import {
 import { IInquiry, IInquiryReply, IBlogPost } from "@/models";
 import CaseStudiesManager from "@/components/admin/CaseStudiesManager";
 import CommentsManager from "@/components/admin/CommentsManager";
+import NewsletterComposer from "@/components/admin/NewsletterComposer";
 import { useNotify } from "@/components/ui/Notify";
 import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER, calculateReadTime } from "@/data/blogCategories";
@@ -796,7 +797,7 @@ Invite the reader to get in touch or explore a related service.`;
   const handleExportSubscribersCSV = () => {
     const headers = "Email,Source,SubscribedAt,Status\n";
     const rows = subscribers.map(s => 
-      `"${s.email}","${s.source || 'Website'}","${s.subscribedAt}","${s.isActive ? 'Active' : 'Inactive'}"`
+      `"${s.email}","${s.source || 'Website'}","${s.subscribedAt}","${s.isActive === false ? 'Unsubscribed' : 'Active'}"`
     ).join("\n");
     
     const blob = new Blob([headers + rows], { type: "text/csv;charset=utf-8;" });
@@ -1384,6 +1385,8 @@ Invite the reader to get in touch or explore a related service.`;
         {/* ============================================================== */}
         {activeTab === "subscribers" && (
           <div className="space-y-6">
+            <NewsletterComposer />
+
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-surface border border-line p-4 rounded-2xl">
               <div className="relative flex-1 max-w-md">
                 <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -1443,9 +1446,15 @@ Invite the reader to get in touch or explore a related service.`;
                             {new Date(sub.subscribedAt).toLocaleString()}
                           </td>
                           <td className="py-3.5 px-4">
-                            <span className="px-2 py-0.5 rounded-full bg-success/15 text-success border border-success/30 text-[10px] font-bold">
-                              Active
-                            </span>
+                            {sub.isActive === false ? (
+                              <span className="px-2 py-0.5 rounded-full bg-band text-muted border border-line text-[10px] font-bold">
+                                Unsubscribed
+                              </span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded-full bg-success/15 text-success border border-success/30 text-[10px] font-bold">
+                                Active
+                              </span>
+                            )}
                           </td>
                         </tr>
                       ))
