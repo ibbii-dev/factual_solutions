@@ -50,6 +50,7 @@ import {
 import { IInquiry, IInquiryReply, IBlogPost } from "@/models";
 import CaseStudiesManager from "@/components/admin/CaseStudiesManager";
 import CommentsManager from "@/components/admin/CommentsManager";
+import { useNotify } from "@/components/ui/Notify";
 import GoogleRecaptcha, { GoogleRecaptchaHandle, RECAPTCHA_ENABLED } from "@/components/ui/GoogleRecaptcha";
 import { BLOG_CATEGORIES, DEFAULT_BLOG_AUTHOR, DEFAULT_BLOG_CATEGORY, DEFAULT_BLOG_COVER, calculateReadTime } from "@/data/blogCategories";
 
@@ -71,6 +72,7 @@ interface ChatLog {
 }
 
 export default function AdminPage() {
+  const { toast, confirm: ask } = useNotify();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authEmail, setAuthEmail] = useState("");
   const [authPassword, setAuthPassword] = useState("");
@@ -174,6 +176,20 @@ export default function AdminPage() {
   const [dbStatus, setDbStatus] = useState<any>(null);
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState("");
+
+  // Status messages ("Success: …", "Warning: …", "Error: …") are shown as notification bars, once each.
+  const notifyStatus = (msg: string) => {
+    if (!msg) return;
+    const m = msg.match(/^(Success|Warning|Error):s*([sS]*)$/);
+    const tone = m?.[1] === "Error" ? "error" : m?.[1] === "Warning" ? "warning" : "success";
+    toast({ tone, title: m ? (tone === "success" ? "Done" : m[1]) : msg, message: m ? m[2] : undefined });
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => notifyStatus(syncMessage), [syncMessage]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => notifyStatus(testEmailFeedback), [testEmailFeedback]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => notifyStatus(replyFeedback), [replyFeedback]);
 
   // Check login session on mount
   useEffect(() => {
@@ -348,6 +364,7 @@ export default function AdminPage() {
       if (json.success) {
         await loadBlogPosts();
         setShowBlogModal(false);
+        toast({ title: payload.status === "draft" ? "Draft saved" : "Article saved", message: payload.title });
       } else {
         setBlogFeedback(json.message || "Failed to save article.");
       }
@@ -371,6 +388,7 @@ export default function AdminPage() {
         setBlogPosts((prev) =>
           prev.map((p) => (p.id === post.id ? { ...p, status: nextStatus } : p))
         );
+        toast({ title: nextStatus === "published" ? "Article published" : "Article moved to drafts", message: post.title });
       }
     } catch (err) {
       console.error("Failed to toggle status:", err);
@@ -397,15 +415,19 @@ export default function AdminPage() {
   };
 
   const handleDeleteBlogPost = async (id: string) => {
-    if (!confirm("Are you sure you want to permanently delete this article?")) return;
+    if (!(await ask({ title: "Delete this article?", message: "It will be removed from the website permanently. This cannot be undone.", confirmLabel: "Delete article", danger: true }))) return;
     try {
       const res = await fetch(`/api/blog/${id}`, { method: "DELETE" });
       const json = await res.json();
       if (json.success) {
         setBlogPosts((prev) => prev.filter((p) => p.id !== id));
+        toast({ title: "Article deleted" });
+      } else {
+        toast({ tone: "error", title: "Could not delete the article", message: json.message });
       }
     } catch (err) {
       console.error("Failed to delete article:", err);
+      toast({ tone: "error", title: "Could not delete the article", message: "Check your connection and try again." });
     }
   };
 
@@ -428,7 +450,7 @@ export default function AdminPage() {
     }, 50);
   };
 
-  const handleScaffoldOutline = () => {
+  const handleScaffoldOutline = async () => {
     const template = `## Introduction
 State the problem in one or two sentences and why it matters to the reader.
 
@@ -450,7 +472,7 @@ Describe what typically goes wrong and how it shows up on the shop floor or in t
 ## Next Step
 Invite the reader to get in touch or explore a related service.`;
 
-    if (!blogFormData.content || confirm("Replace editor content with the article structure template?")) {
+    if (!blogFormData.content || (await ask({ title: "Replace the article text?", message: "The editor content will be replaced with the article structure template.", confirmLabel: "Replace" }))) {
       setBlogFormData({ ...blogFormData, content: template });
     }
   };
@@ -522,18 +544,21 @@ Invite the reader to get in touch or explore a related service.`;
 
   // Delete Inquiry
   const handleDeleteInquiry = async (id: string) => {
-    if (confirm("Are you sure you want to permanently delete this inquiry from MongoDB Atlas?")) {
+    if (await ask({ title: "Delete this inquiry?", message: "It will be removed from the database permanently. This cannot be undone.", confirmLabel: "Delete inquiry", danger: true })) {
       setInquiries((prev) => prev.filter((item) => item.id !== id));
       if (selectedInquiry && selectedInquiry.id === id) {
         setSelectedInquiry(null);
       }
 
       try {
-        await fetch(`/api/inquiries/${id}`, {
+        const res = await fetch(`/api/inquiries/${id}`, {
           method: "DELETE"
         });
+        if (res.ok) toast({ title: "Inquiry deleted" });
+        else toast({ tone: "error", title: "Could not delete the inquiry", message: "Refresh the list and try again." });
       } catch (err) {
         console.error("Failed to delete inquiry:", err);
+        toast({ tone: "error", title: "Could not delete the inquiry", message: "Check your connection and try again." });
       }
     }
   };
@@ -1081,12 +1106,6 @@ Invite the reader to get in touch or explore a related service.`;
           </button>
         </div>
 
-        {/* Sync message badge */}
-        {syncMessage && (
-          <div className="text-xs font-medium text-success px-2 py-0.5 bg-success/10 rounded-lg border border-success/30 shrink-0">
-            {syncMessage}
-          </div>
-        )}
       </div>
 
       {/* Main Panel Content Container */}
@@ -1697,15 +1716,6 @@ Invite the reader to get in touch or explore a related service.`;
                     <span>{isSendingTestEmail ? "Transmitting Diagnostic Email..." : "Transmit Diagnostic Test Email"}</span>
                   </button>
 
-                  {testEmailFeedback && (
-                    <div className={`text-xs p-2.5 rounded-xl border ${
-                      testEmailFeedback.startsWith("Success")
-                        ? "bg-success/10 text-success border-success/20"
-                        : "bg-warning/10 text-warning border-warning/20"
-                    }`}>
-                      {testEmailFeedback}
-                    </div>
-                  )}
                 </form>
 
                 <div className="pt-2 text-[10.5px] text-muted font-mono">
@@ -2343,15 +2353,6 @@ Invite the reader to get in touch or explore a related service.`;
                   </div>
                 </div>
 
-                {replyFeedback && (
-                  <div className={`text-xs font-medium text-center p-2 rounded-lg ${
-                    replyFeedback.startsWith("Success")
-                      ? "bg-success/10 text-success border border-success/20"
-                      : "bg-warning/10 text-warning border border-warning/20"
-                  }`}>
-                    {replyFeedback}
-                  </div>
-                )}
               </form>
 
             </div>

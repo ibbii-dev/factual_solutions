@@ -3,8 +3,18 @@
 import React, { useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-/** Compact newsletter sign-up for light cards (the blog sidebar). Uses the same API as the footer. */
-export default function NewsletterSignup({ source = "Blog Sidebar" }: { source?: string }) {
+/** Remembered so the subscribe pop-up never shows again to someone who has signed up. */
+export const SUBSCRIBE_KEY = "fs-subscribe";
+export function markSubscribed() {
+  try {
+    localStorage.setItem(SUBSCRIBE_KEY, "subscribed");
+  } catch {
+    /* storage blocked: the pop-up may show again, nothing else breaks */
+  }
+}
+
+/** Compact newsletter sign-up for light cards (blog sidebar, subscribe pop-up). Uses the same API as the footer. */
+export default function NewsletterSignup({ source = "Blog Sidebar", inputId = "sidebar-email", autoFocus = false, onSubscribed }: { source?: string; inputId?: string; autoFocus?: boolean; onSubscribed?: () => void }) {
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -24,6 +34,8 @@ export default function NewsletterSignup({ source = "Blog Sidebar" }: { source?:
       if (res.ok && data.success) {
         setStatus("done");
         setEmail("");
+        markSubscribed();
+        onSubscribed?.();
       } else {
         setStatus("error");
         setMessage(data.message || "Please check the address and try again.");
@@ -45,9 +57,10 @@ export default function NewsletterSignup({ source = "Blog Sidebar" }: { source?:
 
   return (
     <form onSubmit={submit} className="space-y-2.5">
-      <label htmlFor="sidebar-email" className="sr-only">Email address</label>
+      <label htmlFor={inputId} className="sr-only">Email address</label>
       <input
-        id="sidebar-email"
+        id={inputId}
+        autoFocus={autoFocus}
         type="email"
         required
         value={email}

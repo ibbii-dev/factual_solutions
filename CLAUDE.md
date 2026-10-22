@@ -9,7 +9,10 @@ Read this before every task.
 - `/contact?topic=consulting|training|digital` preselects a service on the form. `/services?line=training` preselects a catalogue tab.
 - Form spam protection: honeypot, link filter and a send limit (`lib/formGuard.ts`, also used by the newsletter and client follow-ups). reCAPTCHA adds the checkbox once `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY` are set (not set yet).
 - Inquiry ids come from the `counters` collection (`dbNextInquiryId`), never from counting inquiries.
-- Vercel Preview has its own database (`factual_solutions_preview`). Production has `MONGODB_URI`, `MONGODB_DB_NAME`, `ADMIN_PASSWORD`, `NOTIFICATION_EMAIL` (no `RESEND_API_KEY` yet, so lead emails are not sent).
+- **Live since 2026-10-22 at https://factual-solutions.com** (Vercel; `www` redirects to the apex). DNS stays at WebSouls cPanel: A `@` 76.76.21.21, CNAME `www` cname.vercel-dns.com. Email stays on WebSouls: MX `mail.factual-solutions.com` (A 65.108.198.252); never point MX elsewhere. Webmail https://webmail.factual-solutions.com, cPanel https://cpanel.factual-solutions.com (`/webmail` and `/cpanel` redirect there).
+- Production env vars: `MONGODB_URI`, `MONGODB_DB_NAME`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `NOTIFICATION_EMAIL`, `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `EMAIL_FROM` (contact@factual-solutions.com), reCAPTCHA v2 checkbox (`NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY` production only, `RECAPTCHA_ALLOWED_HOSTNAMES`), `NEXT_PUBLIC_GOOGLE_CLIENT_ID` (Google Cloud project "Factual Solutions", app published). Preview has its own database (`factual_solutions_preview`). New env vars only apply after a redeploy.
+- Resend: domain factual-solutions.com verified (DKIM `resend._domainkey`, CNAMEs `send` and `rsend`); receiving stays OFF. Google Search Console verified (TXT) with the sitemap submitted.
+- Entrance animations use fill-mode `backwards`, never `both`: a held transform on the page wrapper breaks every `position: fixed` element.
 - Deploys: Claude may not push to `main` or deploy to production. Push the working branch and make a preview (`npx vercel deploy --yes`, never `--prod`); the owner merges on GitHub.
 
 ## Colours
