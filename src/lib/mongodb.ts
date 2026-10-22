@@ -55,52 +55,9 @@ export type DatabaseBlogPost = IBlogPost;
 let fallbackBlogPosts: DatabaseBlogPost[] = [];
 
 // In-memory fallback cache when MongoDB is initializing or offline
-let fallbackInquiries: DatabaseInquiry[] = [
-  {
-    id: "INQ-2026-001",
-    fullName: "Tariq Al-Mansoor",
-    workEmail: "tariq@alnoorgroup.com",
-    companyName: "Al-Noor Consumer Retail",
-    phone: "+966 50 492 1180",
-    serviceOfInterest: "Specialized Business Solutions",
-    message: "We operate 3 retail branches in Riyadh and are looking for advice on inventory budgeting and store-level financial modeling before opening 2 more stores next quarter.",
-    date: "2026-08-26 14:30",
-    status: "In Progress",
-    priority: "High",
-    createdAt: new Date("2026-08-26T14:30:00Z")
-  },
-  {
-    id: "INQ-2026-002",
-    fullName: "Bilal Farooq",
-    workEmail: "bfarooq@apexpack.com",
-    companyName: "Apex Industrial Packaging",
-    phone: "+92 321 884 1029",
-    serviceOfInterest: "Strategic Management Consulting",
-    message: "We need an operational audit of our factory floor handovers and scrap rates. Looking for an advisory team to conduct a 4-week review.",
-    date: "2026-08-26 11:15",
-    status: "New",
-    priority: "Urgent",
-    createdAt: new Date("2026-08-26T11:15:00Z")
-  },
-  {
-    id: "INQ-2026-003",
-    fullName: "Kamran Qureshi",
-    workEmail: "k.qureshi@novabiz.com.pk",
-    companyName: "Nova Commercial Logistics",
-    phone: "+92 300 551 2291",
-    serviceOfInterest: "Studies & Feasibility Research",
-    message: "Seeking commercial model validation and ROI sensitivity projections for a cold-chain storage facility in Lahore.",
-    date: "2026-08-25 16:45",
-    status: "Contacted",
-    priority: "Normal",
-    createdAt: new Date("2026-08-25T16:45:00Z")
-  }
-];
+let fallbackInquiries: DatabaseInquiry[] = [];
 
-let fallbackSubscribers: DatabaseSubscriber[] = [
-  { email: "director@gulfinvestments.com", source: "Website Footer", subscribedAt: new Date(), isActive: true },
-  { email: "cfo@pakventures.pk", source: "Executive Briefing", subscribedAt: new Date(), isActive: true }
-];
+let fallbackSubscribers: DatabaseSubscriber[] = [];
 
 let fallbackChatLogs: DatabaseChatLog[] = [];
 
