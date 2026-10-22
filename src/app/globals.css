@@ -352,3 +352,10 @@ html.fs-motion .fs-rule.is-in::before { transform: scaleX(1); animation: none; }
 @keyframes fsDrawerIn { from { transform: translate3d(100%, 0, 0); } to { transform: none; } }
 .fs-drawer-in { animation: fsDrawerIn 0.3s var(--ease-out) backwards; }
 @media (prefers-reduced-motion: reduce) { .fs-drawer-in, .fs-menu-in { animation: none; } }
+
+/* Translated pages (html.fs-translated, set before first paint by LANG_BOOT_SCRIPT): machine-translated
+   menu labels are longer than English and would push into the brand, so desktop uses the menu button. */
+html.fs-translated .fs-mainnav,
+html.fs-translated .fs-desk-controls { display: none !important; }
+html.fs-translated .fs-mobile-controls { display: flex !important; }
+html.fs-translated .fs-mobile-drawer[data-open="true"] { display: block !important; }

@@ -77,14 +77,22 @@ export default function PrivacyPage() {
 
           <section className="space-y-3">
             <h2 className={h2}>Cookies and local storage</h2>
-            <p className={p}>We use only what the site needs to work. There are no advertising or tracking cookies.</p>
+            <p className={p}>
+              We use only what the site needs to work. There are no advertising or tracking cookies. When you first visit, a banner
+              asks whether you accept Google&rsquo;s cookies; you can change your choice at any time with &ldquo;Cookie settings&rdquo; at the
+              bottom of every page.
+            </p>
             <ul className="list-disc ps-5 space-y-2">
               <li className={li}><strong>fs_client:</strong> keeps you signed in to the client portal (only if you sign in).</li>
               <li className={li}><strong>fs_admin:</strong> keeps our staff signed in to the admin panel.</li>
               <li className={li}><strong>googtrans:</strong> remembers the language you chose.</li>
-              <li className={li}><strong>fs-theme</strong> (local storage): remembers light or dark mode.</li>
+              <li className={li}><strong>fs_consent:</strong> remembers your cookie choice (6 months).</li>
+              <li className={li}><strong>fs-theme</strong> and <strong>fs-subscribe</strong> (local storage): remember light or dark mode, and whether you have seen or answered the newsletter invitation.</li>
             </ul>
-            <p className={p}>Google reCAPTCHA may set its own cookies when the contact form loads, to tell people and bots apart.</p>
+            <p className={p}>
+              Only if you accept: Google reCAPTCHA (spam protection on the contact form), Google sign-in and Google Translate set
+              Google&rsquo;s own cookies. If you decline, they stay switched off, and the site asks before using one of them.
+            </p>
           </section>
 
           <section className="space-y-3">

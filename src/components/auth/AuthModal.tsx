@@ -6,6 +6,7 @@ import { X, AlertCircle, ShieldCheck } from "lucide-react";
 import BrandMark from "@/components/ui/BrandMark";
 import { useUserAuth } from "@/context/UserAuthContext";
 import { loadScript } from "@/lib/loadScript";
+import { setConsent, useConsent } from "@/lib/consent";
 
 type GoogleId = {
   initialize: (opts: object) => void;
@@ -20,6 +21,8 @@ export default function AuthModal() {
   const [busy, setBusy] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  // Google sign-in sets Google cookies, so it loads only after the visitor allows them.
+  const allowed = useConsent() === "all";
 
   useEffect(() => {
     if (isAuthModalOpen) setError("");
@@ -46,7 +49,7 @@ export default function AuthModal() {
 
   // Google's script is only downloaded when this window opens.
   useEffect(() => {
-    if (!isAuthModalOpen || !clientId || !signInEnabled) return;
+    if (!isAuthModalOpen || !clientId || !signInEnabled || !allowed) return;
     let alive = true;
     loadScript("https://accounts.google.com/gsi/client", "google-gsi-client")
       .then(() => {
@@ -73,7 +76,7 @@ export default function AuthModal() {
     return () => {
       alive = false;
     };
-  }, [isAuthModalOpen, clientId, signInEnabled, loginWithGoogle, router]);
+  }, [isAuthModalOpen, clientId, signInEnabled, allowed, loginWithGoogle, router]);
 
   if (!isAuthModalOpen) return null;
 
@@ -113,7 +116,12 @@ export default function AuthModal() {
             </div>
           )}
 
-          {signInEnabled && clientId ? (
+          {signInEnabled && clientId && !allowed ? (
+            <div className="space-y-3 text-center">
+              <p className="text-sm text-slate-600 dark:text-slate-300">Sign-in uses your Google account, which sets Google cookies. Allow them to continue.</p>
+              <button type="button" onClick={() => setConsent("all")} className="btn-primary">Allow and continue</button>
+            </div>
+          ) : signInEnabled && clientId ? (
             <div className="flex flex-col items-center gap-3">
               <div ref={buttonRef} className="min-h-[44px] flex justify-center" aria-busy={busy} />
               <p className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">

@@ -369,9 +369,11 @@ export async function dbSaveSubscriber(email: string, source: string = "Website 
     const db = await getDatabase();
     if (db) {
       const collection = db.collection("subscribers");
+      // Signing up again after unsubscribing switches the address back on.
+      const { isActive: _active, ...insertOnly } = newSub;
       await collection.updateOne(
         { email: normalized },
-        { $setOnInsert: newSub },
+        { $setOnInsert: insertOnly, $set: { isActive: true } },
         { upsert: true }
       );
       return true;
@@ -833,4 +835,61 @@ export async function dbDeleteComment(id: string): Promise<boolean> {
   const before = fallbackComments.length;
   fallbackComments = fallbackComments.filter((c) => c.id !== id);
   return fallbackComments.length < before;
+}
+
+// ==========================================
+// Newsletter: unsubscribe and send history
+// ==========================================
+export async function dbSetSubscriberActive(email: string, isActive: boolean): Promise<boolean> {
+  const normalized = email.trim().toLowerCase();
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const res = await db.collection("subscribers").updateOne({ email: normalized }, { $set: { isActive, ...(isActive ? {} : { unsubscribedAt: new Date() }) } });
+      return res.matchedCount > 0;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSetSubscriberActive error:", err);
+  }
+  const sub = fallbackSubscribers.find((x) => x.email === normalized);
+  if (sub) sub.isActive = isActive;
+  return Boolean(sub);
+}
+
+export interface NewsletterSend {
+  id: string;
+  subject: string;
+  sentAt: string;
+  sentBy: string;
+  recipients: number;
+  delivered: number;
+  failed: number;
+  error?: string;
+}
+let fallbackNewsletterSends: NewsletterSend[] = [];
+
+export async function dbSaveNewsletterSend(record: NewsletterSend): Promise<void> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      await db.collection("newsletter_sends").insertOne({ ...record });
+      return;
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbSaveNewsletterSend error:", err);
+  }
+  fallbackNewsletterSends = [record, ...fallbackNewsletterSends];
+}
+
+export async function dbGetNewsletterSends(limit = 20): Promise<NewsletterSend[]> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const docs = await db.collection("newsletter_sends").find({}).sort({ sentAt: -1 }).limit(limit).toArray();
+      return docs.map(({ _id, ...rest }: Record<string, unknown>) => rest as unknown as NewsletterSend);
+    }
+  } catch (err) {
+    console.error("[MongoDB] dbGetNewsletterSends error:", err);
+  }
+  return fallbackNewsletterSends.slice(0, limit);
 }

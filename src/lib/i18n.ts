@@ -47,6 +47,6 @@ export const LANG_BOOT_SCRIPT = `(function(){try{
 var m=document.cookie.match(/(?:^|;\\s*)googtrans=\\/[^/;]+\\/([^;]+)/g);
 var l=m?decodeURIComponent(m[m.length-1].split('/').pop()):'en';
 if(!l)l='en';
-var d=document.documentElement;d.lang=l;d.dir=(l==='ar'||l==='ur')?'rtl':'ltr';
+var d=document.documentElement;d.lang=l;d.dir=(l==='ar'||l==='ur')?'rtl':'ltr';if(l!=='en')d.classList.add('fs-translated');
 if(window.IntersectionObserver&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('fs-motion');
 }catch(e){}})();`;
