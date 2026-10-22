@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { markSubscribed } from "@/components/blog/NewsletterSignup";
 import Link from "next/link";
 import BrandMark from "@/components/ui/BrandMark";
 import { contactDetails, officeLocations } from "@/data/companyData";
@@ -50,6 +51,7 @@ export default function Footer() {
       if (res.ok && data.success) {
         setStatus("done");
         setEmail("");
+        markSubscribed();
       } else {
         setStatus("error");
         setMessage(data.message || "Please check the address and try again.");

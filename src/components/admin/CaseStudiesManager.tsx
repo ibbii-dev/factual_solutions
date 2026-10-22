@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ArrowLeft, Briefcase, ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
 import type { ICaseStudy } from "@/models";
 import { caseStudyIndustries } from "@/data/caseStudies";
+import { useNotify } from "@/components/ui/Notify";
 
 type Form = {
   title: string;
@@ -82,6 +83,7 @@ export default function CaseStudiesManager({ onCount }: { onCount?: (n: number) 
   const [form, setForm] = useState<Form>(EMPTY);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const { toast, confirm: ask } = useNotify();
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -149,7 +151,7 @@ export default function CaseStudiesManager({ onCount }: { onCount?: (n: number) 
         setMessage({ ok: false, text: data.message || "Could not save. Please try again." });
         return;
       }
-      setMessage({ ok: true, text: data.message });
+      toast({ title: data.message, message: form.title });
       setEditingId(null);
       await load();
     } catch {
@@ -160,10 +162,10 @@ export default function CaseStudiesManager({ onCount }: { onCount?: (n: number) 
   };
 
   const remove = async (c: ICaseStudy) => {
-    if (!window.confirm(`Delete "${c.title}"? This cannot be undone.`)) return;
+    if (!(await ask({ title: "Delete this case study?", message: `"${c.title}" will be removed from the website. This cannot be undone.`, confirmLabel: "Delete case study", danger: true }))) return;
     const res = await fetch(`/api/case-studies/${c.id}`, { method: "DELETE" });
     const data = await res.json().catch(() => ({}));
-    setMessage({ ok: res.ok, text: data.message || (res.ok ? "Deleted." : "Could not delete.") });
+    toast({ tone: res.ok ? "success" : "error", title: data.message || (res.ok ? "Deleted." : "Could not delete.") });
     await load();
   };
 

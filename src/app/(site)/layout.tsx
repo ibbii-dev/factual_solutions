@@ -8,6 +8,8 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import RevealObserver from "@/components/ui/RevealObserver";
 import AuthModal from "@/components/auth/AuthModalLazy";
+import SubscribePopup from "@/components/layout/SubscribePopup";
+import { NotifyProvider } from "@/components/ui/Notify";
 
 // Public pages: classic design shell (restored 2026-10-21). The admin panel is outside this group.
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -15,6 +17,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <ThemeProvider>
       <LanguageProvider>
         <UserAuthProvider>
+          <NotifyProvider>
           <div className="min-h-screen flex flex-col bg-canvas">
             <ScrollProgress />
             <Navbar />
@@ -25,7 +28,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <WhatsAppButton />
           </div>
           <AuthModal />
+          <SubscribePopup />
           <RevealObserver />
+          </NotifyProvider>
         </UserAuthProvider>
       </LanguageProvider>
     </ThemeProvider>

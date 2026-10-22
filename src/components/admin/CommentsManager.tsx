@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Eye, EyeOff, ExternalLink, MessageSquare, Search, Trash2 } from "lucide-react";
 import type { IBlogComment } from "@/models";
+import { useNotify } from "@/components/ui/Notify";
 
 /** Admin "Comments" tab: every blog comment, newest first, with show/hide and delete. */
 export default function CommentsManager({ onCount }: { onCount?: (n: number) => void }) {
@@ -10,6 +11,7 @@ export default function CommentsManager({ onCount }: { onCount?: (n: number) => 
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const { toast, confirm: ask } = useNotify();
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -38,15 +40,15 @@ export default function CommentsManager({ onCount }: { onCount?: (n: number) => 
       body: JSON.stringify({ status }),
     });
     const data = await res.json().catch(() => ({}));
-    setMessage({ ok: res.ok, text: data.message || "Done." });
+    toast({ tone: res.ok ? "success" : "error", title: data.message || "Done." });
     await load();
   };
 
   const remove = async (c: IBlogComment) => {
-    if (!window.confirm(`Delete this comment by ${c.name}? This cannot be undone.`)) return;
+    if (!(await ask({ title: "Delete this comment?", message: `The comment by ${c.name} will be removed permanently. To keep it but take it off the site, use Hide instead.`, confirmLabel: "Delete comment", danger: true }))) return;
     const res = await fetch(`/api/blog-comments/${c.id}`, { method: "DELETE" });
     const data = await res.json().catch(() => ({}));
-    setMessage({ ok: res.ok, text: data.message || "Done." });
+    toast({ tone: res.ok ? "success" : "error", title: data.message || "Done." });
     await load();
   };
 
